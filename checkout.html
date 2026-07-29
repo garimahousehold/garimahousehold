@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Checkout | Garima's House Hold</title>
+
+<link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+<header>
+
+<h1 style="text-align:center;">
+Checkout
+</h1>
+
+</header>
+
+<section class="checkout-container">
+    
+<h2>Your Order</h2>
+
+<div id="checkout-items">
+
+</div>
+
+<hr><br>
+<h2>Customer Details</h2>
+
+<form id="checkout-form">
+
+<label>Full Name</label>
+
+<input
+type="text"
+id="name"
+placeholder="Enter Full Name"
+required>
+
+<label>Mobile Number</label>
+
+<input
+type="text"
+id="mobile"
+placeholder="Enter Mobile Number"
+required>
+
+<label>Address</label>
+
+<textarea
+id="address"
+placeholder="Enter Address"
+required>
+</textarea>
+
+<label>City</label>
+
+<input
+type="text"
+id="city"
+placeholder="Enter City"
+required>
+
+<label>PIN Code</label>
+
+<input
+type="text"
+id="pincode"
+placeholder="Enter PIN Code"
+required>
+<label>Total Amount</label>
+
+<input
+type="text"
+id="total"
+readonly>
+
+<br><br>
+
+<button
+type="submit"
+class="checkout-btn">
+Place Order
+</button>
+
+</form>
+
+<br>
+
+<div style="text-align:center;">
+
+<a href="cart.html">
+← Back To Cart
+</a>
+
+</div>
+
+</section>
+
+<script type="module" src="checkout.js"></script>
+
+</body>
+</html>

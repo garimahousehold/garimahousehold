@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Product Details | Garima's House Hold</title>
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="product.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+</head>
+
+<body>
+
+    <header class="product-header">
+
+        <a href="index.html">⬅ Back to Home</a>
+
+        <h2>Garima's House Hold</h2>
+
+    </header>
+
+    <main class="product-page">
+
+        <!-- Product Image -->
+
+        <div class="product-image">
+
+    <img
+        id="product-image"
+        src="image/no-image.png"
+        alt="Product">
+
+    <div id="image-gallery" class="image-gallery">
+
+    </div>
+
+</div>
+
+        <!-- Product Details -->
+
+        <div class="product-details">
+
+            <h1 id="product-name">Loading...</h1>
+
+            <p class="price" id="product-price">
+                ₹0
+            </p>
+
+            <p>
+                <strong>Category :</strong>
+                <span id="product-category">-</span>
+            </p>
+
+            <p>
+                <strong>Stock :</strong>
+                <span id="product-stock">-</span>
+            </p>
+
+            <p>
+                <strong>Description :</strong>
+            </p>
+
+            <p id="product-description">
+                Loading...
+            </p>
+
+            <!-- Quantity -->
+
+            <div class="qty-section">
+
+                <label><strong>Quantity</strong></label>
+
+                <div class="qty-box">
+
+                    <button id="minus-btn">−</button>
+
+                    <input
+                        type="number"
+                        id="qty"
+                        value="1"
+                        min="1"
+                        readonly>
+
+                    <button id="plus-btn">+</button>
+
+                </div>
+
+            </div>
+
+            <!-- Buttons -->
+
+            <button id="add-cart-btn">
+
+                Add To Cart
+
+            </button>
+
+            <button id="buy-now-btn">
+
+                Buy Now
+
+            </button>
+
+        </div>
+
+    </main>
+
+    <!-- Related Products -->
+
+    <section class="related-products">
+
+        <h2>Related Products</h2>
+
+        <div id="related-products"></div>
+
+    </section>
+
+    <script type="module" src="product.js"></script>
+
+</body>
+
+</html>

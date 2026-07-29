@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>Admin Panel | Garima's House Hold</title>
+
+    <link rel="stylesheet" href="admin.css">
+
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+</head>
+
+<body>
+
+    <!-- Header -->
+
+    <header class="admin-header">
+
+        <h1>Garima's House Hold</h1>
+
+        <p>Admin Dashboard</p>
+
+        <a href="index.html" class="home-btn">
+            <i class="fa-solid fa-house"></i>
+            Home
+        </a>
+
+    </header>
+
+    <!-- Dashboard -->
+
+    <section class="dashboard">
+
+        <div class="card">
+            <h3 id="total-products">0</h3>
+            <p>Total Products</p>
+        </div>
+
+        <div class="card">
+            <h3 id="total-orders">0</h3>
+            <p>Total Orders</p>
+        </div>
+
+        <div class="card">
+            <h3 id="total-sales">₹0</h3>
+            <p>Total Sales</p>
+        </div>
+
+    </section>
+
+    <!-- Product Form -->
+
+    <section class="product-form">
+
+        <h2>Add / Edit Product</h2>
+
+        <form id="product-form">
+                        <div class="form-group">
+
+                <label>Product Name</label>
+
+                <input
+                    type="text"
+                    id="product-name"
+                    placeholder="Enter Product Name"
+                    required>
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Category</label>
+
+                <input
+                    type="text"
+                    id="product-category"
+                    placeholder="Saree / Kurti / Household"
+                    required>
+
+            </div>
+
+            <div class="form-group">
+
+                <label for="product-price">Price (Rs.)</label>
+
+                <input
+                    type="number"
+                    id="product-price"
+                    placeholder="Enter Price"
+                    required>
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Image URL</label>
+
+                <input
+                    type="text"
+                    id="product-image"
+                    placeholder="Paste Product Image URL"
+                    required>
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Description</label>
+
+                <textarea
+                    id="product-description"
+                    rows="5"
+                    placeholder="Enter Product Description"
+                    required></textarea>
+
+            </div>
+
+            <button
+                type="submit"
+                class="save-btn">
+
+                <i class="fa-solid fa-floppy-disk"></i>
+
+                Save Product
+
+            </button>
+
+            <button
+                type="reset"
+                class="reset-btn">
+
+                Reset
+
+            </button>
+
+        </form>
+
+    </section>
+        <!-- Product List -->
+
+    <section class="product-list">
+
+        <h2>
+            <i class="fa-solid fa-box"></i>
+            Product List
+        </h2>
+
+        <input
+            type="text"
+            id="search-product"
+            placeholder="Search Product...">
+
+        <table id="product-table">
+
+            <thead>
+
+                <tr>
+
+                    <th>Image</th>
+                    <th>Name</th>
+                    <th>Category</th>
+                    <th>Price</th>
+                    <th>Stock</th>
+                    <th>Action</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody id="product-list">
+
+            </tbody>
+
+        </table>
+
+    </section>
+
+    <!-- Customer Orders -->
+
+    <section class="orders">
+
+        <h2>
+
+            <i class="fa-solid fa-cart-shopping"></i>
+
+            Customer Orders
+
+        </h2>
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>Order ID</th>
+                    <th>Customer</th>
+                    <th>Phone</th>
+                    <th>Address</th>
+                    <th>Total</th>
+                    <th>Status</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody id="orders-list">
+
+                <tr>
+
+                    <td colspan="6">
+
+                        No Orders Found
+
+                    </td>
+
+                </tr>
+
+            </tbody>
+
+        </table>
+
+    </section>
+        <!-- Firebase Status -->
+
+    <section class="firebase-status">
+
+        <h2>
+
+            <i class="fa-solid fa-database"></i>
+
+            Firebase Status
+
+        </h2>
+
+        <p id="firebase-status">
+
+            Connecting...
+
+        </p>
+
+    </section>
+
+    <!-- Loading Screen -->
+
+    <div id="loading-screen">
+
+        <div class="loader"></div>
+
+    </div>
+
+    <!-- Footer -->
+
+    <footer>
+
+        <p>
+
+            © 2026 Garima's House Hold |
+            Admin Panel
+
+        </p>
+
+    </footer>
+
+    <!-- JavaScript -->
+
+    <script type="module" src="admin.js"></script>
+
+</body>
+
+</html>
