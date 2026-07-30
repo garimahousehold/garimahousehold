@@ -12,7 +12,7 @@ import {
     getDocs,
     addDoc,
     serverTimestamp
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+} from "https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js";
 
 
 // ===========================================
@@ -144,14 +144,13 @@ function showProduct(product) {
 
     }
 
-    if (product.images && product.images.length > 0) {
+    if (product.image) {
 
-        mainImage.src =
-            product.images[0];
+    mainImage.src = product.image;
 
-        createThumbnails(product.images);
+    createThumbnails([product.image]);
 
-    }
+}
 
 }
 
