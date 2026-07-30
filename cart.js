@@ -73,7 +73,7 @@ function loadCart() {
 
     });
 
-    totalElement.innerText = grandTotal.toLocaleString("en-IN");
+    totalElement.innerText = "₹" + grandTotal.toLocaleString("en-IN");
 
 }
 function removeItem(index) {
@@ -119,3 +119,9 @@ function decreaseQty(index){
 
 window.increaseQty = increaseQty;
 window.decreaseQty = decreaseQty;
+window.addEventListener("load", () => {
+    const loader = document.getElementById("loader");
+    if (loader) {
+        loader.style.display = "none";
+    }
+});
