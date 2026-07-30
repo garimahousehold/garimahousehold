@@ -11,12 +11,13 @@ import { getFirestore } from "https://www.gstatic.com/firebasejs/12.16.0/firebas
 // ==========================================
 
 const firebaseConfig = {
-  apiKey: "YAHA_APNI_API_KEY",
+  apiKey: "AIzaSyAEyj0zgHep8frvIc8B8ZXkqtRL_4VxKR0",
   authDomain: "garima-house-hold.firebaseapp.com",
   projectId: "garima-house-hold",
   storageBucket: "garima-house-hold.firebasestorage.app",
   messagingSenderId: "463243317223",
-  appId: "1:463243317223:web:218bee4879da4aa544b742"
+  appId: "1:463243317223:web:218bee4879da4aa544b742",
+  measurementId: "G-YV13XNYLEG"
 };
 
 // ==========================================
