@@ -2,127 +2,1045 @@
 <html lang="en">
 
 <head>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Product Details | Garima's House Hold</title>
 
-    <link rel="stylesheet" href="style.css">
+    <meta name="description" content="Garima's House Hold - Premium Household, Sarees, Kurtis, Rakhi & Gift Items">
+
+    <link rel="icon" href="logo.png">
+
     <link rel="stylesheet" href="product.css">
 
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
-        rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 
 </head>
 
 <body>
 
-    <header class="product-header">
+<!-- ================= HEADER ================= -->
 
-        <a href="index.html">⬅ Back to Home</a>
+<header class="header">
 
-        <h2>Garima's House Hold</h2>
+    <div class="logo">
 
-    </header>
+        <a href="index.html">
 
-    <main class="product-page">
+            <img src="logo.png" alt="Garima's House Hold">
 
-        <!-- Product Image -->
-
-        <div class="product-image">
-
-    <img
-        id="product-image"
-        src="image/no-image.png"
-        alt="Product">
-
-    <div id="image-gallery" class="image-gallery">
+        </a>
 
     </div>
 
-</div>
+    <div class="search">
 
-        <!-- Product Details -->
+        <input type="text" placeholder="Search Products...">
 
-        <div class="product-details">
+    </div>
 
-            <h1 id="product-name">Loading...</h1>
+    <div class="header-icons">
 
-            <p class="price" id="product-price">
-                ₹0
-            </p>
+        <a href="wishlist.html">
 
-            <p>
-                <strong>Category :</strong>
-                <span id="product-category">-</span>
-            </p>
+            ❤️ <span id="wishlist-count">0</span>
 
-            <p>
-                <strong>Stock :</strong>
-                <span id="product-stock">-</span>
-            </p>
+        </a>
 
-            <p>
-                <strong>Description :</strong>
-            </p>
+        <a href="cart.html">
 
-            <p id="product-description">
-                Loading...
-            </p>
+            🛒 <span id="cart-count">0</span>
 
-            <!-- Quantity -->
+        </a>
 
-            <div class="qty-section">
+    </div>
 
-                <label><strong>Quantity</strong></label>
+</header>
 
-                <div class="qty-box">
 
-                    <button id="minus-btn">−</button>
+<!-- ================= BREADCRUMB ================= -->
 
-                    <input
-                        type="number"
-                        id="qty"
-                        value="1"
-                        min="1"
-                        readonly>
+<section class="breadcrumb">
 
-                    <button id="plus-btn">+</button>
+    <a href="index.html">Home</a>
+
+    <span>/</span>
+
+    <a href="#" id="category-link">Category</a>
+
+    <span>/</span>
+
+    <span id="product-title">Loading...</span>
+
+</section>
+
+
+
+<!-- ================= PRODUCT SECTION ================= -->
+
+<section class="product-section">
+
+    <div class="product-container">
+
+        <!-- Left Side -->
+
+        <div class="product-gallery">
+
+            <div class="thumbnail-gallery">
+
+                <img src="images/no-image.png" class="thumb active">
+
+                <img src="images/no-image.png" class="thumb">
+
+                <img src="images/no-image.png" class="thumb">
+
+                <img src="images/no-image.png" class="thumb">
+
+                <img src="images/no-image.png" class="thumb">
+
+                <img src="images/no-image.png" class="thumb">
+
+            </div>
+
+            <div class="main-image">
+
+                <img id="main-product-image"
+                    src="images/no-image.png">
+
+            </div>
+
+        </div>
+
+
+
+        <!-- Right Side -->
+
+        <div class="product-info">
+
+            <span class="badge">
+
+                Bestseller
+
+            </span>
+
+            <h1 id="product-name">
+
+                Loading Product...
+
+            </h1>
+
+            <div class="rating">
+
+                ⭐⭐⭐⭐⭐
+
+                <span id="rating-count">
+
+                    (0 Reviews)
+
+                </span>
+
+            </div>
+
+            <div class="price-box">
+
+                <span class="sale-price">
+
+                    ₹0
+
+                </span>
+
+                <span class="mrp">
+
+                    ₹0
+
+                </span>
+
+                <span class="discount">
+
+                    0% OFF
+
+                </span>
+
+            </div>
+
+            <div class="stock">
+
+                In Stock
+
+            </div>
+                        <!-- Product Short Description -->
+
+            <div class="short-description">
+
+                <p id="short-description">
+
+                    Premium quality product with best price and fast delivery across India.
+
+                </p>
+
+            </div>
+
+
+            <!-- Brand & SKU -->
+
+            <div class="product-meta">
+
+                <p>
+                    <strong>Brand :</strong>
+                    <span id="brand">
+                        Garima's House Hold
+                    </span>
+                </p>
+
+                <p>
+                    <strong>Category :</strong>
+                    <span id="category">
+                        --
+                    </span>
+                </p>
+
+                <p>
+                    <strong>SKU :</strong>
+                    <span id="sku">
+                        --
+                    </span>
+                </p>
+
+                <p>
+                    <strong>Availability :</strong>
+
+                    <span class="available">
+
+                        ✔ In Stock
+
+                    </span>
+
+                </p>
+
+            </div>
+
+
+            <!-- Product Variants -->
+
+            <div class="variants">
+
+                <h3>Select Color</h3>
+
+                <div class="color-options">
+
+                    <button class="color-btn active">
+
+                        Red
+
+                    </button>
+
+                    <button class="color-btn">
+
+                        Blue
+
+                    </button>
+
+                    <button class="color-btn">
+
+                        Green
+
+                    </button>
+
+                    <button class="color-btn">
+
+                        Black
+
+                    </button>
 
                 </div>
 
             </div>
 
+
+            <!-- Size -->
+
+            <div class="variants">
+
+                <h3>Select Size</h3>
+
+                <div class="size-options">
+
+                    <button class="size-btn">
+
+                        S
+
+                    </button>
+
+                    <button class="size-btn active">
+
+                        M
+
+                    </button>
+
+                    <button class="size-btn">
+
+                        L
+
+                    </button>
+
+                    <button class="size-btn">
+
+                        XL
+
+                    </button>
+
+                    <button class="size-btn">
+
+                        XXL
+
+                    </button>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- Quantity -->
+
+            <div class="quantity-box">
+
+                <h3>Quantity</h3>
+
+                <div class="qty-selector">
+
+                    <button id="minus">
+
+                        -
+
+                    </button>
+
+                    <input
+                        type="number"
+                        id="qty"
+                        value="1"
+                        min="1">
+
+                    <button id="plus">
+
+                        +
+
+                    </button>
+
+                </div>
+
+            </div>
+
+
+
             <!-- Buttons -->
 
-            <button id="add-cart-btn">
+            <div class="product-buttons">
 
-                Add To Cart
+                <button id="add-cart">
 
-            </button>
+                    🛒 Add To Cart
 
-            <button id="buy-now-btn">
+                </button>
 
-                Buy Now
+                <button id="buy-now">
+
+                    ⚡ Buy Now
+
+                </button>
+
+            </div>
+
+
+
+            <div class="product-buttons">
+
+                <button id="wishlist-btn">
+
+                    ❤️ Add To Wishlist
+
+                </button>
+
+                <button id="share-btn">
+
+                    📤 Share
+
+                </button>
+
+            </div>
+
+
+
+            <a
+                href="#"
+                id="whatsapp-order"
+                class="whatsapp-btn">
+
+                <i class="fa-brands fa-whatsapp"></i>
+
+                Order On WhatsApp
+
+            </a>
+
+
+
+            <!-- Delivery -->
+
+            <div class="delivery-box">
+
+                <h3>
+
+                    🚚 Check Delivery
+
+                </h3>
+
+                <div class="delivery-input">
+
+                    <input
+                        type="text"
+                        id="pincode"
+                        placeholder="Enter PIN Code">
+
+                    <button id="check-pin">
+
+                        Check
+
+                    </button>
+
+                </div>
+
+                <p id="delivery-result">
+
+                    Enter your PIN Code to check delivery availability.
+
+                </p>
+
+            </div>
+
+
+
+            <!-- Trust Badges -->
+
+            <div class="trust-box">
+
+                <div>
+
+                    🔒
+
+                    <p>
+
+                        Secure Payment
+
+                    </p>
+
+                </div>
+
+                <div>
+
+                    🚚
+
+                    <p>
+
+                        Fast Delivery
+
+                    </p>
+
+                </div>
+
+                <div>
+
+                    ↩️
+
+                    <p>
+
+                        Easy Return
+
+                    </p>
+
+                </div>
+
+                <div>
+
+                    ⭐
+
+                    <p>
+
+                        Premium Quality
+
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+<!-- ================= PRODUCT DETAILS TABS ================= -->
+
+<section class="product-tabs">
+
+    <div class="tab-buttons">
+
+        <button class="tab-btn active" data-tab="description">
+            Description
+        </button>
+
+        <button class="tab-btn" data-tab="specification">
+            Specifications
+        </button>
+
+        <button class="tab-btn" data-tab="reviews">
+            Reviews
+        </button>
+
+        <button class="tab-btn" data-tab="shipping">
+            Shipping & Return
+        </button>
+
+    </div>
+
+
+
+    <!-- Description -->
+
+    <div class="tab-content active" id="description">
+
+        <h2>Product Description</h2>
+
+        <p id="product-description">
+
+            Product description will automatically load from Firebase.
+
+        </p>
+
+    </div>
+
+
+
+    <!-- Specifications -->
+
+    <div class="tab-content" id="specification">
+
+        <h2>Specifications</h2>
+
+        <table class="spec-table">
+
+            <tr>
+                <th>Brand</th>
+                <td id="spec-brand">Garima's House Hold</td>
+            </tr>
+
+            <tr>
+                <th>Category</th>
+                <td id="spec-category">--</td>
+            </tr>
+
+            <tr>
+                <th>Material</th>
+                <td id="spec-material">--</td>
+            </tr>
+
+            <tr>
+                <th>Color</th>
+                <td id="spec-color">--</td>
+            </tr>
+
+            <tr>
+                <th>Weight</th>
+                <td id="spec-weight">--</td>
+            </tr>
+
+            <tr>
+                <th>SKU</th>
+                <td id="spec-sku">--</td>
+            </tr>
+
+        </table>
+
+    </div>
+
+
+
+    <!-- Reviews -->
+
+    <div class="tab-content" id="reviews">
+
+        <h2>Customer Reviews</h2>
+
+        <div class="rating-summary">
+
+            <h1>4.9</h1>
+
+            <p>⭐⭐⭐⭐⭐</p>
+
+            <small>
+
+                Based on 250+ Reviews
+
+            </small>
+
+        </div>
+
+
+
+        <div id="review-list">
+
+            <!-- Firebase Reviews -->
+
+        </div>
+
+
+
+        <div class="write-review">
+
+            <h3>Write a Review</h3>
+
+            <input
+                type="text"
+                id="review-name"
+                placeholder="Your Name">
+
+            <textarea
+                id="review-message"
+                placeholder="Write your review..."></textarea>
+
+            <button id="submit-review">
+
+                Submit Review
 
             </button>
 
         </div>
 
-    </main>
+    </div>
 
-    <!-- Related Products -->
 
-    <section class="related-products">
 
-        <h2>Related Products</h2>
+    <!-- Shipping -->
 
-        <div id="related-products"></div>
+    <div class="tab-content" id="shipping">
 
-    </section>
+        <h2>Shipping & Return</h2>
 
-    <script type="module" src="product.js"></script>
+        <ul>
+
+            <li>✔ Fast Delivery Across India</li>
+
+            <li>✔ Secure Packaging</li>
+
+            <li>✔ Easy Return Available</li>
+
+            <li>✔ Customer Support on WhatsApp</li>
+
+        </ul>
+
+    </div>
+
+</section>
+
+
+
+<!-- ================= CUSTOM ORDER ================= -->
+
+<section class="custom-order">
+
+    <h2>
+
+        🎀 Customize Your Product
+
+    </h2>
+
+    <p>
+
+        Perfect for Photo Rakhi, Photo Mug, Gift Items & Personalized Products.
+
+    </p>
+
+
+
+    <div class="custom-form">
+
+        <label>
+
+            Upload Photo
+
+        </label>
+
+        <input
+            type="file"
+            id="custom-photo"
+            accept="image/*">
+
+
+
+        <label>
+
+            Custom Name
+
+        </label>
+
+        <input
+            type="text"
+            id="custom-name"
+            placeholder="Enter Name">
+
+
+
+        <label>
+
+            Gift Message
+
+        </label>
+
+        <textarea
+            id="gift-message"
+            placeholder="Write your message"></textarea>
+
+    </div>
+
+</section>
+
+
+
+<!-- ================= FREQUENTLY BOUGHT TOGETHER ================= -->
+
+<section class="combo-products">
+
+    <h2>
+
+        Frequently Bought Together
+
+    </h2>
+
+    <div
+        class="combo-grid"
+        id="combo-products">
+
+        <!-- Firebase -->
+
+    </div>
+
+</section>
+
+
+
+<!-- ================= RELATED PRODUCTS ================= -->
+
+<section class="related-products">
+
+    <h2>
+
+        Related Products
+
+    </h2>
+
+    <div
+        class="related-grid"
+        id="related-products">
+
+        <!-- Firebase -->
+
+    </div>
+
+</section>
+
+
+
+<!-- ================= RECENTLY VIEWED ================= -->
+
+<section class="recent-products">
+
+    <h2>
+
+        Recently Viewed
+
+    </h2>
+
+    <div
+        class="recent-grid"
+        id="recent-products">
+
+        <!-- Auto Load -->
+
+    </div>
+
+</section>
+<!-- ================= BANK OFFERS ================= -->
+
+<section class="bank-offers">
+
+    <h2>🏦 Bank & Special Offers</h2>
+
+    <div class="offer-list">
+
+        <div class="offer-card">
+            💳 10% Instant Discount on Credit Cards
+        </div>
+
+        <div class="offer-card">
+            🏦 UPI Cashback up to ₹100
+        </div>
+
+        <div class="offer-card">
+            🎁 Buy 2 Get 1 Free (Selected Products)
+        </div>
+
+        <div class="offer-card">
+            🚚 Free Shipping Above ₹999
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- ================= SHARE PRODUCT ================= -->
+
+<section class="share-product">
+
+    <h2>Share This Product</h2>
+
+    <div class="share-buttons">
+
+        <a href="#" id="share-whatsapp">
+            <i class="fa-brands fa-whatsapp"></i>
+            WhatsApp
+        </a>
+
+        <a href="#" id="share-facebook">
+            <i class="fa-brands fa-facebook"></i>
+            Facebook
+        </a>
+
+        <a href="#" id="share-instagram">
+            <i class="fa-brands fa-instagram"></i>
+            Instagram
+        </a>
+
+        <button id="copy-link">
+            🔗 Copy Link
+        </button>
+
+    </div>
+
+</section>
+
+
+
+<!-- ================= CUSTOMER SUPPORT ================= -->
+
+<section class="customer-support">
+
+    <h2>Need Help?</h2>
+
+    <div class="support-grid">
+
+        <div class="support-card">
+            📞
+            <h3>Call Us</h3>
+            <p>+91 93744 45544</p>
+        </div>
+
+        <div class="support-card">
+            💬
+            <h3>WhatsApp</h3>
+            <p>Quick Support Available</p>
+        </div>
+
+        <div class="support-card">
+            🚚
+            <h3>Track Order</h3>
+            <p>Check Order Status</p>
+        </div>
+
+        <div class="support-card">
+            🔄
+            <h3>Easy Returns</h3>
+            <p>7 Days Return Policy</p>
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- ================= FAQ ================= -->
+
+<section class="faq">
+
+    <h2>Frequently Asked Questions</h2>
+
+    <details>
+        <summary>How many days does delivery take?</summary>
+        <p>Usually 3–7 business days depending on location.</p>
+    </details>
+
+    <details>
+        <summary>Can I order through WhatsApp?</summary>
+        <p>Yes, you can place your order directly on WhatsApp.</p>
+    </details>
+
+    <details>
+        <summary>Do you provide Cash on Delivery?</summary>
+        <p>Available only on selected locations.</p>
+    </details>
+
+    <details>
+        <summary>Can I customize Photo Rakhi?</summary>
+        <p>Yes. Upload your photo and message before ordering.</p>
+    </details>
+
+</section>
+
+
+
+<!-- ================= INSTAGRAM ================= -->
+
+<section class="instagram-section">
+
+    <h2>Follow Us On Instagram</h2>
+
+    <a href="https://www.instagram.com/householdbygarima"
+       target="_blank">
+
+        @householdbygarima
+
+    </a>
+
+</section>
+
+
+
+<!-- ================= FOOTER ================= -->
+
+<footer>
+
+<div class="footer-grid">
+
+<div>
+
+<h3>Garima's House Hold</h3>
+
+<p>A Unit Of Madhuban Creation</p>
+
+</div>
+
+<div>
+
+<h3>Categories</h3>
+
+<ul>
+
+<li>House Hold</li>
+
+<li>Sarees</li>
+
+<li>Kurtis</li>
+
+<li>Rakhi</li>
+
+<li>Gift Items</li>
+
+</ul>
+
+</div>
+
+<div>
+
+<h3>Customer Care</h3>
+
+<ul>
+
+<li>My Orders</li>
+
+<li>Wishlist</li>
+
+<li>Track Order</li>
+
+<li>Contact Us</li>
+
+</ul>
+
+</div>
+
+<div>
+
+<h3>Contact</h3>
+
+<p>📞 +91 93744 45544</p>
+
+<p>📷 @householdbygarima</p>
+
+</div>
+
+</div>
+
+<hr>
+
+<p class="copyright">
+
+© 2026 Garima's House Hold.
+All Rights Reserved.
+
+</p>
+
+</footer>
+
+
+
+<!-- ================= LOADING ================= -->
+
+<div id="loader">
+
+<div class="spinner"></div>
+
+</div>
+
+
+
+<!-- ================= IMAGE PREVIEW ================= -->
+
+<div id="image-preview">
+
+<span id="close-preview">
+
+&times;
+
+</span>
+
+<img id="preview-image">
+
+</div>
+
+
+
+<!-- ================= BACK TO TOP ================= -->
+
+<button id="backToTop">
+
+⬆
+
+</button>
+
+
+
+<!-- ================= SCRIPTS ================= -->
+
+<script type="module" src="firebase.js"></script>
+
+<script type="module" src="product.js"></script>
 
 </body>
 

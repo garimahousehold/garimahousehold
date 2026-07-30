@@ -6,16 +6,34 @@
 
 import { db } from "./firebase.js";
 
+
 import {
     collection,
     getDocs
 } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js";
+
+function getWishlist() {
+    return JSON.parse(localStorage.getItem("wishlist")) || [];
+}
+
+function saveWishlist(wishlist) {
+    localStorage.setItem("wishlist", JSON.stringify(wishlist));
+}
+
+function updateWishlistCount() {
+    const count = document.getElementById("wishlist-count");
+    if (count) {
+        count.innerText = getWishlist().length;
+    }
+}
 
 // ==========================================
 // Global Variables
 // ==========================================
 
 let products = [];
+
+let currentCategory = "All";
 
 let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
@@ -101,12 +119,13 @@ async function loadProducts() {
 
                 id: doc.id,
 
-                ...doc.data()
-
+                ...doc.data(),
+                category: (doc.data().category || "").trim()
             });
 
         });
-
+        
+console.log("Homepage Products:", products);
         renderProducts(products);
 
     }
@@ -161,31 +180,51 @@ function renderProducts(productList) {
 
         const price = Number(product.price || 0);
 
+        const mrp = Number(product.mrp || price);
+        const discount = mrp > price ? Math.round(((mrp - price) / mrp) * 100) : 0;
+
         card.innerHTML = `
 
             <img
-                src="${image}"
-                alt="${product.name}"
-                loading="lazy"
-                onerror="this.src='image/no-image.png'"
-            >
+    class="product-img"
+    src="${image}"
+    alt="${product.name}"
+    loading="lazy"
+    onerror="this.src='image/no-image.png'"
+>
 
             <div class="product-info">
+
+            <div class="wishlist-icon" data-id="${product.id}">
+    🤍
+</div>
 
                 <h3>${product.name}</h3>
 
                 <p class="price">
 
-                    ₹${price.toLocaleString("en-IN")}
+    ₹${price.toLocaleString("en-IN")}
 
-                </p>
+    ${mrp > price ? `
+        <br>
+        <span class="mrp">₹${mrp.toLocaleString("en-IN")}</span>
+        <span class="discount">${discount}% OFF</span>
+    ` : ""}
 
-                <button
-                    onclick="addToCart('${product.id}')">
+</p>
+                ${product.stock > 0
+? `
+    ${product.stock <= 5 ? `<p class="low-stock">Only ${product.stock} Left</p>` : ""}
 
-                    Add To Cart
-
-                </button>
+    <button onclick="addToCart('${product.id}')">
+        Add To Cart
+    </button>
+`
+: `
+    <button class="out-stock-btn" disabled>
+        Out Of Stock
+    </button>
+`}
 
             </div>
 
@@ -200,11 +239,72 @@ card.addEventListener("click", (e) => {
     window.location.href = `product.html?id=${product.id}`;
 
 });
+const heart = card.querySelector(".wishlist-icon");
 
+let wishlist = getWishlist();
+
+if (wishlist.includes(product.id)) {
+    heart.innerHTML = "❤️";
+    heart.classList.add("active");
+}
+
+heart.addEventListener("click", () => {
+
+    let wishlist = getWishlist();
+
+    if (wishlist.includes(product.id)) {
+
+        wishlist = wishlist.filter(id => id !== product.id);
+
+        heart.innerHTML = "🤍";
+        heart.classList.remove("active");
+
+    } else {
+
+        wishlist.push(product.id);
+
+        heart.innerHTML = "❤️";
+        heart.classList.add("active");
+
+    }
+
+    saveWishlist(wishlist);
+    updateWishlistCount();
+
+});
         productGrid.appendChild(card);
 
     });
 
+}
+// ==========================================
+// Category Filter
+// ==========================================
+
+function filterByCategory(category) {
+
+    currentCategory = category;
+
+    if (category === "All") {
+        renderProducts(products);
+        return;
+    }
+
+    const filteredProducts = products.filter(product => {
+        const p = (product.category || "")
+            .toLowerCase()
+            .trim()
+            .replace(/s$/, "");
+
+        const c = (category || "")
+            .toLowerCase()
+            .trim()
+            .replace(/s$/, "");
+
+        return p === c;
+    });
+
+    renderProducts(filteredProducts);
 }
 
 // ==========================================
@@ -593,9 +693,23 @@ function initializeWebsite() {
 
     updateCartCount();
 
+    updateWishlistCount();
+
     loadProducts();
 
     loadCart();
+
+    document.querySelectorAll(".category-item").forEach(item => {
+
+    item.addEventListener("click", () => {
+
+        const category = item.dataset.category;
+
+        filterByCategory(category);
+
+    });
+
+});
 
 }
 

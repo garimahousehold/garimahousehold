@@ -36,7 +36,11 @@ const productName = document.getElementById("product-name");
 
 const productCategory = document.getElementById("product-category");
 
+const productMrp = document.getElementById("product-mrp");
+
 const productPrice = document.getElementById("product-price");
+
+const productStock = document.getElementById("product-stock");
 
 const productImage = document.getElementById("product-image");
 
@@ -201,6 +205,8 @@ productForm.addEventListener("submit", async (e) => {
 
     category: productCategory.value.trim(),
 
+    mrp: Number(productMrp.value),
+
     price: Number(productPrice.value),
 
     stock: Number(productStock.value),
@@ -270,7 +276,12 @@ function editProduct(id) {
 
     productName.value = product.name;
     productCategory.value = product.category;
+
+    productMrp.value = product.mrp || product.price;
+
     productPrice.value = product.price;
+    productStock.value = product.stock || 0;
+
     productImage.value = product.image;
     productDescription.value = product.description;
 

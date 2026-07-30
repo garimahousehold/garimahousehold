@@ -4,63 +4,578 @@
 <head>
 
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
 
 <title>Shopping Cart | Garima's House Hold</title>
 
-<link rel="stylesheet" href="style.css">
+<meta name="description"
+content="Shopping Cart">
+
+<link rel="icon" href="logo.png">
+
+<link rel="stylesheet" href="cart.css">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
 </head>
 
 <body>
 
-<header>
+<!-- ================= HEADER ================= -->
+
+<header class="header">
 
 <div class="logo">
 
-<h1>🛒 Shopping Cart</h1>
+<a href="index.html">
+
+<img src="logo.png" alt="Garima's House Hold">
+
+</a>
+
+</div>
+
+<div class="search">
+
+<input
+type="text"
+placeholder="Search Products...">
+
+</div>
+
+<div class="header-icons">
+
+<a href="wishlist.html">
+
+❤️ Wishlist
+
+<span id="wishlist-count">0</span>
+
+</a>
+
+<a href="cart.html">
+
+🛒 Cart
+
+<span id="cart-count">0</span>
+
+</a>
 
 </div>
 
 </header>
 
-<section class="cart-page">
 
-<div id="cart-items">
 
-</div>
+<!-- ================= BREADCRUMB ================= -->
 
-<h2 class="cart-total">
-
-Total : ₹<span id="total">0</span>
-
-</h2>
-
-<div style="text-align:center; margin-top:30px;">
-
-<a href="checkout.html">
-
-<button class="buy-btn">
-
-Proceed To Checkout
-
-</button>
-
-</a>
-
-</div>
-
-<div style="text-align:center; margin-top:20px;">
+<section class="breadcrumb">
 
 <a href="index.html">
 
-← Continue Shopping
+Home
 
 </a>
 
-</div>
+<span>/</span>
+
+<strong>
+
+Shopping Cart
+
+</strong>
 
 </section>
+
+
+
+<!-- ================= PAGE TITLE ================= -->
+
+<section class="page-title">
+
+<h1>
+
+🛒 Shopping Cart
+
+</h1>
+
+<p>
+
+Review your items before checkout.
+
+</p>
+
+</section>
+
+
+
+<!-- ================= MAIN CART ================= -->
+
+<section class="cart-section">
+
+<div class="cart-container">
+
+<!-- LEFT -->
+
+<div class="cart-left">
+
+<div id="cart-items">
+
+<!-- Firebase / JS -->
+
+</div>
+
+</div>
+
+
+
+<!-- RIGHT -->
+
+<div class="cart-right">
+
+<div class="cart-summary">
+
+<h2>
+
+Price Details
+
+</h2>
+
+<hr>
+
+<div class="summary-row">
+
+<span>
+
+Items
+
+</span>
+
+<span id="total-items">
+
+0
+
+</span>
+
+</div>
+
+<div class="summary-row">
+
+<span>
+
+Subtotal
+
+</span>
+
+<span id="subtotal">
+
+₹0
+
+</span>
+
+</div>
+
+<div class="summary-row">
+
+<span>
+
+Discount
+
+</span>
+
+<span id="discount">
+
+- ₹0
+
+</span>
+
+</div>
+
+<div class="summary-row">
+
+<span>
+
+Shipping
+
+</span>
+
+<span id="shipping">
+
+FREE
+
+</span>
+
+</div>
+
+<hr>
+
+<div class="summary-row total">
+
+<strong>
+
+Total
+
+</strong>
+
+<strong id="grand-total">
+
+₹0
+
+</strong>
+
+</div>
+                <!-- Coupon -->
+
+                <div class="coupon-box">
+
+                    <h3>
+
+                        Apply Coupon
+
+                    </h3>
+
+                    <div class="coupon-input">
+
+                        <input
+                            type="text"
+                            id="coupon-code"
+                            placeholder="Enter Coupon Code">
+
+                        <button id="apply-coupon">
+
+                            Apply
+
+                        </button>
+
+                    </div>
+
+                    <small id="coupon-message"></small>
+
+                </div>
+
+
+
+                <!-- Checkout -->
+
+                <button id="checkout-btn">
+
+                    Proceed To Checkout
+
+                </button>
+
+
+
+                <button id="whatsapp-checkout">
+
+                    <i class="fa-brands fa-whatsapp"></i>
+
+                    Order On WhatsApp
+
+                </button>
+
+
+
+                <!-- Secure Payment -->
+
+                <div class="payment-info">
+
+                    <h3>
+
+                        Secure Payments
+
+                    </h3>
+
+                    <div class="payment-icons">
+
+                        <i class="fa-brands fa-cc-visa"></i>
+
+                        <i class="fa-brands fa-cc-mastercard"></i>
+
+                        <i class="fa-brands fa-google-pay"></i>
+
+                        <i class="fa-brands fa-paypal"></i>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- Delivery -->
+
+                <div class="delivery-info">
+
+                    <h3>
+
+                        Delivery Benefits
+
+                    </h3>
+
+                    <ul>
+
+                        <li>🚚 Fast Delivery</li>
+
+                        <li>🎁 Safe Packaging</li>
+
+                        <li>🔄 Easy Returns</li>
+
+                        <li>💬 WhatsApp Support</li>
+
+                    </ul>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- ================= EMPTY CART ================= -->
+
+<section
+    id="empty-cart"
+    class="empty-cart"
+    style="display:none;">
+
+    <img
+        src="images/empty-cart.png"
+        alt="Empty Cart">
+
+    <h2>
+
+        Your Cart is Empty
+
+    </h2>
+
+    <p>
+
+        Looks like you haven't added anything yet.
+
+    </p>
+
+    <a
+        href="index.html"
+        class="shop-btn">
+
+        Continue Shopping
+
+    </a>
+
+</section>
+
+
+
+<!-- ================= RECOMMENDED PRODUCTS ================= -->
+
+<section class="recommended-section">
+
+    <h2>
+
+        You May Also Like
+
+    </h2>
+
+    <div
+        id="recommended-products"
+        class="recommended-grid">
+
+        <!-- JS -->
+
+    </div>
+
+</section>
+
+
+
+<!-- ================= FEATURES ================= -->
+
+<section class="features">
+
+    <div class="feature">
+
+        🚚
+
+        <h3>
+
+            Free Shipping
+
+        </h3>
+
+        <p>
+
+            On selected products.
+
+        </p>
+
+    </div>
+
+    <div class="feature">
+
+        🔒
+
+        <h3>
+
+            Secure Payments
+
+        </h3>
+
+        <p>
+
+            100% Safe Checkout.
+
+        </p>
+
+    </div>
+
+    <div class="feature">
+
+        💬
+
+        <h3>
+
+            24×7 Support
+
+        </h3>
+
+        <p>
+
+            WhatsApp Customer Support.
+
+        </p>
+
+    </div>
+
+    <div class="feature">
+
+        ⭐
+
+        <h3>
+
+            Premium Quality
+
+        </h3>
+
+        <p>
+
+            Trusted Products.
+
+        </p>
+
+    </div>
+
+</section>
+<!-- ================= FOOTER ================= -->
+
+<footer>
+
+    <div class="footer-grid">
+
+        <div>
+
+            <h3>Garima's House Hold</h3>
+
+            <p>
+                Your trusted shopping destination for
+                Household Items, Sarees, Gift Items,
+                Rakhi & More.
+            </p>
+
+        </div>
+
+        <div>
+
+            <h3>Quick Links</h3>
+
+            <ul>
+
+                <li><a href="index.html">Home</a></li>
+
+                <li><a href="wishlist.html">Wishlist</a></li>
+
+                <li><a href="cart.html">Cart</a></li>
+
+                <li><a href="orders.html">My Orders</a></li>
+
+            </ul>
+
+        </div>
+
+        <div>
+
+            <h3>Customer Care</h3>
+
+            <ul>
+
+                <li>Help Center</li>
+
+                <li>Track Order</li>
+
+                <li>Return Policy</li>
+
+                <li>Privacy Policy</li>
+
+            </ul>
+
+        </div>
+
+        <div>
+
+            <h3>Contact</h3>
+
+            <p>📞 +91 93744 45544</p>
+
+            <p>📷 @householdbygarima</p>
+
+        </div>
+
+    </div>
+
+    <hr>
+
+    <p class="copyright">
+
+        © 2026 Garima's House Hold.
+        All Rights Reserved.
+
+    </p>
+
+</footer>
+
+
+
+<!-- ================= LOADER ================= -->
+
+<div id="loader">
+
+    <div class="spinner"></div>
+
+</div>
+
+
+
+<!-- ================= BACK TO TOP ================= -->
+
+<button id="backToTop">
+
+    ↑
+
+</button>
+
+
+
+<!-- ================= SCRIPTS ================= -->
+
+<script type="module" src="firebase.js"></script>
 
 <script type="module" src="cart.js"></script>
 

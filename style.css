@@ -240,11 +240,14 @@ gap:30px;
 .product-card{
 
 background:white;
-padding:20px;
+padding:15px;
 border-radius:20px;
 box-shadow:0 10px 20px rgba(0,0,0,.08);
 transition:.3s;
 text-align:center;
+
+max-width:220px;
+    margin:auto;
 
 }
 
@@ -257,7 +260,7 @@ transform:translateY(-10px);
 .product-img{
 
 width:100%;
-height:260px;
+height:180px;
 object-fit:cover;
 border-radius:15px;
 
@@ -887,4 +890,79 @@ font-size:30px;
 
     font-weight:bold;
 
+}
+/* MRP */
+.mrp {
+    text-decoration: line-through;
+    color: #888;
+    font-size: 14px;
+    margin-left: 8px;
+}
+
+/* Discount Badge */
+.discount {
+    display: inline-block;
+    margin-left: 8px;
+    padding: 2px 8px;
+    background: #e53935;
+    color: #fff;
+    font-size: 12px;
+    font-weight: bold;
+    border-radius: 12px;
+}
+
+/* Sale Price */
+.price {
+    font-size: 20px;
+    font-weight: 700;
+    color: #222;
+    margin: 10px 0;
+}
+/* Low Stock */
+.low-stock{
+    color:#ff6b00;
+    font-size:13px;
+    font-weight:bold;
+    margin-bottom:8px;
+}
+
+/* Out Of Stock Button */
+.out-stock-btn{
+    width:100%;
+    background:#d32f2f;
+    color:#fff;
+    border:none;
+    padding:12px;
+    border-radius:8px;
+    font-weight:bold;
+    cursor:not-allowed;
+}
+.in-stock-text{
+    color:#2e7d32;
+    font-weight:bold;
+}
+
+.low-stock-text{
+    color:#ff9800;
+    font-weight:bold;
+}
+
+.out-stock-text{
+    color:#d32f2f;
+    font-weight:bold;
+}
+.wishlist-icon{
+    font-size:24px;
+    cursor:pointer;
+    text-align:right;
+    margin-bottom:10px;
+    transition:.3s;
+}
+
+.wishlist-icon:hover{
+    transform:scale(1.2);
+}
+
+.wishlist-icon.active{
+    color:red;
 }
