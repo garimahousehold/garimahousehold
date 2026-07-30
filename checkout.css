@@ -1,0 +1,268 @@
+/* ==========================================
+   Garima's House Hold
+   Checkout CSS
+========================================== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:'Poppins',sans-serif;
+    background:#f7f7f7;
+    color:#222;
+}
+
+/* HEADER */
+
+.header{
+    background:#fff;
+    padding:18px 6%;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    box-shadow:0 4px 12px rgba(0,0,0,.08);
+}
+
+.logo img{
+    width:170px;
+}
+
+/* MAIN */
+
+.checkout-container{
+    width:90%;
+    margin:40px auto;
+    display:grid;
+    grid-template-columns:2fr 1fr;
+    gap:30px;
+}
+
+/* LEFT */
+
+.checkout-left,
+.order-summary{
+    background:#fff;
+    padding:30px;
+    border-radius:15px;
+    box-shadow:0 5px 15px rgba(0,0,0,.05);
+}
+
+.checkout-left h2,
+.order-summary h2{
+    margin-bottom:25px;
+}
+
+.input-group{
+    margin-bottom:18px;
+}
+
+.input-group label{
+    display:block;
+    margin-bottom:8px;
+    font-weight:600;
+}
+
+.input-group input,
+.input-group textarea{
+    width:100%;
+    padding:14px;
+    border:2px solid #ddd;
+    border-radius:8px;
+    outline:none;
+    font-size:15px;
+}
+
+.input-group input:focus,
+.input-group textarea:focus{
+    border-color:#ff6b35;
+}
+
+.row{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:20px;
+}
+
+/* PAYMENT */
+
+.payment-method{
+    margin:25px 0;
+}
+
+.payment-option{
+    display:block;
+    background:#fafafa;
+    border:2px solid #ddd;
+    padding:15px;
+    border-radius:10px;
+    margin-bottom:15px;
+    cursor:pointer;
+}
+
+.payment-option:hover{
+    border-color:#ff6b35;
+}
+
+.payment-option input{
+    margin-right:10px;
+}
+
+/* BUTTONS */
+
+#place-order-btn,
+#whatsapp-order-btn{
+    width:100%;
+    height:55px;
+    border:none;
+    border-radius:10px;
+    font-size:17px;
+    font-weight:600;
+    cursor:pointer;
+    margin-top:15px;
+}
+
+#place-order-btn{
+    background:#ff6b35;
+    color:#fff;
+}
+
+#place-order-btn:hover{
+    background:#e65a28;
+}
+
+#whatsapp-order-btn{
+    background:#25D366;
+    color:#fff;
+}
+
+#whatsapp-order-btn:hover{
+    background:#1ebc59;
+}
+
+/* SUMMARY */
+
+.summary-row{
+    display:flex;
+    justify-content:space-between;
+    margin:18px 0;
+}
+
+.summary-row.total{
+    font-size:22px;
+    font-weight:bold;
+    color:#ff6b35;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:768px){
+
+.checkout-container{
+    grid-template-columns:1fr;
+}
+
+.row{
+    grid-template-columns:1fr;
+}
+
+.header{
+    flex-direction:column;
+    gap:15px;
+    text-align:center;
+}
+
+}
+/* ==========================
+Coupon
+========================== */
+
+.coupon-box{
+
+    margin:20px 0;
+    padding:15px;
+
+    border:1px solid #ddd;
+
+    border-radius:10px;
+
+    background:#fff8e8;
+
+}
+
+.coupon-input{
+
+    display:flex;
+
+    gap:10px;
+
+    margin-top:10px;
+
+}
+
+.coupon-input input{
+
+    flex:1;
+
+    padding:12px;
+
+    border:1px solid #ccc;
+
+    border-radius:8px;
+
+}
+
+.coupon-input button{
+
+    padding:12px 20px;
+
+    background:#ff9800;
+
+    color:#fff;
+
+    border:none;
+
+    border-radius:8px;
+
+    cursor:pointer;
+
+}
+
+#remove-coupon{
+
+    margin-top:10px;
+
+    background:#f44336;
+
+    color:white;
+
+    border:none;
+
+    padding:10px 20px;
+
+    border-radius:8px;
+
+    cursor:pointer;
+
+}
+
+#coupon-message{
+
+    margin-top:10px;
+
+    font-weight:bold;
+
+}
+
+.summary-row{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    margin:12px 0;
+
+}
+

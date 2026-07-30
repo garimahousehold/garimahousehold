@@ -9,102 +9,244 @@
 
 <title>Checkout | Garima's House Hold</title>
 
-<link rel="stylesheet" href="style.css">
+<link rel="icon" href="logo.png">
+
+<link rel="stylesheet" href="checkout.css">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
 </head>
 
 <body>
 
-<header>
+<header class="header">
 
-<h1 style="text-align:center;">
+<div class="logo">
+
+<a href="index.html">
+
+<img src="logo.png" alt="Garima's House Hold">
+
+</a>
+
+</div>
+
+<h2>
+
 Checkout
-</h1>
+
+</h2>
 
 </header>
 
 <section class="checkout-container">
-    
-<h2>Your Order</h2>
 
-<div id="checkout-items">
+<div class="checkout-left">
 
-</div>
+<h2>
 
-<hr><br>
-<h2>Customer Details</h2>
+Delivery Address
+
+</h2>
 
 <form id="checkout-form">
+
+<div class="input-group">
 
 <label>Full Name</label>
 
 <input
 type="text"
 id="name"
-placeholder="Enter Full Name"
 required>
+
+</div>
+
+<div class="input-group">
 
 <label>Mobile Number</label>
 
 <input
-type="text"
+type="tel"
 id="mobile"
-placeholder="Enter Mobile Number"
 required>
+
+</div>
+
+<div class="input-group">
+
+<label>Email (Optional)</label>
+
+<input
+type="email"
+id="email">
+
+</div>
+
+<div class="input-group">
 
 <label>Address</label>
 
 <textarea
 id="address"
-placeholder="Enter Address"
-required>
-</textarea>
+rows="4"
+required></textarea>
+
+</div>
+
+<div class="row">
+
+<div class="input-group">
 
 <label>City</label>
 
 <input
 type="text"
 id="city"
-placeholder="Enter City"
 required>
 
-<label>PIN Code</label>
+</div>
+
+<div class="input-group">
+
+<label>State</label>
+
+<input
+type="text"
+id="state"
+required>
+
+</div>
+
+</div>
+
+<div class="row">
+
+<div class="input-group">
+
+<label>Pincode</label>
 
 <input
 type="text"
 id="pincode"
-placeholder="Enter PIN Code"
 required>
-<label>Total Amount</label>
+
+</div>
+
+<div class="input-group">
+
+<label>Country</label>
 
 <input
 type="text"
-id="total"
+value="India"
 readonly>
 
-<br><br>
+</div>
 
-<button
-type="submit"
-class="checkout-btn">
-Place Order
-</button>
+</div>
+        <h2>Payment Method</h2>
 
-</form>
+        <div class="payment-method">
 
-<br>
+            <label class="payment-option">
+                <input type="radio" name="payment" value="UPI" checked>
+                UPI Payment
+            </label>
 
-<div style="text-align:center;">
+            <label class="payment-option">
+                <input type="radio" name="payment" value="Razorpay">
+                Razorpay (Cards / UPI / Net Banking)
+            </label>
 
-<a href="cart.html">
-← Back To Cart
-</a>
+        </div>
+
+        <button type="submit" id="place-order-btn">
+            Proceed to Payment
+        </button>
+
+        <button type="button" id="whatsapp-order-btn">
+            <i class="fa-brands fa-whatsapp"></i>
+            Order on WhatsApp
+        </button>
+
+    </form>
+
+</div>
+
+<!-- ================= RIGHT SIDE ================= -->
+
+<div class="checkout-right">
+
+    <div class="order-summary">
+
+        <h2>Order Summary</h2>
+
+        <div id="checkout-items">
+            <!-- Cart Items will load here -->
+        </div>
+
+        <hr>
+
+        <div class="summary-row">
+            <span>Items</span>
+            <span id="checkout-items-count">0</span>
+        </div>
+
+        <div class="summary-row">
+            <span>Subtotal</span>
+            <span id="checkout-subtotal">₹0</span>
+        </div>
+
+        <div class="summary-row">
+            <span>Shipping</span>
+            <span>FREE</span>
+        </div>
+
+
+        <hr>
+
+        <!-- Coupon Section -->
+        <div class="coupon-box">
+            <h3>🎁 Apply Coupon</h3>
+
+            <div class="coupon-input">
+                <input type="text" id="coupon-code" placeholder="Enter Coupon Code">
+                <button type="button" id="apply-coupon">Apply</button>
+            </div>
+
+            <button type="button" id="remove-coupon" style="display:none;">
+                Remove Coupon
+            </button>
+
+            <p id="coupon-message"></p>
+        </div>
+
+        <div class="summary-row">
+            <span>Discount</span>
+            <span id="discount-amount">₹0</span>
+        </div>
+
+        <hr>
+
+        <div class="summary-row total">
+            <strong>Total</strong>
+            <strong id="checkout-total">₹0</strong>
+        </div>
+
+    </div>
 
 </div>
 
 </section>
 
+<script type="module" src="firebase.js"></script>
 <script type="module" src="checkout.js"></script>
+
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 
 </body>
 </html>

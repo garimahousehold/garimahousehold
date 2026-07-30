@@ -119,12 +119,12 @@ async function loadProducts() {
 
                 id: doc.id,
 
-                ...doc.data(),
-                category: (doc.data().category || "").trim()
+                ...doc.data()
+
             });
 
         });
-        
+
 console.log("Homepage Products:", products);
         renderProducts(products);
 
@@ -243,29 +243,37 @@ const heart = card.querySelector(".wishlist-icon");
 
 let wishlist = getWishlist();
 
-if (wishlist.includes(product.id)) {
+if (wishlist.find(item => item.id === product.id)) {
     heart.innerHTML = "❤️";
     heart.classList.add("active");
 }
 
-heart.addEventListener("click", () => {
+heart.addEventListener("click", (e) => {
+
+    e.stopPropagation();
 
     let wishlist = getWishlist();
 
-    if (wishlist.includes(product.id)) {
+    const index = wishlist.findIndex(item => item.id === product.id);
 
-        wishlist = wishlist.filter(id => id !== product.id);
+    if (index > -1) {
+
+        wishlist.splice(index, 1);
 
         heart.innerHTML = "🤍";
         heart.classList.remove("active");
 
     } else {
 
-        wishlist.push(product.id);
+        wishlist.push({
+            id: product.id,
+            name: product.name,
+            image: product.image,
+            price: Number(product.price)
+        });
 
         heart.innerHTML = "❤️";
         heart.classList.add("active");
-
     }
 
     saveWishlist(wishlist);
@@ -290,20 +298,10 @@ function filterByCategory(category) {
         return;
     }
 
-    const filteredProducts = products.filter(product => {
-        const p = (product.category || "")
-            .toLowerCase()
-            .trim()
-            .replace(/s$/, "");
-
-        const c = (category || "")
-            .toLowerCase()
-            .trim()
-            .replace(/s$/, "");
-
-        return p === c;
-    });
-
+    const filteredProducts = products.filter(product =>
+    product.category?.toLowerCase().trim() ===
+    category.toLowerCase().trim()
+);
     renderProducts(filteredProducts);
 }
 

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Orders Manager</title>
+
+<link rel="stylesheet" href="admin-orders.css">
+</head>
+<body>
+
+<div class="container">
+
+<h1>📦 Orders Manager</h1>
+
+<div class="top-bar">
+
+    <input
+        type="text"
+        id="search-order"
+        placeholder="Search by Name, Phone or Order ID">
+
+    <select id="filter-status">
+
+        <option value="All">All Status</option>
+        <option value="Pending">Pending</option>
+        <option value="Confirmed">Confirmed</option>
+        <option value="Shipped">Shipped</option>
+        <option value="Delivered">Delivered</option>
+        <option value="Cancelled">Cancelled</option>
+
+    </select>
+
+</div>
+
+<div class="dashboard">
+
+<div class="card">
+<h2 id="total-orders">0</h2>
+<p>Total Orders</p>
+</div>
+
+<div class="card">
+<h2 id="pending-orders">0</h2>
+<p>Pending</p>
+</div>
+
+<div class="card">
+<h2 id="confirmed-orders">0</h2>
+<p>Confirmed</p>
+</div>
+
+<div class="card">
+<h2 id="revenue">₹0</h2>
+<p>Total Revenue</p>
+</div>
+
+</div>
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>Order ID</th>
+
+<th>Customer</th>
+
+<th>Phone</th>
+
+<th>Total</th>
+
+<th>Status</th>
+
+<th>Action</th>
+
+</tr>
+
+</thead>
+
+<tbody id="orders-table">
+
+</tbody>
+
+</table>
+
+</div>
+<!-- Order Popup -->
+
+<div id="order-popup" class="popup">
+
+    <div class="popup-content">
+
+        <span id="close-popup">&times;</span>
+
+        <h2>Order Details</h2>
+
+        <div id="order-details"></div>
+
+        <br>
+
+        <select id="status-select">
+
+            <option>Pending</option>
+            <option>Confirmed</option>
+            <option>Shipped</option>
+            <option>Delivered</option>
+            <option>Cancelled</option>
+
+        </select>
+
+        <button id="update-status">
+            Update Status
+        </button>
+
+        <button id="whatsapp-btn">
+            WhatsApp Customer
+        </button>
+
+    </div>
+
+</div>
+<script type="module" src="admin-orders.js"></script>
+
+</body>
+</html>
