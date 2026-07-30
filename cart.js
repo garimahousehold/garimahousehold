@@ -4,7 +4,7 @@
 // ==========================================
 
 const cartItems = document.getElementById("cart-items");
-const totalElement = document.getElementById("total");
+const totalElement = document.getElementById("grand-total");
 
 let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
