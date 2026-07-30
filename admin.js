@@ -197,19 +197,21 @@ productForm.addEventListener("submit", async (e) => {
 
         const productData = {
 
-            name: productName.value.trim(),
+    name: productName.value.trim(),
 
-            category: productCategory.value.trim(),
+    category: productCategory.value.trim(),
 
-            price: Number(productPrice.value),
+    price: Number(productPrice.value),
 
-            image: productImage.value.trim(),
+    stock: Number(productStock.value),
 
-            description: productDescription.value.trim(),
+    image: productImage.value.trim(),
 
-            createdAt: new Date()
+    description: productDescription.value.trim(),
 
-        };
+    createdAt: new Date()
+
+};
 
         // Add Product
 
