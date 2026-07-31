@@ -4,249 +4,357 @@
 <head>
 
 <meta charset="UTF-8">
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Checkout | Garima's House Hold</title>
 
-<link rel="icon" href="logo.png">
-
+<link rel="stylesheet" href="style.css">
 <link rel="stylesheet" href="checkout.css">
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
 <link rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 
 </head>
 
 <body>
 
+<!--=========================
+HEADER
+==========================-->
+
 <header class="header">
 
-<div class="logo">
+    <a href="index.html" class="logo">
 
-<a href="index.html">
+        <img src="images/logo.png" alt="Logo">
 
-<img src="logo.png" alt="Garima's House Hold">
+    </a>
 
-</a>
+    <h2>Secure Checkout</h2>
 
-</div>
+    <a href="cart.html" class="back-btn">
 
-<h2>
+        <i class="fa-solid fa-arrow-left"></i>
 
-Checkout
+        Back to Cart
 
-</h2>
+    </a>
 
 </header>
 
-<section class="checkout-container">
+<!--=========================
+CHECKOUT
+==========================-->
 
-<div class="checkout-left">
+<section class="checkout-page">
 
-<h2>
+    <!-- LEFT -->
 
-Delivery Address
+    <div class="checkout-form">
 
-</h2>
+        <h2>
 
-<form id="checkout-form">
+            Billing Details
 
-<div class="input-group">
+        </h2>
 
-<label>Full Name</label>
+        <div class="input-group">
 
-<input
-type="text"
-id="name"
-required>
+            <label>Full Name *</label>
 
-</div>
+            <input
+                type="text"
+                id="customerName"
+                placeholder="Enter Full Name"
+                required>
 
-<div class="input-group">
+        </div>
 
-<label>Mobile Number</label>
+        <div class="input-group">
 
-<input
-type="tel"
-id="mobile"
-required>
+            <label>Mobile Number *</label>
 
-</div>
+            <input
+                type="tel"
+                id="customerMobile"
+                placeholder="Enter Mobile Number"
+                required>
 
-<div class="input-group">
+        </div>
 
-<label>Email (Optional)</label>
+        <div class="input-group">
 
-<input
-type="email"
-id="email">
+            <label>Email (Optional)</label>
 
-</div>
+            <input
+                type="email"
+                id="customerEmail"
+                placeholder="Enter Email">
 
-<div class="input-group">
+        </div>
 
-<label>Address</label>
+        <div class="input-group">
 
-<textarea
-id="address"
-rows="4"
-required></textarea>
+            <label>Address *</label>
 
-</div>
+            <textarea
+                id="customerAddress"
+                rows="4"
+                placeholder="House No, Street, Area"
+                required></textarea>
 
-<div class="row">
+        </div>
 
-<div class="input-group">
+        <div class="row">
 
-<label>City</label>
+            <div class="input-group">
 
-<input
-type="text"
-id="city"
-required>
+                <label>City *</label>
 
-</div>
+                <input
+                    type="text"
+                    id="customerCity"
+                    placeholder="City">
 
-<div class="input-group">
+            </div>
 
-<label>State</label>
+            <div class="input-group">
 
-<input
-type="text"
-id="state"
-required>
+                <label>State *</label>
 
-</div>
+                <input
+                    type="text"
+                    id="customerState"
+                    placeholder="State">
 
-</div>
+            </div>
 
-<div class="row">
+        </div>
 
-<div class="input-group">
+        <div class="row">
 
-<label>Pincode</label>
+            <div class="input-group">
 
-<input
-type="text"
-id="pincode"
-required>
+                <label>Pincode *</label>
 
-</div>
+                <input
+                    type="number"
+                    id="customerPincode"
+                    placeholder="Pincode">
 
-<div class="input-group">
+            </div>
 
-<label>Country</label>
+            <div class="input-group">
 
-<input
-type="text"
-value="India"
-readonly>
+                <label>Country</label>
 
-</div>
+                <input
+                    type="text"
+                    value="India"
+                    readonly>
 
-</div>
-        <h2>Payment Method</h2>
+            </div>
 
-        <div class="payment-method">
+        </div>
 
-            <label class="payment-option">
-                <input type="radio" name="payment" value="UPI" checked>
-                UPI Payment
-            </label>
+        <hr>
 
-            <label class="payment-option">
-                <input type="radio" name="payment" value="Razorpay">
-                Razorpay (Cards / UPI / Net Banking)
+        <h2>
+
+            UPI Payment
+
+        </h2>
+
+        <p>
+
+            Scan the QR Code or pay using the UPI ID below.
+
+        </p>
+
+        <div class="payment-box">
+
+            <img
+                src="images/upi-qr.jpeg"
+                class="upi-qr"
+                alt="UPI QR">
+
+            <h3>
+
+                UPI ID
+
+            </h3>
+
+            <div class="upi-copy">
+
+                <input
+                    type="text"
+                    id="upiId"
+                    value="9468659714@ybl"
+                    readonly>
+
+                <button
+                    type="button"
+                    id="copyUPI">
+
+                    Copy
+
+                </button>
+
+            </div>
+
+        </div>
+                <!-- Transaction ID -->
+
+        <div class="input-group">
+
+            <label>UTR / Transaction ID *</label>
+
+            <input
+                type="text"
+                id="utrNumber"
+                placeholder="Enter UTR Number"
+                required>
+
+        </div>
+
+        <!-- Screenshot -->
+
+        <div class="input-group">
+
+            <label>Payment Screenshot (Optional)</label>
+
+            <input
+                type="file"
+                id="paymentScreenshot"
+                accept="image/*">
+
+        </div>
+
+        <div class="payment-note">
+
+            <label>
+
+                <input
+                    type="checkbox"
+                    id="paymentConfirm">
+
+                I have completed the payment using the QR Code / UPI ID
+                and entered the correct UTR Number.
+
             </label>
 
         </div>
 
-        <button type="submit" id="place-order-btn">
-            Proceed to Payment
-        </button>
+    </div>
 
-        <button type="button" id="whatsapp-order-btn">
-            <i class="fa-brands fa-whatsapp"></i>
-            Order on WhatsApp
-        </button>
-
-    </form>
-
-</div>
-
-<!-- ================= RIGHT SIDE ================= -->
-
-<div class="checkout-right">
+    <!-- RIGHT SIDE -->
 
     <div class="order-summary">
 
-        <h2>Order Summary</h2>
+        <h2>
 
-        <div id="checkout-items">
-            <!-- Cart Items will load here -->
+            Order Summary
+
+        </h2>
+
+        <div id="checkoutProducts">
+
+            <!-- Products Load Here -->
+
         </div>
 
         <hr>
 
         <div class="summary-row">
-            <span>Items</span>
-            <span id="checkout-items-count">0</span>
-        </div>
 
-        <div class="summary-row">
             <span>Subtotal</span>
-            <span id="checkout-subtotal">₹0</span>
+
+            <span id="subtotal">
+
+                ₹0
+
+            </span>
+
         </div>
 
         <div class="summary-row">
-            <span>Shipping</span>
-            <span>FREE</span>
-        </div>
 
+            <span>Delivery</span>
 
-        <hr>
+            <span>
 
-        <!-- Coupon Section -->
-        <div class="coupon-box">
-            <h3>🎁 Apply Coupon</h3>
+                FREE
 
-            <div class="coupon-input">
-                <input type="text" id="coupon-code" placeholder="Enter Coupon Code">
-                <button type="button" id="apply-coupon">Apply</button>
-            </div>
+            </span>
 
-            <button type="button" id="remove-coupon" style="display:none;">
-                Remove Coupon
-            </button>
-
-            <p id="coupon-message"></p>
         </div>
 
         <div class="summary-row">
+
             <span>Discount</span>
-            <span id="discount-amount">₹0</span>
+
+            <span id="discount">
+
+                ₹0
+
+            </span>
+
         </div>
 
         <hr>
 
         <div class="summary-row total">
+
             <strong>Total</strong>
-            <strong id="checkout-total">₹0</strong>
+
+            <strong id="grandTotal">
+
+                ₹0
+
+            </strong>
+
         </div>
+
+        <button
+            id="placeOrderBtn"
+            class="place-order-btn">
+
+            <i class="fa-solid fa-circle-check"></i>
+
+            Place Order
+
+        </button>
+
+        <p class="secure-note">
+
+            🔒 Your payment details are safe.
+            Orders will be confirmed after payment verification.
+
+        </p>
 
     </div>
 
-</div>
-
 </section>
 
+<!--=========================
+FOOTER
+==========================-->
+
+<footer class="footer">
+
+    <div class="footer-bottom">
+
+        © 2026 Garima's House Hold.
+        All Rights Reserved.
+
+    </div>
+
+</footer>
+
 <script type="module" src="firebase.js"></script>
+
 <script type="module" src="checkout.js"></script>
 
-<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
-
 </body>
+
 </html>

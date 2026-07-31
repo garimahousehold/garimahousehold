@@ -294,69 +294,90 @@ function renderProducts(list) {
 function createProductCard(product) {
 
     const card = document.createElement("div");
-
     card.className = "product-card";
+
+    const discount =
+        product.mrp > product.price
+            ? Math.round(((product.mrp - product.price) / product.mrp) * 100)
+            : 0;
 
     card.innerHTML = `
 
         <div class="product-card-image">
 
+            ${discount ? `
+            <span class="discount-badge">
+                ${discount}% OFF
+            </span>` : ""}
+
+            <button
+                class="wishlist-btn"
+                onclick="event.stopPropagation();toggleWishlist('${product.id}')">
+
+                <i class="fa-regular fa-heart"></i>
+
+            </button>
+
             <img
                 src="${product.image}"
                 alt="${product.name}"
-                loading="lazy"
-            >
+                loading="lazy">
+
         </div>
 
         <div class="product-content">
 
-            <h3>${product.name}</h3>
+            <span class="product-category">
+                ${product.category || "Home Essentials"}
+            </span>
 
-            <p class="price">
+            <h3 class="product-title">
+                ${product.name}
+            </h3>
 
-                ${formatPrice(product.price)}
+            <div class="rating">
+                ⭐⭐⭐⭐⭐
+                <span>(4.9)</span>
+            </div>
 
-            </p>
+            <div class="price-row">
 
-            <p class="category">
+                <span class="price">
+                    ${formatPrice(product.price)}
+                </span>
 
-                ${product.category || ""}
-
-            </p>
-
-            <div class="product-buttons">
-
-                <button
-                    class="btn-cart"
-                    onclick="addToCart('${product.id}')">
-
-                    Add to Cart
-
-                </button>
-
-                <button
-                    class="btn-wishlist"
-                    onclick="toggleWishlist('${product.id}')">
-
-                    ❤
-
-                </button>
+                <span class="mrp">
+                    ${formatPrice(product.mrp)}
+                </span>
 
             </div>
+
+            <button
+                class="btn-cart"
+                onclick="event.stopPropagation();addToCart('${product.id}')">
+
+                <i class="fa-solid fa-cart-shopping"></i>
+
+                Add to Cart
+
+            </button>
+
+            <button
+                class="btn-buy"
+                onclick="event.stopPropagation();window.location.href='product.html?id=${product.id}'">
+
+                <i class="fa-solid fa-bolt"></i>
+
+                Buy Now
+
+            </button>
 
         </div>
 
     `;
 
-    card.addEventListener("click", (e) => {
-
-        if (
-            e.target.tagName === "BUTTON"
-        ) return;
-
-        window.location.href =
-            `product.html?id=${product.id}`;
-
+    card.addEventListener("click", () => {
+        window.location.href = `product.html?id=${product.id}`;
     });
 
     return card;

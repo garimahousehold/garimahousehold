@@ -1,332 +1,196 @@
-// ==========================================
-// Garima's House Hold
-// checkout.js
-// ==========================================
+// =====================================
+// FIREBASE IMPORT
+// =====================================
 
 import { db } from "./firebase.js";
 
 import {
+    collection,
     addDoc,
-    collection
-} from "https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js";
-import {
-    loadCoupons,
-    applyCoupon,
-    removeCoupon,
-    saveAppliedCoupon,
-    loadAppliedCoupon
-} from "./coupon.js";
-// =======================
-// Load Cart
-// =======================
+    serverTimestamp,
+    getDoc,
+    doc
+} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+
+// =====================================
+// LOAD CART
+// =====================================
 
 let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
-const checkoutItems = document.getElementById("checkout-items");
-const itemsCount = document.getElementById("checkout-items-count");
-const subtotal = document.getElementById("checkout-subtotal");
-const totalElement = document.getElementById("checkout-total");
+const cartContainer = document.getElementById("checkoutProducts");
 
-let grandTotal = 0;
-let totalQty = 0;
+let subtotal = 0;
 
-// Coupon Variables
-let discount = 0;
-let finalTotal = 0;
+async function loadCheckout() {
 
-function updateSummary() {
-    finalTotal = grandTotal - discount;
+    cartContainer.innerHTML = "";
 
-    const d=document.getElementById("discount-amount");
-    if(d) d.innerText="₹"+discount.toLocaleString("en-IN");
+    subtotal = 0;
 
-    if(totalElement){
-        totalElement.innerText="₹"+finalTotal.toLocaleString("en-IN");
-    }
-}
+    for (const item of cart) {
 
-// =======================
-// Load Checkout Items
-// =======================
+        const snap = await getDoc(doc(db, "products", item.id));
 
-function loadCheckout() {
+        if (!snap.exists()) continue;
 
-    checkoutItems.innerHTML = "";
+        const product = snap.data();
 
-    grandTotal = 0;
-    totalQty = 0;
+        const total = product.price * item.qty;
 
-    if (cart.length === 0) {
+        subtotal += total;
 
-        checkoutItems.innerHTML = `
-            <p>Your cart is empty.</p>
-        `;
-
-        itemsCount.innerText = "0";
-        subtotal.innerText = "₹0";
-        totalElement.innerText = "₹0";
-
-        return;
-    }
-
-    cart.forEach(item => {
-
-        const qty = item.qty || 1;
-        const itemTotal = item.price * qty;
-
-        grandTotal += itemTotal;
-        totalQty += qty;
-
-        checkoutItems.innerHTML += `
+        cartContainer.innerHTML += `
 
         <div class="checkout-item">
 
-            <div>
+            <img src="${product.image}" class="checkout-image">
 
-                <strong>${item.name}</strong><br>
+            <div class="checkout-info">
 
-                Qty : ${qty}
+                <h4>${product.name}</h4>
+
+                <p>₹${product.price} × ${item.qty}</p>
 
             </div>
 
-            <strong>
-
-                ₹${itemTotal.toLocaleString("en-IN")}
-
-            </strong>
+            <strong>₹${total}</strong>
 
         </div>
 
-        <hr>
-
         `;
 
-    });
+    }
 
-    itemsCount.innerText = totalQty;
-    subtotal.innerText = "₹" + grandTotal.toLocaleString("en-IN");
-    updateSummary();
+    document.getElementById("subtotal").textContent =
+        "₹" + subtotal;
+
+    document.getElementById("discount").textContent =
+        "₹0";
+
+    document.getElementById("grandTotal").textContent =
+        "₹" + subtotal;
 
 }
 
 loadCheckout();
-// =======================
-// Place Order
-// =======================
 
-const checkoutForm = document.getElementById("checkout-form");
+// =====================================
+// COPY UPI
+// =====================================
 
-checkoutForm.addEventListener("submit", async (e) => {
+document.getElementById("copyUPI").addEventListener("click", () => {
 
-    e.preventDefault();
+    const upi = document.getElementById("upiId");
 
-    if (cart.length === 0) {
-        alert("Your cart is empty.");
-        return;
-    }
+    navigator.clipboard.writeText(upi.value);
 
-    const name = document.getElementById("name").value.trim();
-    const mobile = document.getElementById("mobile").value.trim();
-    const email = document.getElementById("email").value.trim();
-    const address = document.getElementById("address").value.trim();
-    const city = document.getElementById("city").value.trim();
-    const state = document.getElementById("state").value.trim();
-    const pincode = document.getElementById("pincode").value.trim();
+    alert("UPI ID Copied");
 
-    if (!name || !mobile || !address || !city || !state || !pincode) {
+});
+// =====================================
+// PLACE ORDER
+// =====================================
+
+document.getElementById("placeOrderBtn").addEventListener("click", async () => {
+
+    const name = document.getElementById("customerName").value.trim();
+    const mobile = document.getElementById("customerMobile").value.trim();
+    const email = document.getElementById("customerEmail").value.trim();
+    const address = document.getElementById("customerAddress").value.trim();
+    const city = document.getElementById("customerCity").value.trim();
+    const state = document.getElementById("customerState").value.trim();
+    const pincode = document.getElementById("customerPincode").value.trim();
+    const utr = document.getElementById("utrNumber").value.trim();
+    const confirmPayment = document.getElementById("paymentConfirm").checked;
+
+    if (
+        !name ||
+        !mobile ||
+        !address ||
+        !city ||
+        !state ||
+        !pincode ||
+        !utr
+    ) {
         alert("Please fill all required fields.");
         return;
     }
 
+    if (mobile.length !== 10) {
+        alert("Enter a valid 10 digit mobile number.");
+        return;
+    }
+
+    if (!confirmPayment) {
+        alert("Please confirm that payment has been completed.");
+        return;
+    }
+
+    const btn = document.getElementById("placeOrderBtn");
+
+    btn.disabled = true;
+    btn.innerHTML = "Placing Order...";
+
     try {
 
-        const orderRef = await addDoc(collection(db, "orders"), {
-
-            customerName: name,
-            mobile: mobile,
-            email: email,
-            address: address,
-            city: city,
-            state: state,
-            pincode: pincode,
+        const order = {
+            customer: {
+                name,
+                mobile,
+                email,
+                address,
+                city,
+                state,
+                pincode
+            },
 
             products: cart,
 
-            total: finalTotal,
+            subtotal: subtotal,
 
-            paymentMethod: document.querySelector(
-                'input[name="payment"]:checked'
-            ).value,
+            total: subtotal,
 
-            status: "Pending",
+            payment: {
+                method: "UPI",
+                upiId: "9468659714@ybl",
+                utr: utr,
+                status: "Pending Verification"
+            },
 
-            createdAt: new Date()
+            orderStatus: "Pending",
 
-        });
+            createdAt: serverTimestamp()
 
-        startPayment();
+        };
 
-        console.log("Order ID :", orderRef.id);
+        const docRef = await addDoc(
+            collection(db, "orders"),
+            order
+        );
 
-        // Razorpay Integration Next Part
+        localStorage.removeItem("cart");
 
-    }
+        alert(
+            "Order Placed Successfully!\n\nOrder ID : " +
+            docRef.id +
+            "\n\nYour payment will be verified soon."
+        );
 
-    catch (error) {
+        window.location.href =
+            "order-success.html?id=" + docRef.id;
+
+    } catch (error) {
 
         console.error(error);
 
-        alert("Failed to create order.");
+        alert("Something went wrong. Please try again.");
 
     }
 
+    btn.disabled = false;
+
+    btn.innerHTML =
+        '<i class="fa-solid fa-circle-check"></i> Place Order';
+
 });
-// =======================
-// WhatsApp Order
-// =======================
-
-const whatsappBtn = document.getElementById("whatsapp-order-btn");
-
-if (whatsappBtn) {
-
-    whatsappBtn.addEventListener("click", () => {
-
-        const name = document.getElementById("name").value.trim();
-        const mobile = document.getElementById("mobile").value.trim();
-        const address = document.getElementById("address").value.trim();
-        const city = document.getElementById("city").value.trim();
-        const state = document.getElementById("state").value.trim();
-        const pincode = document.getElementById("pincode").value.trim();
-
-        let message = `🛍️ *Garima's House Hold*%0A%0A`;
-
-        message += `👤 Name : ${name}%0A`;
-        message += `📞 Mobile : ${mobile}%0A`;
-        message += `🏠 Address : ${address}, ${city}, ${state} - ${pincode}%0A%0A`;
-
-        message += `🛒 *Products*%0A`;
-
-        cart.forEach(item => {
-
-            message += `• ${item.name} × ${item.qty} = ₹${item.price * item.qty}%0A`;
-
-        });
-
-        message += `%0A💰 *Grand Total : ₹${finalTotal}*`;
-
-        window.open(
-            `https://wa.me/919374445544?text=${message}`,
-            "_blank"
-        );
-
-    });
-
-}
-
-// =======================
-// Order Success
-// =======================
-
-function orderSuccess() {
-
-    localStorage.removeItem("cart");
-
-    alert("Thank you! Your order has been placed successfully.");
-
-    window.location.href = "index.html";
-
-}
-// =======================
-// Razorpay Payment
-// =======================
-
-async function startPayment() {
-
-    const options = {
-
-        key: "YOUR_RAZORPAY_KEY_ID",
-
-        amount: finalTotal * 100,
-
-        currency: "INR",
-
-        name: "Garima's House Hold",
-
-        description: "Online Purchase",
-
-        image: "logo.png",
-
-        handler: async function (response) {
-
-            alert("Payment Successful!");
-
-            console.log(response);
-
-            localStorage.removeItem("cart");
-
-            window.location.href = "success.html";
-
-        },
-
-        theme: {
-            color: "#ff6b35"
-        }
-
-    };
-
-    const rzp = new Razorpay(options);
-
-    rzp.open();
-
-}
-
-
-// =======================
-// Coupon Events
-// =======================
-loadCoupons();
-
-const applyBtn=document.getElementById("apply-coupon");
-if(applyBtn){
-applyBtn.addEventListener("click",()=>{
- const code=document.getElementById("coupon-code").value.trim();
- const result=applyCoupon(code,grandTotal);
- const msg=document.getElementById("coupon-message");
- if(!result.success){
-   if(msg) msg.innerText=result.message;
-   return;
- }
- discount=result.discount;
- saveAppliedCoupon();
- updateSummary();
- if(msg) msg.innerText="✅ Coupon Applied";
- const rb=document.getElementById("remove-coupon");
- if(rb) rb.style.display="inline-block";
-});
-}
-
-const removeBtn=document.getElementById("remove-coupon");
-if(removeBtn){
-removeBtn.addEventListener("click",()=>{
- removeCoupon();
- discount=0;
- updateSummary();
- localStorage.removeItem("appliedCoupon");
- const msg=document.getElementById("coupon-message");
- if(msg) msg.innerText="";
- removeBtn.style.display="none";
-});
-}
-
-const saved=loadAppliedCoupon();
-if(saved){
- const r=applyCoupon(saved.code,grandTotal);
- if(r.success){
-   discount=r.discount;
-   updateSummary();
-   const inp=document.getElementById("coupon-code");
-   if(inp) inp.value=saved.code;
-   const rb=document.getElementById("remove-coupon");
-   if(rb) rb.style.display="inline-block";
- }
-}
