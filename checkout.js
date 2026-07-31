@@ -101,9 +101,18 @@ document.getElementById("placeOrderBtn").addEventListener("click", async () => {
     const city = document.getElementById("customerCity").value.trim();
     const state = document.getElementById("customerState").value.trim();
     const pincode = document.getElementById("customerPincode").value.trim();
-    const utr = document.getElementById("utrNumber").value.trim();
+    
     const confirmPayment = document.getElementById("paymentConfirm").checked;
+const screenshot =
+document.getElementById("paymentScreenshot").files[0];
 
+if (!screenshot) {
+
+    alert("Please upload your payment screenshot.");
+
+    return;
+
+}
     if (
         !name ||
         !mobile ||
@@ -111,8 +120,8 @@ document.getElementById("placeOrderBtn").addEventListener("click", async () => {
         !city ||
         !state ||
         !pincode ||
-        !utr
-    ) {
+     ) 
+     {
         alert("Please fill all required fields.");
         return;
     }
@@ -154,8 +163,7 @@ document.getElementById("placeOrderBtn").addEventListener("click", async () => {
             payment: {
                 method: "UPI",
                 upiId: "9468659714@ybl",
-                utr: utr,
-                status: "Pending Verification"
+            status: "Pending Verification"
             },
 
             orderStatus: "Pending",

@@ -3,8 +3,8 @@
 // cart.js
 // ==========================================
 
-const cartItems = document.getElementById("cart-items");
-const totalElement = document.getElementById("grand-total");
+const cartItems = document.getElementById("cartContainer");
+const totalElement = document.getElementById("grandTotal");
 
 let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
@@ -22,7 +22,7 @@ function loadCart() {
             </h2>
         `;
 
-        totalElement.innerText = "0";
+        totalElement.innerText = "₹0";
 
         return;
     }
@@ -41,7 +41,7 @@ function loadCart() {
 
             <img src="${item.image}"
                  alt="${item.name}"
-                 onerror="this.src='images/no-image.png'"
+                 onerror="this.src='images/no-image.png'">
 
             <div class="cart-info">
 
@@ -129,7 +129,7 @@ window.addEventListener("load", () => {
 // Proceed To Checkout
 // =========================
 
-const checkoutBtn = document.getElementById("checkout-btn");
+const checkoutBtn = document.getElementById("checkoutBtn");
 
 if (checkoutBtn) {
     checkoutBtn.addEventListener("click", () => {
