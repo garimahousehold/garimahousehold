@@ -157,7 +157,11 @@
 
 <span class="close">&times;</span>
 
-<h2>Add Product</h2>
+<h2 id="modalTitle">
+
+Add Product
+
+</h2>
 
 <form id="productForm">
 
@@ -211,9 +215,10 @@ placeholder="Description">
 </textarea>
 
 <input
-type="file"
+type="url"
 id="image"
-accept="image/*">
+placeholder="Image URL"
+required>
 
 <img
 id="preview"
@@ -221,10 +226,16 @@ style="display:none;width:120px;margin-top:10px;border-radius:10px;">
 
 <button type="submit">
 
-Save Product
+<button
+id="saveBtn"
+type="submit">
+
+
 
 </button>
-
+<input
+type="hidden"
+id="productId">
 </form>
 
 </div>

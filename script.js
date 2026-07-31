@@ -16,17 +16,7 @@ import {
     where,
     orderBy,
     limit
-} from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
-
-import {
-    getStorage,
-    ref,
-    getDownloadURL
-} from "https://www.gstatic.com/firebasejs/11.6.1/firebase-storage.js";
-
-// ================= FIREBASE =================
-
-const storage = getStorage();
+} from "https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js";
 
 // ================= GLOBAL VARIABLES =================
 
@@ -133,35 +123,15 @@ function formatPrice(price) {
 
 }
 
-// ================= STORAGE IMAGE =================
+function getImage(imageUrl){
 
-async function getImage(imagePath) {
-
-    try {
-
-        if (!imagePath) {
-
-            return DEFAULT_IMAGE;
-
-        }
-
-        if (imagePath.startsWith("http")) {
-
-            return imagePath;
-
-        }
-
-        const imageRef = ref(storage, imagePath);
-
-        return await getDownloadURL(imageRef);
-
-    }
-
-    catch {
+    if(!imageUrl){
 
         return DEFAULT_IMAGE;
 
     }
+
+    return imageUrl;
 
 }
 
@@ -255,7 +225,7 @@ async function loadProducts() {
 
             };
 
-            product.image = await getImage(product.image);
+            product.image = product.image || DEFAULT_IMAGE;
 
             products.push(product);
 
@@ -329,7 +299,7 @@ function createProductCard(product) {
 
     card.innerHTML = `
 
-        <div class="product-image">
+        <div class="product-card-image">
 
             <img
                 src="${product.image}"
@@ -405,13 +375,6 @@ function getProduct(id) {
 
 }
 
-// ================= REFRESH PRODUCTS =================
-
-async function refreshProducts() {
-
-    await loadProducts();
-
-}
 
 console.log("Part 2 Loaded");
 // ======================================================
@@ -463,17 +426,7 @@ function searchProducts(keyword) {
 
 }
 
-// ================= SEARCH EVENT =================
 
-if (searchInput) {
-
-    searchInput.addEventListener("input", e => {
-
-        searchProducts(e.target.value);
-
-    });
-
-}
 
 // ================= CATEGORY FILTER =================
 
@@ -505,25 +458,6 @@ function filterCategory(category) {
 
 }
 
-// ================= CATEGORY BUTTONS =================
-
-document
-
-.querySelectorAll("[data-category]")
-
-.forEach(button => {
-
-    button.addEventListener("click", () => {
-
-        filterCategory(
-
-            button.dataset.category
-
-        );
-
-    });
-
-});
 
 // ================= WISHLIST =================
 
@@ -990,7 +924,7 @@ async function loadProductDetails() {
 
             };
 
-            product.image = await getImage(product.image);
+            product.image = product.image || DEFAULT_IMAGE;
 
         }
 

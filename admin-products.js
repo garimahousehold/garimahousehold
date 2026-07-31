@@ -1,165 +1,258 @@
 import { db } from "./firebase.js";
 
 import {
-collection,
-addDoc,
-getDocs,
-deleteDoc,
-updateDoc,
-doc,
-serverTimestamp
+    collection,
+    addDoc,
+    getDocs,
+    getDoc,
+    updateDoc,
+    deleteDoc,
+    doc,
+    serverTimestamp
 } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js";
 
-const productRef = collection(db,"products");
+const productRef = collection(db, "products");
 
-// ===============================
+// ==========================
 // Elements
-// ===============================
+// ==========================
 
-const modal=document.getElementById("productModal");
-const addBtn=document.getElementById("addProductBtn");
-const closeBtn=document.querySelector(".close");
-const form=document.getElementById("productForm");
+const modal = document.getElementById("productModal");
+const addBtn = document.getElementById("addProductBtn");
+const closeBtn = document.querySelector(".close");
 
-const preview=document.getElementById("preview");
-const image=document.getElementById("image");
+const form = document.getElementById("productForm");
 
-const table=document.getElementById("productTable");
+const productId = document.getElementById("productId");
+const productName = document.getElementById("productName");
+const category = document.getElementById("category");
+const mrp = document.getElementById("mrp");
+const price = document.getElementById("price");
+const stock = document.getElementById("stock");
+const description = document.getElementById("description");
+const image = document.getElementById("image");
 
-const totalProducts=document.getElementById("totalProducts");
-const activeProducts=document.getElementById("activeProducts");
-const outStock=document.getElementById("outStock");
-const categoryCount=document.getElementById("categoryCount");
+const preview = document.getElementById("preview");
 
-const search=document.getElementById("search");
-const filter=document.getElementById("filterCategory");
+const table = document.getElementById("productTable");
 
-let products=[];
-let editId=null;
-// ===============================
-// Modal
-// ===============================
+const totalProducts = document.getElementById("totalProducts");
+const activeProducts = document.getElementById("activeProducts");
+const outStock = document.getElementById("outStock");
+const categoryCount = document.getElementById("categoryCount");
 
-addBtn.onclick=()=>{
+const search = document.getElementById("search");
+const filterCategory = document.getElementById("filterCategory");
 
-modal.style.display="block";
+const modalTitle = document.getElementById("modalTitle");
+const saveBtn = document.getElementById("saveBtn");
 
-form.reset();
+let products = [];
+let editId = null;
+// ==========================
+// Modal Open / Close
+// ==========================
 
-preview.style.display="none";
+addBtn.addEventListener("click", () => {
 
-editId=null;
+    modal.style.display = "block";
 
-};
+    form.reset();
 
-closeBtn.onclick=()=>{
+    preview.style.display = "none";
 
-modal.style.display="none";
+    preview.src = "";
 
-};
+    editId = null;
 
-window.onclick=(e)=>{
+    productId.value = "";
 
-if(e.target==modal){
+    modalTitle.textContent = "Add Product";
 
-modal.style.display="none";
-
-}
-
-};
-image.addEventListener("change",(e)=>{
-
-const file=e.target.files[0];
-
-if(!file) return;
-
-preview.src=URL.createObjectURL(file);
-
-preview.style.display="block";
+    saveBtn.textContent = "Save Product";
 
 });
-form.addEventListener("submit",async(e)=>{
 
-e.preventDefault();
+closeBtn.addEventListener("click", () => {
 
-const product={
-
-name:document.getElementById("productName").value,
-
-category:document.getElementById("category").value,
-
-mrp:Number(document.getElementById("mrp").value),
-
-price:Number(document.getElementById("price").value),
-
-stock:Number(document.getElementById("stock").value),
-
-description:document.getElementById("description").value,
-
-image:"",
-
-active:true,
-
-createdAt:serverTimestamp()
-
-};
-
-try{
-
-await addDoc(productRef,product);
-
-alert("Product Added Successfully");
-
-modal.style.display="none";
-
-form.reset();
-
-loadProducts();
-
-}catch(err){
-
-alert(err.message);
-
-}
+    modal.style.display = "none";
 
 });
-async function loadProducts(){
 
-table.innerHTML="";
+window.addEventListener("click", (e) => {
 
-products=[];
+    if (e.target === modal) {
 
-let total=0;
-let active=0;
-let stock=0;
+        modal.style.display = "none";
 
-const categorySet=new Set();
+    }
 
-const snap=await getDocs(productRef);
+});
 
-snap.forEach((d)=>{
+// ==========================
+// Image URL Preview
+// ==========================
 
-const p=d.data();
+image.addEventListener("input", () => {
 
-p.id=d.id;
+    const url = image.value.trim();
 
-products.push(p);
+    if (url !== "") {
 
-total++;
+        preview.src = url;
 
-if(p.active) active++;
+        preview.style.display = "block";
 
-if(p.stock<=0) stock++;
+    } else {
 
-categorySet.add(p.category);
+        preview.style.display = "none";
 
-table.innerHTML+=`
+        preview.src = "";
+
+    }
+
+});
+// ==========================
+// Add / Update Product
+// ==========================
+
+form.addEventListener("submit", async (e) => {
+
+    e.preventDefault();
+
+    try {
+
+        const product = {
+            name: productName.value.trim(),
+            category: category.value,
+            mrp: Number(mrp.value),
+            price: Number(price.value),
+            stock: Number(stock.value),
+            description: description.value.trim(),
+            image: image.value.trim(),
+            active: Number(stock.value) > 0,
+            createdAt: serverTimestamp()
+        };
+
+        if (editId) {
+
+            await updateDoc(doc(db, "products", editId), {
+                name: product.name,
+                category: product.category,
+                mrp: product.mrp,
+                price: product.price,
+                stock: product.stock,
+                description: product.description,
+                image: product.image,
+                active: product.active
+            });
+
+            alert("✅ Product Updated Successfully");
+
+        } else {
+
+            await addDoc(productRef, product);
+
+            alert("✅ Product Added Successfully");
+
+        }
+
+        modal.style.display = "none";
+
+        form.reset();
+
+        preview.style.display = "none";
+
+        preview.src = "";
+
+        editId = null;
+
+        loadProducts();
+
+    } catch (err) {
+
+        console.error(err);
+
+        alert(err.message);
+
+    }
+
+});
+// ==========================
+// Load Products
+// ==========================
+
+async function loadProducts() {
+
+    table.innerHTML = "";
+
+    products = [];
+
+    const snap = await getDocs(productRef);
+
+    let total = 0;
+    let active = 0;
+    let out = 0;
+
+    const categories = new Set();
+
+    filterCategory.innerHTML =
+        `<option value="">All Categories</option>`;
+
+    snap.forEach((documentData) => {
+
+        const p = documentData.data();
+
+        p.id = documentData.id;
+
+        products.push(p);
+
+        total++;
+
+        if (p.active) active++;
+
+        if (p.stock <= 0) out++;
+
+        categories.add(p.category);
+
+    });
+
+    categories.forEach(cat => {
+
+        filterCategory.innerHTML +=
+        `<option value="${cat}">${cat}</option>`;
+
+    });
+
+    totalProducts.textContent = total;
+
+    activeProducts.textContent = active;
+
+    outStock.textContent = out;
+
+    categoryCount.textContent = categories.size;
+
+    renderProducts(products);
+
+}
+// ==========================
+// Render Product Table
+// ==========================
+
+function renderProducts(list) {
+
+    table.innerHTML = "";
+
+    list.forEach((p) => {
+
+        table.innerHTML += `
 
 <tr>
 
 <td>
 
-<img src="${p.image||'https://via.placeholder.com/60'}">
+<img src="${p.image}"
+style="width:60px;height:60px;object-fit:cover;border-radius:8px;">
 
 </td>
 
@@ -175,9 +268,9 @@ table.innerHTML+=`
 
 <td>
 
-<span class="${p.active?'activeStatus':'inactiveStatus'}">
+<span class="${p.active ? "activeStatus" : "inactiveStatus"}">
 
-${p.active?'Active':'Inactive'}
+${p.active ? "Active" : "Inactive"}
 
 </span>
 
@@ -186,7 +279,6 @@ ${p.active?'Active':'Inactive'}
 <td>
 
 <button class="editBtn"
-
 onclick="editProduct('${p.id}')">
 
 Edit
@@ -194,7 +286,6 @@ Edit
 </button>
 
 <button class="deleteBtn"
-
 onclick="deleteProduct('${p.id}')">
 
 Delete
@@ -207,16 +298,131 @@ Delete
 
 `;
 
-});
-
-totalProducts.innerHTML=total;
-
-activeProducts.innerHTML=active;
-
-outStock.innerHTML=stock;
-
-categoryCount.innerHTML=categorySet.size;
+    });
 
 }
+// ==========================
+// Edit Product
+// ==========================
+
+window.editProduct = async function (id) {
+
+    try {
+
+        const snap = await getDoc(doc(db, "products", id));
+
+        if (!snap.exists()) return;
+
+        const p = snap.data();
+
+        editId = id;
+
+        productId.value = id;
+
+        productName.value = p.name || "";
+        category.value = p.category || "";
+        mrp.value = p.mrp || "";
+        price.value = p.price || "";
+        stock.value = p.stock || "";
+        description.value = p.description || "";
+        image.value = p.image || "";
+
+        if (p.image) {
+
+            preview.src = p.image;
+
+            preview.style.display = "block";
+
+        } else {
+
+            preview.style.display = "none";
+
+        }
+
+        modalTitle.textContent = "Edit Product";
+
+        saveBtn.textContent = "Update Product";
+
+        modal.style.display = "block";
+
+    } catch (err) {
+
+        console.error(err);
+
+        alert(err.message);
+
+    }
+
+};
+
+// ==========================
+// Delete Product
+// ==========================
+
+window.deleteProduct = async function (id) {
+
+    if (!confirm("Delete this product?")) return;
+
+    try {
+
+        await deleteDoc(doc(db, "products", id));
+
+        alert("Product Deleted Successfully");
+
+        loadProducts();
+
+    } catch (err) {
+
+        console.error(err);
+
+        alert(err.message);
+
+    }
+
+};
+
+// ==========================
+// Search
+// ==========================
+
+search.addEventListener("input", () => {
+
+    const keyword = search.value.toLowerCase().trim();
+
+    const filtered = products.filter(p =>
+
+        (p.name || "").toLowerCase().includes(keyword) ||
+
+        (p.category || "").toLowerCase().includes(keyword)
+
+    );
+
+    renderProducts(filtered);
+
+});
+
+// ==========================
+// Category Filter
+// ==========================
+
+filterCategory.addEventListener("change", () => {
+
+    const value = filterCategory.value;
+
+    if (value === "") {
+
+        renderProducts(products);
+
+        return;
+
+    }
+
+    renderProducts(products.filter(p => p.category === value));
+
+});
+
+// ==========================
+// Initial Load
+// ==========================
 
 loadProducts();
