@@ -1,0 +1,308 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    background:#f5f6fa;
+    display:flex;
+}
+
+/* Sidebar */
+
+.sidebar{
+    width:260px;
+    height:100vh;
+    background:#ff6b35;
+    color:#fff;
+    position:fixed;
+    left:0;
+    top:0;
+    padding:25px 15px;
+}
+
+.sidebar h2{
+    text-align:center;
+    margin-bottom:35px;
+    font-size:22px;
+}
+
+.sidebar ul{
+    list-style:none;
+}
+
+.sidebar ul li{
+    margin:12px 0;
+}
+
+.sidebar ul li a{
+    display:block;
+    text-decoration:none;
+    color:#fff;
+    padding:12px 15px;
+    border-radius:8px;
+    transition:.3s;
+}
+
+.sidebar ul li a:hover,
+.sidebar ul li.active a{
+    background:#fff;
+    color:#ff6b35;
+}
+
+/* Main */
+
+.main{
+    margin-left:260px;
+    width:calc(100% - 260px);
+    padding:30px;
+}
+
+/* Topbar */
+
+.topbar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:30px;
+}
+
+.topbar h1{
+    color:#333;
+}
+
+#addProductBtn{
+    background:#ff6b35;
+    color:#fff;
+    border:none;
+    padding:12px 20px;
+    border-radius:8px;
+    cursor:pointer;
+    font-size:15px;
+    font-weight:600;
+}
+
+#addProductBtn:hover{
+    background:#e55a28;
+}
+
+/* Cards */
+
+.cards{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:20px;
+    margin-bottom:25px;
+}
+
+.card{
+    background:#fff;
+    border-radius:12px;
+    padding:20px;
+    box-shadow:0 4px 12px rgba(0,0,0,.08);
+    text-align:center;
+}
+
+.card h2{
+    color:#ff6b35;
+    font-size:34px;
+    margin-bottom:8px;
+}
+
+.card p{
+    color:#666;
+}
+
+/* Toolbar */
+
+.toolbar{
+    display:flex;
+    gap:15px;
+    margin-bottom:20px;
+}
+
+.toolbar input,
+.toolbar select{
+    padding:12px;
+    border:1px solid #ddd;
+    border-radius:8px;
+    flex:1;
+    font-size:15px;
+}
+
+/* Table */
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    background:#fff;
+    border-radius:12px;
+    overflow:hidden;
+    box-shadow:0 4px 12px rgba(0,0,0,.08);
+}
+
+thead{
+    background:#ff6b35;
+    color:#fff;
+}
+
+th,td{
+    padding:14px;
+    text-align:center;
+}
+
+tbody tr{
+    border-bottom:1px solid #eee;
+}
+
+tbody tr:hover{
+    background:#fafafa;
+}
+
+td img{
+    width:60px;
+    height:60px;
+    object-fit:cover;
+    border-radius:8px;
+}
+
+/* Status */
+
+.activeStatus{
+    color:#16a34a;
+    font-weight:bold;
+}
+
+.inactiveStatus{
+    color:#dc2626;
+    font-weight:bold;
+}
+
+/* Action Buttons */
+
+.editBtn,
+.deleteBtn{
+    border:none;
+    padding:8px 12px;
+    border-radius:6px;
+    cursor:pointer;
+    margin:2px;
+}
+
+.editBtn{
+    background:#2563eb;
+    color:#fff;
+}
+
+.deleteBtn{
+    background:#dc2626;
+    color:#fff;
+}
+
+/* Modal */
+
+.modal{
+    display:none;
+    position:fixed;
+    left:0;
+    top:0;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,.5);
+    z-index:1000;
+}
+
+.modal-content{
+    background:#fff;
+    width:700px;
+    max-width:95%;
+    margin:40px auto;
+    border-radius:12px;
+    padding:25px;
+    position:relative;
+    max-height:90vh;
+    overflow:auto;
+}
+
+.close{
+    position:absolute;
+    top:15px;
+    right:20px;
+    font-size:28px;
+    cursor:pointer;
+}
+
+.modal h2{
+    margin-bottom:20px;
+}
+
+.modal input,
+.modal textarea,
+.modal select{
+    width:100%;
+    padding:12px;
+    margin:10px 0;
+    border:1px solid #ddd;
+    border-radius:8px;
+}
+
+.modal textarea{
+    height:120px;
+    resize:none;
+}
+
+.modal button{
+    width:100%;
+    padding:14px;
+    background:#ff6b35;
+    color:#fff;
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+    margin-top:10px;
+}
+
+#preview{
+    display:block;
+    margin:15px auto;
+    border-radius:10px;
+    max-width:120px;
+}
+
+/* Responsive */
+
+@media(max-width:900px){
+
+.sidebar{
+    width:80px;
+}
+
+.sidebar h2{
+    display:none;
+}
+
+.sidebar a{
+    font-size:13px;
+}
+
+.main{
+    margin-left:80px;
+    width:calc(100% - 80px);
+}
+
+.toolbar{
+    flex-direction:column;
+}
+
+.cards{
+    grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+}
+
+table{
+    display:block;
+    overflow:auto;
+}
+
+}

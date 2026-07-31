@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Admin Products | Garima's House Hold</title>
+
+<link rel="stylesheet" href="admin-products.css">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+</head>
+
+<body>
+
+<!-- Sidebar -->
+
+<div class="sidebar">
+
+    <h2>Garima's House Hold</h2>
+
+    <ul>
+
+        <li><a href="dashboard.html">🏠 Dashboard</a></li>
+
+        <li class="active"><a href="#">📦 Products</a></li>
+
+        <li><a href="admin-orders.html">🛒 Orders</a></li>
+
+        <li><a href="admin-coupons.html">🎟 Coupons</a></li>
+
+        <li><a href="admin-category.html">📂 Categories</a></li>
+
+        <li><a href="admin-settings.html">⚙ Settings</a></li>
+
+    </ul>
+
+</div>
+
+<!-- Main -->
+
+<div class="main">
+
+    <!-- Top Bar -->
+
+    <div class="topbar">
+
+        <h1>Products Manager</h1>
+
+        <button id="addProductBtn">
+            + Add Product
+        </button>
+
+    </div>
+
+    <!-- Dashboard Cards -->
+
+    <div class="cards">
+
+        <div class="card">
+
+            <h2 id="totalProducts">0</h2>
+
+            <p>Total Products</p>
+
+        </div>
+
+        <div class="card">
+
+            <h2 id="activeProducts">0</h2>
+
+            <p>Active</p>
+
+        </div>
+
+        <div class="card">
+
+            <h2 id="outStock">0</h2>
+
+            <p>Out Of Stock</p>
+
+        </div>
+
+        <div class="card">
+
+            <h2 id="categoryCount">0</h2>
+
+            <p>Categories</p>
+
+        </div>
+
+    </div>
+
+    <!-- Search -->
+
+    <div class="toolbar">
+
+        <input
+            type="text"
+            id="search"
+            placeholder="Search Product..."
+        >
+
+        <select id="filterCategory">
+
+            <option value="">All Categories</option>
+
+        </select>
+
+    </div>
+
+    <!-- Product Table -->
+
+    <table>
+
+        <thead>
+
+            <tr>
+
+                <th>Image</th>
+
+                <th>Name</th>
+
+                <th>Category</th>
+
+                <th>MRP</th>
+
+                <th>Price</th>
+
+                <th>Stock</th>
+
+                <th>Status</th>
+
+                <th>Actions</th>
+
+            </tr>
+
+        </thead>
+
+        <tbody id="productTable">
+
+        </tbody>
+
+    </table>
+
+</div>
+
+<!-- Add/Edit Product Modal -->
+
+<div id="productModal" class="modal">
+
+<div class="modal-content">
+
+<span class="close">&times;</span>
+
+<h2>Add Product</h2>
+
+<form id="productForm">
+
+<input
+type="text"
+id="productName"
+placeholder="Product Name"
+required>
+
+<select id="category" required>
+
+<option value="">Select Category</option>
+
+<option>Kitchen</option>
+
+<option>Plastic</option>
+
+<option>Crockery</option>
+
+<option>Home Essentials</option>
+
+<option>Gift Items</option>
+
+<option>Sarees</option>
+
+<option>Kurtis</option>
+
+</select>
+
+<input
+type="number"
+id="mrp"
+placeholder="MRP"
+required>
+
+<input
+type="number"
+id="price"
+placeholder="Selling Price"
+required>
+
+<input
+type="number"
+id="stock"
+placeholder="Stock Quantity"
+required>
+
+<textarea
+id="description"
+placeholder="Description">
+</textarea>
+
+<input
+type="file"
+id="image"
+accept="image/*">
+
+<img
+id="preview"
+style="display:none;width:120px;margin-top:10px;border-radius:10px;">
+
+<button type="submit">
+
+Save Product
+
+</button>
+
+</form>
+
+</div>
+
+</div>
+
+<script type="module" src="auth.js"></script>
+
+<script type="module" src="admin-products.js"></script>
+
+</body>
+
+</html>

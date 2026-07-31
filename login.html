@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Login</title>
+
+<link rel="stylesheet" href="login.css">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+</head>
+<body>
+
+<div class="login-container">
+
+    <div class="login-box">
+
+        <h2>Garima's House Hold</h2>
+
+        <p>Admin Login</p>
+
+        <form id="loginForm">
+
+            <input
+                type="email"
+                id="email"
+                placeholder="Admin Email"
+                required
+            >
+
+            <input
+                type="password"
+                id="password"
+                placeholder="Password"
+                required
+            >
+
+            <label class="remember">
+
+                <input type="checkbox" id="remember">
+
+                Remember Me
+
+            </label>
+
+            <button type="submit">
+                Login
+            </button>
+
+        </form>
+
+        <button id="resetPassword" class="link-btn">
+            Forgot Password?
+        </button>
+
+        <p id="message"></p>
+
+    </div>
+
+</div>
+
+<script type="module" src="login.js"></script>
+</body>
+</html>

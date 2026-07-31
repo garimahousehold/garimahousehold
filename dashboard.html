@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Admin Dashboard</title>
+
+<link rel="stylesheet" href="dashboard.css">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="sidebar">
+
+<h2>Garima's House Hold</h2>
+
+<ul>
+
+<li><a href="dashboard.html">🏠 Dashboard</a></li>
+
+<li><a href="admin-products.html">📦 Products</a></li>
+
+<li><a href="admin-orders.html">🛒 Orders</a></li>
+
+<li><a href="admin-coupons.html">🎟 Coupons</a></li>
+
+<li><a href="admin-category.html">📂 Categories</a></li>
+
+<li><a href="admin-settings.html">⚙ Settings</a></li>
+
+</ul>
+
+</div>
+
+<div class="main">
+
+<h1>Dashboard</h1>
+
+<div class="cards">
+
+<div class="card">
+<h2 id="total-products">0</h2>
+<p>Total Products</p>
+</div>
+
+<div class="card">
+<h2 id="total-orders">0</h2>
+<p>Total Orders</p>
+</div>
+
+<div class="card">
+<h2 id="total-customers">0</h2>
+<p>Total Customers</p>
+</div>
+
+<div class="card">
+<h2 id="total-revenue">₹0</h2>
+<p>Total Revenue</p>
+</div>
+
+<div class="card">
+<h2 id="active-coupons">0</h2>
+<p>Active Coupons</p>
+</div>
+
+<div class="card">
+<h2 id="pending-orders">0</h2>
+<p>Pending Orders</p>
+</div>
+
+</div>
+
+<h2>Recent Orders</h2>
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>Order ID</th>
+
+<th>Customer</th>
+
+<th>Total</th>
+
+<th>Status</th>
+
+<th>Date</th>
+
+</tr>
+
+</thead>
+
+<tbody id="recent-orders">
+
+</tbody>
+
+</table>
+
+</div>
+
+<script type="module" src="auth.js"></script>
+
+<script type="module" src="dashboard.js"></script>
+
+</body>
+
+</html>
