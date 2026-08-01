@@ -4,573 +4,904 @@
 <head>
 
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Garima's House Hold</title>
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
 
-<link rel="stylesheet" href="style.css">
+<title>
+Garima's House Hold | Essentials For Every Home
+</title>
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<meta name="description"
+content="Garima's House Hold - Kitchen Items, Home Essentials, Sarees, Kurtis, Gift Items, Crockery & More.">
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<meta name="keywords"
+content="Garima House Hold, House Hold, Saree, Kurti, Kitchen Items">
+
+<meta name="author"
+content="Garima's House Hold">
+
+<!-- Favicon -->
+
+<link rel="icon"
+href="favicon.ico">
+
+<!-- Google Font -->
+
+<link rel="preconnect"
+href="https://fonts.googleapis.com">
+
+<link rel="preconnect"
+href="https://fonts.gstatic.com"
+crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+rel="stylesheet">
+
+<!-- Font Awesome -->
 
 <link rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"/>
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+<!-- Main CSS -->
+
+<link rel="stylesheet"
+href="style.css">
 
 </head>
 
 <body>
 
-<!-- WhatsApp -->
+<!-- ========================= -->
+<!-- LOADER -->
+<!-- ========================= -->
 
-<a href="https://wa.me/919374445544"
-class="whatsapp"
+<div id="loader">
+
+<div class="loader-circle"></div>
+
+</div>
+
+<!-- ========================= -->
+<!-- TOP BAR -->
+<!-- ========================= -->
+
+<div class="top-bar">
+
+<div class="container top-bar-content">
+
+<span>
+🚚 Fast & Secure Delivery
+</span>
+
+<span>
+💳 Secure UPI Payment
+</span>
+
+<span>
+📞 Support :
++91 9374445544
+</span>
+
+</div>
+
+</div>
+
+<!-- ========================= -->
+<!-- HEADER -->
+<!-- ========================= -->
+
+<header class="header">
+
+<div class="container header-inner">
+
+<!-- Logo -->
+
+<a href="index.html"
+class="logo">
+
+<img
+src="images/logo.png"
+alt="Garima's House Hold">
+
+</a>
+
+<!-- Search -->
+
+<div class="search-box">
+
+<input
+type="text"
+id="searchInput"
+placeholder="Search Products or SKU...">
+
+<button>
+
+<i class="fa-solid fa-magnifying-glass"></i>
+
+</button>
+
+</div>
+
+<!-- Icons -->
+
+<div class="header-icons">
+
+<a href="wishlist.html">
+
+<i class="fa-regular fa-heart"></i>
+
+<span id="wishlistCount">
+
+0
+
+</span>
+
+</a>
+
+<a href="cart.html">
+
+<i class="fa-solid fa-cart-shopping"></i>
+
+<span id="cartCount">
+
+0
+
+</span>
+
+</a>
+
+<button id="menuBtn">
+
+<i class="fa-solid fa-bars"></i>
+
+</button>
+
+</div>
+
+</div>
+
+</header>
+<!-- ========================= -->
+<!-- NAVIGATION -->
+<!-- ========================= -->
+
+<nav class="navbar">
+
+    <div class="container">
+
+        <ul class="nav-links">
+
+            <li>
+                <a href="index.html">Home</a>
+            </li>
+
+            <li>
+                <a href="category.html?cat=saree">Saree</a>
+            </li>
+
+            <li>
+                <a href="category.html?cat=kurti">Kurti</a>
+            </li>
+
+            <li>
+                <a href="category.html?cat=house hold">House Hold</a>
+            </li>
+
+            <li>
+                <a href="#">
+                    Rental
+                    <span class="coming-soon">
+                        Coming Soon
+                    </span>
+                </a>
+            </li>
+
+            <li>
+                <a href="#">
+                    Food
+                    <span class="coming-soon">
+                        Coming Soon
+                    </span>
+                </a>
+            </li>
+
+        </ul>
+
+    </div>
+
+</nav>
+
+<!-- ========================= -->
+<!-- HERO SLIDER -->
+<!-- ========================= -->
+
+<section class="hero-slider">
+
+    <div class="slider">
+
+        <!-- Banner 1 -->
+
+        <div class="slide active">
+
+            <img
+                src="banner_image/banner1.png"
+                alt="Garima Banner 1">
+
+        </div>
+
+        <!-- Banner 2 -->
+
+        <div class="slide">
+
+            <img
+                src="banner_image/banner2.png"
+                alt="Garima Banner 2">
+
+        </div>
+
+        <!-- Banner 3 -->
+
+        <div class="slide">
+
+            <img
+                src="banner_image/banner3.png"
+                alt="Garima Banner 3">
+
+        </div>
+
+    </div>
+
+    <!-- Slider Dots -->
+
+    <div class="slider-dots">
+
+        <span class="dot active"></span>
+
+        <span class="dot"></span>
+
+        <span class="dot"></span>
+
+    </div>
+
+</section>
+
+<!-- ===================================== -->
+<!-- SHOP BY CATEGORY -->
+<!-- ===================================== -->
+
+<section class="shop-category">
+
+    <div class="container">
+
+        <div class="section-title">
+
+            <h2>Shop By Category</h2>
+
+            <p>
+                Everything you need for your home & lifestyle
+            </p>
+
+        </div>
+
+        <div class="category-grid">
+
+            <!-- Saree -->
+
+            <a href="category.html?category=Saree"
+               class="category-card">
+
+                <img src="images/saree.jpeg"
+                     alt="Saree">
+
+                <h3>Saree</h3>
+
+            </a>
+
+            <!-- Kurti -->
+
+            <a href="category.html?category=Kurti"
+               class="category-card">
+
+                <img src="images/kurti.jpeg"
+                     alt="Kurti">
+
+                <h3>Kurti</h3>
+
+            </a>
+
+            <!-- House Hold -->
+
+            <a href="category.html?category=House Hold"
+               class="category-card">
+
+                <img src="images/household.jpeg"
+                     alt="House Hold">
+
+                <h3>House Hold</h3>
+
+            </a>
+
+            <!-- Rental -->
+
+            <div class="category-card disabled">
+
+                <img src="images/rental.jpg"
+                     alt="Rental">
+
+                <h3>
+
+                    Rental
+
+                    <span class="coming-badge">
+
+                        Coming Soon
+
+                    </span>
+
+                </h3>
+
+            </div>
+
+            <!-- Food -->
+
+            <div class="category-card disabled">
+
+                <img src="images/food.jpg"
+                     alt="Food">
+
+                <h3>
+
+                    Food
+
+                    <span class="coming-badge">
+
+                        Coming Soon
+
+                    </span>
+
+                </h3>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ===================================== -->
+<!-- FEATURED PRODUCTS -->
+<!-- ===================================== -->
+
+<section class="featured-products">
+
+    <div class="container">
+
+        <div class="section-title">
+
+            <h2>Featured Products</h2>
+
+            <p>
+
+                Hand picked Products For You
+
+            </p>
+
+        </div>
+
+        <div id="products-grid"
+             class="products-grid">
+
+            <!-- Firebase Products -->
+
+        </div>
+
+    </div>
+
+</section>
+<!-- ===================================== -->
+<!-- BEST SELLERS -->
+<!-- ===================================== -->
+
+<section class="best-sellers">
+
+    <div class="container">
+
+        <div class="section-title">
+
+            <h2>Best Sellers</h2>
+
+            <p>
+
+                Our Most Loved Products
+
+            </p>
+
+        </div>
+
+        <div id="bestSellerProducts"
+             class="products-grid">
+
+            <!-- Firebase -->
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ===================================== -->
+<!-- NEW ARRIVALS -->
+<!-- ===================================== -->
+
+<section class="new-arrivals">
+
+    <div class="container">
+
+        <div class="section-title">
+
+            <h2>New Arrivals</h2>
+
+            <p>
+
+                Freshly Added Collection
+
+            </p>
+
+        </div>
+
+        <div id="newArrivalProducts"
+             class="products-grid">
+
+            <!-- Firebase -->
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ===================================== -->
+<!-- TRENDING PRODUCTS -->
+<!-- ===================================== -->
+
+<section class="trending-products">
+
+    <div class="container">
+
+        <div class="section-title">
+
+            <h2>Trending Products</h2>
+
+            <p>
+
+                Trending Right Now
+
+            </p>
+
+        </div>
+
+        <div id="trendingProducts"
+             class="products-grid">
+
+            <!-- Firebase -->
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ===================================== -->
+<!-- WHY CHOOSE US -->
+<!-- ===================================== -->
+
+<section class="why-choose-us">
+
+    <div class="container">
+
+        <div class="section-title">
+
+            <h2>Why Choose Garima's House Hold?</h2>
+
+            <p>
+
+                Trusted by hundreds of happy customers
+
+            </p>
+
+        </div>
+
+        <div class="features-grid">
+
+            <div class="feature-card">
+
+                <i class="fa-solid fa-truck-fast"></i>
+
+                <h3>Fast Delivery</h3>
+
+                <p>
+
+                    Safe & Fast Shipping Across India.
+
+                </p>
+
+            </div>
+
+            <div class="feature-card">
+
+                <i class="fa-solid fa-shield-halved"></i>
+
+                <h3>Secure Payment</h3>
+
+                <p>
+
+                    100% Secure UPI Payment.
+
+                </p>
+
+            </div>
+
+            <div class="feature-card">
+
+                <i class="fa-solid fa-award"></i>
+
+                <h3>Premium Quality</h3>
+
+                <p>
+
+                    Best Quality Products Guaranteed.
+
+                </p>
+
+            </div>
+
+            <div class="feature-card">
+
+                <i class="fa-solid fa-headset"></i>
+
+                <h3>Customer Support</h3>
+
+                <p>
+
+                    Friendly Support Whenever You Need.
+
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+<!-- ===================================== -->
+<!-- CUSTOMER REVIEWS -->
+<!-- ===================================== -->
+
+<section class="customer-reviews">
+
+    <div class="container">
+
+        <div class="section-title">
+
+            <h2>What Our Customers Say</h2>
+
+            <p>
+
+                Trusted by happy customers across India
+
+            </p>
+
+        </div>
+
+        <div class="review-grid">
+
+            <div class="review-card">
+
+                <div class="stars">
+
+                    ⭐⭐⭐⭐⭐
+
+                </div>
+
+                <p>
+
+                    Amazing quality products and fast delivery. Highly recommended.
+
+                </p>
+
+                <h4>
+
+                    — Priya Sharma
+
+                </h4>
+
+            </div>
+
+            <div class="review-card">
+
+                <div class="stars">
+
+                    ⭐⭐⭐⭐⭐
+
+                </div>
+
+                <p>
+
+                    Beautiful collection with affordable prices.
+
+                </p>
+
+                <h4>
+
+                    — Neha Jain
+
+                </h4>
+
+            </div>
+
+            <div class="review-card">
+
+                <div class="stars">
+
+                    ⭐⭐⭐⭐⭐
+
+                </div>
+
+                <p>
+
+                    Great shopping experience and excellent customer support.
+
+                </p>
+
+                <h4>
+
+                    — Ritu Mehta
+
+                </h4>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ===================================== -->
+<!-- NEWSLETTER -->
+<!-- ===================================== -->
+
+<section class="newsletter">
+
+    <div class="container">
+
+        <div class="newsletter-box">
+
+            <h2>
+
+                Stay Updated
+
+            </h2>
+
+            <p>
+
+                Subscribe for new arrivals and special offers.
+
+            </p>
+
+            <form class="newsletter-form">
+
+                <input
+                    type="email"
+                    placeholder="Enter Your Email">
+
+                <button type="submit">
+
+                    Subscribe
+
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ===================================== -->
+<!-- FOOTER -->
+<!-- ===================================== -->
+
+<footer class="footer">
+
+    <div class="container footer-grid">
+
+        <div>
+
+            <img
+                src="images/logo.png"
+                class="footer-logo"
+                alt="Garima's House Hold">
+
+            <p>
+
+                Essentials For Every Home
+
+            </p>
+
+        </div>
+
+        <div>
+
+            <h3>
+
+                Categories
+
+            </h3>
+
+            <ul>
+
+                <li><a href="category.html?category=Saree">Saree</a></li>
+
+                <li><a href="category.html?category=Kurti">Kurti</a></li>
+
+                <li><a href="category.html?category=House Hold">House Hold</a></li>
+
+                <li><a href="#">Rental</a></li>
+
+                <li><a href="#">Food</a></li>
+
+            </ul>
+
+        </div>
+
+        <div>
+
+            <h3>
+
+                Quick Links
+
+            </h3>
+
+            <ul>
+
+                <li><a href="#">About Us</a></li>
+
+                <li><a href="#">Privacy Policy</a></li>
+
+                <li><a href="#">Terms & Conditions</a></li>
+
+                <li><a href="#">Contact Us</a></li>
+
+            </ul>
+
+        </div>
+
+        <div>
+
+            <h3>
+
+                Contact
+
+            </h3>
+
+            <p>
+
+                📞 +91 9374445544
+
+            </p>
+
+            <p>
+
+                📍 Bijainagar, Rajasthan
+
+            </p>
+
+            <p>
+
+                🕙 Mon - Sat : 10 AM - 8 PM
+
+            </p>
+
+        </div>
+
+    </div>
+
+    <div class="footer-bottom">
+
+        © 2026 Garima's House Hold. All Rights Reserved.
+
+    </div>
+
+</footer>
+
+<!-- ===================================== -->
+<!-- FLOATING WHATSAPP -->
+<!-- ===================================== -->
+
+<a
+href="https://wa.me/919374445544"
+
+class="whatsapp-btn"
+
 target="_blank">
 
 <i class="fa-brands fa-whatsapp"></i>
 
 </a>
 
-<!-- Header -->
+<!-- ===================================== -->
+<!-- SCROLL TO TOP -->
+<!-- ===================================== -->
 
-<header class="header">
+<button id="scrollTop">
 
-    <div class="container">
-
-        <a href="index.html" class="logo">
-
-            <img src="logo.png" class="logo-img">
-
-            <div class="logo-text">
-
-                <h2>Garima's House Hold</h2>
-
-                <span>A Unit Of Madhuban Creation</span>
-
-            </div>
-
-        </a>
-
-        <nav class="nav-menu">
-
-            <a href="#">Home</a>
-
-            <a href="#category">Categories</a>
-
-            <a href="#products">Shop</a>
-
-            <a href="#">Offers</a>
-
-            <a href="#">Contact</a>
-
-        </nav>
-
-        <div class="header-actions">
-
-            <div class="search-wrapper">
-
-                <i class="fa-solid fa-magnifying-glass"></i>
-
-                <input
-                    type="text"
-                    id="search"
-                    placeholder="Search Products...">
-
-            </div>
-
-            <a href="wishlist.html" class="icon-btn">
-
-                <i class="fa-regular fa-heart"></i>
-
-                <span id="wishlist-count">0</span>
-
-            </a>
-
-            <a href="cart.html" class="icon-btn">
-
-                <i class="fa-solid fa-cart-shopping"></i>
-
-                <span id="cart-count">0</span>
-
-            </a>
-
-        </div>
-
-    </div>
-
-</header>
-
-<!-- Slider -->
-
-<section class="hero">
-
-    <div class="hero-content">
-
-        <span class="hero-tag">
-            ✨ Premium Household Collection
-        </span>
-
-        <h1>
-            Everything Your Home Needs
-        </h1>
-
-        <p>
-            Kitchen Essentials, Crockery, Plastic Items,
-            Sarees, Kurtis & Much More.
-        </p>
-
-        <div class="hero-buttons">
-
-            <a href="#products" class="btn-primary">
-                Shop Now
-            </a>
-
-            <a href="#category" class="btn-secondary">
-                Explore Categories
-            </a>
-
-        </div>
-
-    </div>
-
-    <div class="hero-image">
-
-        <img src="banner_image/banner1.png"
-             alt="Garima Household">
-
-    </div>
-
-</section>
-
-<!-- Categories -->
-
-<section class="category" id="category">
-
-<h2>Shop By Category</h2>
-
-<div class="box">
-
-<div class="category-item" data-category="All">
-⭐
-<h3>All Products</h3>
-</div>
-
-<div class="category-item" data-category="House Hold">
-🏠
-<h3>House Hold</h3>
-</div>
-
-<div class="category-item" data-category="Sarees">
-👗
-<h3>Sarees</h3>
-</div>
-
-<div class="category-item" data-category="Kurtis">
-👚
-<h3>Kurtis</h3>
-</div>
-
-<div class="category-item" data-category="Rental Dresses">
-👑
-<h3>Rental Dresses</h3>
-<p>Coming Soon</p>
-</div>
-
-<div class="category-item" data-category="Food">
-🍱
-<h3>Food</h3>
-<p>Coming Soon</p>
-</div>
-
-</div>
-
-</section>
-
-<!-- Products -->
-
-<section class="products" id="products">
-
-<h2>Featured Products</h2>
-
-<div
-class="product-grid"
-id="product-grid">
-
-<!-- Firebase Products Load Here -->
-
-</div>
-
-</section>
-
-<!-- ================= WHY CHOOSE US ================= -->
-
-<section class="why-choose">
-
-    <div class="section-title">
-        <h2>Why Choose Garima's House Hold?</h2>
-        <p>Everything you need for your home at the best price.</p>
-    </div>
-
-    <div class="why-grid">
-
-        <div class="why-card">
-            <div class="why-icon">
-                <i class="fa-solid fa-truck-fast"></i>
-            </div>
-            <h3>Fast Delivery</h3>
-            <p>Quick & Reliable Delivery Across India.</p>
-        </div>
-
-        <div class="why-card">
-            <div class="why-icon">
-                <i class="fa-solid fa-medal"></i>
-            </div>
-            <h3>Premium Quality</h3>
-            <p>Carefully Selected Quality Products.</p>
-        </div>
-
-        <div class="why-card">
-            <div class="why-icon">
-                <i class="fa-solid fa-tags"></i>
-            </div>
-            <h3>Best Prices</h3>
-            <p>Affordable Prices With Great Discounts.</p>
-        </div>
-
-        <div class="why-card">
-            <div class="why-icon">
-                <i class="fa-solid fa-shield-halved"></i>
-            </div>
-            <h3>Secure Payment</h3>
-            <p>100% Safe & Secure Online Payments.</p>
-        </div>
-
-    </div>
-
-</section>
-
-<!-- ================= TODAY'S DEALS ================= -->
-
-<section class="today-deals">
-
-    <div class="deals-content">
-
-        <span class="deal-tag">
-            🔥 LIMITED TIME OFFER
-        </span>
-
-        <h2>
-            Today's Special Deals
-        </h2>
-
-        <p>
-            Get up to <strong>50% OFF</strong> on selected Home Essentials,
-            Kitchen Items, Plastic Products & More.
-        </p>
-
-        <div class="deal-buttons">
-
-            <a href="#products" class="shop-btn">
-                Shop Now
-            </a>
-
-            <a href="categories.html" class="view-btn">
-                View Categories
-            </a>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- ================= Newsletter ================= -->
-
-<section class="newsletter">
-
-<h2>Stay Updated</h2>
-
-<p>Subscribe To Receive Latest Offers.</p>
-
-<input
-type="email"
-placeholder="Enter Your Email">
-
-<button>
-
-Subscribe
+<i class="fa-solid fa-arrow-up"></i>
 
 </button>
 
-</section>
+<!-- ===================================== -->
+<!-- JAVASCRIPT -->
+<!-- ===================================== -->
 
-<!-- ================= FAQ ================= -->
+<script type="module" src="firebase.js"></script>
 
-<section class="faq">
+<script type="module" src="script.js"></script>
 
-<h2>Frequently Asked Questions</h2>
+<div id="toast" class="toast">
 
-<div class="faq-box">
+    <div class="toast-icon">
 
-<h3>Do you provide Home Delivery?</h3>
-
-<p>Yes, we deliver across India.</p>
-
-</div>
-
-<div class="faq-box">
-
-<h3>Can I order on WhatsApp?</h3>
-
-<p>Yes, you can place your order directly through WhatsApp.</p>
-
-</div>
-
-<div class="faq-box">
-
-<h3>What payment methods are available?</h3>
-
-<p>UPI, Cards, Net Banking and Cash (if available).</p>
-
-</div>
-
-</section>
-
-<!-- ================= Instagram ================= -->
-
-<section class="instagram">
-
-<h2>Follow Us On Instagram</h2>
-
-<p>Latest collections, offers and updates.</p>
-
-<a href="https://www.instagram.com/householdbygarima"
-target="_blank">
-
-@householdbygarima
-
-</a>
-
-</section>
-
-<!--=========================
-CUSTOMER REVIEWS
-==========================-->
-
-<section class="reviews">
-
-    <div class="section-title">
-        <h2>What Our Customers Say</h2>
-        <p>Trusted by happy customers across India.</p>
-    </div>
-
-    <div class="review-grid">
-
-        <div class="review-card">
-            <div class="stars">★★★★★</div>
-            <p>
-                Amazing quality products and very reasonable prices.
-                Delivery was also very fast.
-            </p>
-
-            <h4>Priya Sharma</h4>
-            <span>Verified Customer</span>
-        </div>
-
-        <div class="review-card">
-            <div class="stars">★★★★★</div>
-            <p>
-                Beautiful collection of kitchen items and gift products.
-                Highly recommended.
-            </p>
-
-            <h4>Rahul Jain</h4>
-            <span>Verified Customer</span>
-        </div>
-
-        <div class="review-card">
-            <div class="stars">★★★★★</div>
-            <p>
-                Excellent packaging and genuine products.
-                Will definitely shop again.
-            </p>
-
-            <h4>Neha Gupta</h4>
-            <span>Verified Customer</span>
-        </div>
+        ✓
 
     </div>
 
-</section>
+    <div>
 
-<!-- ================= Features ================= -->
+        <h4 id="toastTitle">
 
-<section class="features">
+            Success
 
-<div class="feature-card">
+        </h4>
 
-🚚
+        <p id="toastMessage">
 
-<h3>Fast Delivery</h3>
-
-<p>Quick Delivery Across India</p>
-
-</div>
-
-<div class="feature-card">
-
-💯
-
-<h3>Best Quality</h3>
-
-<p>Premium Products At Best Price</p>
-
-</div>
-
-<div class="feature-card">
-
-🔒
-
-<h3>Secure Shopping</h3>
-
-<p>100% Safe Shopping Experience</p>
-
-</div>
-
-<div class="feature-card">
-
-📞
-
-<h3>Customer Support</h3>
-
-<p>Support Available On WhatsApp</p>
-
-</div>
-
-</section>
-
-<!--=========================
-FOOTER
-==========================-->
-
-<footer class="footer">
-
-    <div class="footer-container">
-
-        <!-- About -->
-
-        <div class="footer-box">
-
-            <h3>Garima's House Hold</h3>
-
-            <p>
-                Your one-stop destination for Kitchen Essentials,
-                Plastic Items, Crockery, Gift Articles, Sarees &
-                Daily Home Needs at affordable prices.
-            </p>
-
-            <div class="footer-social">
-
-                <a href="#"><i class="fab fa-facebook-f"></i></a>
-
-                <a href="#"><i class="fab fa-instagram"></i></a>
-
-                <a href="#"><i class="fab fa-whatsapp"></i></a>
-
-                <a href="#"><i class="fab fa-youtube"></i></a>
-
-            </div>
-
-        </div>
-
-        <!-- Quick Links -->
-
-        <div class="footer-box">
-
-            <h3>Quick Links</h3>
-
-            <ul>
-
-                <li><a href="index.html">Home</a></li>
-
-                <li><a href="#products">Products</a></li>
-
-                <li><a href="#categories">Categories</a></li>
-
-                <li><a href="contact.html">Contact</a></li>
-
-            </ul>
-
-        </div>
-
-        <!-- Categories -->
-
-        <div class="footer-box">
-
-            <h3>Categories</h3>
-
-            <ul>
-
-                <li>Kitchen Items</li>
-
-                <li>Plastic Items</li>
-
-                <li>Crockery</li>
-
-                <li>Gift Items</li>
-
-                <li>Sarees</li>
-
-            </ul>
-
-        </div>
-
-        <!-- Contact -->
-
-        <div class="footer-box">
-
-            <h3>Contact Us</h3>
-
-            <p>
-                <i class="fa-solid fa-phone"></i>
-                +91 9374445544
-            </p>
-
-            <p>
-                <i class="fa-solid fa-envelope"></i>
-                garimakothari1995@gmail.com
-            </p>
-
-            <p>
-                <i class="fa-solid fa-location-dot"></i>
-                Bijainagar, Rajasthan
-            </p>
-
-        </div>
-
-    </div>
-
-    <hr>
-
-    <div class="footer-bottom">
-
-        <p>
-
-            © 2026 Garima's House Hold.
-            All Rights Reserved.
+            Product Added
 
         </p>
 
     </div>
 
-</footer>
+</div>
+<div id="toast" class="toast">
 
-<!-- ================= Scripts ================= -->
+    <div class="toast-icon">
 
-<script type="module" src="script.js"></script>
+        ✓
 
+    </div>
+
+    <div>
+
+        <h4 id="toastTitle">
+
+            Success
+
+        </h4>
+
+        <p id="toastMessage">
+
+            Product Added
+
+        </p>
+
+    </div>
+
+</div>
 </body>
 
 </html>

@@ -10,7 +10,7 @@ import {
     serverTimestamp,
     getDoc,
     doc
-} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+} from "https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js";
 
 // =====================================
 // LOAD CART
@@ -101,27 +101,24 @@ document.getElementById("placeOrderBtn").addEventListener("click", async () => {
     const city = document.getElementById("customerCity").value.trim();
     const state = document.getElementById("customerState").value.trim();
     const pincode = document.getElementById("customerPincode").value.trim();
-    
+
     const confirmPayment = document.getElementById("paymentConfirm").checked;
-const screenshot =
-document.getElementById("paymentScreenshot").files[0];
 
-if (!screenshot) {
+    const screenshot = document.getElementById("paymentScreenshot").files[0];
 
-    alert("Please upload your payment screenshot.");
+    if (!screenshot) {
+        alert("Please upload your payment screenshot.");
+        return;
+    }
 
-    return;
-
-}
     if (
         !name ||
         !mobile ||
         !address ||
         !city ||
         !state ||
-        !pincode ||
-     ) 
-     {
+        !pincode
+    ) {
         alert("Please fill all required fields.");
         return;
     }
@@ -163,13 +160,12 @@ if (!screenshot) {
             payment: {
                 method: "UPI",
                 upiId: "9468659714@ybl",
-            status: "Pending Verification"
+                status: "Pending Verification"
             },
 
             orderStatus: "Pending",
 
             createdAt: serverTimestamp()
-
         };
 
         const docRef = await addDoc(
@@ -185,8 +181,39 @@ if (!screenshot) {
             "\n\nYour payment will be verified soon."
         );
 
-        window.location.href =
-            "order-success.html?id=" + docRef.id;
+        const productsList = cart.map(item =>
+`• ${item.qty} x ${item.id}`
+).join("\n");
+
+const message = `🛒 *New Order - Garima's House Hold*
+
+🆔 Order ID: ${docRef.id}
+
+👤 Name: ${name}
+
+📞 Mobile: ${mobile}
+
+📍 Address:
+${address}
+${city}, ${state} - ${pincode}
+
+🛍️ Products:
+${productsList}
+
+💰 Total: ₹${subtotal}
+
+💳 Payment: UPI
+UPI ID: 9468659714@ybl
+
+✅ Payment Completed`;
+
+window.open(
+`https://wa.me/919374445544?text=${encodeURIComponent(message)}`,
+"_blank"
+);
+
+window.location.href =
+"order-success.html?id=" + docRef.id;
 
     } catch (error) {
 
@@ -194,11 +221,11 @@ if (!screenshot) {
 
         alert("Something went wrong. Please try again.");
 
+    } finally {
+
+        btn.disabled = false;
+        btn.innerHTML = '<i class="fa-solid fa-circle-check"></i> Place Order';
+
     }
-
-    btn.disabled = false;
-
-    btn.innerHTML =
-        '<i class="fa-solid fa-circle-check"></i> Place Order';
 
 });

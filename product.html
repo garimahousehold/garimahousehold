@@ -210,37 +210,23 @@ PRODUCT SECTION
 
         <div class="product-buttons">
 
-            <button
-                class="btn-cart"
-                id="addToCart">
+    <button
+        class="btn-cart"
+        onclick="event.stopPropagation();addToCart('${product.id}')">
 
-                <i class="fa-solid fa-cart-shopping"></i>
+        Add to Cart
 
-                Add to Cart
+    </button>
 
-            </button>
+    <button
+        class="btn-buy"
+        onclick="event.stopPropagation();location.href='product.html?id=${product.id}'">
 
-            <button
-                class="btn-buy"
-                id="buyNow">
+        Buy Now
 
-                <i class="fa-solid fa-bolt"></i>
+    </button>
 
-                Buy Now
-
-            </button>
-
-            <button
-                class="wishlist-btn"
-                id="wishlistBtn">
-
-                <i class="fa-regular fa-heart"></i>
-
-                Add to Wishlist
-
-            </button>
-
-        </div>
+</div>
 
         <div class="delivery-info">
 
