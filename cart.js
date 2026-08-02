@@ -5,6 +5,9 @@
 
 const cartItems = document.getElementById("cartContainer");
 const totalElement = document.getElementById("grandTotal");
+const subtotalElement = document.getElementById("subtotal");
+const deliveryElement = document.getElementById("delivery");
+const discountElement = document.getElementById("discount");
 
 let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
@@ -73,7 +76,15 @@ function loadCart() {
 
     });
 
-    totalElement.innerText = "₹" + grandTotal.toLocaleString("en-IN");
+    let delivery = grandTotal > 0 ? 50 : 0;
+let discount = 0;
+
+subtotalElement.innerText = "₹" + grandTotal.toLocaleString("en-IN");
+deliveryElement.innerText = "₹" + delivery;
+discountElement.innerText = "₹" + discount;
+
+totalElement.innerText =
+"₹" + (grandTotal + delivery - discount).toLocaleString("en-IN");
 
 }
 function removeItem(index) {
