@@ -4,223 +4,474 @@
 <head>
 
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Product Details | Garima's House Hold</title>
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0">
 
-<link rel="stylesheet" href="style.css">
-<link rel="stylesheet" href="product.css">
+<title>
 
-<link rel="stylesheet"
+Garima's House Hold | Product Details
+
+</title>
+
+<meta
+name="description"
+content="Garima's House Hold - Premium Product Details">
+
+<meta
+name="keywords"
+content="Garima House Hold, Product">
+
+<meta
+name="author"
+content="Garima's House Hold">
+
+<!-- Favicon -->
+
+<link
+rel="icon"
+href="favicon.ico">
+
+<!-- Google Font -->
+
+<link
+rel="preconnect"
+href="https://fonts.googleapis.com">
+
+<link
+rel="preconnect"
+href="https://fonts.gstatic.com"
+crossorigin>
+
+<link
+href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+rel="stylesheet">
+
+<!-- Font Awesome -->
+
+<link
+rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+<!-- CSS -->
+
+<link
+rel="stylesheet"
+href="style.css">
 
 </head>
 
 <body>
 
-<!--=========================
-HEADER
-==========================-->
+<!-- ========================= -->
+<!-- LOADER -->
+<!-- ========================= -->
+
+<div id="loader">
+
+    <div class="loader-circle"></div>
+
+</div>
+
+<!-- ========================= -->
+<!-- TOP BAR -->
+<!-- ========================= -->
+
+<div class="top-bar">
+
+<div class="container top-bar-content">
+
+<span>
+
+🚚 Free Delivery Above ₹999
+
+</span>
+
+<span>
+
+💳 Secure UPI Payment
+
+</span>
+
+<span>
+
+📞 Support :
++91 9374445544
+
+</span>
+
+</div>
+
+</div>
+
+<!-- ========================= -->
+<!-- HEADER -->
+<!-- ========================= -->
 
 <header class="header">
 
-    <div class="logo">
+<div class="container header-inner">
 
-        <a href="index.html">
+<!-- Logo -->
 
-            <img src="images/logo.png" alt="Garima's House Hold">
+<a
+href="index.html"
+class="logo">
 
-        </a>
+<img
+src="images/logo.png"
+alt="Garima Logo">
+
+</a>
+
+<!-- Search -->
+
+<div class="search-box">
+
+<input
+
+type="text"
+
+placeholder="Search Products...">
+
+<button>
+
+<i class="fa-solid fa-magnifying-glass"></i>
+
+</button>
+
+</div>
+
+<!-- Icons -->
+
+<div class="header-icons">
+
+<a href="wishlist.html">
+
+<i class="fa-regular fa-heart"></i>
+
+<span id="wishlistCount">
+
+0
+
+</span>
+
+</a>
+
+<a href="cart.html">
+
+<i class="fa-solid fa-cart-shopping"></i>
+
+<span id="cartCount">
+
+0
+
+</span>
+
+</a>
+
+<button id="menuBtn">
+
+<i class="fa-solid fa-bars"></i>
+
+</button>
+
+</div>
+
+</div>
+
+</header>
+<!-- ========================= -->
+<!-- NAVIGATION -->
+<!-- ========================= -->
+
+<nav class="navbar">
+
+    <div class="container">
+
+        <ul class="nav-links">
+
+            <li>
+                <a href="index.html">
+                    Home
+                </a>
+            </li>
+
+            <li>
+                <a href="category.html?category=Saree">
+                    Saree
+                </a>
+            </li>
+
+            <li>
+                <a href="category.html?category=Kurti">
+                    Kurti
+                </a>
+            </li>
+
+            <li>
+                <a href="category.html?category=House Hold">
+                    House Hold
+                </a>
+            </li>
+
+            <li>
+                <a href="#">
+                    Rental
+                    <span class="coming-soon">
+
+                        Coming Soon
+
+                    </span>
+                </a>
+            </li>
+
+            <li>
+                <a href="#">
+                    Food
+                    <span class="coming-soon">
+
+                        Coming Soon
+
+                    </span>
+                </a>
+            </li>
+
+        </ul>
 
     </div>
 
-    <div class="search-box">
+</nav>
+
+<!-- ========================= -->
+<!-- PRODUCT PAGE -->
+<!-- ========================= -->
+
+<section class="product-page">
+
+<div class="container">
+
+<!-- Breadcrumb -->
+
+<div class="breadcrumb">
+
+<a href="index.html">
+
+Home
+
+</a>
+
+<span>
+
+>
+
+</span>
+
+<span id="productCategory">
+
+Category
+
+</span>
+
+<span>
+
+>
+
+</span>
+
+<span id="productName">
+
+Product
+
+</span>
+
+</div>
+
+<!-- Product Layout -->
+
+<div class="product-wrapper">
+
+<!-- LEFT -->
+
+<div class="product-gallery">
+
+<div class="main-image">
+
+<img
+
+id="mainProductImage"
+
+src="images/no-image.png"
+
+alt="Product">
+
+</div>
+
+<div
+
+class="thumbnail-gallery"
+
+id="thumbnailGallery">
+
+</div>
+
+</div>
+
+<!-- RIGHT -->
+
+<div class="product-details">
+
+<p
+
+class="product-sku"
+
+id="productSku">
+
+SKU :
+
+GHH0001
+
+</p>
+
+<h1
+
+id="productTitle">
+
+Loading Product...
+
+</h1>
+
+<div class="rating">
+
+★★★★★
+
+<span>
+
+(12 Reviews)
+
+</span>
+
+</div>
+
+<div class="price-box">
+
+<span
+
+class="price"
+
+id="productPrice">
+
+₹0
+
+</span>
+
+<span
+
+class="mrp"
+
+id="productMrp">
+
+₹0
+
+</span>
+
+<span
+
+class="discount"
+
+id="productDiscount">
+
+0% OFF
+
+</span>
+
+</div>
+
+<div
+
+class="stock"
+
+id="stockStatus">
+
+✔ In Stock
+
+</div>
+
+<p
+
+class="short-description"
+
+id="shortDescription">
+
+Product description will appear here.
+
+</p>
+<!-- ========================= -->
+<!-- QUANTITY -->
+<!-- ========================= -->
+
+<div class="quantity-section">
+
+    <label>
+
+        Quantity
+
+    </label>
+
+    <div class="quantity-box">
+
+        <button id="minusQty">
+
+            -
+
+        </button>
 
         <input
-            type="text"
-            placeholder="Search Products...">
 
-        <button>
+        type="number"
 
-            <i class="fa-solid fa-magnifying-glass"></i>
+        id="quantity"
+
+        value="1"
+
+        min="1">
+
+        <button id="plusQty">
+
+            +
 
         </button>
 
     </div>
 
-    <div class="header-icons">
+</div>
 
-        <a href="wishlist.html">
+<!-- ========================= -->
+<!-- ACTION BUTTONS -->
+<!-- ========================= -->
 
-            <i class="fa-regular fa-heart"></i>
-
-        </a>
-
-        <a href="cart.html">
-
-            <i class="fa-solid fa-cart-shopping"></i>
-
-        </a>
-
-    </div>
-
-</header>
-
-<!--=========================
-BREADCRUMB
-==========================-->
-
-<section class="breadcrumb">
-
-    <a href="index.html">Home</a>
-
-    <span> / </span>
-
-    <a href="#">Products</a>
-
-    <span> / </span>
-
-    <span id="breadcrumbName">
-
-        Product
-
-    </span>
-
-</section>
-
-<!--=========================
-PRODUCT SECTION
-==========================-->
-
-<section class="product-page">
-
-    <!-- LEFT -->
-
-    <div class="product-gallery">
-
-        <div class="thumbnail-list">
-
-            <img id="thumb1" class="thumb active" src="" alt="">
-
-            <img id="thumb2" class="thumb" src="" alt="">
-
-            <img id="thumb3" class="thumb" src="" alt="">
-
-            <img id="thumb4" class="thumb" src="" alt="">
-
-        </div>
-
-        <div class="main-image">
-
-            <img
-                id="mainProductImage"
-                src=""
-                alt="Product Image">
-
-        </div>
-
-    </div>
-
-    <!-- RIGHT -->
-
-    <div class="product-info">
-
-        <span class="product-category"
-              id="productCategory">
-
-            Loading...
-
-        </span>
-
-        <h1 id="productName">
-
-            Loading...
-
-        </h1>
-
-        <div class="rating">
-
-            ★★★★★
-
-            <span>
-
-                (4.9)
-
-            </span>
-
-        </div>
-
-        <div class="price-row">
-
-            <span
-                class="price"
-                id="productPrice">
-
-                ₹0
-
-            </span>
-
-            <span
-                class="mrp"
-                id="productMRP">
-
-                ₹0
-
-            </span>
-
-            <span
-                class="discount-badge"
-                id="productDiscount">
-
-                0% OFF
-
-            </span>
-
-        </div>
-
-        <p class="stock">
-
-            <i class="fa-solid fa-circle-check"></i>
-
-            In Stock
-
-        </p>
-
-        <div class="quantity-box">
-
-            <button id="minusQty">
-
-                -
-
-            </button>
-
-            <input
-                type="number"
-                id="qty"
-                value="1"
-                min="1">
-
-            <button id="plusQty">
-
-                +
-
-            </button>
-
-        </div>
-
-        <div class="product-buttons">
+<div class="product-buttons">
 
     <button
-        class="btn-cart"
-        onclick="event.stopPropagation();addToCart('${product.id}')">
 
-        Add to Cart
+    id="addToCartBtn"
+
+    class="btn-cart">
+
+        <i class="fa-solid fa-cart-shopping"></i>
+
+        Add To Cart
 
     </button>
 
     <button
-        class="btn-buy"
-        onclick="event.stopPropagation();location.href='product.html?id=${product.id}'">
+
+    id="buyNowBtn"
+
+    class="btn-buy">
+
+        <i class="fa-solid fa-bolt"></i>
 
         Buy Now
 
@@ -228,23 +479,39 @@ PRODUCT SECTION
 
 </div>
 
-        <div class="delivery-info">
+<button
+
+class="wishlist-btn"
+
+id="wishlistBtn">
+
+    <i class="fa-regular fa-heart"></i>
+
+    Add To Wishlist
+
+</button>
+
+<!-- ========================= -->
+<!-- DELIVERY INFO -->
+<!-- ========================= -->
+
+<div class="delivery-box">
+
+    <div class="delivery-item">
+
+        <i class="fa-solid fa-truck-fast"></i>
+
+        <div>
+
+            <h4>
+
+                Free Delivery
+
+            </h4>
 
             <p>
 
-                🚚 Delivery in 2–5 Business Days
-
-            </p>
-
-            <p>
-
-                🔒 100% Secure Payment
-
-            </p>
-
-            <p>
-
-                🔄 Easy Return Policy
+                On Orders Above ₹999
 
             </p>
 
@@ -252,111 +519,366 @@ PRODUCT SECTION
 
     </div>
 
-</section>
-<!-- ================= PRODUCT DETAILS TABS ================= -->
+    <div class="delivery-item">
 
-<section class="product-details">
+        <i class="fa-solid fa-rotate-left"></i>
 
-    <div class="tabs">
+        <div>
 
-        <button class="tab-btn active" onclick="showTab('description')">
-            Description
-        </button>
+            <h4>
 
-        <button class="tab-btn" onclick="showTab('specification')">
-            Specifications
-        </button>
+                Easy Returns
 
-    </div>
+            </h4>
 
-    <div id="description" class="tab-content active">
+            <p>
 
-        <h3>Product Description</h3>
+                7 Days Return Policy
 
-        <p id="productDescription">
-            Loading...
-        </p>
+            </p>
+
+        </div>
 
     </div>
 
-    <div id="specification" class="tab-content">
+    <div class="delivery-item">
 
-        <table class="spec-table">
+        <i class="fa-solid fa-shield-halved"></i>
 
-            <tr>
+        <div>
 
-                <th>Brand</th>
+            <h4>
 
-                <td>Garima's House Hold</td>
+                Secure Payment
 
-            </tr>
+            </h4>
 
-            <tr>
+            <p>
 
-                <th>Category</th>
+                100% Safe UPI & Cards
 
-                <td id="specCategory">
-                    Home Essentials
-                </td>
+            </p>
 
-            </tr>
-
-            <tr>
-
-                <th>Availability</th>
-
-                <td>In Stock</td>
-
-            </tr>
-
-            <tr>
-
-                <th>Delivery</th>
-
-                <td>2-5 Business Days</td>
-
-            </tr>
-
-        </table>
+        </div>
 
     </div>
+
+</div>
+
+</div>
+
+</div>
 
 </section>
+<!-- ========================= -->
+<!-- PRODUCT DETAILS TABS -->
+<!-- ========================= -->
 
-<!-- ================= RELATED PRODUCTS ================= -->
+<section class="product-information">
+
+<div class="container">
+
+<div class="info-tabs">
+
+<button class="tab-btn active">
+
+Description
+
+</button>
+
+<button class="tab-btn">
+
+Specifications
+
+</button>
+
+<button class="tab-btn">
+
+Reviews
+
+</button>
+
+</div>
+
+<div class="tab-content">
+
+<h2>
+
+Product Description
+
+</h2>
+
+<p id="productDescription">
+
+Loading description...
+
+</p>
+
+<h3>
+
+Why You'll Love It
+
+</h3>
+
+<ul class="product-features">
+
+<li>
+
+✔ Premium Quality Material
+
+</li>
+
+<li>
+
+✔ Durable & Long Lasting
+
+</li>
+
+<li>
+
+✔ Elegant Design
+
+</li>
+
+<li>
+
+✔ Perfect For Daily Use
+
+</li>
+
+<li>
+
+✔ Best Value For Money
+
+</li>
+
+</ul>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- ========================= -->
+<!-- SPECIFICATIONS -->
+<!-- ========================= -->
+
+<section class="specification-section">
+
+<div class="container">
+
+<h2>
+
+Specifications
+
+</h2>
+
+<table class="spec-table">
+
+<tr>
+
+<th>
+
+Brand
+
+</th>
+
+<td>
+
+Garima's House Hold
+
+</td>
+
+</tr>
+
+<tr>
+
+<th>
+
+Category
+
+</th>
+
+<td id="specCategory">
+
+Loading...
+
+</td>
+
+</tr>
+
+<tr>
+
+<th>
+
+SKU
+
+</th>
+
+<td id="specSku">
+
+Loading...
+
+</td>
+
+</tr>
+
+<tr>
+
+<th>
+
+Availability
+
+</th>
+
+<td>
+
+In Stock
+
+</td>
+
+</tr>
+
+<tr>
+
+<th>
+
+Country Of Origin
+
+</th>
+
+<td>
+
+India
+
+</td>
+
+</tr>
+
+</table>
+
+</div>
+
+</section>
+
+<!-- ========================= -->
+<!-- CUSTOMER REVIEWS -->
+<!-- ========================= -->
+
+<section class="review-section">
+
+<div class="container">
+
+<h2>
+
+Customer Reviews
+
+</h2>
+
+<div class="review-summary">
+
+<div class="review-score">
+
+<h1>
+
+5.0
+
+</h1>
+
+★★★★★
+
+<p>
+
+Based on 12 Reviews
+
+</p>
+
+</div>
+
+<div class="review-message">
+
+Customers love this product for its quality, durability and elegant finish.
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- ========================= -->
+<!-- RELATED PRODUCTS -->
+<!-- ========================= -->
 
 <section class="related-products">
 
-    <div class="section-title">
+<div class="container">
 
-        <h2>You May Also Like</h2>
+<h2>
 
-    </div>
+Related Products
 
-    <div id="relatedProducts" class="products-grid">
+</h2>
 
-    </div>
+<div
+
+class="product-grid"
+
+id="relatedProducts">
+
+</div>
+
+</div>
 
 </section>
 
-<!-- ================= FOOTER ================= -->
+<!-- ========================= -->
+<!-- RECENTLY VIEWED -->
+<!-- ========================= -->
+
+<section class="recent-products">
+
+<div class="container">
+
+<h2>
+
+Recently Viewed
+
+</h2>
+
+<div
+
+class="product-grid"
+
+id="recentProducts">
+
+</div>
+
+</div>
+
+</section>
+<!-- ========================= -->
+<!-- FOOTER -->
+<!-- ========================= -->
 
 <footer class="footer">
 
-    <div class="footer-container">
+    <div class="container footer-grid">
 
         <div class="footer-box">
 
-            <h3>Garima's House Hold</h3>
+            <img
+            src="images/logo.png"
+            class="footer-logo"
+            alt="Garima Logo">
 
             <p>
 
-                Premium Household Products,
-                Kitchen Essentials,
-                Plastic Items,
-                Crockery,
-                Sarees &
-                Daily Home Needs.
+                Garima's House Hold offers premium
+                household products, kitchen essentials,
+                gifts and fashion collections.
 
             </p>
 
@@ -364,17 +886,21 @@ PRODUCT SECTION
 
         <div class="footer-box">
 
-            <h3>Quick Links</h3>
+            <h3>
+
+                Quick Links
+
+            </h3>
 
             <ul>
 
                 <li><a href="index.html">Home</a></li>
 
-                <li><a href="#">Categories</a></li>
+                <li><a href="category.html">Categories</a></li>
 
-                <li><a href="#">Offers</a></li>
+                <li><a href="cart.html">Cart</a></li>
 
-                <li><a href="#">Contact</a></li>
+                <li><a href="wishlist.html">Wishlist</a></li>
 
             </ul>
 
@@ -382,28 +908,148 @@ PRODUCT SECTION
 
         <div class="footer-box">
 
-            <h3>Contact</h3>
+            <h3>
 
-            <p>📍 Bijainagar, Rajasthan</p>
+                Customer Support
 
-            <p>📱 +91 XXXXXXXXXX</p>
+            </h3>
 
-            <p>📧 your@email.com</p>
+            <ul>
+
+                <li>
+
+                    📞 +91 9374445544
+
+                </li>
+
+                <li>
+
+                    🚚 Fast Delivery
+
+                </li>
+
+                <li>
+
+                    💳 Secure Payments
+
+                </li>
+
+                <li>
+
+                    🔄 Easy Returns
+
+                </li>
+
+            </ul>
+
+        </div>
+
+        <div class="footer-box">
+
+            <h3>
+
+                Follow Us
+
+            </h3>
+
+            <div class="social-icons">
+
+                <a href="#">
+
+                    <i class="fab fa-instagram"></i>
+
+                </a>
+
+                <a href="#">
+
+                    <i class="fab fa-facebook-f"></i>
+
+                </a>
+
+                <a href="#">
+
+                    <i class="fab fa-whatsapp"></i>
+
+                </a>
+
+            </div>
 
         </div>
 
     </div>
 
-    <div class="footer-bottom">
+    <div class="copyright">
 
-        © 2026 Garima's House Hold. All Rights Reserved.
+        © 2026 Garima's House Hold.
+        All Rights Reserved.
 
     </div>
 
 </footer>
 
-<script src="firebase.js"></script>
-<script src="product.js"></script>
+<!-- ========================= -->
+<!-- WHATSAPP -->
+<!-- ========================= -->
+
+<a
+
+href="https://wa.me/919374445544"
+
+class="whatsapp-btn"
+
+target="_blank">
+
+<i class="fab fa-whatsapp"></i>
+
+</a>
+
+<!-- ========================= -->
+<!-- SCROLL TO TOP -->
+<!-- ========================= -->
+
+<button id="scrollTop">
+
+<i class="fa-solid fa-arrow-up"></i>
+
+</button>
+
+<!-- ========================= -->
+<!-- TOAST -->
+<!-- ========================= -->
+
+<div id="toast" class="toast">
+
+<div class="toast-icon">
+
+✓
+
+</div>
+
+<div>
+
+<h4 id="toastTitle">
+
+Success
+
+</h4>
+
+<p id="toastMessage">
+
+Done
+
+</p>
+
+</div>
+
+</div>
+
+<!-- ========================= -->
+<!-- JAVASCRIPT -->
+<!-- ========================= -->
+
+<script type="module" src="firebase.js"></script>
+
+<script type="module" src="product.js"></script>
 
 </body>
 

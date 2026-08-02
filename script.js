@@ -215,17 +215,13 @@ loadProducts();
 // FEATURED PRODUCTS
 // ==========================================
 
-function renderFeaturedProducts(){
+function renderFeaturedProducts() {
 
     if(!productGrid) return;
 
     productGrid.innerHTML = "";
 
-    const featured = products.filter(product=>
-
-        product.featured===true
-
-    );
+    const featured = products.filter(product => product.active === true);
 
     featured.forEach(product=>{
 
@@ -313,9 +309,11 @@ ${wishlist.includes(product.id) ? '❤' : '🤍'}
 
             <div class="product-buttons">
 
-                <button
+               <button
 
 class="btn-cart"
+
+id="cartBtn-${product.id}"
 
 onclick="event.stopPropagation();addToCart('${product.id}')">
 
@@ -461,7 +459,23 @@ window.addToCart = function(productId){
 product.name+" added successfully."
 
 );
+const btn = document.getElementById(`cartBtn-${productId}`);
 
+if(btn){
+
+    btn.innerHTML = "✓ Added";
+
+    btn.style.background = "#1BA94C";
+
+    setTimeout(()=>{
+
+        btn.innerHTML = "Add To Cart";
+
+        btn.style.background = "";
+
+    },1500);
+
+}
 };
 
 // ==========================================
