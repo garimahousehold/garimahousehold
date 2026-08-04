@@ -1,117 +1,211 @@
-// ==========================================
-// Garima's House Hold
-// script.js
-// ==========================================
+/*==========================================================
+        GARIMA'S HOUSE HOLD
+        script.js (FINAL)
+        PART - 1
+==========================================================*/
 
-// ===============================
-// FIREBASE
-// ===============================
+"use strict";
 
-import { db } from "./firebase.js";
+/*==========================================================
+        IMPORTS
+==========================================================*/
+
+import { db, auth } from "./firebase.js";
 
 import {
+
     collection,
-    getDocs
+    getDocs,
+    query,
+    where,
+    orderBy
+
 } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js";
 
-// ===============================
-// GLOBAL VARIABLES
-// ===============================
 
-let products = [];
+/*==========================================================
+        GLOBAL SELECTORS
+==========================================================*/
 
-let cart = JSON.parse(
-    localStorage.getItem("cart")
-) || [];
+const $ = (selector) => document.querySelector(selector);
 
-let wishlist = JSON.parse(
-    localStorage.getItem("wishlist")
-) || [];
+const $$ = (selector) => document.querySelectorAll(selector);
 
-// ===============================
-// HTML ELEMENTS
-// ===============================
 
+/*==========================================================
+        MAIN ELEMENTS
+==========================================================*/
+
+// Loader
+const loader = $("#loader");
+
+// Hero
+const heroSection = $(".hero-section");
+const slides = $$(".slide");
+const dots = $$(".dot");
+const prevBtn = $(".prev");
+const nextBtn = $(".next");
+
+// Search
+const searchInput = $(".search-box input");
+
+// Products
 const productGrid =
-document.getElementById("products-grid");
+    $("#productGrid") ||
+    $("#featuredProducts .products-grid") ||
+    $(".products-grid");
 
-const bestSellerGrid =
-document.getElementById("bestSellerProducts");
+// Category
+const categoryCards = $$("[data-category]");
 
-const newArrivalGrid =
-document.getElementById("newArrivalProducts");
+// Header
+const header = $(".header");
 
-const trendingGrid =
-document.getElementById("trendingProducts");
+// Mobile Menu
+const menuBtn = $("#menuBtn");
+const mobileMenu = $("#mobileMenu");
 
-const cartCount =
-document.getElementById("cartCount");
+// Back To Top
+const backToTop = $("#backToTop");
 
-const wishlistCount =
-document.getElementById("wishlistCount");
+// Cart
+const cartCount = $("#cart-count");
 
-// ===============================
-// UPDATE COUNTS
-// ===============================
+// Wishlist
+const wishlistCount = $("#wishlist-count");
 
-function updateCartCount(){
 
-    if(!cartCount) return;
+/*==========================================================
+        GLOBAL VARIABLES
+==========================================================*/
 
-    let total = 0;
+let allProducts = [];
 
-    cart.forEach(item=>{
+let filteredProducts = [];
 
-        total += item.qty || 1;
+let currentSlide = 0;
 
-    });
+let sliderTimer = null;
 
-    cartCount.textContent = total;
+let cart =
+JSON.parse(localStorage.getItem("cart")) || [];
 
-}
+let wishlist =
+JSON.parse(localStorage.getItem("wishlist")) || [];
 
-function updateWishlistCount(){
 
-    if(!wishlistCount) return;
+/*==========================================================
+        PAGE LOADER
+==========================================================*/
 
-    wishlistCount.textContent =
-    wishlist.length;
+window.addEventListener("load", () => {
 
-}
-
-updateCartCount();
-
-updateWishlistCount();
-
-// ===============================
-// LOADER
-// ===============================
-
-window.addEventListener("load",()=>{
-
-    const loader =
-    document.getElementById("loader");
+    document.body.classList.add("loaded");
 
     if(loader){
 
-        loader.style.display="none";
+        setTimeout(()=>{
+
+            loader.style.display="none";
+
+        },300);
 
     }
 
 });
-// ==========================================
-// HERO SLIDER
-// ==========================================
 
-const slides =
-document.querySelectorAll(".slide");
 
-const dots =
-document.querySelectorAll(".dot");
+/*==========================================================
+        UPDATE BADGES
+==========================================================*/
 
-let currentSlide = 0;
+function updateBadges(){
+
+    if(cartCount){
+
+        cartCount.textContent = cart.length;
+
+    }
+
+    if(wishlistCount){
+
+        wishlistCount.textContent = wishlist.length;
+
+    }
+
+}
+
+
+/*==========================================================
+        LOCAL STORAGE
+==========================================================*/
+
+function saveCart(){
+
+    localStorage.setItem(
+
+        "cart",
+
+        JSON.stringify(cart)
+
+    );
+
+    updateBadges();
+
+}
+
+
+function saveWishlist(){
+
+    localStorage.setItem(
+
+        "wishlist",
+
+        JSON.stringify(wishlist)
+
+    );
+
+    updateBadges();
+
+}
+
+
+/*==========================================================
+        INITIAL SETUP
+==========================================================*/
+
+document.addEventListener(
+
+    "DOMContentLoaded",
+
+    ()=>{
+
+        updateBadges();
+
+    }
+
+);
+/*==========================================================
+        HERO SLIDER (FINAL)
+==========================================================*/
 
 function showSlide(index){
+
+    if(!slides.length) return;
+
+    if(index >= slides.length){
+
+        currentSlide = 0;
+
+    }else if(index < 0){
+
+        currentSlide = slides.length - 1;
+
+    }else{
+
+        currentSlide = index;
+
+    }
 
     slides.forEach(slide=>{
 
@@ -125,59 +219,268 @@ function showSlide(index){
 
     });
 
-    if(slides[index]){
+    slides[currentSlide].classList.add("active");
 
-        slides[index].classList.add("active");
+    if(dots[currentSlide]){
 
-    }
-
-    if(dots[index]){
-
-        dots[index].classList.add("active");
+        dots[currentSlide].classList.add("active");
 
     }
 
 }
 
-function autoSlide(){
 
-    currentSlide++;
+/*==========================================================
+        NEXT / PREVIOUS
+==========================================================*/
 
-    if(currentSlide >= slides.length){
+function nextSlide(){
 
-        currentSlide = 0;
-
-    }
-
-    showSlide(currentSlide);
+    showSlide(currentSlide + 1);
 
 }
 
-if(slides.length){
+function prevSlide(){
+
+    showSlide(currentSlide - 1);
+
+}
+
+
+/*==========================================================
+        AUTO SLIDER
+==========================================================*/
+
+function startSlider(){
+
+    if(!slides.length) return;
+
+    stopSlider();
+
+    sliderTimer = setInterval(()=>{
+
+        nextSlide();
+
+    },5000);
+
+}
+
+function stopSlider(){
+
+    if(sliderTimer){
+
+        clearInterval(sliderTimer);
+
+        sliderTimer = null;
+
+    }
+
+}
+
+
+/*==========================================================
+        BUTTON EVENTS
+==========================================================*/
+
+if(nextBtn){
+
+    nextBtn.addEventListener("click",()=>{
+
+        nextSlide();
+
+        startSlider();
+
+    });
+
+}
+
+if(prevBtn){
+
+    prevBtn.addEventListener("click",()=>{
+
+        prevSlide();
+
+        startSlider();
+
+    });
+
+}
+
+
+/*==========================================================
+        DOT EVENTS
+==========================================================*/
+
+dots.forEach((dot,index)=>{
+
+    dot.addEventListener("click",()=>{
+
+        showSlide(index);
+
+        startSlider();
+
+    });
+
+});
+
+
+/*==========================================================
+        HOVER PAUSE
+==========================================================*/
+
+if(heroSection){
+
+    heroSection.addEventListener("mouseenter",()=>{
+
+        stopSlider();
+
+    });
+
+    heroSection.addEventListener("mouseleave",()=>{
+
+        startSlider();
+
+    });
+
+}
+
+
+/*==========================================================
+        TOUCH SWIPE
+==========================================================*/
+
+let touchStartX = 0;
+
+let touchEndX = 0;
+
+if(heroSection){
+
+    heroSection.addEventListener("touchstart",(e)=>{
+
+        touchStartX = e.changedTouches[0].screenX;
+
+    });
+
+    heroSection.addEventListener("touchend",(e)=>{
+
+        touchEndX = e.changedTouches[0].screenX;
+
+        const distance = touchStartX - touchEndX;
+
+        if(Math.abs(distance) < 50) return;
+
+        if(distance > 0){
+
+            nextSlide();
+
+        }else{
+
+            prevSlide();
+
+        }
+
+        startSlider();
+
+    });
+
+}
+
+
+/*==========================================================
+        KEYBOARD CONTROL
+==========================================================*/
+
+document.addEventListener("keydown",(e)=>{
+
+    if(!slides.length) return;
+
+    if(e.key==="ArrowRight"){
+
+        nextSlide();
+
+        startSlider();
+
+    }
+
+    if(e.key==="ArrowLeft"){
+
+        prevSlide();
+
+        startSlider();
+
+    }
+
+});
+
+
+/*==========================================================
+        PAGE VISIBILITY
+==========================================================*/
+
+document.addEventListener("visibilitychange",()=>{
+
+    if(document.hidden){
+
+        stopSlider();
+
+    }else{
+
+        startSlider();
+
+    }
+
+});
+
+
+/*==========================================================
+        HERO INIT
+==========================================================*/
+
+function initHeroSlider(){
+
+    if(!slides.length) return;
 
     showSlide(0);
 
-    setInterval(autoSlide,4000);
+    startSlider();
 
 }
 
-// ==========================================
-// LOAD PRODUCTS
-// ==========================================
+document.addEventListener("DOMContentLoaded",()=>{
+
+    initHeroSlider();
+
+});
+
+/*==========================================================
+        LOAD PRODUCTS
+==========================================================*/
 
 async function loadProducts(){
 
+    if(!productGrid) return;
+
     try{
 
-        const snapshot = await getDocs(
-            collection(db,"products")
-        );
+        productGrid.innerHTML=`
 
-        products = [];
+            <div class="loading-products">
+
+                Loading Products...
+
+            </div>
+
+        `;
+
+        const snapshot = await getDocs(
+    collection(db, "products")
+);
+
+        allProducts=[];
 
         snapshot.forEach(doc=>{
 
-            products.push({
+            allProducts.push({
 
                 id:doc.id,
 
@@ -187,403 +490,182 @@ async function loadProducts(){
 
         });
 
-        console.log(
-            "Products Loaded :",
-            products.length
-        );
+        allProducts = allProducts.filter(product => product.active === true);
 
-        renderFeaturedProducts();
-        
-        renderHomeSections();
+
+        allProducts.sort((a, b) => {
+
+    if (!a.createdAt || !b.createdAt) return 0;
+
+    return (b.createdAt.seconds || 0) - (a.createdAt.seconds || 0);
+
+});
+
+        filteredProducts=[...allProducts];
+
+        renderProducts(filteredProducts);
 
     }
 
     catch(error){
 
-        console.error(
-            "Error Loading Products",
-            error
-        );
+        console.error(error);
+
+        productGrid.innerHTML=`
+
+            <div class="no-products">
+
+                Products Not Found
+
+            </div>
+
+        `;
 
     }
 
 }
 
-loadProducts();
+/*==========================================================
+        RENDER PRODUCTS
+==========================================================*/
 
-// ==========================================
-// FEATURED PRODUCTS
-// ==========================================
-
-function renderFeaturedProducts() {
+function renderProducts(products){
 
     if(!productGrid) return;
 
-    productGrid.innerHTML = "";
+    if(products.length===0){
 
-    const featured = products.filter(product => product.active === true);
+        productGrid.innerHTML=`
 
-    featured.forEach(product=>{
+            <div class="no-products">
 
-        productGrid.appendChild(
-
-            createProductCard(product)
-
-        );
-
-    });
-
-}
-
-// ==========================================
-// PRODUCT CARD
-// ==========================================
-
-function createProductCard(product){
-
-    const card =
-
-    document.createElement("div");
-
-    card.className="product-card";
-
-    card.innerHTML=`
-
-        <div class="product-card-image">
-
-            <img
-            src="${product.image}"
-            alt="${product.name}">
-
-        </div>
-
-        <div class="product-content">
-
-            <div class="product-top">
-
-                <span class="product-category">
-
-                    ${product.category}
-
-                </span>
-
-                <button
-
-class="wishlist-icon ${wishlist.includes(product.id) ? 'active' : ''}"
-
-onclick="event.stopPropagation();toggleWishlist('${product.id}')">
-
-${wishlist.includes(product.id) ? '❤' : '🤍'}
-
-</button>
+                No Products Available
 
             </div>
 
-            <h3 class="product-title">
+        `;
 
-                ${product.name}
-
-            </h3>
-
-            <p class="product-sku">
-
-                SKU : ${product.sku}
-
-            </p>
-
-            <div class="price-box">
-
-                <span class="price">
-
-                    ₹${product.price}
-
-                </span>
-
-                <span class="mrp">
-
-                    ₹${product.mrp}
-
-                </span>
-
-            </div>
-
-            <div class="product-buttons">
-
-               <button
-
-class="btn-cart"
-
-id="cartBtn-${product.id}"
-
-onclick="event.stopPropagation();addToCart('${product.id}')">
-
-Add To Cart
-
-</button>
-               <button
-
-class="btn-buy"
-
-onclick="event.stopPropagation();buyNow('${product.id}')">
-
-Buy Now
-
-</button>
-
-            </div>
-
-        </div>
-
-    `;
-
-    return card;
-
-}
-// ==========================================
-// HOME PAGE SECTIONS
-// ==========================================
-
-function renderHomeSections(){
-
-    renderSection(
-
-        bestSellerGrid,
-
-        "bestSeller"
-
-    );
-
-    renderSection(
-
-        newArrivalGrid,
-
-        "newArrival"
-
-    );
-
-    renderSection(
-
-        trendingGrid,
-
-        "trending"
-
-    );
-
-}
-
-// ==========================================
-// COMMON SECTION FUNCTION
-// ==========================================
-
-function renderSection(
-
-    container,
-
-    field
-
-){
-
-    if(!container) return;
-
-    container.innerHTML = "";
-
-    const filteredProducts =
-
-    products.filter(product=>{
-
-        return product[field] === true;
-
-    });
-
-    filteredProducts.forEach(product=>{
-
-        container.appendChild(
-
-            createProductCard(product)
-
-        );
-
-    });
-
-}
-// ==========================================
-// ADD TO CART
-// ==========================================
-
-window.addToCart = function(productId){
-
-    const product = products.find(p=>p.id===productId);
-
-    if(!product) return;
-
-    const existing = cart.find(item=>item.id===productId);
-
-    if(existing){
-
-        existing.qty++;
-
-    }else{
-
-        cart.push({
-
-            id:product.id,
-
-            sku:product.sku,
-
-            name:product.name,
-
-            image:product.image,
-
-            price:product.price,
-
-            qty:1
-
-        });
+        return;
 
     }
 
-    localStorage.setItem(
+    productGrid.innerHTML=
 
-        "cart",
+        products
 
-        JSON.stringify(cart)
+        .map(createProductCard)
 
-    );
-
-    updateCartCount();
-
-    showToast(
-
-"Added To Cart",
-
-product.name+" added successfully."
-
-);
-const btn = document.getElementById(`cartBtn-${productId}`);
-
-if(btn){
-
-    btn.innerHTML = "✓ Added";
-
-    btn.style.background = "#1BA94C";
-
-    setTimeout(()=>{
-
-        btn.innerHTML = "Add To Cart";
-
-        btn.style.background = "";
-
-    },1500);
+        .join("");
 
 }
-};
 
-// ==========================================
-// WISHLIST
-// ==========================================
+/*==========================================================
+        SEARCH PRODUCTS
+==========================================================*/
 
-window.toggleWishlist = function(productId){
+function searchProducts(keyword){
 
-    const index = wishlist.indexOf(productId);
+    keyword = keyword.trim().toLowerCase();
 
-    if(index>-1){
+    if(keyword===""){
 
-        wishlist.splice(index,1);
+        filteredProducts=[...allProducts];
 
-        showToast(
-            "Wishlist",
-            "Removed from wishlist"
-        );
+        renderProducts(filteredProducts);
 
-    }else{
-
-        wishlist.push(productId);
-
-        showToast(
-            "Wishlist",
-            "Added to wishlist"
-        );
+        return;
 
     }
 
-    localStorage.setItem(
-        "wishlist",
-        JSON.stringify(wishlist)
-    );
+    filteredProducts = allProducts.filter(product=>{
 
-    updateWishlistCount();
+        return(
 
-    renderFeaturedProducts();
+            (product.name || "")
+            .toLowerCase()
+            .includes(keyword)
 
-    renderHomeSections();
+            ||
+
+            (product.category || "")
+            .toLowerCase()
+            .includes(keyword)
+
+            ||
+
+            (product.SKUID || "")
+            .toLowerCase()
+            .includes(keyword)
+
+        );
+
+    });
+
+    renderProducts(filteredProducts);
 
 }
 
-// ==========================================
-// BUY NOW
-// ==========================================
 
-window.buyNow = function(productId){
-
-    addToCart(productId);
-
-    window.location.href = "cart.html";
-
-};
-// ==========================================
-// LIVE SEARCH
-// ==========================================
-
-const searchInput =
-document.getElementById("searchInput");
+/*==========================================================
+        SEARCH EVENT
+==========================================================*/
 
 if(searchInput){
 
-    searchInput.addEventListener("input",()=>{
+    searchInput.addEventListener("input",(e)=>{
 
-        const keyword =
+        searchProducts(e.target.value);
 
-        searchInput.value
-        .trim()
-        .toLowerCase();
+    });
 
-        if(keyword===""){
+}
 
-            renderFeaturedProducts();
 
-            renderHomeSections();
+/*==========================================================
+        CATEGORY FILTER
+==========================================================*/
 
-            return;
+categoryCards.forEach(card=>{
 
-        }
+    card.addEventListener("click",()=>{
 
-        const filtered = products.filter(product=>{
+        categoryCards.forEach(item=>{
 
-            return(
-
-                product.name?.toLowerCase().includes(keyword)
-
-                ||
-
-                product.sku?.toLowerCase().includes(keyword)
-
-                ||
-
-                product.category?.toLowerCase().includes(keyword)
-
-            );
+            item.classList.remove("active");
 
         });
 
-        if(productGrid){
+        card.classList.add("active");
 
-            productGrid.innerHTML="";
+        const category=
 
-            filtered.forEach(product=>{
+            card.dataset.category;
 
-                productGrid.appendChild(
+        if(
 
-                    createProductCard(product)
+            !category ||
+
+            category==="all"
+
+        ){
+
+            filteredProducts=[
+
+                ...allProducts
+
+            ];
+
+        }
+
+        else{
+
+            filteredProducts=
+
+            allProducts.filter(product=>{
+
+                return(
+
+                    product.category===category
 
                 );
 
@@ -591,58 +673,437 @@ if(searchInput){
 
         }
 
-    });
-
-}
-
-// ==========================================
-// MOBILE MENU
-// ==========================================
-
-const menuBtn =
-document.getElementById("menuBtn");
-
-const navbar =
-document.querySelector(".navbar");
-
-if(menuBtn && navbar){
-
-    menuBtn.addEventListener("click",()=>{
-
-        navbar.classList.toggle("active");
+        renderProducts(filteredProducts);
 
     });
 
-}
+});
+/*==========================================================
+        PRODUCT ACTIONS
+==========================================================*/
 
-// ==========================================
-// SCROLL TO TOP
-// ==========================================
+document.addEventListener("click",(e)=>{
 
-const scrollBtn =
-document.getElementById("scrollTop");
+    /*====================================
+            ADD TO CART
+    ====================================*/
 
-window.addEventListener("scroll",()=>{
+    const cartBtn=e.target.closest(".cart-btn");
 
-    if(!scrollBtn) return;
+    if(cartBtn){
 
-    if(window.scrollY>300){
+        const id=cartBtn.dataset.id;
 
-        scrollBtn.style.display="flex";
+        addToCart(id);
 
     }
 
-    else{
 
-        scrollBtn.style.display="none";
+    /*====================================
+            BUY NOW
+    ====================================*/
+
+    const buyBtn=e.target.closest(".buy-btn");
+
+    if(buyBtn){
+
+        const id=buyBtn.dataset.id;
+
+        buyNow(id);
+
+    }
+
+
+    /*====================================
+            WISHLIST
+    ====================================*/
+
+    const wishBtn=e.target.closest(".wishlist-btn");
+
+    if(wishBtn){
+
+        const id=wishBtn.dataset.id;
+
+        toggleWishlist(id,wishBtn);
 
     }
 
 });
 
-if(scrollBtn){
 
-    scrollBtn.addEventListener("click",()=>{
+/*==========================================================
+        ADD TO CART
+==========================================================*/
+
+function addToCart(id){
+
+    const product=
+
+    allProducts.find(item=>item.id===id);
+
+    if(!product) return;
+
+    if(product.stock<=0){
+
+        showToast("Product is Out Of Stock","error");
+
+        return;
+
+    }
+
+    const existing=
+
+    cart.find(item=>item.id===id);
+
+    if(existing){
+
+        existing.qty++;
+
+    }
+
+    else{
+
+        cart.push({
+
+            id:product.id,
+
+            SKUID:product.SKUID,
+
+            name:product.name,
+
+            image:product.image,
+
+            price:product.price,
+
+            mrp:product.mrp,
+
+            qty:1
+
+        });
+
+    }
+
+    saveCart();
+
+}
+
+
+/*==========================================================
+        BUY NOW
+==========================================================*/
+
+function buyNow(id){
+
+    localStorage.setItem(
+
+        "buyNowProduct",
+
+        id
+
+    );
+
+    window.location.href="checkout.html";
+
+}
+
+
+/*==========================================================
+        WISHLIST
+==========================================================*/
+
+function toggleWishlist(id,button){
+
+    const exists=
+
+    wishlist.find(item=>item.id===id);
+
+    if(exists){
+
+        wishlist=
+
+        wishlist.filter(item=>item.id!==id);
+
+        button.innerHTML=
+
+        '<i class="fa-regular fa-heart"></i>';
+
+    }
+
+    else{
+
+        const product=
+
+        allProducts.find(item=>item.id===id);
+
+        if(!product) return;
+
+        wishlist.push(product);
+
+        button.innerHTML=
+
+        '<i class="fa-solid fa-heart"></i>';
+
+    }
+
+    saveWishlist();
+
+}
+/*==========================================================
+        PRODUCT CARD LINK
+==========================================================*/
+
+function getProductURL(id){
+
+    return `product.html?id=${id}`;
+
+}
+
+
+/*==========================================================
+        PRODUCT CLICK
+==========================================================*/
+
+document.addEventListener("click",(e)=>{
+
+    const card=e.target.closest(".product-card");
+
+    if(!card) return;
+
+    if(
+
+        e.target.closest(".cart-btn") ||
+
+        e.target.closest(".buy-btn") ||
+
+        e.target.closest(".wishlist-btn")
+
+    ){
+
+        return;
+
+    }
+
+    const id=card.dataset.id;
+
+    if(!id) return;
+
+    window.location.href=getProductURL(id);
+
+});
+
+
+/*==========================================================
+        UPDATE PRODUCT CARD
+==========================================================*/
+
+function createProductCard(product){
+
+    const discount=
+
+    product.mrp>product.price
+
+    ?
+
+    Math.round(
+
+        ((product.mrp-product.price)
+
+        /product.mrp)*100
+
+    )
+
+    :0;
+
+    return`
+
+<div class="product-card"
+
+data-id="${product.id}">
+
+<div class="product-image">
+
+<a href="${getProductURL(product.id)}">
+
+<img
+
+src="${product.image}"
+
+alt="${product.name}"
+
+loading="lazy">
+
+</a>
+
+</div>
+
+<div class="product-info">
+
+<div class="product-category">
+
+${product.category}
+
+</div>
+
+<h3>
+
+<a href="${getProductURL(product.id)}">
+
+${product.name}
+
+</a>
+
+</h3>
+
+<div class="product-sku">
+
+SKU : ${product.SKUID}
+
+</div>
+
+<div class="price-box">
+
+<span class="sale-price">
+
+₹${product.price}
+
+</span>
+
+${discount>0?`
+
+<span class="mrp">
+
+₹${product.mrp}
+
+</span>
+
+<span class="discount">
+
+${discount}% OFF
+
+</span>
+
+`:""}
+
+</div>
+
+<div class="stock-status">
+
+${
+
+product.stock>0
+
+?
+
+"In Stock"
+
+:
+
+"Out Of Stock"
+
+}
+
+</div>
+
+<div class="product-actions">
+
+<button
+
+class="wishlist-btn"
+
+data-id="${product.id}">
+
+<i class="fa-regular fa-heart"></i>
+
+</button>
+
+<button
+
+class="cart-btn"
+
+data-id="${product.id}">
+
+Add To Cart
+
+</button>
+
+<button
+
+class="buy-btn"
+
+data-id="${product.id}">
+
+Buy Now
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+`;
+
+}
+/*==========================================================
+        TOAST NOTIFICATION
+==========================================================*/
+
+function showToast(message,type="success"){
+
+    let toast=document.querySelector(".toast");
+
+    if(!toast){
+
+        toast=document.createElement("div");
+
+        toast.className="toast";
+
+        document.body.appendChild(toast);
+
+    }
+
+    toast.className=`toast ${type}`;
+
+    toast.textContent=message;
+
+    toast.classList.add("show");
+
+    clearTimeout(toast.timer);
+
+    toast.timer=setTimeout(()=>{
+
+        toast.classList.remove("show");
+
+    },3000);
+
+}
+
+/*==========================================================
+        SCROLL TO TOP
+==========================================================*/
+
+function initScrollTop(){
+
+    if(!backToTop) return;
+
+    window.addEventListener("scroll",()=>{
+
+        if(window.scrollY>300){
+
+            backToTop.classList.add("show");
+
+        }
+
+        else{
+
+            backToTop.classList.remove("show");
+
+        }
+
+    });
+
+    backToTop.addEventListener("click",()=>{
 
         window.scrollTo({
 
@@ -656,61 +1117,163 @@ if(scrollBtn){
 
 }
 
-// ==========================================
-// SLIDER DOTS
-// ==========================================
 
-dots.forEach((dot,index)=>{
+/*==========================================================
+        HEADER EFFECT
+==========================================================*/
 
-    dot.addEventListener("click",()=>{
+function initHeader(){
 
-        currentSlide=index;
+    if(!header) return;
 
-        showSlide(index);
+    window.addEventListener("scroll",()=>{
+
+        if(window.scrollY>50){
+
+            header.classList.add("scrolled");
+
+        }
+
+        else{
+
+            header.classList.remove("scrolled");
+
+        }
 
     });
 
-});
+}
 
-// ==========================================
-// FINAL INITIALIZE
-// ==========================================
 
-document.addEventListener("DOMContentLoaded",()=>{
+/*==========================================================
+        MOBILE MENU
+==========================================================*/
 
-    updateCartCount();
+function initMobileMenu(){
 
-    updateWishlistCount();
+    if(!menuBtn || !mobileMenu) return;
 
-    console.log("✅ Garima's House Hold Ready");
+    menuBtn.addEventListener("click",()=>{
 
-});
-//==========================
-// TOAST
-//==========================
+        mobileMenu.classList.toggle("active");
 
-function showToast(
-
-title,
-
-message
-
-){
-
-const toast=
-
-document.getElementById("toast");
-
-document.getElementById("toastTitle").innerHTML=title;
-
-document.getElementById("toastMessage").innerHTML=message;
-
-toast.classList.add("show");
-
-setTimeout(()=>{
-
-toast.classList.remove("show");
-
-},3000);
+    });
 
 }
+/*==========================================================
+        IMAGE LOADING EFFECT
+==========================================================*/
+
+function initImageAnimation(){
+
+    const images=document.querySelectorAll("img");
+
+    images.forEach(img=>{
+
+        img.addEventListener("load",()=>{
+
+            img.classList.add("loaded");
+
+        });
+
+    });
+
+}
+
+
+/*==========================================================
+        WISHLIST ACTIVE ICON
+==========================================================*/
+
+function updateWishlistIcons(){
+
+    document
+
+    .querySelectorAll(".wishlist-btn")
+
+    .forEach(btn=>{
+
+        const id=btn.dataset.id;
+
+        const found=
+
+        wishlist.find(item=>item.id===id);
+
+        if(found){
+
+            btn.innerHTML=
+
+            '<i class="fa-solid fa-heart"></i>';
+
+        }
+
+        else{
+
+            btn.innerHTML=
+
+            '<i class="fa-regular fa-heart"></i>';
+
+        }
+
+    });
+
+}
+
+
+/*==========================================================
+        GLOBAL ERROR HANDLER
+==========================================================*/
+
+window.addEventListener("error",(e)=>{
+
+    console.error(
+
+        "Script Error :",
+
+        e.message
+
+    );
+
+});
+
+
+/*==========================================================
+        WEBSITE INITIALIZATION
+==========================================================*/
+
+async function initializeWebsite(){
+
+    updateBadges();
+
+    initHeroSlider();
+
+    initHeader();
+
+    initScrollTop();
+
+    initMobileMenu();
+
+    initImageAnimation();
+
+    await loadProducts();
+
+    updateWishlistIcons();
+
+}
+
+
+/*==========================================================
+        START WEBSITE
+==========================================================*/
+
+document.addEventListener(
+
+    "DOMContentLoaded",
+
+    ()=>{
+
+        initializeWebsite();
+
+    }
+
+);

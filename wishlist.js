@@ -77,7 +77,7 @@ function renderWishlist() {
 src="${product.image}"
 alt="${product.name}"
 loading="lazy"
-onerror="this.src='images/no-image.png'">
+
 
 <div class="product-info">
 

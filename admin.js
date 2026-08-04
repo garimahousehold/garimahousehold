@@ -30,21 +30,23 @@ let editId = null;
 // Elements
 // ==========================================
 
-const productForm = document.getElementById("product-form");
+const productForm = document.getElementById("productForm");
 
-const productName = document.getElementById("product-name");
+const productName = document.getElementById("productName");
 
-const productCategory = document.getElementById("product-category");
+const productSKU = document.getElementById("productsku");
 
-const productMrp = document.getElementById("product-mrp");
+const productCategory = document.getElementById("category");
 
-const productPrice = document.getElementById("product-price");
+const productMrp = document.getElementById("mrp");
 
-const productStock = document.getElementById("product-stock");
+const productPrice = document.getElementById("price");
 
-const productImage = document.getElementById("product-image");
+const productStock = document.getElementById("stock");
 
-const productDescription = document.getElementById("product-description");
+const productImage = document.getElementById("image");
+
+const productDescription = document.getElementById("description");
 
 const productList = document.getElementById("product-list");
 
@@ -203,6 +205,8 @@ productForm.addEventListener("submit", async (e) => {
 
     name: productName.value.trim(),
 
+    sku: productSKU.value.trim(),
+
     category: productCategory.value.trim(),
 
     mrp: Number(productMrp.value),
@@ -275,6 +279,7 @@ function editProduct(id) {
     editId = id;
 
     productName.value = product.name;
+    productSKU.value = product.sku || "";
     productCategory.value = product.category;
 
     productMrp.value = product.mrp || product.price;
