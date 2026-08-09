@@ -14,6 +14,44 @@
 <link rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 
+
+<style id="cart-image-size-fix">
+/* FINAL CART IMAGE SIZE FIX */
+#cartContainer .cart-item{
+    display:flex !important;
+    align-items:center !important;
+    gap:20px !important;
+    overflow:hidden !important;
+}
+
+#cartContainer .cart-item > img{
+    width:120px !important;
+    height:120px !important;
+    min-width:120px !important;
+    max-width:120px !important;
+    min-height:120px !important;
+    max-height:120px !important;
+    flex:0 0 120px !important;
+    object-fit:contain !important;
+    object-position:center !important;
+    display:block !important;
+    border-radius:12px !important;
+    background:#fff !important;
+}
+
+@media (max-width:768px){
+    #cartContainer .cart-item > img{
+        width:105px !important;
+        height:105px !important;
+        min-width:105px !important;
+        max-width:105px !important;
+        min-height:105px !important;
+        max-height:105px !important;
+        flex-basis:105px !important;
+    }
+}
+</style>
+
 </head>
 
 <body>
@@ -28,7 +66,7 @@ HEADER
 
         <a href="index.html">
 
-            <img src="logo_image/logo.png" alt="Logo">
+            <img src="images/logo.png" alt="Logo">
 
         </a>
 

@@ -69,10 +69,14 @@ const mobileMenu = $("#mobileMenu");
 const backToTop = $("#backToTop");
 
 // Cart
-const cartCount = $("#cart-count");
+const cartCount =
+    $("#cartCount") ||
+    $("#cart-count");
 
 // Wishlist
-const wishlistCount = $("#wishlist-count");
+const wishlistCount =
+    $("#wishlistCount") ||
+    $("#wishlist-count");
 
 
 /*==========================================================
@@ -123,7 +127,17 @@ function updateBadges(){
 
     if(cartCount){
 
-        cartCount.textContent = cart.length;
+        const totalItems = cart.reduce((total, item) => {
+
+            return total + Number(
+                item.qty ??
+                item.quantity ??
+                1
+            );
+
+        }, 0);
+
+        cartCount.textContent = totalItems;
 
     }
 
@@ -784,6 +798,11 @@ function addToCart(id){
     }
 
     saveCart();
+
+    showToast(
+        `${product.name} added to cart`,
+        "success"
+    );
 
 }
 
