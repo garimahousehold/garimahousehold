@@ -44,7 +44,7 @@ function loadCart() {
 
             <img src="${item.image}"
                  alt="${item.name}"
-                 onerror="this.src='images/no-image.png'">
+                 
 
             <div class="cart-info">
 
