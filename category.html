@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>
+Garima's House Hold | Category
+</title>
+
+<meta name="description"
+content="Shop by Category">
+
+<link rel="icon"
+href="favicon.ico">
+
+<!-- Google Font -->
+
+<link rel="preconnect"
+href="https://fonts.googleapis.com">
+
+<link rel="preconnect"
+href="https://fonts.gstatic.com"
+crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+rel="stylesheet">
+
+<!-- Font Awesome -->
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+<!-- CSS -->
+
+<link rel="stylesheet"
+href="style.css">
+
+</head>
+
+<body>
+
+<!-- =========================
+        LOADER
+========================= -->
+
+<div id="loader">
+
+    <div class="loader-circle"></div>
+
+</div>
+
+
+<!-- =========================
+        TOP BAR
+========================= -->
+
+<div class="top-bar">
+
+    <div class="container top-bar-content">
+
+        <span>
+            🚚 Free Delivery Above ₹999
+        </span>
+
+        <span>
+            💳 Secure UPI Payment
+        </span>
+
+        <span>
+            📞 +91 9374445544
+        </span>
+
+    </div>
+
+</div>
+
+
+<!-- =========================
+        HEADER
+========================= -->
+
+<header class="header">
+
+<div class="container header-inner">
+
+<!-- Logo -->
+
+<a href="index.html"
+class="logo">
+
+<img src="images/logo.png"
+alt="Garima Logo">
+
+</a>
+
+
+<!-- Search -->
+
+<div class="search-box">
+
+<input
+type="text"
+id="categorySearch"
+placeholder="Search Products...">
+
+<button>
+
+<i class="fa-solid fa-magnifying-glass"></i>
+
+</button>
+
+</div>
+
+
+<!-- Header Icons -->
+
+<div class="header-icons">
+
+<a href="wishlist.html">
+
+<i class="fa-regular fa-heart"></i>
+
+<span id="wishlistCount">
+
+0
+
+</span>
+
+</a>
+
+<a href="cart.html">
+
+<i class="fa-solid fa-cart-shopping"></i>
+
+<span id="cartCount">
+
+0
+
+</span>
+
+</a>
+
+<button id="menuBtn">
+
+<i class="fa-solid fa-bars"></i>
+
+</button>
+
+</div>
+
+</div>
+
+</header>
+<!-- =========================
+        CATEGORY HERO
+========================= -->
+
+<section class="category-hero">
+
+<div class="container">
+
+<div class="breadcrumb">
+
+<a href="index.html">
+
+Home
+
+</a>
+
+<span>
+
+<i class="fa-solid fa-angle-right"></i>
+
+</span>
+
+<span id="categoryTitle">
+
+All Products
+
+</span>
+
+</div>
+
+<div class="category-hero-content">
+
+<h1 id="categoryHeading">
+
+All Products
+
+</h1>
+
+<p>
+
+Explore our latest collection of Sarees,
+Kurtis, Home Essentials and much more.
+
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =========================
+        FILTER BAR
+========================= -->
+
+<section class="category-toolbar">
+
+<div class="container toolbar-wrapper">
+
+<div class="result-count">
+
+<span id="productCount">
+
+0 Products
+
+</span>
+
+</div>
+
+<div class="toolbar-right">
+
+<select id="sortProducts">
+
+<option value="latest">
+
+Latest
+
+</option>
+
+<option value="priceLow">
+
+Price : Low to High
+
+</option>
+
+<option value="priceHigh">
+
+Price : High to Low
+
+</option>
+
+<option value="name">
+
+Name (A-Z)
+
+</option>
+
+</select>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =========================
+        CATEGORY CONTENT
+========================= -->
+
+<section class="category-page">
+
+<div class="container category-layout">
+
+
+<!-- Sidebar -->
+
+<aside class="category-sidebar">
+
+<h3>
+
+Filters
+
+</h3>
+
+
+<div class="filter-box">
+
+<h4>
+
+Availability
+
+</h4>
+
+<label>
+
+<input
+type="checkbox"
+id="inStockOnly">
+
+In Stock Only
+
+</label>
+
+</div>
+
+
+<div class="filter-box">
+
+<h4>
+
+Price Range
+
+</h4>
+
+<input
+
+type="range"
+
+id="priceRange"
+
+min="0"
+
+max="10000"
+
+value="10000">
+
+<p>
+
+Up To ₹
+
+<span id="priceValue">
+
+10000
+
+</span>
+
+</p>
+
+</div>
+
+</aside>
+
+
+<!-- Products -->
+
+<div class="category-products">
+
+
+<div
+
+class="product-grid"
+
+id="categoryProducts">
+
+</div>
+
+
+<div
+
+id="noProducts"
+
+class="no-products"
+
+style="display:none;">
+
+<i class="fa-solid fa-box-open"></i>
+
+<h3>
+
+No Products Found
+
+</h3>
+
+<p>
+
+Please try another category.
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+<!-- =========================
+        RELATED CATEGORIES
+========================= -->
+
+<section class="related-category">
+
+<div class="container">
+
+<h2>
+
+Explore More Categories
+
+</h2>
+
+<div class="related-grid">
+
+<a href="category.html?cat=Saree"
+class="related-card">
+
+<img
+src="category_images/saree.jpeg"
+alt="Saree">
+
+<h4>
+
+Sarees
+
+</h4>
+
+</a>
+
+<a href="category.html?cat=Kurti"
+class="related-card">
+
+<img
+src="category_images/kurti.jpeg"
+alt="Kurti">
+
+<h4>
+
+Kurtis
+
+</h4>
+
+</a>
+
+<a href="category.html?cat=Home Essentials"
+class="related-card">
+
+<img
+src="category_images/household.jpeg"
+alt="House Hold">
+
+<h4>
+
+Home Essentials
+
+</h4>
+
+</a>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =========================
+        FOOTER
+========================= -->
+
+<footer class="footer">
+
+<div class="container footer-grid">
+
+<div class="footer-box">
+
+<img
+src="images/logo.png"
+class="footer-logo"
+alt="Logo">
+
+<p>
+
+Garima's House Hold offers premium
+household products, fashion,
+gift items and daily essentials.
+
+</p>
+
+</div>
+
+<div class="footer-box">
+
+<h3>
+
+Quick Links
+
+</h3>
+
+<ul>
+
+<li>
+
+<a href="index.html">
+
+Home
+
+</a>
+
+</li>
+
+<li>
+
+<a href="cart.html">
+
+Cart
+
+</a>
+
+</li>
+
+<li>
+
+<a href="wishlist.html">
+
+Wishlist
+
+</a>
+
+</li>
+
+<li>
+
+<a href="contact.html">
+
+Contact
+
+</a>
+
+</li>
+
+</ul>
+
+</div>
+
+<div class="footer-box">
+
+<h3>
+
+Customer Support
+
+</h3>
+
+<ul>
+
+<li>
+
+📞 +91 9374445544
+
+</li>
+
+<li>
+
+🚚 Fast Delivery
+
+</li>
+
+<li>
+
+💳 Secure Payment
+
+</li>
+
+<li>
+
+🔄 Easy Returns
+
+</li>
+
+</ul>
+
+</div>
+
+<div class="footer-box">
+
+<h3>
+
+Follow Us
+
+</h3>
+
+<div class="social-icons">
+
+<a href="#">
+
+<i class="fab fa-instagram"></i>
+
+</a>
+
+<a href="#">
+
+<i class="fab fa-facebook"></i>
+
+</a>
+
+<a href="#">
+
+<i class="fab fa-whatsapp"></i>
+
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="copyright">
+
+© 2026 Garima's House Hold.
+All Rights Reserved.
+
+</div>
+
+</footer>
+
+
+<!-- =========================
+        WHATSAPP
+========================= -->
+
+<a
+
+href="https://wa.me/919374445544"
+
+class="whatsapp-btn"
+
+target="_blank">
+
+<i class="fab fa-whatsapp"></i>
+
+</a>
+
+
+<!-- =========================
+        SCROLL TO TOP
+========================= -->
+
+<button id="scrollTop">
+
+<i class="fa-solid fa-arrow-up"></i>
+
+</button>
+
+
+<!-- =========================
+        TOAST
+========================= -->
+
+<div id="toast"
+
+class="toast">
+
+<div class="toast-icon">
+
+✓
+
+</div>
+
+<div>
+
+<h4 id="toastTitle">
+
+Success
+
+</h4>
+
+<p id="toastMessage">
+
+Done
+
+</p>
+
+</div>
+
+</div>
+
+
+<!-- =========================
+        JAVASCRIPT
+========================= -->
+
+<script type="module"
+src="firebase.js"></script>
+
+<script type="module"
+src="category.js"></script>
+
+</body>
+
+</html>
