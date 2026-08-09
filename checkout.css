@@ -261,3 +261,38 @@ RESPONSIVE
 }
 
 }
+
+
+/*=========================================
+SHIPPING CALCULATION
+=========================================*/
+
+#totalWeight,
+#deliveryCharge{
+    font-weight:600;
+}
+
+.checkout-info small{
+    display:block;
+    margin-top:5px;
+    color:#777;
+    font-size:12px;
+}
+
+.checkout-empty{
+    padding:25px 10px;
+    text-align:center;
+    color:#777;
+}
+
+/* FINAL UPI QR */
+.upi-qr,
+#upiQr,
+.upi-payment img[alt="UPI QR"] {
+    width: 240px !important;
+    height: 240px !important;
+    max-width: 100% !important;
+    object-fit: contain !important;
+    display: block !important;
+    margin: 0 auto !important;
+}
