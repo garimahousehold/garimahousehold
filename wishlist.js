@@ -77,7 +77,7 @@ function renderWishlist() {
 src="${product.image}"
 alt="${product.name}"
 loading="lazy"
-
+>
 
 <div class="product-info">
 
