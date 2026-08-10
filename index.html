@@ -1,1625 +1,216 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Garima's House Hold – Sarees, Kurtis, Home Essentials and more.">
+  <meta name="theme-color" content="#FCE4EC">
+  <title>Garima's House Hold | Sarees, Kurtis & Home Essentials</title>
 
-    <!-- =========================
-         BASIC META
-    ========================== -->
-
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
-
-    <title>
-        Garima's House Hold | Sarees, Kurtis, Home Essentials, Food & Rental Dresses | A unit of Madhuban Creation
-    </title>
-
-    <!-- =========================
-         SEO
-    ========================== -->
-
-    <meta name="description"
-          content="Garima's House Hold - Shop Premium Sarees, Kurtis, Home Essentials, Food Products and Rental Dresses. Quality Products at Affordable Prices.">
-
-    <meta name="keywords"
-          content="Garima's House Hold, Saree, Kurti, Home Essentials, Food, Rental Dresses, Online Shopping, India">
-
-    <meta name="author"
-          content="Garima's House Hold">
-
-    <meta name="robots"
-          content="index, follow">
-
-    <!-- =========================
-         THEME
-    ========================== -->
-
-    <meta name="theme-color"
-          content="#FCE4EC">
-
-    <!-- =========================
-         OPEN GRAPH
-    ========================== -->
-
-    <meta property="og:type"
-          content="website">
-
-    <meta property="og:title"
-          content="Garima's House Hold">
-
-    <meta property="og:description"
-          content="Premium Sarees, Kurtis, Home Essentials, Food & Rental Dresses">
-
-    <meta property="og:image"
-          content="logo_image/logo.png">
-
-    <meta property="og:url"
-          content="https://garimahousehold.com">
-
-    <!-- =========================
-         TWITTER
-    ========================== -->
-
-    <meta name="twitter:card"
-          content="summary_large_image">
-
-    <meta name="twitter:title"
-          content="Garima's House Hold">
-
-    <meta name="twitter:description"
-          content="Premium Sarees, Kurtis, Home Essentials, Food & Rental Dresses">
-
-    <meta name="twitter:image"
-          content="logo_image/logo.png">
-
-    <!-- =========================
-         FAVICON
-    ========================== -->
-
-    <link rel="icon"
-          type="image/png"
-          href="logo_image/logo.png">
-
-    <!-- =========================
-         GOOGLE FONTS
-    ========================== -->
-
-    <link rel="preconnect"
-          href="https://fonts.googleapis.com">
-
-    <link rel="preconnect"
-          href="https://fonts.gstatic.com"
-          crossorigin>
-
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
-          rel="stylesheet">
-
-    <!-- =========================
-         FONT AWESOME
-    ========================== -->
-
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
-
-    <!-- =========================
-         MAIN CSS
-    ========================== -->
-
-    <link rel="stylesheet"
-          href="style.css">
-
+  <link rel="icon" type="image/png" href="logo_image/logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
+  <div class="announcement">
+    <div>Fast & secure delivery</div>
+    <div>New Collection</div>
+    <div>Easy & Secure Shopping</div>
+  </div>
 
-<!-- =====================================
-     PAGE LOADER
-====================================== -->
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="index.html" aria-label="Garima's House Hold">
+        <img src="logo_image/logo.png" alt="Garima's House Hold">
+      </a>
 
-<div id="loader">
-    <div class="loader-box">
-        <img src="logo_image/logo.png"
-             alt="Garima's House Hold">
-    </div>
-</div>
+      <div class="search-wrap">
+        <input id="search" type="search" placeholder="Search Sarees, Kurtis, Home Essentials..." autocomplete="off">
+        <button id="searchBtn" type="button" aria-label="Search">⌕</button>
+      </div>
 
-
-<!-- =====================================
-     TOP BAR
-====================================== -->
-
-<div class="top-bar">
-
-    <div class="top-left">
-
-        <i class="fa-solid fa-truck-fast"></i>
-
-        <span>
-            Free Delivery On Selected Orders
-        </span>
-
-    </div>
-
-    <div class="top-right">
-
-        <a href="#">
-            Track Order
+      <div class="header-actions">
+        <a href="wishlist.html" class="action" aria-label="Wishlist">
+          <span class="action-icon">♡</span>
+          <span class="badge" id="wishlist-count">0</span>
         </a>
-
-        <span>|</span>
-
-        <a href="#">
-            Contact Us
+        <a href="cart.html" class="action" aria-label="Cart">
+          <span class="action-icon">🛒</span>
+          <span class="badge" id="cart-count">0</span>
         </a>
-
+        <a href="login.html" class="action account" aria-label="Account">♙</a>
+      </div>
     </div>
 
-</div>
-
-
-<!-- =====================================
-     HEADER
-====================================== -->
-
-<header class="header">
-
-<div class="header-container">
-
-
-<!-- ===========================
-     LOGO
-=========================== -->
-
-<a href="index.html"
-   class="logo">
-
-<img src="logo_image/logo.png"
-     alt="Garima's House Hold">
-
-</a>
-
-
-<!-- ===========================
-     SEARCH
-=========================== -->
-
-<div class="search-box">
-
-<input
-type="text"
-id="searchInput"
-placeholder="Search Sarees, Kurtis, Home Essentials...">
-
-<button>
-
-<i class="fa-solid fa-magnifying-glass"></i>
-
-</button>
-
-</div>
-
-
-
-<!-- ===========================
-     HEADER ICONS
-=========================== -->
-
-<div class="header-icons">
-
-
-<a href="wishlist.html"
-   class="icon-box">
-
-<i class="fa-regular fa-heart"></i>
-
-<span id="wishlistCount">
-
-0
-
-</span>
-
-</a>
-
-
-
-<a href="cart.html"
-   class="icon-box">
-
-<i class="fa-solid fa-cart-shopping"></i>
-
-<span id="cartCount">
-
-0
-
-</span>
-
-</a>
-
-
-
-<a href="login.html"
-   class="icon-box">
-
-<i class="fa-regular fa-user"></i>
-
-</a>
-
-
-<button
-id="menuBtn"
-class="mobile-menu">
-
-<i class="fa-solid fa-bars"></i>
-
-</button>
-
-
-</div>
-
-
-</div>
-
-</header>
-
-
-
-
-<!-- =====================================
-     NAVIGATION
-====================================== -->
-
-<nav class="navbar">
-
-<ul>
-
-
-<li>
-
-<a href="index.html">
-
-Home
-
-</a>
-
-</li>
-
-
-
-<li>
-
-<a href="#">
-
-Saree
-
-</a>
-
-</li>
-
-
-
-<li>
-
-<a href="#">
-
-Kurti
-
-</a>
-
-</li>
-
-
-
-<li>
-
-<a href="#">
-
-Home Essentials
-
-</a>
-
-</li>
-
-
-
-<li>
-
-<a href="#">
-
-Food
-
-</a>
-
-</li>
-
-
-
-<li>
-
-<a href="#">
-
-Rental Dresses
-
-<span class="coming-soon">
-
-Coming Soon
-
-</span>
-
-</a>
-
-</li>
-
-
-</ul>
-
-</nav>
-
-
-
-<!-- =====================================
-     WHATSAPP FLOAT BUTTON
-====================================== -->
-
-<a
-
-href="https://wa.me/919374445544"
-
-class="whatsapp-float"
-
-target="_blank">
-
-<i class="fa-brands fa-whatsapp"></i>
-
-</a>
-
-<!-- =====================================
-        HERO SECTION
-====================================== -->
-
-<section class="hero-section">
-
-    <!-- Left Side -->
-
-    <div class="hero-content">
-
-        <span class="hero-tag">
-            Garima's House Hold
-            <br>
-            <small>A Unit of Madhuban Creation</small>
-        </span>
-
-        <h1>
-            Sarees, Kurtis &
-            <br>
-            Home Essentials
-        </h1>
-
-        <p>
-            Discover premium Sarees, Stylish Kurtis,
-            Home Essentials, Food Products and Rental
-            Dresses at affordable prices.
-        </p>
-
-        <div class="hero-buttons">
-
-            <a href="#featuredProducts" class="btn-primary">
-                Shop Now
-            </a>
-
-            <a href="#categories" class="btn-secondary">
-                Explore Collection
-            </a>
-
+    <nav class="main-nav">
+      <a href="index.html" class="active">Home</a>
+      <a href="category.html?cat=Saree">Sarees</a>
+      <a href="category.html?cat=Kurti">Kurtis</a>
+      <a href="category.html?cat=Home Essentials">Home Essentials</a>
+      <a href="category.html?cat=Food">Food</span></a>
+      <a href="category.html?cat=Rental Dresses">Rental Dresses <span>Coming Soon</span></a>
+      <a href="products.html">All Products</a>
+      <a href="wishlist.html">Wishlist</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-slider" id="heroSlider">
+        <div class="slides">
+          <a class="slide active" href="category.html?cat=Saree">
+            <img src="banner_image/banner_1.png" alt="Premium Sarees">
+          </a>
+          <a class="slide" href="category.html?cat=Kurti">
+            <img src="banner_image/banner_2.png" alt="Latest Kurtis">
+          </a>
+          <a class="slide" href="category.html?cat=Home Essentials">
+            <img src="banner_image/banner_3.png" alt="Home Essentials">
+          </a>
         </div>
+        <button class="slider-arrow prev" id="prevSlide" aria-label="Previous">‹</button>
+        <button class="slider-arrow next" id="nextSlide" aria-label="Next">›</button>
+        <div class="slider-dots" id="sliderDots"></div>
+      </div>
+    </section>
 
-    </div>
-
-
-
-    <!-- Right Side -->
-
-    <div class="hero-slider">
-
-        <div class="slide active">
-
-            <img src="banner_image/banner_1.png"
-                 alt="Premium Sarees">
-
+    <section class="intro">
+      <div>
+        <span class="eyebrow">Welcome to Garima's House Hold</span>
+        <h1>Everything You Love,<br><em>All In One Place.</em></h1>
+        <p>Discover elegant Sarees, stylish Kurtis and useful Home Essentials – carefully selected for every home and every occasion.</p>
+        <div class="intro-buttons">
+          <a class="btn primary" href="#featured">Shop Now</a>
+          <a class="btn secondary" href="#categories">Explore Collection</a>
         </div>
+      </div>
+      <div class="intro-note">
+        <strong>A unit of Madhuban Creation</strong>
+        <span>Quality • Value • Trust</span>
+      </div>
+    </section>
 
-        <div class="slide">
-
-            <img src="banner_image/banner_2.png"
-                 alt="Latest Kurtis">
-
-        </div>
-
-        <div class="slide">
-
-            <img src="banner_image/banner_3.png"
-                 alt="Home Essentials">
-
-        </div>
-
-    </div>
-
-
-
-    <button class="slider-btn prev">
-        <i class="fa-solid fa-angle-left"></i>
-    </button>
-
-    <button class="slider-btn next">
-        <i class="fa-solid fa-angle-right"></i>
-    </button>
-
-    <div class="slider-dots">
-
-        <span class="dot active"></span>
-
-        <span class="dot"></span>
-
-        <span class="dot"></span>
-
-    </div>
-
-</section>
-
-
-<!-- =====================================
-        SHOP BY CATEGORY
-====================================== -->
-
-<section class="categories-section" id="categories">
-
-    <div class="section-heading">
-
-        <span>Explore Our Collection</span>
-
+    <section class="section categories" id="categories">
+      <div class="section-heading">
+        <span class="eyebrow">Explore Our Collection</span>
         <h2>Shop By Category</h2>
+        <p>Find something beautiful and useful for every part of your home and wardrobe.</p>
+      </div>
 
-        <p>
-            Discover carefully selected collections for every home and every occasion.
-        </p>
-
-    </div>
-
-
-    <div class="category-grid">
-
-
-        <!-- Saree -->
-
-        <a href="category.html?cat=Saree"
-   class="category-card"
-   data-category="Saree">
-
-            <div class="category-image">
-
-                <img src="category_images/saree.jpeg"
-                     alt="Saree"
-                     loading="lazy">
-
-            </div>
-
-            <div class="category-content">
-
-                <h3>Saree</h3>
-
-                <p>
-                    Elegant Collection
-                </p>
-
-            </div>
-
+      <div class="category-grid">
+        <a class="category-card large" href="category.html?cat=Saree">
+          <div class="category-image"><img src="category_images/saree.jpeg" alt="Saree" loading="lazy"></div>
+          <div><h3>Sarees</h3><p>Elegant Collection</p></div>
         </a>
-
-
-
-        <!-- Kurti -->
-
-        <a href="category.html?cat=Kurti"
-   class="category-card"
-   data-category="Kurti">
-
-            <div class="category-image">
-
-                <img src="category_images/kurti.jpeg"
-                     alt="Kurti"
-                     loading="lazy">
-
-            </div>
-
-            <div class="category-content">
-
-                <h3>Kurti</h3>
-
-                <p>
-                    Latest Fashion
-                </p>
-
-            </div>
-
+        <a class="category-card" href="category.html?cat=Kurti">
+          <div class="category-image"><img src="category_images/kurti.jpeg" alt="Kurti" loading="lazy"></div>
+          <div><h3>Kurtis</h3><p>Latest Fashion</p></div>
         </a>
-
-
-
-        <!-- Home Essentials -->
-
-        <a href="category.html?cat=Home Essentials"
-   class="category-card"
-   data-category="Home Essentials">
-
-            <div class="category-image">
-
-                <img src="category_images/household.jpeg"
-                     alt="Home Essentials"
-                     loading="lazy">
-
-            </div>
-
-            <div class="category-content">
-
-                <h3>Home Essentials</h3>
-
-                <p>
-
-                    Daily Needs
-
-                </p>
-
-            </div>
-
+        <a class="category-card" href="category.html?cat=Home Essentials">
+          <div class="category-image"><img src="category_images/household.jpeg" alt="Home Essentials" loading="lazy"></div>
+          <div><h3>Home Essentials</h3><p>Daily Needs</p></div>
         </a>
-
-
-
-        <!-- Food -->
-
-        <a href="category.html?cat=Food"
-   class="category-card"
-   data-category="Food">
-
-            <div class="category-image">
-
-                <img src="category_images/food.jpg"
-                     alt="Food"
-                     loading="lazy">
-
-            </div>
-
-            <div class="category-content">
-
-                <h3>Food</h3>
-
-                <p>
-
-                    Coming Fresh
-
-                </p>
-
-            </div>
-
+        <a class="category-card" href="category.html?cat=Food">
+          <div class="category-image"><img src="category_images/food.jpg" alt="Food" loading="lazy"><span class="coming">Coming Soon</span></div>
+          <div><h3>Food</h3><p>Coming Fresh</p></div>
         </a>
-
-
-
-        <!-- Rental Dresses -->
-
-        <div class="category-card coming-soon-card"
-     data-category="Rental Dress">
-
-            <div class="category-image">
-
-                <img src="category_images/rental.jpg"
-                     alt="Rental Dresses"
-                     loading="lazy">
-
-                <span class="coming-badge">
-
-                    Coming Soon
-
-                </span>
-
-            </div>
-
-            <div class="category-content">
-
-                <h3>Rental Dresses</h3>
-
-                <p>
-
-                    Wedding • Party • Special Events
-
-                </p>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
-
-<!-- =====================================
-        FEATURED PRODUCTS
-====================================== -->
-
-<section class="featured-products" id="featuredProducts">
-
-    <div class="section-header">
-
-        <span class="section-subtitle">
-            Premium Collection
-        </span>
-
-        <h2 class="section-title">
-            Featured Products
-        </h2>
-
-        <p class="section-description">
-            Handpicked products specially selected for our valuable customers.
-        </p>
-
-    </div>
-
-
-    <!-- Category Filter -->
-
-    <div class="product-filter">
-
-        <button class="filter-btn active"
-                data-filter="all">
-
-            All
-
-        </button>
-
-        <button class="filter-btn"
-                data-filter="Saree">
-
-            Saree
-
-        </button>
-
-        <button class="filter-btn"
-                data-filter="Kurti">
-
-            Kurti
-
-        </button>
-
-        <button class="filter-btn"
-                data-filter="Home Essentials">
-
-            Home Essentials
-
-        </button>
-
-        <button class="filter-btn"
-                data-filter="Food">
-
-            Food
-
-        </button>
-
-    </div>
-
-
-
-    <!-- Firebase Products -->
-
-    <div
-        id="products-grid"
-        class="products-grid">
-
-        <!-- Products Auto Load From Firebase -->
-
-    </div>
-
-
-
-    <!-- View All -->
-
-    <div class="view-all-products">
-
-    <a href="category.html"
-       class="view-all-btn">
-
-        View All Products
-
-        <i class="fa-solid fa-arrow-right"></i>
-
-    </a>
-
-</div>
-
-</section>
-
-
-
-<!-- =====================================
-        PROMOTIONAL BANNER
-====================================== -->
-
-<section class="offer-banner">
-
-    <div class="offer-content">
-
-        <span>
-
-            Limited Time Offer
-
-        </span>
-
-        <h2>
-
-            Get Amazing Deals
-            On Premium Collections
-
-        </h2>
-
-        <p>
-
-            Shop your favourite products with exclusive discounts.
-
-        </p>
-
-        <a href="#products-grid"
-           class="offer-btn">
-
-            Shop Now
-
+        <a class="category-card" href="category.html?cat=Rental Dresses">
+          <div class="category-image"><img src="category_images/rental.jpg" alt="Rental Dresses" loading="lazy"><span class="coming">Coming Soon</span></div>
+          <div><h3>Rental Dresses</h3><p>Wedding • Party • Events</p></div>
         </a>
-
-    </div>
-
-</section>
-<!-- =====================================
-        BEST SELLERS
-====================================== -->
-
-<section class="home-section">
-
-    <div class="section-header">
-
-        <span class="section-subtitle">
-
-            Customer Favorites
-
-        </span>
-
-        <h2 class="section-title">
-
-            Best Sellers
-
-        </h2>
-
-        <p class="section-description">
-
-            Our most loved products selected by customers.
-
-        </p>
-
-    </div>
-
-    <div
-        id="bestSellerProducts"
-        class="products-grid">
-
-        <!-- Firebase Auto Load -->
-
-    </div>
-
-</section>
-
-
-
-<!-- =====================================
-        NEW ARRIVALS
-====================================== -->
-
-<section class="home-section new-arrival-section">
-
-    <div class="section-header">
-
-        <span class="section-subtitle">
-
-            Just Arrived
-
-        </span>
-
-        <h2 class="section-title">
-
-            New Arrivals
-
-        </h2>
-
-        <p class="section-description">
-
-            Fresh arrivals added to our latest collection.
-
-        </p>
-
-    </div>
-
-    <div
-        id="newArrivalProducts"
-        class="products-grid">
-
-        <!-- Firebase Auto Load -->
-
-    </div>
-
-</section>
-
-
-
-<!-- =====================================
-        TRENDING COLLECTION
-====================================== -->
-
-<section class="home-section trending-section">
-
-    <div class="section-header">
-
-        <span class="section-subtitle">
-
-            Trending Now
-
-        </span>
-
-        <h2 class="section-title">
-
-            Trending Collection
-
-        </h2>
-
-        <p class="section-description">
-
-            Explore the most trending products loved by everyone.
-
-        </p>
-
-    </div>
-
-    <div
-        id="trendingProducts"
-        class="products-grid">
-
-        <!-- Firebase Auto Load -->
-
-    </div>
-
-</section>
-
-
-
-<!-- =====================================
-        WHY SHOP WITH US
-====================================== -->
-
-<section class="features-section">
-
-    <div class="feature-card">
-
-        <i class="fa-solid fa-truck-fast"></i>
-
-        <h3>
-
-            Fast Delivery
-
-        </h3>
-
-        <p>
-
-            Quick & safe delivery at your doorstep.
-
-        </p>
-
-    </div>
-
-
-
-    <div class="feature-card">
-
-        <i class="fa-solid fa-shield-heart"></i>
-
-        <h3>
-
-            Trusted Quality
-
-        </h3>
-
-        <p>
-
-            Carefully selected premium quality products.
-
-        </p>
-
-    </div>
-
-
-
-    <div class="feature-card">
-
-        <i class="fa-solid fa-credit-card"></i>
-
-        <h3>
-
-            Secure Payments
-
-        </h3>
-
-        <p>
-
-            Safe & secure online payment options.
-
-        </p>
-
-    </div>
-
-
-
-    <div class="feature-card">
-
-        <i class="fa-brands fa-whatsapp"></i>
-
-        <h3>
-
-            WhatsApp Support
-
-        </h3>
-
-        <p>
-
-            Instant customer support whenever you need.
-
-        </p>
-
-    </div>
-
-</section>
-<!-- =====================================
-        ABOUT GARIMA'S HOUSE HOLD
-====================================== -->
-
-<section class="about-home">
-
-    <div class="about-content">
-
-        <span class="section-subtitle">
-
-            Welcome To
-
-        </span>
-
-        <h2>
-
-            Garima's House Hold
-
-        </h2>
-
-        <p>
-
-            Garima's House Hold brings together premium Sarees,
-            Stylish Kurtis, Home Essentials and carefully selected
-            products to make your shopping experience beautiful,
-            simple and affordable.
-
-        </p>
-
-        <p>
-
-            Our mission is to deliver quality, trust and happiness
-            to every family.
-
-        </p>
-
-        <a href="#featuredProducts"
-           class="primary-btn">
-
-            Start Shopping
-
-        </a>
-
-    </div>
-
-
-    <div class="about-image">
-
-        <img
-            src="images/about-store.jpg"
-            alt="Garima's House Hold">
-
-    </div>
-
-</section>
-
-
-
-<!-- =====================================
-        WHY CHOOSE US
-====================================== -->
-
-<section class="why-us">
-
-    <div class="section-header">
-
-        <span>
-
-            Why Customers Love Us
-
-        </span>
-
-        <h2>
-
-            Why Choose Garima's House Hold
-
-        </h2>
-
-    </div>
-
-
-    <div class="why-grid">
-
-        <div class="why-card">
-
-            <i class="fa-solid fa-award"></i>
-
-            <h3>
-
-                Premium Quality
-
-            </h3>
-
-            <p>
-
-                Carefully selected quality products.
-
-            </p>
-
+      </div>
+    </section>
+
+    <section class="section featured" id="featured">
+      <div class="section-heading row-heading">
+        <div>
+          <span class="eyebrow">Premium Collection</span>
+          <h2>Featured Products</h2>
+          <p>Handpicked products specially selected for our customers.</p>
         </div>
+        <a class="text-link" href="products.html">View All Products →</a>
+      </div>
 
+      <div class="filter-bar">
+        <button class="filter-btn active" data-category="All">All</button>
+        <button class="filter-btn" data-category="Saree">Saree</button>
+        <button class="filter-btn" data-category="Kurti">Kurti</button>
+        <button class="filter-btn" data-category="Home Essentials">Home Essentials</button>
+        <button class="filter-btn" data-category="Food">Food</button>
+      </div>
 
+      <div class="product-grid" id="product-grid">
+        <div class="loading-card">Loading Products...</div>
+      </div>
+    </section>
 
-        <div class="why-card">
+    <section class="promo">
+      <div>
+        <span class="eyebrow">Limited Time Offers</span>
+        <h2>Beautiful Choices.<br>Better Prices.</h2>
+        <p>Shop your favourites with exclusive offers and value-packed collections.</p>
+        <a class="btn light" href="products.html">Shop Now</a>
+      </div>
+      <div class="promo-badge">Garima's<br><strong>House Hold</strong></div>
+    </section>
 
-            <i class="fa-solid fa-tags"></i>
+    <section class="section why">
+      <div class="section-heading">
+        <span class="eyebrow">Why Customers Love Us</span>
+        <h2>Why Choose Garima's House Hold</h2>
+      </div>
+      <div class="why-grid">
+        <article><div>✦</div><h3>Premium Quality</h3><p>Carefully selected products with quality in mind.</p></article>
+        <article><div>₹</div><h3>Affordable Prices</h3><p>Good products at prices made for everyday shopping.</p></article>
+        <article><div>⌁</div><h3>Safe Delivery</h3><p>Secure packing and reliable delivery.</p></article>
+        <article><div>♡</div><h3>Customer Support</h3><p>Friendly help whenever you need it.</p></article>
+      </div>
+    </section>
 
-            <h3>
-
-                Affordable Prices
-
-            </h3>
-
-            <p>
-
-                Best products at the best prices.
-
-            </p>
-
+    <section class="section instagram">
+      <div class="section-heading">
+        <span class="eyebrow">Follow Us</span>
+        <h2>Instagram Gallery</h2>
+      </div>
+      <div class="instagram-card">
+        <img src="instagram_images/instagram.png" alt="Garima's House Hold on Instagram">
+        <div>
+          <h3>See What's New</h3>
+          <p>Follow us for new arrivals, offers and latest updates.</p>
+          <a class="btn primary" href="https://instagram.com/householdbygarima" target="_blank" rel="noopener">Follow On Instagram</a>
         </div>
+      </div>
+    </section>
 
+    <section class="newsletter">
+      <div>
+        <span class="eyebrow">Stay Connected</span>
+        <h2>Get the Latest Updates</h2>
+        <p>New arrivals, offers and exclusive deals directly from Garima's House Hold.</p>
+      </div>
+      <form id="newsletterForm">
+        <input type="email" required placeholder="Enter your email">
+        <button type="submit">Subscribe</button>
+      </form>
+    </section>
+  </main>
 
-
-        <div class="why-card">
-
-            <i class="fa-solid fa-truck-fast"></i>
-
-            <h3>
-
-                Fast Delivery
-
-            </h3>
-
-            <p>
-
-                Safe and quick delivery.
-
-            </p>
-
-        </div>
-
-
-
-        <div class="why-card">
-
-            <i class="fa-solid fa-headset"></i>
-
-            <h3>
-
-                Customer Support
-
-            </h3>
-
-            <p>
-
-                Friendly support whenever needed.
-
-            </p>
-
-        </div>
-
+  <footer class="footer">
+    <div class="footer-grid">
+      <div>
+        <img class="footer-logo" src="logo_image/logo.png" alt="Garima's House Hold">
+        <p>Your trusted shopping destination for Sarees, Kurtis and Home Essentials.</p>
+      </div>
+      <div><h4>Quick Links</h4><a href="index.html">Home</a><a href="products.html">All Products</a><a href="wishlist.html">Wishlist</a><a href="cart.html">Cart</a></div>
+      <div><h4>Categories</h4><a href="category.html?cat=Saree">Sarees</a><a href="category.html?cat=Kurti">Kurtis</a><a href="category.html?cat=Home Essentials">Home Essentials</a></div>
+      <div><h4>Coming Soon</h4><a href="category.html?cat=Food">Food</a><a href="category.html?cat=Rental Dresses">Rental Dresses</a><a href="contact.html">Contact Us</a></div>
     </div>
+    <div class="footer-bottom">© 2026 Garima's House Hold. All Rights Reserved.</div>
+  </footer>
 
-</section>
-
-
-
-<!-- =====================================
-        CUSTOMER REVIEWS
-====================================== -->
-
-<section class="reviews-section">
-
-    <div class="section-header">
-
-        <span>
-
-            Happy Customers
-
-        </span>
-
-        <h2>
-
-            Customer Reviews
-
-        </h2>
-
-    </div>
-
-
-    <div class="reviews-slider">
-
-
-        <div class="review-card">
-
-            <div class="stars">
-
-                ⭐⭐⭐⭐⭐
-
-            </div>
-
-            <p>
-
-                Amazing quality products and very fast delivery.
-                Highly recommended.
-
-            </p>
-
-            <h4>
-
-                Priya Sharma
-
-            </h4>
-
-        </div>
-
-
-
-        <div class="review-card">
-
-            <div class="stars">
-
-                ⭐⭐⭐⭐⭐
-
-            </div>
-
-            <p>
-
-                Beautiful collection and excellent customer support.
-
-            </p>
-
-            <h4>
-
-                Neha Jain
-
-            </h4>
-
-        </div>
-
-
-
-        <div class="review-card">
-
-            <div class="stars">
-
-                ⭐⭐⭐⭐⭐
-
-            </div>
-
-            <p>
-
-                Premium shopping experience.
-                Will definitely order again.
-
-            </p>
-
-            <h4>
-
-                Ritu Gupta
-
-            </h4>
-
-        </div>
-
-
-    </div>
-
-</section>
-
-
-
-<!-- =====================================
-        INSTAGRAM GALLERY
-====================================== -->
-
-<section class="instagram-section">
-
-    <div class="section-header">
-
-        <span>
-
-            Follow Us
-
-        </span>
-
-        <h2>
-
-            Instagram Gallery
-
-        </h2>
-
-    </div>
-
-    <div class="instagram-grid">
-
-        <img src="instagram_images/picture_1.jpeg" alt="Gallery">
-
-        <img src="instagram_images/picture_1.jpeg" alt="Gallery">
-
-        <img src="instagram_images/picture_1.jpeg" alt="Gallery">
-
-        <img src="instagram_images/picture_1.jpeg" alt="Gallery">
-
-        <img src="instagram_images/picture_1.jpeg" alt="Gallery">
-
-        <img src="instagram_images/picture_1.jpeg" alt="Gallery">
-
-    </div>
-
-</section>
-
-
-
-<!-- =====================================
-        NEWSLETTER
-====================================== -->
-
-<section class="newsletter">
-
-    <div class="newsletter-content">
-
-        <h2>
-
-            Join Our Newsletter
-
-        </h2>
-
-        <p>
-
-            Get latest offers, new arrivals and exclusive deals.
-
-        </p>
-
-        <form>
-
-            <input
-                type="email"
-                placeholder="Enter Your Email">
-
-            <button>
-
-                Subscribe
-
-            </button>
-
-        </form>
-
-    </div>
-
-</section>
-
-
-
-<!-- =====================================
-        WHATSAPP CTA
-====================================== -->
-
-<section class="whatsapp-banner">
-
-    <h2>
-
-        Need Help?
-
-    </h2>
-
-    <p>
-
-        Chat with us directly on WhatsApp.
-
-    </p>
-
-    <a
-       href="https://wa.me/919374445544"
-       target="_blank">
-
-        Chat On WhatsApp
-
-    </a>
-
-</section>
-<!-- =====================================
-        PREMIUM FOOTER
-====================================== -->
-
-<footer class="footer">
-
-    <div class="footer-container">
-
-        <!-- Company -->
-
-        <div class="footer-column">
-
-            <img src="logo_image/logo.png"
-                 class="footer-logo"
-                 alt="Garima's House Hold">
-
-            <p>
-
-                Your trusted shopping destination for
-                Sarees, Kurtis, Home Essentials,
-                Food Products and Rental Dresses.
-
-            </p>
-
-        </div>
-
-
-
-        <!-- Quick Links -->
-
-        <div class="footer-column">
-
-            <h3>
-
-                Quick Links
-
-            </h3>
-
-            <ul>
-
-                <li>
-
-                    <a href="index.html">
-
-                        Home
-
-                    </a>
-
-                </li>
-
-                <li>
-
-                    <a href="#categories">
-
-                        Categories
-
-                    </a>
-
-                </li>
-
-                <li>
-
-                    <a href="#featuredProducts">
-
-                        Products
-
-                    </a>
-
-                </li>
-
-                <li>
-
-                    <a href="cart.html">
-
-                        Cart
-
-                    </a>
-
-                </li>
-
-                <li>
-
-                    <a href="wishlist.html">
-
-                        Wishlist
-
-                    </a>
-
-                </li>
-
-            </ul>
-
-        </div>
-
-
-
-        <!-- Categories -->
-
-        <div class="footer-column">
-
-            <h3>
-
-                Categories
-
-            </h3>
-
-            <ul>
-
-                <li>Saree</li>
-
-                <li>Kurti</li>
-
-                <li>Home Essentials</li>
-
-                <li>Food</li>
-
-                <li>Rental Dresses</li>
-
-            </ul>
-
-        </div>
-
-
-
-        <!-- Contact -->
-
-        <div class="footer-column">
-
-            <h3>
-
-                Contact
-
-            </h3>
-
-            <p>
-
-                WhatsApp Support
-
-            </p>
-
-            <p>
-
-                Mon - Sat
-
-            </p>
-
-            <div class="social-icons">
-
-                <a href="#">
-
-                    <i class="fab fa-facebook-f"></i>
-
-                </a>
-
-                <a href="#">
-
-                    <i class="fab fa-instagram"></i>
-
-                </a>
-
-                <a href="#">
-
-                    <i class="fab fa-youtube"></i>
-
-                </a>
-
-                <a href="#">
-
-                    <i class="fab fa-whatsapp"></i>
-
-                </a>
-
-            </div>
-
-        </div>
-
-    </div>
-
-
-
-    <!-- Payment -->
-
-    <div class="payment-section">
-
-        <h4>
-
-            Secure Payments
-
-        </h4>
-
-        <div class="payment-icons">
-
-            <i class="fa-brands fa-cc-visa"></i>
-
-            <i class="fa-brands fa-cc-mastercard"></i>
-
-            <i class="fa-brands fa-google-pay"></i>
-
-            <i class="fa-solid fa-credit-card"></i>
-
-        </div>
-
-    </div>
-
-
-
-    <!-- Copyright -->
-
-    <div class="copyright">
-
-        © 2026 Garima's House Hold.
-        All Rights Reserved.
-
-    </div>
-
-</footer>
-
-
-
-<!-- =====================================
-        BACK TO TOP
-====================================== -->
-
-<button
-        id="backToTop"
-        class="back-to-top">
-
-    <i class="fa-solid fa-arrow-up"></i>
-
-</button>
-
-
-
-<!-- =====================================
-        FIREBASE
-====================================== -->
-
-<script
-type="module"
-src="firebase.js">
-
-</script>
-
-
-
-<!-- =====================================
-        MAIN SCRIPT
-====================================== -->
-
-<script
-type="module"
-src="script.js">
-
-</script>
-
-
-
+  <script type="module" src="script.js"></script>
 </body>
-
 </html>

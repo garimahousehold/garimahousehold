@@ -323,15 +323,48 @@ function loadGallery(){
     }
 
 
+    // Show a second image only when the product actually has multiple images.
+
+
+
+    if(images.length <= 1){
+
+
+
+        thumbnails.innerHTML="";
+
+
+
+        return;
+
+
+
+    }
+
+
+
+
     images.forEach((img,index)=>{
+
+
+
 
         const image=document.createElement("img");
 
+
+
+
         image.src=img;
+
+
+
 
         image.alt=product.name;
 
-        image.className="thumb";
+
+
+
+        image.className="thumbnail";
 
         if(index===0){
 
@@ -345,7 +378,7 @@ function loadGallery(){
 
             document
 
-            .querySelectorAll(".thumb")
+            .querySelectorAll(".thumbnail")
 
             .forEach(item=>{
 
