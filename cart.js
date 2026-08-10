@@ -2,7 +2,7 @@
 // Garima's House Hold - Cart
 // ==========================================
 
-let cart = JSON.parse(localStorage.getItem("cart")) || [];
+let cart = (JSON.parse(localStorage.getItem("cart")) || []).map(item => ({ ...item, qty: Number(item.qty ?? item.quantity ?? 1) }));
 
 const cartContainer = document.getElementById("cartContainer");
 const subtotalElement = document.getElementById("subtotal");
@@ -11,7 +11,7 @@ const discountElement = document.getElementById("discount");
 const grandTotalElement = document.getElementById("grandTotal");
 const checkoutBtn = document.getElementById("checkoutBtn");
 
-const DELIVERY_CHARGE = 50;
+const DELIVERY_CHARGE = 0;
 
 function saveCart(){
   localStorage.setItem("cart", JSON.stringify(cart));
@@ -23,17 +23,17 @@ function money(value){
 
 function getSubtotal(){
   return cart.reduce((sum,item) =>
-    sum + (Number(item.price) || 0) * (Number(item.qty) || 0), 0);
+    sum + (Number(item.price) || 0) * (Number(item.qty ?? item.quantity) || 0), 0);
 }
 
 function updateSummary(){
   const subtotal = getSubtotal();
-  const delivery = cart.length ? DELIVERY_CHARGE : 0;
+  const delivery = 0; // Final delivery is calculated automatically on checkout from pincode + total weight.
   const discount = 0;
   const total = subtotal + delivery - discount;
 
   if(subtotalElement) subtotalElement.textContent = money(subtotal);
-  if(deliveryElement) deliveryElement.textContent = money(delivery);
+  if(deliveryElement) deliveryElement.textContent = cart.length ? "Calculated at Checkout" : money(0);
   if(discountElement) discountElement.textContent = money(discount);
   if(grandTotalElement) grandTotalElement.textContent = money(total);
 }
@@ -55,7 +55,7 @@ function loadCart(){
 
   cart.forEach((item,index)=>{
     const price = Number(item.price) || 0;
-    const qty = Number(item.qty) || 1;
+    const qty = Number(item.qty ?? item.quantity) || 1;
     const total = price * qty;
 
     const card = document.createElement("div");
@@ -99,7 +99,7 @@ function removeItem(index){
 
 function increaseQty(index){
   if(!cart[index]) return;
-  cart[index].qty = (Number(cart[index].qty) || 1) + 1;
+  cart[index].qty = (Number(cart[index].qty ?? cart[index].quantity) || 1) + 1;
   saveCart();
   loadCart();
 }
@@ -107,7 +107,7 @@ function increaseQty(index){
 function decreaseQty(index){
   if(!cart[index]) return;
 
-  const qty = Number(cart[index].qty) || 1;
+  const qty = Number(cart[index].qty ?? cart[index].quantity) || 1;
 
   if(qty > 1){
     cart[index].qty = qty - 1;

@@ -68,7 +68,7 @@ selectedCategory = normalizeCategory(
 // LOCAL STORAGE
 // ==========================================
 
-let cart = getStorageArray("cart");
+let cart = getStorageArray("cart").map(item => ({ ...item, qty: Number(item.qty ?? item.quantity ?? 1) }));
 let wishlist = getStorageArray("wishlist");
 
 function getStorageArray(key) {
@@ -608,8 +608,7 @@ function addToCart(productId) {
     );
 
     if (existing) {
-        existing.quantity =
-            Number(existing.quantity || 1) + 1;
+        existing.qty = Number(existing.qty || 1) + 1;
     } else {
         cart.push({
             id: product.id,
@@ -617,7 +616,7 @@ function addToCart(productId) {
             price: getProductPrice(product),
             image: getProductImage(product),
             category: product.category || "",
-            quantity: 1
+            qty: 1
         });
     }
 
@@ -635,7 +634,7 @@ function updateCartCount() {
 
     const count = cart.reduce(
         (total, item) =>
-            total + Number(item.quantity || 1),
+            total + Number(item.qty ?? item.quantity ?? 1),
         0
     );
 

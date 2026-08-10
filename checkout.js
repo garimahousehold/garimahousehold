@@ -95,17 +95,44 @@ function isRajasthan(state) {
     ].includes(normalized);
 }
 
+// Pincode-based Rajasthan detection.
+// Rajasthan PIN codes fall in the 30xxxx-34xxxx series.
+function isRajasthanPincode(pincode) {
+    const pin = String(pincode || "").replace(/\D/g, "");
+    if (!/^\d{6}$/.test(pin)) return false;
+
+    const firstTwo = Number(pin.slice(0, 2));
+    return firstTwo >= 30 && firstTwo <= 34;
+}
+
+function detectStateFromPincode() {
+    const pincodeEl = document.getElementById("customerPincode");
+    const stateEl = document.getElementById("customerState");
+    if (!pincodeEl || !stateEl) return;
+
+    const pin = pincodeEl.value.replace(/\D/g, "").slice(0, 6);
+    pincodeEl.value = pin;
+
+    if (pin.length === 6) {
+        stateEl.value = isRajasthanPincode(pin) ? "Rajasthan" : "Outside Rajasthan";
+    }
+}
+
 // =====================================
 // CALCULATE DELIVERY
 // =====================================
 
 function calculateDelivery() {
 
-    const state = document
-        .getElementById("customerState")
-        .value;
+    const stateEl = document.getElementById("customerState");
+    const pincodeEl = document.getElementById("customerPincode");
 
-    const rate = isRajasthan(state)
+    const state = stateEl ? stateEl.value : "";
+    const pincode = pincodeEl ? pincodeEl.value : "";
+
+    const rajasthan = isRajasthanPincode(pincode) || (!/^\d{6}$/.test(pincode) && isRajasthan(state));
+
+    const rate = rajasthan
         ? RAJASTHAN_RATE
         : OUTSIDE_RAJASTHAN_RATE;
 
@@ -242,6 +269,7 @@ async function loadCheckout() {
     calculateDelivery();
 }
 
+detectStateFromPincode();
 loadCheckout();
 
 // =====================================
@@ -254,7 +282,10 @@ document
 
 document
     .getElementById("customerPincode")
-    .addEventListener("input", calculateDelivery);
+    .addEventListener("input", () => {
+        detectStateFromPincode();
+        calculateDelivery();
+    });
 
 // =====================================
 // COPY UPI
@@ -372,7 +403,7 @@ document
                 : 0;
 
         const shippingRate =
-            isRajasthan(state)
+            isRajasthanPincode(pincode)
                 ? RAJASTHAN_RATE
                 : OUTSIDE_RAJASTHAN_RATE;
 
@@ -439,7 +470,7 @@ document
 
             const productsList = cart
                 .map(item =>
-                    `• ${item.qty} x ${item.id}`
+                    `• ${Number(item.qty ?? item.quantity ?? 1)} x ${item.name || item.id}`
                 )
                 .join("\n");
 

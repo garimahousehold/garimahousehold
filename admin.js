@@ -30,23 +30,25 @@ let editId = null;
 // Elements
 // ==========================================
 
-const productForm = document.getElementById("productForm");
+const productForm = document.getElementById("product-form") || document.getElementById("productForm");
 
-const productName = document.getElementById("productName");
+const productName = document.getElementById("product-name") || document.getElementById("productName");
 
-const productSKU = document.getElementById("productsku");
+const productSKU = document.getElementById("product-sku") || document.getElementById("productsku");
 
-const productCategory = document.getElementById("category");
+const productCategory = document.getElementById("product-category") || document.getElementById("category");
 
-const productMrp = document.getElementById("mrp");
+const productMrp = document.getElementById("product-mrp") || document.getElementById("mrp");
 
-const productPrice = document.getElementById("price");
+const productPrice = document.getElementById("product-price") || document.getElementById("price");
 
-const productStock = document.getElementById("stock");
+const productStock = document.getElementById("product-stock") || document.getElementById("stock");
 
-const productImage = document.getElementById("image");
+const productWeight = document.getElementById("product-weight") || document.getElementById("productWeight");
 
-const productDescription = document.getElementById("description");
+const productImage = document.getElementById("product-image") || document.getElementById("image");
+
+const productDescription = document.getElementById("product-description") || document.getElementById("description");
 
 const productList = document.getElementById("product-list");
 
@@ -215,6 +217,8 @@ productForm.addEventListener("submit", async (e) => {
 
     stock: Number(productStock.value),
 
+    weightKg: Number(productWeight?.value || 0),
+
     image: productImage.value.trim(),
 
     description: productDescription.value.trim(),
@@ -286,6 +290,7 @@ function editProduct(id) {
 
     productPrice.value = product.price;
     productStock.value = product.stock || 0;
+    if (productWeight) productWeight.value = product.weightKg || product.weight || "";
 
     productImage.value = product.image;
     productDescription.value = product.description;
