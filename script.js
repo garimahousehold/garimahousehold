@@ -78,7 +78,6 @@ const wishlistCount =
     $("#wishlistCount") ||
     $("#wishlist-count");
 
-
 /*==========================================================
         GLOBAL VARIABLES
 ==========================================================*/
@@ -800,9 +799,9 @@ function addToCart(id){
     saveCart();
 
     showToast(
-        `${product.name} added to cart`,
-        "success"
-    );
+    `${product.name} added to cart`,
+    "success"
+);
 
 }
 

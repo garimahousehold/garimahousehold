@@ -84,7 +84,7 @@ loading="lazy"
 <h3>${product.name}</h3>
 
 <p class="price">
-₹${Number(product.price).toLocaleString("en-IN")}
+&#8377;${Number(product.price).toLocaleString("en-IN")}
 </p>
 
 <button class="add-cart-btn">
