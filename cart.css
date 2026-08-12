@@ -1,122 +1,2263 @@
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:Arial,Helvetica,sans-serif;background:#f7f7f7;color:#222}
-a{text-decoration:none;color:inherit}
+/* =========================================================
+   GARIMA'S HOUSE HOLD
+   CART.CSS — PART 1
+   ========================================================= */
 
-.header{
-  min-height:76px;background:#fff;display:flex;align-items:center;
-  justify-content:space-between;padding:12px 4%;gap:20px;
-  box-shadow:0 4px 18px rgba(0,0,0,.08);position:sticky;top:0;z-index:10
-}
-.logo-wrap{min-width:220px}
-.logo-link{display:flex;align-items:center;min-height:45px}
-.logo-link img{width:170px;height:auto;max-height:55px;object-fit:contain}
-.logo-fallback{display:none;font-size:20px;font-weight:700;color:#b8860b}
-.header h1{font-size:28px}
-.header-icons{display:flex;gap:22px;font-size:22px}
-.header-icons a:hover{color:#b8860b}
 
-.cart-page{
-  width:92%;max-width:1250px;margin:35px auto 60px;
-  display:grid;grid-template-columns:minmax(0,2fr) minmax(300px,1fr);gap:28px;
-  align-items:start
-}
-.cart-items h2,.cart-summary h2{margin-bottom:20px}
-.cart-item{
-  display:flex;align-items:center;gap:20px;background:#fff;
-  padding:18px;margin-bottom:18px;border-radius:16px;
-  box-shadow:0 6px 20px rgba(0,0,0,.07)
-}
-.cart-item img{
-  width:120px!important;height:120px!important;min-width:120px!important;
-  min-height:120px!important;max-width:120px!important;max-height:120px!important;
-  object-fit:contain!important;border-radius:12px;background:#fafafa;display:block
-}
-.cart-info{flex:1;min-width:0}
-.cart-info h3{font-size:20px;margin-bottom:8px}
-.cart-info p{margin:7px 0}
-.qty-box{display:flex;align-items:center;gap:12px;margin:10px 0}
-.qty-box button{
-  width:34px;height:34px;border:0;border-radius:50%;background:#b8860b;
-  color:#fff;font-size:20px;cursor:pointer
-}
-.qty-box span{font-weight:700;min-width:20px;text-align:center}
-.remove-btn{
-  border:0;background:#d32f2f;color:#fff;padding:9px 15px;
-  border-radius:8px;cursor:pointer
-}
-.cart-info h4{color:#b8860b;margin-top:7px}
+/* =========================================================
+   1. ROOT VARIABLES
+========================================================= */
 
-.cart-summary{
-  background:#fff;padding:25px;border-radius:16px;
-  box-shadow:0 8px 25px rgba(0,0,0,.08);position:sticky;top:95px
-}
-.summary-row{display:flex;justify-content:space-between;gap:15px;margin:18px 0;font-size:16px}
-.summary-row.total{font-size:24px;font-weight:700;color:#b8860b}
-.cart-summary hr{border:0;border-top:1px solid #ddd}
-.checkout-btn{
-  width:100%;padding:15px;border:0;border-radius:10px;
-  background:#b8860b;color:#fff;font-size:17px;font-weight:700;cursor:pointer;margin-top:15px
-}
-.checkout-btn:hover{background:#996f00}
-.empty-cart{
-  background:#fff;padding:50px 20px;border-radius:16px;text-align:center;
-  box-shadow:0 6px 20px rgba(0,0,0,.06)
-}
-.footer{
-  background:#222;color:#fff;padding:45px 6%;display:grid;
-  grid-template-columns:repeat(3,1fr);gap:25px
-}
-.footer h3{margin-bottom:10px}
-.footer p{color:#ddd;line-height:1.6}
-.footer-bottom{grid-column:1/-1;text-align:center;padding-top:20px;border-top:1px solid #444;color:#bbb}
+:root {
 
-@media(max-width:800px){
-  .header h1{font-size:22px}
-  .logo-wrap{min-width:auto}
-  .logo-link img{width:130px}
-  .cart-page{grid-template-columns:1fr}
-  .cart-summary{position:static}
-  .footer{grid-template-columns:1fr;text-align:center}
-  .footer-bottom{grid-column:auto}
-}
-@media(max-width:520px){
-  .header{padding:10px 4%}
-  .header h1{font-size:19px}
-  .header-icons{font-size:19px;gap:14px}
-  .cart-page{width:94%;margin-top:22px}
-  .cart-item{gap:12px;padding:12px}
-  .cart-item img{
-    width:90px!important;height:90px!important;min-width:90px!important;
-    min-height:90px!important;max-width:90px!important;max-height:90px!important
-  }
-  .cart-info h3{font-size:16px}
-}
-.cart-price,
-.cart-old-price,
-.summary-row,
-.summary-row span,
-.summary-row strong,
-#subtotal,
-#delivery,
-#discount,
-#grandTotal,
-#grand-total {
-    font-family: "Segoe UI Symbol", "Noto Sans", Arial, sans-serif;
-}
-/* =========================
-   RUPEE SYMBOL FIX
-========================= */
+    --wine: #8b3d59;
+    --wine-dark: #63283e;
 
-body,
-.cart-price,
-.cart-old-price,
-.cart-info,
-.cart-summary,
-.summary-row,
-#subtotal,
-#delivery,
-#discount,
-#grandTotal,
-#grand-total {
-    font-family: "Segoe UI Symbol", "Noto Sans", Arial, sans-serif;
+    --pink: #e9a9ba;
+    --pink-light: #fce8ee;
+    --pink-soft: #fff3f5;
+
+    --cream: #fffaf7;
+    --white: #ffffff;
+
+    --text: #3d3034;
+    --text-light: #806f75;
+
+    --border: #eadde1;
+
+    --green: #57936b;
+
+    --danger: #c9576d;
+
+    --shadow-soft:
+        0 10px 30px rgba(99, 40, 62, 0.07);
+
+    --shadow:
+        0 15px 40px rgba(99, 40, 62, 0.10);
+
 }
+
+
+/* =========================================================
+   2. RESET
+========================================================= */
+
+* {
+
+    margin: 0;
+    padding: 0;
+
+    box-sizing: border-box;
+
+}
+
+
+html {
+
+    scroll-behavior: smooth;
+
+}
+
+
+body {
+
+    min-height: 100vh;
+
+    font-family:
+        "DM Sans",
+        sans-serif;
+
+    background:
+        var(--cream);
+
+    color:
+        var(--text);
+
+    overflow-x: hidden;
+
+}
+
+
+a {
+
+    color: inherit;
+
+    text-decoration: none;
+
+}
+
+
+button,
+input {
+
+    font-family:
+        inherit;
+
+}
+
+
+button {
+
+    cursor: pointer;
+
+}
+
+
+img {
+
+    max-width: 100%;
+
+    display: block;
+
+}
+
+
+.container {
+
+    width:
+        min(
+            1180px,
+            calc(100% - 32px)
+        );
+
+    margin:
+        0 auto;
+
+}
+
+
+/* =========================================================
+   3. CART HEADER
+========================================================= */
+
+.cart-header {
+
+    width: 100%;
+
+    background:
+        rgba(255, 255, 255, 0.97);
+
+    border-bottom:
+        1px solid var(--border);
+
+    position:
+        sticky;
+
+    top: 0;
+
+    z-index: 1000;
+
+    backdrop-filter:
+        blur(10px);
+
+}
+
+
+.header-inner {
+
+    min-height:
+        78px;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        space-between;
+
+    gap:
+        20px;
+
+}
+
+
+/* =========================================================
+   4. CART LOGO
+========================================================= */
+
+.logo {
+
+    display:
+        inline-flex;
+
+    align-items:
+        center;
+
+}
+
+
+.logo img {
+
+    width:
+        155px;
+
+    height:
+        62px;
+
+    object-fit:
+        contain;
+
+}
+
+
+/* =========================================================
+   5. BACK TO SHOPPING
+========================================================= */
+
+.back-shopping {
+
+    display:
+        inline-flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    gap:
+        8px;
+
+    color:
+        var(--wine);
+
+    font-size:
+        12px;
+
+    font-weight:
+        700;
+
+    transition:
+        all 0.2s ease;
+
+}
+
+
+.back-shopping i {
+
+    font-size:
+        11px;
+
+}
+
+
+.back-shopping:hover {
+
+    color:
+        var(--wine-dark);
+
+    transform:
+        translateX(-3px);
+
+}
+
+
+/* =========================================================
+   6. CART PAGE
+========================================================= */
+
+.cart-page {
+
+    padding:
+        48px 0 80px;
+
+}
+
+
+/* =========================================================
+   7. PAGE HEADING
+========================================================= */
+
+.page-heading {
+
+    text-align:
+        center;
+
+    margin-bottom:
+        35px;
+
+}
+
+
+.page-heading > span {
+
+    display:
+        block;
+
+    color:
+        var(--wine);
+
+    font-size:
+        10px;
+
+    font-weight:
+        800;
+
+    letter-spacing:
+        2px;
+
+    text-transform:
+        uppercase;
+
+    margin-bottom:
+        8px;
+
+}
+
+
+.page-heading h1 {
+
+    color:
+        var(--wine-dark);
+
+    font-family:
+        "Playfair Display",
+        serif;
+
+    font-size:
+        clamp(
+            30px,
+            5vw,
+            44px
+        );
+
+    line-height:
+        1.15;
+
+}
+
+
+.page-heading p {
+
+    margin-top:
+        8px;
+
+    color:
+        var(--text-light);
+
+    font-size:
+        12px;
+
+    line-height:
+        1.6;
+
+}
+
+
+/* =========================================================
+   8. CART LAYOUT
+========================================================= */
+
+.cart-layout {
+
+    display:
+        grid;
+
+    grid-template-columns:
+        minmax(0, 1fr)
+        370px;
+
+    align-items:
+        start;
+
+    gap:
+        28px;
+
+}
+
+
+/* =========================================================
+   9. CART ITEMS BOX
+========================================================= */
+
+.cart-items-box {
+
+    background:
+        var(--white);
+
+    border:
+        1px solid var(--border);
+
+    border-radius:
+        20px;
+
+    box-shadow:
+        var(--shadow-soft);
+
+    overflow:
+        hidden;
+
+}
+
+
+.cart-box-header {
+
+    min-height:
+        65px;
+
+    padding:
+        0 24px;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        space-between;
+
+    gap:
+        15px;
+
+    border-bottom:
+        1px solid var(--border);
+
+}
+
+
+.cart-box-header h2 {
+
+    color:
+        var(--wine-dark);
+
+    font-family:
+        "Playfair Display",
+        serif;
+
+    font-size:
+        21px;
+
+}
+
+
+.cart-item-count {
+
+    padding:
+        6px 11px;
+
+    border-radius:
+        20px;
+
+    background:
+        var(--pink-light);
+
+    color:
+        var(--wine);
+
+    font-size:
+        9px;
+
+    font-weight:
+        800;
+
+}
+
+
+/* =========================================================
+   10. CART ITEMS CONTAINER
+========================================================= */
+
+#cartItems {
+
+    padding:
+        5px 24px 15px;
+
+}
+
+
+/* =========================================================
+   11. CART ITEM
+========================================================= */
+
+.cart-item {
+
+    min-height:
+        145px;
+
+    display:
+        grid;
+
+    grid-template-columns:
+        100px
+        minmax(0, 1fr)
+        auto;
+
+    align-items:
+        center;
+
+    gap:
+        18px;
+
+    padding:
+        20px 0;
+
+    border-bottom:
+        1px solid var(--border);
+
+}
+
+
+.cart-item:last-child {
+
+    border-bottom:
+        0;
+
+}
+
+
+/* =========================================================
+   12. PRODUCT IMAGE
+========================================================= */
+
+.cart-item-image {
+
+    width:
+        100px;
+
+    height:
+        105px;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    overflow:
+        hidden;
+
+    border:
+        1px solid var(--border);
+
+    border-radius:
+        14px;
+
+    background:
+        var(--pink-soft);
+
+}
+
+
+.cart-item-image img {
+
+    width:
+        100%;
+
+    height:
+        100%;
+
+    padding:
+        7px;
+
+    object-fit:
+        contain;
+
+}
+
+
+/* =========================================================
+   13. ITEM DETAILS
+========================================================= */
+
+.cart-item-details {
+
+    min-width:
+        0;
+
+}
+
+
+.cart-item-category {
+
+    display:
+        block;
+
+    margin-bottom:
+        5px;
+
+    color:
+        var(--wine);
+
+    font-size:
+        8px;
+
+    font-weight:
+        800;
+
+    letter-spacing:
+        0.8px;
+
+    text-transform:
+        uppercase;
+
+}
+
+
+.cart-item-name {
+
+    margin:
+        0 0 5px;
+
+    color:
+        var(--text);
+
+    font-size:
+        15px;
+
+    font-weight:
+        700;
+
+    line-height:
+        1.35;
+
+    overflow:
+        hidden;
+
+    display:
+        -webkit-box;
+
+    -webkit-box-orient:
+        vertical;
+
+    -webkit-line-clamp:
+        2;
+        line-clamp: 2;
+
+}
+
+
+.cart-item-sku {
+
+    margin-bottom:
+        8px;
+
+    color:
+        var(--text-light);
+
+    font-size:
+        9px;
+
+}
+
+
+/* =========================================================
+   14. PRICE
+========================================================= */
+
+.cart-item-prices {
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    flex-wrap:
+        wrap;
+
+    gap:
+        8px;
+
+}
+
+
+.cart-selling-price {
+
+    color:
+        var(--wine-dark);
+
+    font-size:
+        15px;
+
+    font-weight:
+        800;
+
+}
+
+
+.cart-mrp {
+
+    color:
+        #a99a9f;
+
+    font-size:
+        11px;
+
+    text-decoration:
+        line-through;
+
+}
+
+
+/* =========================================================
+   15. QUANTITY CONTROL
+========================================================= */
+
+.quantity-control {
+
+    width:
+        fit-content;
+
+    margin-top:
+        11px;
+
+    display:
+        inline-flex;
+
+    align-items:
+        center;
+
+    border:
+        1px solid var(--border);
+
+    border-radius:
+        9px;
+
+    overflow:
+        hidden;
+
+    background:
+        var(--white);
+
+}
+
+
+.quantity-control button {
+
+    width:
+        31px;
+
+    height:
+        30px;
+
+    border:
+        0;
+
+    background:
+        var(--pink-light);
+
+    color:
+        var(--wine);
+
+    font-size:
+        15px;
+
+    font-weight:
+        800;
+
+    transition:
+        background 0.2s ease;
+
+}
+
+
+.quantity-control button:hover {
+
+    background:
+        var(--pink);
+
+}
+
+
+.quantity-control span {
+
+    min-width:
+        35px;
+
+    text-align:
+        center;
+
+    color:
+        var(--text);
+
+    font-size:
+        11px;
+
+    font-weight:
+        800;
+
+}
+
+
+/* =========================================================
+   16. RIGHT SIDE
+========================================================= */
+
+.cart-item-right {
+
+    display:
+        flex;
+
+    flex-direction:
+        column;
+
+    align-items:
+        flex-end;
+
+    justify-content:
+        center;
+
+    gap:
+        12px;
+
+}
+
+
+.item-total {
+
+    color:
+        var(--wine-dark);
+
+    font-size:
+        15px;
+
+    font-weight:
+        800;
+
+    white-space:
+        nowrap;
+
+}
+
+
+.remove-item {
+
+    display:
+        inline-flex;
+
+    align-items:
+        center;
+
+    gap:
+        5px;
+
+    border:
+        0;
+
+    background:
+        transparent;
+
+    color:
+        #9a858c;
+
+    font-size:
+        10px;
+
+    transition:
+        color 0.2s ease;
+
+}
+
+
+.remove-item:hover {
+
+    color:
+        var(--danger);
+
+}
+
+
+/* =========================================================
+   17. ORDER SUMMARY
+========================================================= */
+
+.cart-summary {
+
+    padding:
+        25px;
+
+    background:
+        var(--white);
+
+    border:
+        1px solid var(--border);
+
+    border-radius:
+        20px;
+
+    box-shadow:
+        var(--shadow);
+
+    position:
+        sticky;
+
+    top:
+        100px;
+
+}
+
+
+.cart-summary h2 {
+
+    margin-bottom:
+        18px;
+
+    color:
+        var(--wine-dark);
+
+    font-family:
+        "Playfair Display",
+        serif;
+
+    font-size:
+        23px;
+
+}
+
+
+/* =========================================================
+   18. SUMMARY ROW
+========================================================= */
+
+.summary-row {
+
+    min-height:
+        36px;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        space-between;
+
+    gap:
+        15px;
+
+    color:
+        var(--text-light);
+
+    font-size:
+        11px;
+
+}
+
+
+.summary-row strong {
+
+    color:
+        var(--text);
+
+    font-size:
+        12px;
+
+}
+
+
+.summary-discount strong {
+
+    color:
+        var(--green);
+
+}
+
+
+.summary-shipping strong {
+
+    color:
+        var(--green);
+
+}
+
+
+/* =========================================================
+   19. FREE SHIPPING MESSAGE
+========================================================= */
+
+#shippingMessage {
+
+    margin:
+        13px 0;
+
+    padding:
+        10px 12px;
+
+    border:
+        1px solid #d9ecdf;
+
+    border-radius:
+        9px;
+
+    background:
+        #f3faf5;
+
+    color:
+        var(--green);
+
+    font-size:
+        9px;
+
+    line-height:
+        1.5;
+
+}
+
+
+/* =========================================================
+   20. SUMMARY TOTAL
+========================================================= */
+
+.summary-total {
+
+    margin-top:
+        8px;
+
+    padding-top:
+        15px;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        space-between;
+
+    gap:
+        15px;
+
+    border-top:
+        1px dashed var(--border);
+
+}
+
+
+.summary-total span {
+
+    color:
+        var(--wine-dark);
+
+    font-size:
+        14px;
+
+    font-weight:
+        700;
+
+}
+
+
+.summary-total strong {
+
+    color:
+        var(--wine-dark);
+
+    font-size:
+        22px;
+
+    font-weight:
+        800;
+
+}
+
+
+/* =========================================================
+   PART 1 END
+========================================================= */
+/* =========================================================
+   GARIMA'S HOUSE HOLD
+   CART.CSS — PART 2
+   ========================================================= */
+
+
+/* =========================================================
+   21. COUPON BOX
+========================================================= */
+
+.coupon-box {
+
+    margin:
+        20px 0;
+
+    padding:
+        15px;
+
+    background:
+        var(--pink-soft);
+
+    border:
+        1px solid var(--border);
+
+    border-radius:
+        13px;
+
+}
+
+
+.coupon-title {
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    gap:
+        7px;
+
+    margin-bottom:
+        10px;
+
+    color:
+        var(--wine-dark);
+
+    font-size:
+        11px;
+
+    font-weight:
+        800;
+
+}
+
+
+.coupon-title i {
+
+    color:
+        var(--wine);
+
+}
+
+
+.coupon-input-row {
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    gap:
+        7px;
+
+}
+
+
+#couponInput {
+
+    width:
+        100%;
+
+    min-width:
+        0;
+
+    height:
+        40px;
+
+    padding:
+        0 11px;
+
+    border:
+        1px solid var(--border);
+
+    border-radius:
+        8px;
+
+    outline:
+        none;
+
+    background:
+        var(--white);
+
+    color:
+        var(--text);
+
+    font-size:
+        10px;
+
+    font-weight:
+        600;
+
+    text-transform:
+        uppercase;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+
+}
+
+
+#couponInput::placeholder {
+
+    color:
+        #aa9ca1;
+
+    text-transform:
+        none;
+
+}
+
+
+#couponInput:focus {
+
+    border-color:
+        var(--pink);
+
+    box-shadow:
+        0 0 0 3px
+        rgba(233,169,186,0.12);
+
+}
+
+
+#applyCoupon {
+
+    flex:
+        0 0 auto;
+
+    height:
+        40px;
+
+    padding:
+        0 15px;
+
+    border:
+        0;
+
+    border-radius:
+        8px;
+
+    background:
+        var(--wine);
+
+    color:
+        var(--white);
+
+    font-size:
+        10px;
+
+    font-weight:
+        800;
+
+    transition:
+        all 0.2s ease;
+
+}
+
+
+#applyCoupon:hover {
+
+    background:
+        var(--wine-dark);
+
+    transform:
+        translateY(-1px);
+
+}
+
+
+#couponMessage {
+
+    min-height:
+        15px;
+
+    margin-top:
+        7px;
+
+    color:
+        var(--danger);
+
+    font-size:
+        9px;
+
+    line-height:
+        1.4;
+
+}
+
+
+#couponMessage.success {
+
+    color:
+        var(--green);
+
+}
+
+
+#appliedCoupon {
+
+    display:
+        none;
+
+    margin-top:
+        5px;
+
+    color:
+        var(--green);
+
+    font-size:
+        9px;
+
+    font-weight:
+        800;
+
+}
+
+
+/* =========================================================
+   22. REMOVE COUPON
+========================================================= */
+
+#removeCoupon {
+
+    display:
+        inline-flex !important;
+
+    align-items:
+        center;
+
+    gap:
+        5px;
+
+    margin-top:
+        5px;
+
+    padding:
+        4px 0;
+
+    border:
+        0 !important;
+
+    background:
+        transparent !important;
+
+    color:
+        var(--wine) !important;
+
+    font-size:
+        9px !important;
+
+    font-weight:
+        700;
+
+    cursor:
+        pointer;
+
+}
+
+
+#removeCoupon:hover {
+
+    color:
+        var(--wine-dark) !important;
+
+}
+
+
+/* =========================================================
+   23. CHECKOUT BUTTON
+========================================================= */
+
+.checkout-btn {
+
+    width:
+        100%;
+
+    min-height:
+        50px;
+
+    margin-top:
+        18px;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    gap:
+        8px;
+
+    border:
+        0;
+
+    border-radius:
+        12px;
+
+    background:
+        var(--wine);
+
+    color:
+        var(--white);
+
+    font-size:
+        11px;
+
+    font-weight:
+        800;
+
+    cursor:
+        pointer;
+
+    box-shadow:
+        0 8px 20px
+        rgba(139,61,89,0.16);
+
+    transition:
+        all 0.2s ease;
+
+}
+
+
+.checkout-btn i {
+
+    font-size:
+        10px;
+
+}
+
+
+.checkout-btn:hover {
+
+    background:
+        var(--wine-dark);
+
+    transform:
+        translateY(-2px);
+
+    box-shadow:
+        0 11px 24px
+        rgba(139,61,89,0.22);
+
+}
+
+
+/* =========================================================
+   24. CONTINUE SHOPPING
+========================================================= */
+
+.continue-shopping {
+
+    width:
+        100%;
+
+    min-height:
+        42px;
+
+    margin-top:
+        10px;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    border:
+        1px solid var(--border);
+
+    border-radius:
+        11px;
+
+    background:
+        var(--white);
+
+    color:
+        var(--wine);
+
+    font-size:
+        10px;
+
+    font-weight:
+        700;
+
+    transition:
+        all 0.2s ease;
+
+}
+
+
+.continue-shopping:hover {
+
+    background:
+        var(--pink-light);
+
+    border-color:
+        var(--pink);
+
+}
+
+
+/* =========================================================
+   25. EMPTY CART
+========================================================= */
+
+.empty-cart {
+
+    padding:
+        65px 20px;
+
+    text-align:
+        center;
+
+}
+
+
+.empty-cart-icon {
+
+    width:
+        76px;
+
+    height:
+        76px;
+
+    margin:
+        0 auto 18px;
+
+    display:
+        grid;
+
+    place-items:
+        center;
+
+    border-radius:
+        50%;
+
+    background:
+        var(--pink-light);
+
+    color:
+        var(--wine);
+
+    font-size:
+        27px;
+
+}
+
+
+.empty-cart h2 {
+
+    margin-bottom:
+        7px;
+
+    color:
+        var(--wine-dark);
+
+    font-family:
+        "Playfair Display",
+        serif;
+
+    font-size:
+        25px;
+
+}
+
+
+.empty-cart p {
+
+    max-width:
+        340px;
+
+    margin:
+        0 auto 20px;
+
+    color:
+        var(--text-light);
+
+    font-size:
+        10px;
+
+    line-height:
+        1.6;
+
+}
+
+
+.shop-now-btn {
+
+    min-height:
+        43px;
+
+    padding:
+        0 23px;
+
+    display:
+        inline-flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    border-radius:
+        10px;
+
+    background:
+        var(--wine);
+
+    color:
+        var(--white);
+
+    font-size:
+        10px;
+
+    font-weight:
+        800;
+
+    transition:
+        all 0.2s ease;
+
+}
+
+
+.shop-now-btn:hover {
+
+    background:
+        var(--wine-dark);
+
+    transform:
+        translateY(-2px);
+
+}
+
+
+/* =========================================================
+   26. TRUST SECTION
+========================================================= */
+
+.cart-trust {
+
+    margin-top:
+        25px;
+
+    display:
+        grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap:
+        12px;
+
+}
+
+
+.trust-item {
+
+    min-height:
+        82px;
+
+    padding:
+        14px;
+
+    display:
+        flex;
+
+    flex-direction:
+        column;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    text-align:
+        center;
+
+    background:
+        var(--white);
+
+    border:
+        1px solid var(--border);
+
+    border-radius:
+        13px;
+
+    box-shadow:
+        var(--shadow-soft);
+
+}
+
+
+.trust-item i {
+
+    margin-bottom:
+        7px;
+
+    color:
+        var(--wine);
+
+    font-size:
+        17px;
+
+}
+
+
+.trust-item strong {
+
+    color:
+        var(--wine-dark);
+
+    font-size:
+        10px;
+
+    font-weight:
+        800;
+
+}
+
+
+.trust-item span {
+
+    margin-top:
+        3px;
+
+    color:
+        var(--text-light);
+
+    font-size:
+        8px;
+
+}
+
+
+/* =========================================================
+   27. CART FOOTER
+========================================================= */
+
+.cart-footer {
+
+    padding:
+        24px 0;
+
+    border-top:
+        1px solid var(--border);
+
+    background:
+        #fff4f3;
+
+    text-align:
+        center;
+
+}
+
+
+.cart-footer p {
+
+    color:
+        var(--text-light);
+
+    font-size:
+        9px;
+
+}
+
+
+.cart-footer strong {
+
+    color:
+        var(--wine);
+
+}
+
+
+/* =========================================================
+   28. TOAST
+========================================================= */
+
+.garima-toast {
+
+    position:
+        fixed;
+
+    left:
+        50%;
+
+    bottom:
+        25px;
+
+    z-index:
+        5000;
+
+    max-width:
+        calc(100% - 30px);
+
+    padding:
+        11px 17px;
+
+    border-radius:
+        30px;
+
+    background:
+        var(--wine-dark);
+
+    color:
+        var(--white);
+
+    font-size:
+        10px;
+
+    font-weight:
+        700;
+
+    box-shadow:
+        var(--shadow);
+
+    transform:
+        translate(-50%, 20px);
+
+    opacity:
+        0;
+
+    pointer-events:
+        none;
+
+    transition:
+        all 0.25s ease;
+
+}
+
+
+.garima-toast.show {
+
+    opacity:
+        1;
+
+    transform:
+        translate(-50%, 0);
+
+}
+
+
+/* =========================================================
+   29. TABLET
+========================================================= */
+
+@media (max-width: 1050px) {
+
+    .cart-layout {
+
+        grid-template-columns:
+            minmax(0, 1fr)
+            330px;
+
+        gap:
+            20px;
+
+    }
+
+
+    .cart-summary {
+
+        padding:
+            21px;
+
+    }
+
+
+    .cart-item {
+
+        grid-template-columns:
+            85px
+            minmax(0, 1fr)
+            auto;
+
+        gap:
+            14px;
+
+    }
+
+
+    .cart-item-image {
+
+        width:
+            85px;
+
+        height:
+            92px;
+
+    }
+
+}
+
+
+/* =========================================================
+   30. MOBILE
+========================================================= */
+
+@media (max-width: 900px) {
+
+    .cart-layout {
+
+        grid-template-columns:
+            1fr;
+
+    }
+
+
+    .cart-summary {
+
+        position:
+            static;
+
+    }
+
+
+    .cart-trust {
+
+        grid-template-columns:
+            repeat(3, 1fr);
+
+    }
+
+}
+
+
+/* =========================================================
+   31. MOBILE 600PX
+========================================================= */
+
+@media (max-width: 600px) {
+
+    .container {
+
+        width:
+            calc(100% - 22px);
+
+    }
+
+
+    .header-inner {
+
+        min-height:
+            68px;
+
+    }
+
+
+    .logo img {
+
+        width:
+            130px;
+
+        height:
+            52px;
+
+    }
+
+
+    .cart-page {
+
+        padding:
+            30px 0 55px;
+
+    }
+
+
+    .page-heading {
+
+        margin-bottom:
+            25px;
+
+    }
+
+
+    .page-heading h1 {
+
+        font-size:
+            31px;
+
+    }
+
+
+    .page-heading p {
+
+        font-size:
+            10px;
+
+    }
+
+
+    .cart-box-header {
+
+        min-height:
+            58px;
+
+        padding:
+            0 16px;
+
+    }
+
+
+    .cart-box-header h2 {
+
+        font-size:
+            19px;
+
+    }
+
+
+    #cartItems {
+
+        padding:
+            4px 16px 12px;
+
+    }
+
+
+    .cart-item {
+
+        grid-template-columns:
+            72px
+            minmax(0, 1fr);
+
+        gap:
+            12px;
+
+        padding:
+            17px 0;
+
+    }
+
+
+    .cart-item-image {
+
+        width:
+            72px;
+
+        height:
+            78px;
+
+    }
+
+
+    .cart-item-right {
+
+        grid-column:
+            2;
+
+        flex-direction:
+            row;
+
+        align-items:
+            center;
+
+        justify-content:
+            space-between;
+
+        gap:
+            10px;
+
+    }
+
+
+    .cart-item-name {
+
+        font-size:
+            13px;
+
+    }
+
+
+    .cart-selling-price {
+
+        font-size:
+            13px;
+
+    }
+
+
+    .cart-mrp {
+
+        font-size:
+            10px;
+
+    }
+
+
+    .item-total {
+
+        font-size:
+            13px;
+
+    }
+
+
+    .cart-summary {
+
+        padding:
+            20px;
+
+    }
+
+
+    .cart-summary h2 {
+
+        font-size:
+            21px;
+
+    }
+
+
+    .cart-trust {
+
+        grid-template-columns:
+            1fr;
+
+    }
+
+
+    .trust-item {
+
+        min-height:
+            70px;
+
+    }
+
+
+    .back-shopping span {
+
+        display:
+            none;
+
+    }
+
+}
+
+
+/* =========================================================
+   32. SMALL MOBILE
+========================================================= */
+
+@media (max-width: 420px) {
+
+    .page-heading h1 {
+
+        font-size:
+            28px;
+
+    }
+
+
+    .cart-item {
+
+        grid-template-columns:
+            65px
+            minmax(0, 1fr);
+
+    }
+
+
+    .cart-item-image {
+
+        width:
+            65px;
+
+        height:
+            70px;
+
+    }
+
+
+    .cart-item-name {
+
+        font-size:
+            12px;
+
+    }
+
+
+    .cart-item-sku {
+
+        font-size:
+            8px;
+
+    }
+
+
+    .quantity-control button {
+
+        width:
+            28px;
+
+        height:
+            28px;
+
+    }
+
+
+    .quantity-control span {
+
+        min-width:
+            30px;
+
+    }
+
+
+    .coupon-input-row {
+
+        flex-direction:
+            column;
+
+    }
+
+
+    #applyCoupon {
+
+        width:
+            100%;
+
+    }
+
+
+    .summary-total strong {
+
+        font-size:
+            20px;
+
+    }
+
+}
+
+
+/* =========================================================
+   33. ACCESSIBILITY
+========================================================= */
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible {
+
+    outline:
+        2px solid var(--pink);
+
+    outline-offset:
+        3px;
+
+}
+
+
+/* =========================================================
+   34. SELECTION
+========================================================= */
+
+::selection {
+
+    background:
+        var(--pink);
+
+    color:
+        var(--white);
+
+}
+
+
+/* =========================================================
+   CART.CSS PART 2 END
+========================================================= */

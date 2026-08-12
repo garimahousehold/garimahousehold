@@ -1,216 +1,2239 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Garima's House Hold – Sarees, Kurtis, Home Essentials and more.">
-  <meta name="theme-color" content="#FCE4EC">
-  <title>Garima's House Hold | Sarees, Kurtis & Home Essentials</title>
 
-  <link rel="icon" type="image/png" href="logo_image/logo.png">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+<head>
+
+    <!-- =====================================
+         BASIC SETTINGS
+    ====================================== -->
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>
+        Garima's House Hold | Home Essentials, Sarees & Kurtis
+    </title>
+
+    <meta
+        name="description"
+        content="Garima's House Hold - Sarees, Kurtis, Home Essentials, Food & Rental Dresses. A Unit of Madhuban Creation.">
+
+
+    <!-- =====================================
+         GOOGLE FONT
+    ====================================== -->
+
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com">
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap"
+        rel="stylesheet">
+
+
+    <!-- =====================================
+         FONT AWESOME
+    ====================================== -->
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+
+    <!-- =====================================
+         MAIN CSS
+    ====================================== -->
+
+    <link
+        rel="stylesheet"
+        href="style.css">
+
 </head>
 
+
 <body>
-  <div class="announcement">
-    <div>Fast & secure delivery</div>
-    <div>New Collection</div>
-    <div>Easy & Secure Shopping</div>
-  </div>
 
-  <header class="site-header">
-    <div class="header-inner">
-      <a class="brand" href="index.html" aria-label="Garima's House Hold">
-        <img src="logo_image/logo.png" alt="Garima's House Hold">
-      </a>
 
-      <div class="search-wrap">
-        <input id="search" type="search" placeholder="Search Sarees, Kurtis, Home Essentials..." autocomplete="off">
-        <button id="searchBtn" type="button" aria-label="Search">⌕</button>
-      </div>
+<!-- =====================================
+     ANNOUNCEMENT BAR
+====================================== -->
 
-      <div class="header-actions">
-        <a href="wishlist.html" class="action" aria-label="Wishlist">
-          <span class="action-icon">♡</span>
-          <span class="badge" id="wishlist-count">0</span>
-        </a>
-        <a href="cart.html" class="action" aria-label="Cart">
-          <span class="action-icon">🛒</span>
-          <span class="badge" id="cart-count">0</span>
-        </a>
-        <a href="login.html" class="action account" aria-label="Account">♙</a>
-      </div>
+<div class="announcement-bar">
+
+    <div class="container">
+
+        <p>
+            ✨ Welcome to Garima's House Hold
+        </p>
+
+        <span>
+            A Unit of Madhuban Creation
+        </span>
+
     </div>
 
-    <nav class="main-nav">
-      <a href="index.html" class="active">Home</a>
-      <a href="category.html?cat=Saree">Sarees</a>
-      <a href="category.html?cat=Kurti">Kurtis</a>
-      <a href="category.html?cat=Home Essentials">Home Essentials</a>
-      <a href="category.html?cat=Food">Food</span></a>
-      <a href="category.html?cat=Rental Dresses">Rental Dresses <span>Coming Soon</span></a>
-      <a href="products.html">All Products</a>
-      <a href="wishlist.html">Wishlist</a>
-    </nav>
-  </header>
+</div>
 
-  <main>
-    <section class="hero">
-      <div class="hero-slider" id="heroSlider">
-        <div class="slides">
-          <a class="slide active" href="category.html?cat=Saree">
-            <img src="banner_image/banner_1.png" alt="Premium Sarees">
-          </a>
-          <a class="slide" href="category.html?cat=Kurti">
-            <img src="banner_image/banner_2.png" alt="Latest Kurtis">
-          </a>
-          <a class="slide" href="category.html?cat=Home Essentials">
-            <img src="banner_image/banner_3.png" alt="Home Essentials">
-          </a>
+
+
+<!-- =====================================
+     HEADER
+====================================== -->
+
+<header class="site-header">
+
+    <div class="container header-inner">
+
+
+        <!-- LOGO -->
+
+        <a
+            href="index.html"
+            class="brand-logo">
+
+            <img
+                src="logo_image/logo.png"
+                alt="Garima's House Hold">
+
+        </a>
+
+
+
+        <!-- SEARCH -->
+
+        <div class="header-search">
+
+            <input
+                type="search"
+                id="searchInput"
+                placeholder="Search products..."
+                autocomplete="off">
+
+            <button
+                type="button"
+                id="searchBtn"
+                aria-label="Search">
+
+                <i class="fa-solid fa-magnifying-glass"></i>
+
+            </button>
+
         </div>
-        <button class="slider-arrow prev" id="prevSlide" aria-label="Previous">‹</button>
-        <button class="slider-arrow next" id="nextSlide" aria-label="Next">›</button>
-        <div class="slider-dots" id="sliderDots"></div>
-      </div>
-    </section>
 
-    <section class="intro">
-      <div>
-        <span class="eyebrow">Welcome to Garima's House Hold</span>
-        <h1>Everything You Love,<br><em>All In One Place.</em></h1>
-        <p>Discover elegant Sarees, stylish Kurtis and useful Home Essentials – carefully selected for every home and every occasion.</p>
-        <div class="intro-buttons">
-          <a class="btn primary" href="#featured">Shop Now</a>
-          <a class="btn secondary" href="#categories">Explore Collection</a>
+
+
+        <!-- HEADER ACTIONS -->
+
+        <div class="header-actions">
+
+
+            <!-- WISHLIST -->
+
+            <a
+                href="wishlist.html"
+                class="header-action"
+                aria-label="Wishlist">
+
+                <i class="fa-regular fa-heart"></i>
+
+                <span
+                    class="action-count"
+                    id="wishlistCount">
+
+                    0
+
+                </span>
+
+            </a>
+
+
+
+            <!-- CART -->
+
+            <a
+                href="cart.html"
+                class="header-action"
+                aria-label="Cart">
+
+                <i class="fa-solid fa-bag-shopping"></i>
+
+                <span
+                    class="action-count"
+                    id="cartCount">
+
+                    0
+
+                </span>
+
+            </a>
+
+
+
+            <!-- ACCOUNT -->
+
+            <a
+                href="login.html"
+                class="header-action"
+                aria-label="Account">
+
+                <i class="fa-regular fa-user"></i>
+
+            </a>
+
+
+
+            <!-- MOBILE MENU -->
+
+            <button
+                type="button"
+                class="mobile-menu-btn"
+                id="mobileMenuBtn"
+                aria-label="Open menu">
+
+                <i class="fa-solid fa-bars"></i>
+
+            </button>
+
         </div>
-      </div>
-      <div class="intro-note">
-        <strong>A unit of Madhuban Creation</strong>
-        <span>Quality • Value • Trust</span>
-      </div>
-    </section>
 
-    <section class="section categories" id="categories">
-      <div class="section-heading">
-        <span class="eyebrow">Explore Our Collection</span>
-        <h2>Shop By Category</h2>
-        <p>Find something beautiful and useful for every part of your home and wardrobe.</p>
-      </div>
-
-      <div class="category-grid">
-        <a class="category-card large" href="category.html?cat=Saree">
-          <div class="category-image"><img src="category_images/saree.jpeg" alt="Saree" loading="lazy"></div>
-          <div><h3>Sarees</h3><p>Elegant Collection</p></div>
-        </a>
-        <a class="category-card" href="category.html?cat=Kurti">
-          <div class="category-image"><img src="category_images/kurti.jpeg" alt="Kurti" loading="lazy"></div>
-          <div><h3>Kurtis</h3><p>Latest Fashion</p></div>
-        </a>
-        <a class="category-card" href="category.html?cat=Home Essentials">
-          <div class="category-image"><img src="category_images/household.jpeg" alt="Home Essentials" loading="lazy"></div>
-          <div><h3>Home Essentials</h3><p>Daily Needs</p></div>
-        </a>
-        <a class="category-card" href="category.html?cat=Food">
-          <div class="category-image"><img src="category_images/food.jpg" alt="Food" loading="lazy"><span class="coming">Coming Soon</span></div>
-          <div><h3>Food</h3><p>Coming Fresh</p></div>
-        </a>
-        <a class="category-card" href="category.html?cat=Rental Dresses">
-          <div class="category-image"><img src="category_images/rental.jpg" alt="Rental Dresses" loading="lazy"><span class="coming">Coming Soon</span></div>
-          <div><h3>Rental Dresses</h3><p>Wedding • Party • Events</p></div>
-        </a>
-      </div>
-    </section>
-
-    <section class="section featured" id="featured">
-      <div class="section-heading row-heading">
-        <div>
-          <span class="eyebrow">Premium Collection</span>
-          <h2>Featured Products</h2>
-          <p>Handpicked products specially selected for our customers.</p>
-        </div>
-        <a class="text-link" href="products.html">View All Products →</a>
-      </div>
-
-      <div class="filter-bar">
-        <button class="filter-btn active" data-category="All">All</button>
-        <button class="filter-btn" data-category="Saree">Saree</button>
-        <button class="filter-btn" data-category="Kurti">Kurti</button>
-        <button class="filter-btn" data-category="Home Essentials">Home Essentials</button>
-        <button class="filter-btn" data-category="Food">Food</button>
-      </div>
-
-      <div class="product-grid" id="product-grid">
-        <div class="loading-card">Loading Products...</div>
-      </div>
-    </section>
-
-    <section class="promo">
-      <div>
-        <span class="eyebrow">Limited Time Offers</span>
-        <h2>Beautiful Choices.<br>Better Prices.</h2>
-        <p>Shop your favourites with exclusive offers and value-packed collections.</p>
-        <a class="btn light" href="products.html">Shop Now</a>
-      </div>
-      <div class="promo-badge">Garima's<br><strong>House Hold</strong></div>
-    </section>
-
-    <section class="section why">
-      <div class="section-heading">
-        <span class="eyebrow">Why Customers Love Us</span>
-        <h2>Why Choose Garima's House Hold</h2>
-      </div>
-      <div class="why-grid">
-        <article><div>✦</div><h3>Premium Quality</h3><p>Carefully selected products with quality in mind.</p></article>
-        <article><div>₹</div><h3>Affordable Prices</h3><p>Good products at prices made for everyday shopping.</p></article>
-        <article><div>⌁</div><h3>Safe Delivery</h3><p>Secure packing and reliable delivery.</p></article>
-        <article><div>♡</div><h3>Customer Support</h3><p>Friendly help whenever you need it.</p></article>
-      </div>
-    </section>
-
-    <section class="section instagram">
-      <div class="section-heading">
-        <span class="eyebrow">Follow Us</span>
-        <h2>Instagram Gallery</h2>
-      </div>
-      <div class="instagram-card">
-        <img src="instagram_images/instagram.png" alt="Garima's House Hold on Instagram">
-        <div>
-          <h3>See What's New</h3>
-          <p>Follow us for new arrivals, offers and latest updates.</p>
-          <a class="btn primary" href="https://instagram.com/householdbygarima" target="_blank" rel="noopener">Follow On Instagram</a>
-        </div>
-      </div>
-    </section>
-
-    <section class="newsletter">
-      <div>
-        <span class="eyebrow">Stay Connected</span>
-        <h2>Get the Latest Updates</h2>
-        <p>New arrivals, offers and exclusive deals directly from Garima's House Hold.</p>
-      </div>
-      <form id="newsletterForm">
-        <input type="email" required placeholder="Enter your email">
-        <button type="submit">Subscribe</button>
-      </form>
-    </section>
-  </main>
-
-  <footer class="footer">
-    <div class="footer-grid">
-      <div>
-        <img class="footer-logo" src="logo_image/logo.png" alt="Garima's House Hold">
-        <p>Your trusted shopping destination for Sarees, Kurtis and Home Essentials.</p>
-      </div>
-      <div><h4>Quick Links</h4><a href="index.html">Home</a><a href="products.html">All Products</a><a href="wishlist.html">Wishlist</a><a href="cart.html">Cart</a></div>
-      <div><h4>Categories</h4><a href="category.html?cat=Saree">Sarees</a><a href="category.html?cat=Kurti">Kurtis</a><a href="category.html?cat=Home Essentials">Home Essentials</a></div>
-      <div><h4>Coming Soon</h4><a href="category.html?cat=Food">Food</a><a href="category.html?cat=Rental Dresses">Rental Dresses</a><a href="contact.html">Contact Us</a></div>
     </div>
-    <div class="footer-bottom">© 2026 Garima's House Hold. All Rights Reserved.</div>
-  </footer>
 
-  <script type="module" src="script.js"></script>
+</header>
+
+
+
+<!-- =====================================
+     NAVIGATION
+====================================== -->
+
+<nav
+    class="main-navigation"
+    id="mainNavigation">
+
+    <div class="container">
+
+        <ul>
+
+
+            <li>
+
+                <a
+                    href="index.html"
+                    class="active">
+
+                    Home
+
+                </a>
+
+            </li>
+
+
+            <li>
+
+                <a
+                    href="category.html?cat=Saree">
+
+                    Sarees
+
+                </a>
+
+            </li>
+
+
+            <li>
+
+                <a
+                    href="category.html?cat=Kurti">
+
+                    Kurtis
+
+                </a>
+
+            </li>
+
+
+            <li>
+
+                <a
+                    href="category.html?cat=Home%20Essentials">
+
+                    Home Essentials
+
+                </a>
+
+            </li>
+
+
+            <li>
+
+                <a
+                    href="category.html?cat=Food">
+
+                    Food
+
+                </a>
+
+            </li>
+
+
+            <li>
+
+                <a
+                    href="#"
+                    class="coming-soon-link">
+
+                    Rental Dresses
+
+                    <span>
+                        Coming Soon
+                    </span>
+
+                </a>
+
+            </li>
+
+
+        </ul>
+
+    </div>
+
+</nav>
+
+
+
+<!-- =====================================
+     HERO SECTION
+====================================== -->
+
+<main>
+
+
+<section class="hero-section">
+
+    <div class="container hero-grid">
+
+
+        <!-- HERO TEXT -->
+
+        <div class="hero-content">
+
+
+            <span class="hero-eyebrow">
+
+                BEAUTIFUL THINGS FOR EVERY HOME
+
+            </span>
+
+
+            <h1>
+
+                Style Your Home.
+                <br>
+
+                <em>Style Yourself.</em>
+
+            </h1>
+
+
+            <p>
+
+                Discover elegant Sarees, stylish Kurtis,
+                beautiful Home Essentials and more —
+                thoughtfully selected for you.
+
+            </p>
+
+
+            <div class="hero-buttons">
+
+
+                <a
+                    href="#categories"
+                    class="btn btn-primary">
+
+                    Shop Collection
+
+                    <i class="fa-solid fa-arrow-right"></i>
+
+                </a>
+
+
+                <a
+                    href="#featuredProducts"
+                    class="btn btn-outline">
+
+                    View Products
+
+                </a>
+
+            </div>
+
+
+            <!-- SMALL TRUST POINTS -->
+
+            <div class="hero-trust">
+
+
+                <div>
+
+                    <i class="fa-solid fa-circle-check"></i>
+
+                    <span>
+                        Quality Products
+                    </span>
+
+                </div>
+
+
+                <div>
+
+                    <i class="fa-solid fa-circle-check"></i>
+
+                    <span>
+                        Easy Shopping
+                    </span>
+
+                </div>
+
+
+                <div>
+
+                    <i class="fa-solid fa-circle-check"></i>
+
+                    <span>
+                        Secure Payment
+                    </span>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+
+
+        <!-- HERO BANNER -->
+
+        <div class="hero-banner">
+
+
+            <div
+                class="hero-slide active">
+
+                <img
+                    src="banner_image/banner_1.png"
+                    alt="Garima's House Hold Collection">
+
+            </div>
+
+
+            <div
+                class="hero-slide">
+
+                <img
+                    src="banner_image/banner_2.png"
+                    alt="Garima's House Hold Kurtis">
+
+            </div>
+
+
+            <div
+                class="hero-slide">
+
+                <img
+                    src="banner_image/banner_3.png"
+                    alt="Garima's House Hold Home Essentials">
+
+            </div>
+
+
+
+            <!-- SLIDER ARROWS -->
+
+            <button
+                type="button"
+                class="hero-arrow hero-prev"
+                aria-label="Previous banner">
+
+                <i class="fa-solid fa-chevron-left"></i>
+
+            </button>
+
+
+            <button
+                type="button"
+                class="hero-arrow hero-next"
+                aria-label="Next banner">
+
+                <i class="fa-solid fa-chevron-right"></i>
+
+            </button>
+
+
+
+            <!-- SLIDER DOTS -->
+
+            <div class="hero-dots">
+
+                <button
+                    type="button"
+                    class="hero-dot active"
+                    aria-label="Banner 1">
+                </button>
+
+                <button
+                    type="button"
+                    class="hero-dot"
+                    aria-label="Banner 2">
+                </button>
+
+                <button
+                    type="button"
+                    class="hero-dot"
+                    aria-label="Banner 3">
+                </button>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================
+     CATEGORY SECTION
+====================================== -->
+
+<section
+    class="categories-section"
+    id="categories">
+
+
+    <div class="container">
+
+
+        <!-- SECTION HEADING -->
+
+        <div class="section-heading">
+
+            <span class="section-kicker">
+                SHOP YOUR FAVOURITES
+            </span>
+
+            <h2>
+                Explore Our Collections
+            </h2>
+
+            <p>
+                Something beautiful for every
+                mood, occasion and home.
+            </p>
+
+        </div>
+
+
+
+        <!-- CATEGORY GRID -->
+
+        <div class="category-grid">
+
+
+            <!-- SAREE -->
+
+            <a
+                href="category.html?cat=Saree"
+                class="category-card">
+
+                <div class="category-image">
+
+                    <img
+                        src="category_images/saree.jpeg"
+                        alt="Sarees"
+                        loading="lazy">
+
+                </div>
+
+
+                <div class="category-info">
+
+                    <span>
+                        Fashion
+                    </span>
+
+                    <h3>
+                        Sarees
+                    </h3>
+
+                    <p>
+                        Elegant styles for every occasion
+                    </p>
+
+
+                    <div class="category-link">
+
+                        Explore
+
+                        <i class="fa-solid fa-arrow-right"></i>
+
+                    </div>
+
+                </div>
+
+            </a>
+
+
+
+            <!-- KURTI -->
+
+            <a
+                href="category.html?cat=Kurti"
+                class="category-card">
+
+                <div class="category-image">
+
+                    <img
+                        src="category_images/kurti.jpeg"
+                        alt="Kurtis"
+                        loading="lazy">
+
+                </div>
+
+
+                <div class="category-info">
+
+                    <span>
+                        Fashion
+                    </span>
+
+                    <h3>
+                        Kurtis
+                    </h3>
+
+                    <p>
+                        Stylish looks for every day
+                    </p>
+
+
+                    <div class="category-link">
+
+                        Explore
+
+                        <i class="fa-solid fa-arrow-right"></i>
+
+                    </div>
+
+                </div>
+
+            </a>
+
+
+
+            <!-- HOME ESSENTIALS -->
+
+            <a
+                href="category.html?cat=Home%20Essentials"
+                class="category-card">
+
+                <div class="category-image">
+
+                    <img
+                        src="category_images/household.jpeg"
+                        alt="Home Essentials"
+                        loading="lazy">
+
+                </div>
+
+
+                <div class="category-info">
+
+                    <span>
+                        For Your Home
+                    </span>
+
+                    <h3>
+                        Home Essentials
+                    </h3>
+
+                    <p>
+                        Beautiful & useful everyday products
+                    </p>
+
+
+                    <div class="category-link">
+
+                        Explore
+
+                        <i class="fa-solid fa-arrow-right"></i>
+
+                    </div>
+
+                </div>
+
+            </a>
+
+
+
+            <!-- FOOD -->
+
+            <a
+                href="category.html?cat=Food"
+                class="category-card">
+
+                <div class="category-image">
+
+                    <img
+                        src="category_images/food.jpg"
+                        alt="Food"
+                        loading="lazy">
+
+                </div>
+
+
+                <div class="category-info">
+
+                    <span>
+                        Coming Fresh
+                    </span>
+
+                    <h3>
+                        Food
+                    </h3>
+
+                    <p>
+                        Delicious choices coming soon
+                    </p>
+
+
+                    <div class="category-link">
+
+                        Explore
+
+                        <i class="fa-solid fa-arrow-right"></i>
+
+                    </div>
+
+                </div>
+
+            </a>
+
+
+
+            <!-- RENTAL DRESSES -->
+
+            <div
+                class="category-card category-coming-soon">
+
+
+                <div class="category-image">
+
+                    <img
+                        src="category_images/rental.jpg"
+                        alt="Rental Dresses"
+                        loading="lazy">
+
+
+                    <span class="coming-badge">
+
+                        Coming Soon
+
+                    </span>
+
+                </div>
+
+
+                <div class="category-info">
+
+                    <span>
+                        Special Occasions
+                    </span>
+
+                    <h3>
+                        Rental Dresses
+                    </h3>
+
+                    <p>
+                        Wedding, party & special events
+                    </p>
+
+
+                    <div class="category-link">
+
+                        Coming Soon
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================
+     FEATURED PRODUCTS START
+====================================== -->
+
+<section
+    class="products-section"
+    id="featuredProducts">
+
+    <div class="container">
+
+
+        <div class="section-heading">
+
+            <span class="section-kicker">
+                OUR COLLECTION
+            </span>
+
+            <h2>
+                Featured Products
+            </h2>
+
+            <p>
+                Handpicked products you'll love.
+            </p>
+
+        </div>
+
+
+        <!-- PRODUCT FILTERS -->
+
+        <div class="product-filters">
+
+            <button
+                type="button"
+                class="filter-btn active"
+                data-filter="all">
+
+                All
+
+            </button>
+
+
+            <button
+                type="button"
+                class="filter-btn"
+                data-filter="Saree">
+
+                Sarees
+
+            </button>
+
+
+            <button
+                type="button"
+                class="filter-btn"
+                data-filter="Kurti">
+
+                Kurtis
+
+            </button>
+
+
+            <button
+                type="button"
+                class="filter-btn"
+                data-filter="Home Essentials">
+
+                Home Essentials
+
+            </button>
+
+
+            <button
+                type="button"
+                class="filter-btn"
+                data-filter="Food">
+
+                Food
+
+            </button>
+
+        </div>
+
+
+        <!-- PRODUCTS WILL LOAD HERE -->
+
+        <div
+            class="products-grid"
+            id="productsGrid">
+
+            <!-- Firebase products -->
+
+        </div>
+
+
+    </div>
+
+</section>
+<!-- =====================================
+     BEST SELLERS
+====================================== -->
+
+<section class="products-section soft-section">
+
+    <div class="container">
+
+
+        <div class="section-heading">
+
+            <span class="section-kicker">
+                CUSTOMER FAVOURITES
+            </span>
+
+            <h2>
+                Best Sellers
+            </h2>
+
+            <p>
+                Loved by our customers.
+            </p>
+
+        </div>
+
+
+        <!-- FIREBASE BEST SELLERS -->
+
+        <div
+            class="products-grid"
+            id="bestSellerProducts">
+
+            <!-- Best seller products -->
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================
+     NEW ARRIVALS
+====================================== -->
+
+<section class="products-section">
+
+    <div class="container">
+
+
+        <div class="section-heading">
+
+            <span class="section-kicker">
+                JUST ARRIVED
+            </span>
+
+            <h2>
+                New Arrivals
+            </h2>
+
+            <p>
+                Fresh styles and new favourites.
+            </p>
+
+        </div>
+
+
+        <!-- FIREBASE NEW ARRIVALS -->
+
+        <div
+            class="products-grid"
+            id="newArrivalProducts">
+
+            <!-- New arrival products -->
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================
+     SPECIAL OFFER
+====================================== -->
+
+<section class="offer-section">
+
+    <div class="container">
+
+        <div class="offer-card">
+
+
+            <div class="offer-content">
+
+
+                <span class="offer-kicker">
+                    SPECIAL OFFER
+                </span>
+
+
+                <h2>
+                    A Little More Beautiful,
+                    A Little More Affordable.
+                </h2>
+
+
+                <p>
+                    Discover our latest collection
+                    and enjoy beautiful products
+                    at attractive prices.
+                </p>
+
+
+                <a
+                    href="#featuredProducts"
+                    class="btn btn-light">
+
+                    Shop Now
+
+                    <i class="fa-solid fa-arrow-right"></i>
+
+                </a>
+
+
+            </div>
+
+
+            <div class="offer-decoration">
+
+                <i class="fa-solid fa-sparkles"></i>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================
+     WHY SHOP WITH US
+====================================== -->
+
+<section class="benefits-section">
+
+    <div class="container">
+
+
+        <div class="section-heading">
+
+            <span class="section-kicker">
+                SHOP WITH CONFIDENCE
+            </span>
+
+            <h2>
+                Why Shop With Us?
+            </h2>
+
+        </div>
+
+
+        <div class="benefits-grid">
+
+
+            <!-- QUALITY -->
+
+            <div class="benefit-card">
+
+                <div class="benefit-icon">
+
+                    <i class="fa-solid fa-gem"></i>
+
+                </div>
+
+
+                <h3>
+                    Quality Products
+                </h3>
+
+
+                <p>
+                    Carefully selected products
+                    for your everyday needs.
+                </p>
+
+            </div>
+
+
+
+            <!-- VALUE -->
+
+            <div class="benefit-card">
+
+                <div class="benefit-icon">
+
+                    <i class="fa-solid fa-tags"></i>
+
+                </div>
+
+
+                <h3>
+                    Great Value
+                </h3>
+
+
+                <p>
+                    Beautiful products at
+                    attractive prices.
+                </p>
+
+            </div>
+
+
+
+            <!-- DELIVERY -->
+
+            <div class="benefit-card">
+
+                <div class="benefit-icon">
+
+                    <i class="fa-solid fa-truck-fast"></i>
+
+                </div>
+
+
+                <h3>
+                    Reliable Delivery
+                </h3>
+
+
+                <p>
+                    Safe delivery right
+                    to your doorstep.
+                </p>
+
+            </div>
+
+
+
+            <!-- PAYMENT -->
+
+            <div class="benefit-card">
+
+                <div class="benefit-icon">
+
+                    <i class="fa-solid fa-shield-halved"></i>
+
+                </div>
+
+
+                <h3>
+                    Secure Payment
+                </h3>
+
+
+                <p>
+                    Safe and secure
+                    prepaid checkout.
+                </p>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================
+     ABOUT BRAND
+====================================== -->
+
+<section class="about-section">
+
+    <div class="container about-grid">
+
+
+        <!-- BRAND IMAGE -->
+
+        <div class="about-brand">
+
+
+            <div class="about-logo-wrap">
+
+                <img
+                    src="logo_image/logo.png"
+                    alt="Garima's House Hold">
+
+            </div>
+
+
+            <span>
+                A Unit of Madhuban Creation
+            </span>
+
+
+        </div>
+
+
+
+        <!-- ABOUT CONTENT -->
+
+        <div class="about-content">
+
+
+            <span class="section-kicker">
+                ABOUT US
+            </span>
+
+
+            <h2>
+                Made For Your Home,
+                Your Style & Your Everyday.
+            </h2>
+
+
+            <p>
+                Garima's House Hold brings together
+                beautiful fashion and useful everyday
+                products under one roof.
+            </p>
+
+
+            <p>
+                From elegant Sarees and stylish Kurtis
+                to Home Essentials and more, our
+                collection is selected with quality,
+                value and your needs in mind.
+            </p>
+
+
+            <div class="about-points">
+
+
+                <div>
+
+                    <i class="fa-solid fa-check"></i>
+
+                    <span>
+                        Carefully Selected Products
+                    </span>
+
+                </div>
+
+
+                <div>
+
+                    <i class="fa-solid fa-check"></i>
+
+                    <span>
+                        Attractive Prices
+                    </span>
+
+                </div>
+
+
+                <div>
+
+                    <i class="fa-solid fa-check"></i>
+
+                    <span>
+                        Customer First Approach
+                    </span>
+
+                </div>
+
+
+            </div>
+
+
+            <a
+                href="#categories"
+                class="text-link">
+
+                Explore Our Collections
+
+                <i class="fa-solid fa-arrow-right"></i>
+
+            </a>
+
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================
+     CUSTOMER REVIEWS
+====================================== -->
+
+<section class="reviews-section soft-section">
+
+    <div class="container">
+
+
+        <div class="section-heading">
+
+            <span class="section-kicker">
+                CUSTOMER LOVE
+            </span>
+
+
+            <h2>
+                What Our Customers Say
+            </h2>
+
+
+            <p>
+                Your trust means everything to us.
+            </p>
+
+        </div>
+
+
+        <div class="reviews-grid">
+
+
+            <!-- REVIEW 1 -->
+
+            <article class="review-card">
+
+
+                <div class="review-stars">
+                    ★★★★★
+                </div>
+
+
+                <p>
+                    "Beautiful collection and
+                    very good quality. Loved
+                    the products."
+                </p>
+
+
+                <div class="review-person">
+
+
+                    <div class="review-avatar">
+                        G
+                    </div>
+
+
+                    <div>
+
+                        <strong>
+                            Happy Customer
+                        </strong>
+
+                        <span>
+                            Verified Buyer
+                        </span>
+
+                    </div>
+
+
+                </div>
+
+            </article>
+
+
+
+            <!-- REVIEW 2 -->
+
+            <article class="review-card">
+
+
+                <div class="review-stars">
+                    ★★★★★
+                </div>
+
+
+                <p>
+                    "Very nice products at
+                    reasonable prices. The
+                    shopping experience was
+                    really smooth."
+                </p>
+
+
+                <div class="review-person">
+
+
+                    <div class="review-avatar">
+                        R
+                    </div>
+
+
+                    <div>
+
+                        <strong>
+                            Happy Customer
+                        </strong>
+
+                        <span>
+                            Verified Buyer
+                        </span>
+
+                    </div>
+
+
+                </div>
+
+            </article>
+
+
+
+            <!-- REVIEW 3 -->
+
+            <article class="review-card">
+
+
+                <div class="review-stars">
+                    ★★★★★
+                </div>
+
+
+                <p>
+                    "Loved the collection.
+                    Great quality and helpful
+                    service. Recommended."
+                </p>
+
+
+                <div class="review-person">
+
+
+                    <div class="review-avatar">
+                        S
+                    </div>
+
+
+                    <div>
+
+                        <strong>
+                            Happy Customer
+                        </strong>
+
+                        <span>
+                            Verified Buyer
+                        </span>
+
+                    </div>
+
+
+                </div>
+
+            </article>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================
+     INSTAGRAM
+====================================== -->
+
+<section class="instagram-section">
+
+    <div class="container">
+
+
+        <div class="section-heading">
+
+            <span class="section-kicker">
+                FOLLOW OUR JOURNEY
+            </span>
+
+
+            <h2>
+                @householdbygarima
+            </h2>
+
+
+            <p>
+                Follow us for latest collections,
+                products and updates.
+            </p>
+
+        </div>
+
+
+        <a
+            href="https://www.instagram.com/householdbygarima/"
+            target="_blank"
+            class="instagram-card">
+
+
+            <div class="instagram-image">
+
+                <img
+                    src="instagram_images/instagram.png"
+                    alt="Garima's House Hold Instagram">
+
+            </div>
+
+
+            <div class="instagram-content">
+
+                <i class="fa-brands fa-instagram"></i>
+
+                <span>
+                    Follow Us On Instagram
+                </span>
+
+                <i class="fa-solid fa-arrow-right"></i>
+
+            </div>
+
+
+        </a>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================
+     WHATSAPP CTA
+====================================== -->
+
+<section class="contact-cta">
+
+    <div class="container">
+
+
+        <div class="contact-cta-inner">
+
+
+            <div>
+
+                <span class="section-kicker">
+                    NEED HELP?
+                </span>
+
+
+                <h2>
+                    We're Happy To Help You
+                </h2>
+
+
+                <p>
+                    Have a question about a product,
+                    order or delivery?
+                </p>
+
+            </div>
+
+
+            <a
+                href="https://wa.me/919374445544"
+                target="_blank"
+                class="whatsapp-button">
+
+                <i class="fa-brands fa-whatsapp"></i>
+
+                Chat On WhatsApp
+
+            </a>
+
+
+        </div>
+
+    </div>
+
+</section>
+<!-- =====================================
+     NEWSLETTER / FOLLOW SECTION
+====================================== -->
+
+<section class="newsletter-section">
+
+    <div class="container">
+
+        <div class="newsletter-inner">
+
+
+            <div class="newsletter-content">
+
+                <span class="section-kicker">
+                    STAY CONNECTED
+                </span>
+
+                <h2>
+                    Don't Miss Our Latest
+                    Collections & Offers
+                </h2>
+
+                <p>
+                    Stay connected with Garima's House Hold
+                    for new arrivals, special offers and
+                    latest updates.
+                </p>
+
+            </div>
+
+
+            <a
+                href="https://www.instagram.com/householdbygarima/"
+                target="_blank"
+                class="newsletter-instagram-btn">
+
+                <i class="fa-brands fa-instagram"></i>
+
+                Follow Us
+
+            </a>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================
+     FOOTER
+====================================== -->
+
+<footer class="site-footer">
+
+    <div class="container footer-grid">
+
+
+        <!-- =================================
+             BRAND
+        ================================== -->
+
+        <div class="footer-brand">
+
+
+            <a
+                href="index.html"
+                class="footer-logo">
+
+                <img
+                    src="logo_image/logo.png"
+                    alt="Garima's House Hold">
+
+            </a>
+
+
+            <p>
+                Beautiful fashion, useful home
+                essentials and more — all in one place.
+            </p>
+
+
+            <span class="footer-unit">
+                A Unit of Madhuban Creation
+            </span>
+
+
+            <!-- SOCIAL -->
+
+            <div class="footer-social">
+
+                <a
+                    href="https://www.instagram.com/householdbygarima/"
+                    target="_blank"
+                    aria-label="Instagram">
+
+                    <i class="fa-brands fa-instagram"></i>
+
+                </a>
+
+
+                <a
+                    href="https://wa.me/919374445544"
+                    target="_blank"
+                    aria-label="WhatsApp">
+
+                    <i class="fa-brands fa-whatsapp"></i>
+
+                </a>
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- =================================
+             QUICK LINKS
+        ================================== -->
+
+        <div class="footer-column">
+
+            <h3>
+                Quick Links
+            </h3>
+
+
+            <ul>
+
+                <li>
+
+                    <a href="index.html">
+                        Home
+                    </a>
+
+                </li>
+
+
+                <li>
+
+                    <a href="#categories">
+                        Categories
+                    </a>
+
+                </li>
+
+
+                <li>
+
+                    <a href="#featuredProducts">
+                        Products
+                    </a>
+
+                </li>
+
+
+                <li>
+
+                    <a href="cart.html">
+                        Cart
+                    </a>
+
+                </li>
+
+
+                <li>
+
+                    <a href="wishlist.html">
+                        Wishlist
+                    </a>
+
+                </li>
+
+            </ul>
+
+        </div>
+
+
+
+        <!-- =================================
+             CATEGORIES
+        ================================== -->
+
+        <div class="footer-column">
+
+            <h3>
+                Categories
+            </h3>
+
+
+            <ul>
+
+
+                <li>
+
+                    <a href="category.html?cat=Saree">
+                        Sarees
+                    </a>
+
+                </li>
+
+
+                <li>
+
+                    <a href="category.html?cat=Kurti">
+                        Kurtis
+                    </a>
+
+                </li>
+
+
+                <li>
+
+                    <a href="category.html?cat=Home%20Essentials">
+                        Home Essentials
+                    </a>
+
+                </li>
+
+
+                <li>
+
+                    <a href="category.html?cat=Food">
+                        Food
+                    </a>
+
+                </li>
+
+
+                <li>
+
+                    <a
+                        href="#"
+                        class="footer-coming-soon">
+
+                        Rental Dresses
+
+                        <small>
+                            Coming Soon
+                        </small>
+
+                    </a>
+
+                </li>
+
+
+            </ul>
+
+        </div>
+
+
+
+        <!-- =================================
+             CUSTOMER SUPPORT
+        ================================== -->
+
+        <div class="footer-column">
+
+            <h3>
+                Customer Support
+            </h3>
+
+
+            <ul>
+
+                <li>
+
+                    <a
+                        href="https://wa.me/919374445544"
+                        target="_blank">
+
+                        <i class="fa-brands fa-whatsapp"></i>
+
+                        WhatsApp Support
+
+                    </a>
+
+                </li>
+
+
+                <li>
+
+                    <a href="cart.html">
+
+                        <i class="fa-solid fa-cart-shopping"></i>
+
+                        Shopping Cart
+
+                    </a>
+
+                </li>
+
+
+                <li>
+
+                    <a href="wishlist.html">
+
+                        <i class="fa-regular fa-heart"></i>
+
+                        Wishlist
+
+                    </a>
+
+                </li>
+
+
+                <li>
+
+                    <a href="checkout.html">
+
+                        <i class="fa-solid fa-lock"></i>
+
+                        Secure Checkout
+
+                    </a>
+
+                </li>
+
+            </ul>
+
+        </div>
+
+
+    </div>
+
+
+
+    <!-- =====================================
+         PAYMENT STRIP
+    ====================================== -->
+
+    <div class="footer-payment">
+
+        <div class="container footer-payment-inner">
+
+
+            <div class="payment-text">
+
+                <span>
+                    Secure & Easy Payments
+                </span>
+
+                <small>
+                    Prepaid orders only
+                </small>
+
+            </div>
+
+
+            <div class="payment-methods">
+
+
+                <span class="payment-badge">
+                    UPI
+                </span>
+
+
+                <span class="payment-badge">
+                    <i class="fa-solid fa-credit-card"></i>
+                    Card
+                </span>
+
+
+                <span class="payment-badge">
+                    <i class="fa-solid fa-building-columns"></i>
+                    Net Banking
+                </span>
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =====================================
+         COPYRIGHT
+    ====================================== -->
+
+    <div class="footer-bottom">
+
+        <div class="container footer-bottom-inner">
+
+
+            <p>
+
+                © 2026
+                <strong>
+                    Garima's House Hold
+                </strong>.
+                All Rights Reserved.
+
+            </p>
+
+
+            <p>
+                A Unit of Madhuban Creation
+            </p>
+
+
+        </div>
+
+    </div>
+
+</footer>
+
+
+
+<!-- =====================================
+     BACK TO TOP
+====================================== -->
+
+<button
+    type="button"
+    id="backToTop"
+    class="back-to-top"
+    aria-label="Back to top">
+
+    <i class="fa-solid fa-arrow-up"></i>
+
+</button>
+
+
+
+<!-- =====================================
+     FLOATING WHATSAPP
+====================================== -->
+
+<a
+    href="https://wa.me/919374445544"
+    target="_blank"
+    class="floating-whatsapp"
+    aria-label="WhatsApp">
+
+    <i class="fa-brands fa-whatsapp"></i>
+
+</a>
+
+
+
+<!-- =====================================
+     FIREBASE
+====================================== -->
+
+<script
+    type="module"
+    src="firebase.js">
+</script>
+
+
+
+<!-- =====================================
+     MAIN JAVASCRIPT
+====================================== -->
+
+<script
+    type="module"
+    src="script.js">
+</script>
+
+
+
+<!-- =====================================
+     BASIC UI JAVASCRIPT
+====================================== -->
+
+<script>
+
+document.addEventListener("DOMContentLoaded", function () {
+
+
+    /* =================================
+       MOBILE MENU
+    ================================== */
+
+    const menuBtn =
+        document.getElementById("mobileMenuBtn");
+
+    const navigation =
+        document.getElementById("mainNavigation");
+
+
+    if (menuBtn && navigation) {
+
+        menuBtn.addEventListener("click", function () {
+
+            navigation.classList.toggle("open");
+
+        });
+
+    }
+
+
+
+    /* =================================
+       BACK TO TOP
+    ================================== */
+
+    const backToTop =
+        document.getElementById("backToTop");
+
+
+    if (backToTop) {
+
+        window.addEventListener("scroll", function () {
+
+            if (window.scrollY > 500) {
+
+                backToTop.classList.add("show");
+
+            } else {
+
+                backToTop.classList.remove("show");
+
+            }
+
+        });
+
+
+        backToTop.addEventListener("click", function () {
+
+            window.scrollTo({
+
+                top: 0,
+
+                behavior: "smooth"
+
+            });
+
+        });
+
+    }
+
+
+
+    /* =================================
+       HERO SLIDER
+    ================================== */
+
+    const slides =
+        document.querySelectorAll(".hero-slide");
+
+    const dots =
+        document.querySelectorAll(".hero-dot");
+
+    const nextBtn =
+        document.querySelector(".hero-next");
+
+    const prevBtn =
+        document.querySelector(".hero-prev");
+
+
+    let currentSlide = 0;
+
+
+    function showSlide(index) {
+
+        if (!slides.length) return;
+
+
+        if (index >= slides.length) {
+
+            currentSlide = 0;
+
+        } else if (index < 0) {
+
+            currentSlide = slides.length - 1;
+
+        } else {
+
+            currentSlide = index;
+
+        }
+
+
+        slides.forEach(function (slide, i) {
+
+            slide.classList.toggle(
+                "active",
+                i === currentSlide
+            );
+
+        });
+
+
+        dots.forEach(function (dot, i) {
+
+            dot.classList.toggle(
+                "active",
+                i === currentSlide
+            );
+
+        });
+
+    }
+
+
+    if (nextBtn) {
+
+        nextBtn.addEventListener(
+            "click",
+            function () {
+
+                showSlide(currentSlide + 1);
+
+            }
+        );
+
+    }
+
+
+    if (prevBtn) {
+
+        prevBtn.addEventListener(
+            "click",
+            function () {
+
+                showSlide(currentSlide - 1);
+
+            }
+        );
+
+    }
+
+
+    dots.forEach(function (dot, index) {
+
+        dot.addEventListener(
+            "click",
+            function () {
+
+                showSlide(index);
+
+            }
+        );
+
+    });
+
+
+    if (slides.length > 1) {
+
+        setInterval(function () {
+
+            showSlide(currentSlide + 1);
+
+        }, 5000);
+
+    }
+
+
+    showSlide(0);
+
+
+});
+
+</script>
+
+
 </body>
+
 </html>

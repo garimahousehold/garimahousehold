@@ -1,298 +1,3545 @@
-/*=========================================
-CHECKOUT PAGE
-=========================================*/
+/* =========================================================
+   GARIMA'S HOUSE HOLD
+   CHECKOUT.CSS — PART 1
+   ========================================================= */
 
-.checkout-page{
-    max-width:1400px;
-    margin:50px auto;
-    padding:0 5%;
-    display:grid;
-    grid-template-columns:2fr 1fr;
-    gap:35px;
-    align-items:start;
-}
 
-.checkout-form,
-.order-summary{
-    background:#fff;
-    border-radius:20px;
-    padding:30px;
-    box-shadow:0 8px 25px rgba(0,0,0,.08);
-}
+/* =========================================================
+   1. ROOT VARIABLES
+========================================================= */
 
-.checkout-form h2,
-.order-summary h2{
-    margin-bottom:20px;
-    color:#222;
-}
+:root {
 
-.input-group{
-    margin-bottom:20px;
-}
+    --wine: #8b3d59;
+    --wine-dark: #63283e;
 
-.input-group label{
-    display:block;
-    font-weight:600;
-    margin-bottom:8px;
-    color:#333;
-}
+    --pink: #e9a9ba;
+    --pink-light: #fce8ee;
+    --pink-soft: #fff3f5;
 
-.input-group input,
-.input-group textarea{
-    width:100%;
-    padding:14px;
-    border:1px solid #ddd;
-    border-radius:12px;
-    font-size:15px;
-    outline:none;
-    transition:.3s;
-    box-sizing:border-box;
-}
+    --cream: #fffaf7;
+    --white: #ffffff;
 
-.input-group input:focus,
-.input-group textarea:focus{
-    border-color:#c99700;
-}
+    --text: #3d3034;
+    --text-light: #806f75;
 
-.row{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:20px;
-}
+    --border: #eadde1;
 
-/*=========================================
-PAYMENT BOX
-=========================================*/
+    --green: #57936b;
+    --danger: #c9576d;
 
-.payment-box{
-    background:#fafafa;
-    border-radius:18px;
-    padding:25px;
-    text-align:center;
-    margin:25px 0;
-}
+    --shadow-soft:
+        0 10px 30px rgba(99, 40, 62, 0.07);
 
-.upi-qr{
-    width:230px;
-    max-width:100%;
-    border-radius:15px;
-    border:1px solid #ddd;
-    margin-bottom:20px;
-}
-
-.upi-copy{
-    display:flex;
-    gap:10px;
-    margin-top:15px;
-}
-
-.upi-copy input{
-    flex:1;
-    padding:12px;
-    border:1px solid #ddd;
-    border-radius:10px;
-}
-
-.upi-copy button{
-    padding:12px 18px;
-    background:#c99700;
-    color:#fff;
-    border:none;
-    border-radius:10px;
-    cursor:pointer;
-    font-weight:600;
-}
-
-.upi-copy button:hover{
-    background:#b8860b;
-}
-
-.payment-note{
-    margin-top:20px;
-    background:#fff8e7;
-    padding:15px;
-    border-radius:12px;
-    font-size:14px;
-}
-/*=========================================
-ORDER SUMMARY
-=========================================*/
-
-.order-summary{
-    position:sticky;
-    top:100px;
-}
-
-#checkoutProducts{
-    max-height:320px;
-    overflow-y:auto;
-    margin-bottom:20px;
-}
-
-.summary-row{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    margin:15px 0;
-    font-size:16px;
-    color:#444;
-}
-
-.summary-row.total{
-    font-size:22px;
-    font-weight:700;
-    color:#111;
-}
-
-.order-summary hr{
-    border:none;
-    border-top:1px solid #e5e5e5;
-    margin:20px 0;
-}
-
-/*=========================================
-PLACE ORDER BUTTON
-=========================================*/
-
-.place-order-btn{
-    width:100%;
-    padding:16px;
-    border:none;
-    border-radius:14px;
-    background:#111;
-    color:#fff;
-    font-size:17px;
-    font-weight:600;
-    cursor:pointer;
-    transition:.3s;
-    margin-top:20px;
-}
-
-.place-order-btn:hover{
-    background:#c99700;
-}
-
-.secure-note{
-    margin-top:20px;
-    text-align:center;
-    color:#666;
-    font-size:14px;
-    line-height:1.6;
-}
-
-/*=========================================
-FOOTER
-=========================================*/
-
-.footer{
-    margin-top:70px;
-}
-
-.footer-bottom{
-    background:#111;
-    color:#fff;
-    text-align:center;
-    padding:18px;
-    font-size:14px;
-}
-
-/*=========================================
-RESPONSIVE
-=========================================*/
-
-@media(max-width:992px){
-
-.checkout-page{
-    grid-template-columns:1fr;
-}
-
-.order-summary{
-    position:static;
-}
-
-}
-
-@media(max-width:768px){
-
-.checkout-form,
-.order-summary{
-    padding:20px;
-}
-
-.row{
-    grid-template-columns:1fr;
-}
-
-.upi-copy{
-    flex-direction:column;
-}
-
-.upi-copy button{
-    width:100%;
-}
-
-.upi-qr{
-    width:180px;
-}
-
-.place-order-btn{
-    font-size:16px;
-}
-
-}
-
-@media(max-width:480px){
-
-.checkout-page{
-    padding:0 15px;
-}
-
-.checkout-form h2,
-.order-summary h2{
-    font-size:22px;
-}
-
-.summary-row{
-    font-size:15px;
-}
-
-.summary-row.total{
-    font-size:20px;
-}
+    --shadow:
+        0 15px 40px rgba(99, 40, 62, 0.10);
 
 }
 
 
-/*=========================================
-SHIPPING CALCULATION
-=========================================*/
+/* =========================================================
+   2. RESET
+========================================================= */
 
-#totalWeight,
-#deliveryCharge{
-    font-weight:600;
+* {
+
+    margin: 0;
+    padding: 0;
+
+    box-sizing: border-box;
+
 }
 
-.checkout-info small{
-    display:block;
-    margin-top:5px;
-    color:#777;
-    font-size:12px;
+
+html {
+
+    scroll-behavior: smooth;
+
 }
 
-.checkout-empty{
-    padding:25px 10px;
-    text-align:center;
-    color:#777;
+
+body {
+
+    min-height: 100vh;
+
+    font-family:
+        "DM Sans",
+        sans-serif;
+
+    background:
+        var(--cream);
+
+    color:
+        var(--text);
+
+    overflow-x: hidden;
+
 }
 
-/* FINAL UPI QR */
-.upi-qr,
-#upiQr,
-.upi-payment img[alt="UPI QR"] {
-    width: 240px !important;
-    height: 240px !important;
-    max-width: 100% !important;
-    object-fit: contain !important;
-    display: block !important;
-    margin: 0 auto !important;
+
+a {
+
+    color: inherit;
+
+    text-decoration: none;
+
+}
+
+
+button,
+input,
+textarea {
+
+    font-family:
+        inherit;
+
+}
+
+
+button {
+
+    cursor: pointer;
+
+}
+
+
+img {
+
+    max-width: 100%;
+
+    display: block;
+
+}
+
+
+.container {
+
+    width:
+        min(
+            1180px,
+            calc(100% - 32px)
+        );
+
+    margin:
+        0 auto;
+
+}
+
+
+/* =========================================================
+   3. CHECKOUT HEADER
+========================================================= */
+
+.checkout-header {
+
+    width: 100%;
+
+    background:
+        rgba(255,255,255,0.97);
+
+    border-bottom:
+        1px solid var(--border);
+
+    position:
+        sticky;
+
+    top: 0;
+
+    z-index: 1000;
+
+    backdrop-filter:
+        blur(10px);
+
+}
+
+
+.checkout-header-inner {
+
+    min-height:
+        78px;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        space-between;
+
+    gap:
+        20px;
+
+}
+
+
+/* =========================================================
+   4. LOGO
+========================================================= */
+
+.checkout-logo {
+
+    display:
+        inline-flex;
+
+    align-items:
+        center;
+
+}
+
+
+.checkout-logo img {
+
+    width:
+        155px;
+
+    height:
+        62px;
+
+    object-fit:
+        contain;
+
+}
+
+
+/* =========================================================
+   5. SECURE CHECKOUT
+========================================================= */
+
+.secure-checkout {
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    gap:
+        10px;
+
+    margin-left:
+        auto;
+
+}
+
+
+.secure-checkout > i {
+
+    width:
+        35px;
+
+    height:
+        35px;
+
+    display:
+        grid;
+
+    place-items:
+        center;
+
+    border-radius:
+        50%;
+
+    background:
+        var(--pink-light);
+
+    color:
+        var(--wine);
+
+    font-size:
+        14px;
+
+}
+
+
+.secure-checkout div {
+
+    display:
+        flex;
+
+    flex-direction:
+        column;
+
+    gap:
+        2px;
+
+}
+
+
+.secure-checkout strong {
+
+    color:
+        var(--wine-dark);
+
+    font-size:
+        10px;
+
+    font-weight:
+        800;
+
+}
+
+
+.secure-checkout span {
+
+    color:
+        var(--text-light);
+
+    font-size:
+        8px;
+
+}
+
+
+/* =========================================================
+   6. BACK TO CART
+========================================================= */
+
+.back-cart {
+
+    display:
+        inline-flex;
+
+    align-items:
+        center;
+
+    gap:
+        7px;
+
+    margin-left:
+        20px;
+
+    color:
+        var(--wine);
+
+    font-size:
+        10px;
+
+    font-weight:
+        700;
+
+    transition:
+        all 0.2s ease;
+
+}
+
+
+.back-cart:hover {
+
+    color:
+        var(--wine-dark);
+
+    transform:
+        translateX(-3px);
+
+}
+
+
+/* =========================================================
+   7. CHECKOUT PAGE
+========================================================= */
+
+.checkout-page {
+
+    padding:
+        45px 0 80px;
+
+}
+
+
+/* =========================================================
+   8. CHECKOUT HEADING
+========================================================= */
+
+.checkout-heading {
+
+    text-align:
+        center;
+
+    margin-bottom:
+        35px;
+
+}
+
+
+.checkout-heading > span {
+
+    display:
+        block;
+
+    margin-bottom:
+        8px;
+
+    color:
+        var(--wine);
+
+    font-size:
+        10px;
+
+    font-weight:
+        800;
+
+    letter-spacing:
+        2px;
+
+    text-transform:
+        uppercase;
+
+}
+
+
+.checkout-heading h1 {
+
+    color:
+        var(--wine-dark);
+
+    font-family:
+        "Playfair Display",
+        serif;
+
+    font-size:
+        clamp(
+            30px,
+            5vw,
+            43px
+        );
+
+    line-height:
+        1.15;
+
+}
+
+
+.checkout-heading p {
+
+    margin-top:
+        8px;
+
+    color:
+        var(--text-light);
+
+    font-size:
+        11px;
+
+    line-height:
+        1.6;
+
+}
+
+
+/* =========================================================
+   9. CHECKOUT LAYOUT
+========================================================= */
+
+.checkout-layout {
+
+    display:
+        grid;
+
+    grid-template-columns:
+        minmax(0, 1fr)
+        390px;
+
+    align-items:
+        start;
+
+    gap:
+        28px;
+
+}
+
+
+/* =========================================================
+   10. LEFT SIDE
+========================================================= */
+
+.checkout-left {
+
+    min-width:
+        0;
+
+    display:
+        flex;
+
+    flex-direction:
+        column;
+
+    gap:
+        20px;
+
+}
+
+
+/* =========================================================
+   11. CHECKOUT CARD
+========================================================= */
+
+.checkout-card {
+
+    padding:
+        25px;
+
+    background:
+        var(--white);
+
+    border:
+        1px solid var(--border);
+
+    border-radius:
+        20px;
+
+    box-shadow:
+        var(--shadow-soft);
+
+}
+
+
+/* =========================================================
+   12. CARD HEADING
+========================================================= */
+
+.card-heading {
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    gap:
+        12px;
+
+    margin-bottom:
+        22px;
+
+}
+
+
+.heading-icon {
+
+    width:
+        40px;
+
+    height:
+        40px;
+
+    flex:
+        0 0 40px;
+
+    display:
+        grid;
+
+    place-items:
+        center;
+
+    border-radius:
+        11px;
+
+    background:
+        var(--pink-light);
+
+    color:
+        var(--wine);
+
+    font-size:
+        15px;
+
+}
+
+
+.card-heading h2 {
+
+    color:
+        var(--wine-dark);
+
+    font-family:
+        "Playfair Display",
+        serif;
+
+    font-size:
+        21px;
+
+    line-height:
+        1.2;
+
+}
+
+
+.card-heading p {
+
+    margin-top:
+        3px;
+
+    color:
+        var(--text-light);
+
+    font-size:
+        9px;
+
+}
+
+
+/* =========================================================
+   13. FORM GRID
+========================================================= */
+
+.form-grid {
+
+    display:
+        grid;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+    gap:
+        17px;
+
+}
+
+
+.form-group {
+
+    min-width:
+        0;
+
+}
+
+
+.form-group.full-width {
+
+    grid-column:
+        1 / -1;
+
+}
+
+
+/* =========================================================
+   14. LABEL
+========================================================= */
+
+.form-group label {
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    gap:
+        3px;
+
+    margin-bottom:
+        7px;
+
+    color:
+        var(--text);
+
+    font-size:
+        10px;
+
+    font-weight:
+        700;
+
+}
+
+
+.form-group label span {
+
+    color:
+        var(--danger);
+
+}
+
+
+.form-group label small {
+
+    margin-left:
+        4px;
+
+    color:
+        var(--text-light);
+
+    font-size:
+        8px;
+
+    font-weight:
+        500;
+
+}
+
+
+/* =========================================================
+   15. INPUT WRAP
+========================================================= */
+
+.input-wrap {
+
+    min-height:
+        45px;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    gap:
+        9px;
+
+    padding:
+        0 12px;
+
+    border:
+        1px solid var(--border);
+
+    border-radius:
+        10px;
+
+    background:
+        var(--white);
+
+    transition:
+        all 0.2s ease;
+
+}
+
+
+.input-wrap:focus-within {
+
+    border-color:
+        var(--pink);
+
+    box-shadow:
+        0 0 0 3px
+        rgba(233,169,186,0.12);
+
+}
+
+
+.input-wrap > i {
+
+    flex:
+        0 0 auto;
+
+    width:
+        15px;
+
+    text-align:
+        center;
+
+    color:
+        var(--wine);
+
+    font-size:
+        11px;
+
+}
+
+
+.input-wrap input {
+
+    width:
+        100%;
+
+    height:
+        43px;
+
+    min-width:
+        0;
+
+    border:
+        0;
+
+    outline:
+        none;
+
+    background:
+        transparent;
+
+    color:
+        var(--text);
+
+    font-size:
+        10px;
+
+}
+
+
+.input-wrap input::placeholder {
+
+    color:
+        #aa9ca1;
+
+}
+
+
+/* =========================================================
+   16. TEXTAREA
+========================================================= */
+
+.textarea-wrap {
+
+    align-items:
+        flex-start;
+
+    padding-top:
+        12px;
+
+    padding-bottom:
+        12px;
+
+}
+
+
+.textarea-wrap textarea {
+
+    width:
+        100%;
+
+    min-height:
+        70px;
+
+    resize:
+        vertical;
+
+    border:
+        0;
+
+    outline:
+        none;
+
+    background:
+        transparent;
+
+    color:
+        var(--text);
+
+    font-size:
+        10px;
+
+    line-height:
+        1.5;
+
+}
+
+
+.textarea-wrap textarea::placeholder {
+
+    color:
+        #aa9ca1;
+
+}
+
+
+.form-group > small {
+
+    display:
+        block;
+
+    margin-top:
+        6px;
+
+    color:
+        var(--text-light);
+
+    font-size:
+        8px;
+
+    line-height:
+        1.5;
+
+}
+
+
+/* =========================================================
+   17. DELIVERY INFORMATION
+========================================================= */
+
+.delivery-info-card {
+
+    background:
+        linear-gradient(
+            135deg,
+            #ffffff,
+            #fff7f8
+        );
+
+}
+
+
+.delivery-info-grid {
+
+    display:
+        grid;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+    gap:
+        12px;
+
+}
+
+
+.delivery-info-item {
+
+    min-height:
+        75px;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    gap:
+        10px;
+
+    padding:
+        13px;
+
+    border:
+        1px solid var(--border);
+
+    border-radius:
+        12px;
+
+    background:
+        rgba(255,255,255,0.85);
+
+}
+
+
+.delivery-info-item > i {
+
+    width:
+        34px;
+
+    height:
+        34px;
+
+    flex:
+        0 0 34px;
+
+    display:
+        grid;
+
+    place-items:
+        center;
+
+    border-radius:
+        50%;
+
+    background:
+        var(--pink-light);
+
+    color:
+        var(--wine);
+
+    font-size:
+        12px;
+
+}
+
+
+.delivery-info-item div {
+
+    display:
+        flex;
+
+    flex-direction:
+        column;
+
+    gap:
+        4px;
+
+}
+
+
+.delivery-info-item strong {
+
+    color:
+        var(--wine-dark);
+
+    font-size:
+        10px;
+
+}
+
+
+.delivery-info-item span {
+
+    color:
+        var(--text-light);
+
+    font-size:
+        8px;
+
+    line-height:
+        1.4;
+
+}
+
+
+/* =========================================================
+   PART 1 END
+========================================================= */
+/* =========================================================
+   GARIMA'S HOUSE HOLD
+   CHECKOUT.CSS — PART 2
+   ========================================================= */
+
+
+/* =========================================================
+   18. CHECKOUT RIGHT SIDE
+========================================================= */
+
+.checkout-right {
+
+    min-width:
+        0;
+
+    display:
+        flex;
+
+    flex-direction:
+        column;
+
+    gap:
+        16px;
+
+    position:
+        sticky;
+
+    top:
+        100px;
+
+}
+
+
+/* =========================================================
+   19. ORDER SUMMARY
+========================================================= */
+
+.checkout-summary {
+
+    padding:
+        23px;
+
+    background:
+        var(--white);
+
+    border:
+        1px solid var(--border);
+
+    border-radius:
+        20px;
+
+    box-shadow:
+        var(--shadow);
+
+}
+
+
+.summary-heading {
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        space-between;
+
+    gap:
+        10px;
+
+    padding-bottom:
+        15px;
+
+    border-bottom:
+        1px solid var(--border);
+
+}
+
+
+.summary-heading h2 {
+
+    color:
+        var(--wine-dark);
+
+    font-family:
+        "Playfair Display",
+        serif;
+
+    font-size:
+        22px;
+
+}
+
+
+.summary-heading span {
+
+    padding:
+        5px 9px;
+
+    border-radius:
+        20px;
+
+    background:
+        var(--pink-light);
+
+    color:
+        var(--wine);
+
+    font-size:
+        8px;
+
+    font-weight:
+        800;
+
+}
+
+
+/* =========================================================
+   20. CHECKOUT PRODUCTS
+========================================================= */
+
+.checkout-products {
+
+    max-height:
+        330px;
+
+    overflow-y:
+        auto;
+
+    padding:
+        5px 0;
+
+}
+
+
+.checkout-products::-webkit-scrollbar {
+
+    width:
+        4px;
+
+}
+
+
+.checkout-products::-webkit-scrollbar-thumb {
+
+    background:
+        var(--pink);
+
+    border-radius:
+        10px;
+
+}
+
+
+.checkout-product {
+
+    min-height:
+        78px;
+
+    display:
+        grid;
+
+    grid-template-columns:
+        62px
+        minmax(0, 1fr)
+        auto;
+
+    align-items:
+        center;
+
+    gap:
+        10px;
+
+    padding:
+        12px 0;
+
+    border-bottom:
+        1px solid var(--border);
+
+}
+
+
+.checkout-product:last-child {
+
+    border-bottom:
+        0;
+
+}
+
+
+/* =========================================================
+   21. PRODUCT IMAGE
+========================================================= */
+
+.checkout-product-image {
+
+    width:
+        62px;
+
+    height:
+        67px;
+
+    position:
+        relative;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    overflow:
+        visible;
+
+    border:
+        1px solid var(--border);
+
+    border-radius:
+        10px;
+
+    background:
+        var(--pink-soft);
+
+}
+
+
+.checkout-product-image img {
+
+    width:
+        100%;
+
+    height:
+        100%;
+
+    padding:
+        5px;
+
+    object-fit:
+        contain;
+
+    border-radius:
+        10px;
+
+}
+
+
+.checkout-product-qty {
+
+    position:
+        absolute;
+
+    top:
+        -7px;
+
+    right:
+        -7px;
+
+    min-width:
+        20px;
+
+    height:
+        20px;
+
+    padding:
+        0 5px;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    border:
+        2px solid var(--white);
+
+    border-radius:
+        20px;
+
+    background:
+        var(--wine);
+
+    color:
+        var(--white);
+
+    font-size:
+        8px;
+
+    font-weight:
+        800;
+
+}
+
+
+/* =========================================================
+   22. PRODUCT INFO
+========================================================= */
+
+.checkout-product-info {
+
+    min-width:
+        0;
+
+    display:
+        flex;
+
+    flex-direction:
+        column;
+
+    gap:
+        4px;
+
+}
+
+
+.checkout-product-info > strong {
+
+    color:
+        var(--text);
+
+    font-size:
+        10px;
+
+    font-weight:
+        700;
+
+    line-height:
+        1.35;
+
+    overflow:
+        hidden;
+
+    display:
+        -webkit-box;
+
+    -webkit-box-orient:
+        vertical;
+
+    -webkit-line-clamp:
+        2;
+        line-clamp: 2;
+
+}
+
+
+.checkout-product-info > span {
+
+    color:
+        var(--text-light);
+
+    font-size:
+        8px;
+
+}
+
+
+.checkout-product-price {
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    gap:
+        6px;
+
+}
+
+
+.checkout-product-price b {
+
+    color:
+        var(--wine-dark);
+
+    font-size:
+        10px;
+
+}
+
+
+.checkout-product-price del {
+
+    color:
+        #a99a9f;
+
+    font-size:
+        8px;
+
+}
+
+
+/* =========================================================
+   23. PRODUCT TOTAL
+========================================================= */
+
+.checkout-product-total {
+
+    color:
+        var(--wine-dark);
+
+    font-size:
+        10px;
+
+    font-weight:
+        800;
+
+    white-space:
+        nowrap;
+
+}
+
+
+/* =========================================================
+   24. PRICE DETAILS
+========================================================= */
+
+.price-details {
+
+    margin-top:
+        7px;
+
+    padding-top:
+        10px;
+
+    border-top:
+        1px solid var(--border);
+
+}
+
+
+.price-row {
+
+    min-height:
+        35px;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        space-between;
+
+    gap:
+        15px;
+
+    color:
+        var(--text-light);
+
+    font-size:
+        10px;
+
+}
+
+
+.price-row strong {
+
+    color:
+        var(--text);
+
+    font-size:
+        11px;
+
+}
+
+
+.discount-row strong {
+
+    color:
+        var(--green);
+
+}
+
+
+/* =========================================================
+   25. SHIPPING MESSAGE
+========================================================= */
+
+.checkout-shipping-message {
+
+    margin:
+        10px 0;
+
+    padding:
+        10px 11px;
+
+    border:
+        1px solid #d9ecdf;
+
+    border-radius:
+        9px;
+
+    background:
+        #f3faf5;
+
+    color:
+        var(--green);
+
+    font-size:
+        8px;
+
+    line-height:
+        1.5;
+
+}
+
+
+/* =========================================================
+   26. CHECKOUT TOTAL
+========================================================= */
+
+.checkout-total {
+
+    margin-top:
+        8px;
+
+    padding-top:
+        15px;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        space-between;
+
+    gap:
+        15px;
+
+    border-top:
+        1px dashed var(--border);
+
+}
+
+
+.checkout-total span {
+
+    color:
+        var(--wine-dark);
+
+    font-size:
+        14px;
+
+    font-weight:
+        700;
+
+}
+
+
+.checkout-total strong {
+
+    color:
+        var(--wine-dark);
+
+    font-size:
+        22px;
+
+    font-weight:
+        800;
+
+}
+
+
+/* =========================================================
+   27. PAYMENT CARD
+========================================================= */
+
+.payment-card {
+
+    padding:
+        21px;
+
+    background:
+        var(--white);
+
+    border:
+        1px solid var(--border);
+
+    border-radius:
+        18px;
+
+    box-shadow:
+        var(--shadow-soft);
+
+}
+
+
+.payment-heading {
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    gap:
+        10px;
+
+    margin-bottom:
+        15px;
+
+}
+
+
+.payment-heading .heading-icon {
+
+    width:
+        36px;
+
+    height:
+        36px;
+
+    flex-basis:
+        36px;
+
+    font-size:
+        13px;
+
+}
+
+
+.payment-heading h2 {
+
+    color:
+        var(--wine-dark);
+
+    font-family:
+        "Playfair Display",
+        serif;
+
+    font-size:
+        19px;
+
+}
+
+
+.payment-heading p {
+
+    margin-top:
+        2px;
+
+    color:
+        var(--text-light);
+
+    font-size:
+        8px;
+
+}
+
+
+/* =========================================================
+   28. PAYMENT OPTION
+========================================================= */
+
+.payment-option {
+
+    min-height:
+        66px;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    gap:
+        10px;
+
+    padding:
+        12px;
+
+    border:
+        1px solid var(--pink);
+
+    border-radius:
+        11px;
+
+    background:
+        var(--pink-soft);
+
+}
+
+
+.payment-radio {
+
+    width:
+        19px;
+
+    height:
+        19px;
+
+    flex:
+        0 0 19px;
+
+    display:
+        grid;
+
+    place-items:
+        center;
+
+    border:
+        2px solid var(--wine);
+
+    border-radius:
+        50%;
+
+}
+
+
+.payment-radio span {
+
+    width:
+        8px;
+
+    height:
+        8px;
+
+    border-radius:
+        50%;
+
+    background:
+        var(--wine);
+
+}
+
+
+.payment-option-content {
+
+    flex:
+        1;
+
+    display:
+        flex;
+
+    flex-direction:
+        column;
+
+    gap:
+        3px;
+
+}
+
+
+.payment-option-content strong {
+
+    color:
+        var(--wine-dark);
+
+    font-size:
+        10px;
+
+}
+
+
+.payment-option-content span {
+
+    color:
+        var(--text-light);
+
+    font-size:
+        8px;
+
+}
+
+
+.payment-option > i {
+
+    color:
+        var(--green);
+
+    font-size:
+        14px;
+
+}
+
+
+/* =========================================================
+   29. PAYMENT NOTE
+========================================================= */
+
+.payment-note {
+
+    margin-top:
+        10px;
+
+    display:
+        flex;
+
+    align-items:
+        flex-start;
+
+    gap:
+        7px;
+
+    color:
+        var(--text-light);
+
+    font-size:
+        8px;
+
+    line-height:
+        1.5;
+
+}
+
+
+.payment-note i {
+
+    margin-top:
+        1px;
+
+    color:
+        var(--wine);
+
+}
+
+
+/* =========================================================
+   30. WHATSAPP ORDER CARD
+========================================================= */
+
+.whatsapp-order-card {
+
+    min-height:
+        67px;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    gap:
+        11px;
+
+    padding:
+        13px;
+
+    border:
+        1px solid #cfe8d7;
+
+    border-radius:
+        13px;
+
+    background:
+        #f4fbf6;
+
+}
+
+
+.whatsapp-icon {
+
+    width:
+        37px;
+
+    height:
+        37px;
+
+    flex:
+        0 0 37px;
+
+    display:
+        grid;
+
+    place-items:
+        center;
+
+    border-radius:
+        50%;
+
+    background:
+        #dff2e5;
+
+    color:
+        var(--green);
+
+    font-size:
+        18px;
+
+}
+
+
+.whatsapp-order-card > div:last-child {
+
+    display:
+        flex;
+
+    flex-direction:
+        column;
+
+    gap:
+        3px;
+
+}
+
+
+.whatsapp-order-card strong {
+
+    color:
+        #3e7150;
+
+    font-size:
+        10px;
+
+}
+
+
+.whatsapp-order-card span {
+
+    color:
+        #6e8d78;
+
+    font-size:
+        8px;
+
+    line-height:
+        1.4;
+
+}
+
+
+/* =========================================================
+   31. PLACE ORDER BUTTON
+========================================================= */
+
+.place-order-btn {
+
+    width:
+        100%;
+
+    min-height:
+        53px;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    gap:
+        9px;
+
+    border:
+        0;
+
+    border-radius:
+        12px;
+
+    background:
+        var(--wine);
+
+    color:
+        var(--white);
+
+    font-size:
+        11px;
+
+    font-weight:
+        800;
+
+    box-shadow:
+        0 9px 22px
+        rgba(139,61,89,0.18);
+
+    transition:
+        all 0.2s ease;
+
+}
+
+
+.place-order-btn:hover {
+
+    background:
+        var(--wine-dark);
+
+    transform:
+        translateY(-2px);
+
+    box-shadow:
+        0 12px 25px
+        rgba(139,61,89,0.24);
+
+}
+
+
+.place-order-btn:disabled {
+
+    opacity:
+        0.7;
+
+    cursor:
+        not-allowed;
+
+    transform:
+        none;
+
+}
+
+
+.place-order-btn > i:last-child {
+
+    font-size:
+        9px;
+
+}
+
+
+/* =========================================================
+   32. SECURITY TEXT
+========================================================= */
+
+.checkout-security {
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    gap:
+        5px;
+
+    color:
+        var(--text-light);
+
+    font-size:
+        8px;
+
+}
+
+
+.checkout-security i {
+
+    color:
+        var(--green);
+
+}
+
+
+/* =========================================================
+   33. EMPTY CHECKOUT
+========================================================= */
+
+.checkout-empty {
+
+    padding:
+        30px 10px;
+
+    text-align:
+        center;
+
+}
+
+
+.checkout-empty i {
+
+    margin-bottom:
+        8px;
+
+    color:
+        var(--pink);
+
+    font-size:
+        25px;
+
+}
+
+
+.checkout-empty p {
+
+    margin-bottom:
+        7px;
+
+    color:
+        var(--text-light);
+
+    font-size:
+        9px;
+
+}
+
+
+.checkout-empty a {
+
+    color:
+        var(--wine);
+
+    font-size:
+        9px;
+
+    font-weight:
+        800;
+
+}
+
+
+/* =========================================================
+   34. RESPONSIVE — 1050PX
+========================================================= */
+
+@media (max-width: 1050px) {
+
+    .checkout-layout {
+
+        grid-template-columns:
+            minmax(0, 1fr)
+            350px;
+
+        gap:
+            20px;
+
+    }
+
+
+    .checkout-card {
+
+        padding:
+            21px;
+
+    }
+
+
+    .checkout-summary {
+
+        padding:
+            20px;
+
+    }
+
+}
+
+
+/* =========================================================
+   35. RESPONSIVE — 900PX
+========================================================= */
+
+@media (max-width: 900px) {
+
+    .checkout-layout {
+
+        grid-template-columns:
+            1fr;
+
+    }
+
+
+    .checkout-right {
+
+        position:
+            static;
+
+    }
+
+
+    .checkout-summary {
+
+        order:
+            1;
+
+    }
+
+
+    .payment-card {
+
+        order:
+            2;
+
+    }
+
+
+    .whatsapp-order-card {
+
+        order:
+            3;
+
+    }
+
+
+    .place-order-btn {
+
+        order:
+            4;
+
+    }
+
+
+    .checkout-security {
+
+        order:
+            5;
+
+    }
+
+}
+
+
+/* =========================================================
+   36. RESPONSIVE — 600PX
+========================================================= */
+
+@media (max-width: 600px) {
+
+    .container {
+
+        width:
+            calc(100% - 22px);
+
+    }
+
+
+    .checkout-header-inner {
+
+        min-height:
+            68px;
+
+    }
+
+
+    .checkout-logo img {
+
+        width:
+            130px;
+
+        height:
+            52px;
+
+    }
+
+
+    .secure-checkout {
+
+        display:
+            none;
+
+    }
+
+
+    .back-cart {
+
+        margin-left:
+            auto;
+
+        font-size:
+            10px;
+
+    }
+
+
+    .checkout-page {
+
+        padding:
+            30px 0 55px;
+
+    }
+
+
+    .checkout-heading {
+
+        margin-bottom:
+            25px;
+
+    }
+
+
+    .checkout-heading h1 {
+
+        font-size:
+            30px;
+
+    }
+
+
+    .checkout-heading p {
+
+        font-size:
+            9px;
+
+    }
+
+
+    .checkout-card {
+
+        padding:
+            18px;
+
+        border-radius:
+            16px;
+
+    }
+
+
+    .card-heading {
+
+        margin-bottom:
+            18px;
+
+    }
+
+
+    .card-heading h2 {
+
+        font-size:
+            19px;
+
+    }
+
+
+    .form-grid {
+
+        grid-template-columns:
+            1fr;
+
+        gap:
+            14px;
+
+    }
+
+
+    .form-group.full-width {
+
+        grid-column:
+            auto;
+
+    }
+
+
+    .delivery-info-grid {
+
+        grid-template-columns:
+            1fr;
+
+    }
+
+
+    .checkout-summary {
+
+        padding:
+            18px;
+
+        border-radius:
+            16px;
+
+    }
+
+
+    .checkout-product {
+
+        grid-template-columns:
+            58px
+            minmax(0, 1fr)
+            auto;
+
+        gap:
+            8px;
+
+    }
+
+
+    .checkout-product-image {
+
+        width:
+            58px;
+
+        height:
+            63px;
+
+    }
+
+
+    .checkout-product-info > strong {
+
+        font-size:
+            9px;
+
+    }
+
+
+    .checkout-product-total {
+
+        font-size:
+            9px;
+
+    }
+
+
+    .payment-card {
+
+        padding:
+            18px;
+
+    }
+
+
+    .whatsapp-order-card {
+
+        padding:
+            12px;
+
+    }
+
+
+    .place-order-btn {
+
+        min-height:
+            51px;
+
+    }
+
+}
+
+
+/* =========================================================
+   37. RESPONSIVE — 420PX
+========================================================= */
+
+@media (max-width: 420px) {
+
+    .checkout-heading h1 {
+
+        font-size:
+            27px;
+
+    }
+
+
+    .checkout-heading > span {
+
+        font-size:
+            9px;
+
+    }
+
+
+    .checkout-card {
+
+        padding:
+            16px;
+
+    }
+
+
+    .heading-icon {
+
+        width:
+            36px;
+
+        height:
+            36px;
+
+        flex-basis:
+            36px;
+
+    }
+
+
+    .card-heading h2 {
+
+        font-size:
+            17px;
+
+    }
+
+
+    .checkout-product {
+
+        grid-template-columns:
+            54px
+            minmax(0, 1fr);
+
+    }
+
+
+    .checkout-product-image {
+
+        width:
+            54px;
+
+        height:
+            59px;
+
+    }
+
+
+    .checkout-product-total {
+
+        grid-column:
+            2;
+
+        justify-self:
+            start;
+
+        margin-top:
+            -2px;
+
+    }
+
+
+    .summary-heading h2 {
+
+        font-size:
+            20px;
+
+    }
+
+
+    .checkout-total strong {
+
+        font-size:
+            20px;
+
+    }
+
+}
+
+
+/* =========================================================
+   38. ACCESSIBILITY
+========================================================= */
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+
+    outline:
+        2px solid var(--pink);
+
+    outline-offset:
+        3px;
+
+}
+
+
+/* =========================================================
+   39. SELECTION
+========================================================= */
+
+::selection {
+
+    background:
+        var(--pink);
+
+    color:
+        var(--white);
+
+}
+
+/* =========================================================
+   CHECKOUT FONT SIZE BOOST
+   2–3 LEVELS BIGGER
+========================================================= */
+
+/* Main heading */
+.checkout-heading h1 {
+    font-size: clamp(34px, 5vw, 48px);
+}
+
+.checkout-heading > span {
+    font-size: 12px;
+}
+
+.checkout-heading p {
+    font-size: 14px;
+}
+
+
+/* Card headings */
+.card-heading h2 {
+    font-size: 25px;
+}
+
+.card-heading p {
+    font-size: 12px;
+}
+
+
+/* Form labels */
+.form-group label {
+    font-size: 13px;
+}
+
+.form-group label small {
+    font-size: 10px;
+}
+
+
+/* Inputs */
+.input-wrap {
+    min-height: 52px;
+}
+
+.input-wrap input {
+    height: 50px;
+    font-size: 13px;
+}
+
+.input-wrap input::placeholder {
+    font-size: 12px;
+}
+
+
+/* Textarea */
+.textarea-wrap textarea {
+    min-height: 90px;
+    font-size: 13px;
+}
+
+.textarea-wrap textarea::placeholder {
+    font-size: 12px;
+}
+
+
+/* Small help text */
+.form-group > small {
+    font-size: 10px;
+}
+
+
+/* Delivery information */
+.delivery-info-item strong {
+    font-size: 13px;
+}
+
+.delivery-info-item span {
+    font-size: 10px;
+}
+
+
+/* Order summary */
+.summary-heading h2 {
+    font-size: 25px;
+}
+
+.summary-heading span {
+    font-size: 10px;
+}
+
+
+/* Product information */
+.checkout-product-info > strong {
+    font-size: 13px;
+}
+
+.checkout-product-info > span {
+    font-size: 10px;
+}
+
+.checkout-product-price b {
+    font-size: 13px;
+}
+
+.checkout-product-price del {
+    font-size: 10px;
+}
+
+.checkout-product-total {
+    font-size: 13px;
+}
+
+
+/* Price details */
+.price-row {
+    min-height: 40px;
+    font-size: 12px;
+}
+
+.price-row strong {
+    font-size: 13px;
+}
+
+
+/* Free delivery message */
+.checkout-shipping-message {
+    font-size: 10px;
+}
+
+
+/* Total */
+.checkout-total span {
+    font-size: 17px;
+}
+
+.checkout-total strong {
+    font-size: 27px;
+}
+
+
+/* Payment */
+.payment-heading h2 {
+    font-size: 23px;
+}
+
+.payment-heading p {
+    font-size: 10px;
+}
+
+.payment-option-content strong {
+    font-size: 13px;
+}
+
+.payment-option-content span {
+    font-size: 10px;
+}
+
+.payment-note {
+    font-size: 10px;
+}
+
+
+/* WhatsApp */
+.whatsapp-order-card strong {
+    font-size: 13px;
+}
+
+.whatsapp-order-card span {
+    font-size: 10px;
+}
+
+
+/* Place Order */
+.place-order-btn {
+    min-height: 58px;
+    font-size: 14px;
+}
+
+
+/* Security */
+.checkout-security {
+    font-size: 10px;
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 600px) {
+
+    .checkout-heading h1 {
+        font-size: 32px;
+    }
+
+    .checkout-heading p {
+        font-size: 12px;
+    }
+
+    .card-heading h2 {
+        font-size: 22px;
+    }
+
+    .form-group label {
+        font-size: 12px;
+    }
+
+    .input-wrap input {
+        font-size: 12px;
+    }
+
+    .input-wrap input::placeholder {
+        font-size: 11px;
+    }
+
+    .summary-heading h2 {
+        font-size: 22px;
+    }
+
+    .checkout-product-info > strong {
+        font-size: 12px;
+    }
+
+    .price-row {
+        font-size: 11px;
+    }
+
+    .checkout-total strong {
+        font-size: 24px;
+    }
+
+    .payment-heading h2 {
+        font-size: 21px;
+    }
+
+    .place-order-btn {
+        font-size: 13px;
+    }
+
+}
+/* =========================================================
+   PAYMENT SCREENSHOT UPLOAD
+========================================================= */
+
+.payment-screenshot-section {
+
+    margin-top:
+        18px;
+
+    padding-top:
+        17px;
+
+    border-top:
+        1px dashed var(--border);
+
+}
+
+
+/* LABEL */
+
+.payment-screenshot-label {
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    gap:
+        3px;
+
+    margin-bottom:
+        5px;
+
+    color:
+        var(--text);
+
+    font-size:
+        13px;
+
+    font-weight:
+        700;
+
+}
+
+
+.payment-screenshot-label span {
+
+    color:
+        var(--danger);
+
+}
+
+
+/* HELP TEXT */
+
+.payment-screenshot-help {
+
+    margin-bottom:
+        11px;
+
+    color:
+        var(--text-light);
+
+    font-size:
+        10px;
+
+    line-height:
+        1.5;
+
+}
+
+
+/* UPLOAD BOX */
+
+.payment-upload-box {
+
+    min-height:
+        115px;
+
+    padding:
+        18px;
+
+    display:
+        flex;
+
+    flex-direction:
+        column;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    gap:
+        6px;
+
+    border:
+        2px dashed var(--pink);
+
+    border-radius:
+        13px;
+
+    background:
+        var(--pink-soft);
+
+    color:
+        var(--wine);
+
+    text-align:
+        center;
+
+    cursor:
+        pointer;
+
+    transition:
+        all 0.2s ease;
+
+}
+
+
+.payment-upload-box:hover {
+
+    border-color:
+        var(--wine);
+
+    background:
+        var(--pink-light);
+
+    transform:
+        translateY(-1px);
+
+}
+
+
+.payment-upload-box > i {
+
+    margin-bottom:
+        3px;
+
+    font-size:
+        24px;
+
+}
+
+
+.payment-upload-box strong {
+
+    color:
+        var(--wine-dark);
+
+    font-size:
+        12px;
+
+    font-weight:
+        800;
+
+}
+
+
+.payment-upload-box span {
+
+    color:
+        var(--text-light);
+
+    font-size:
+        9px;
+
+}
+
+
+/* =========================================================
+   PAYMENT SCREENSHOT PREVIEW
+========================================================= */
+
+.payment-preview {
+
+    margin-top:
+        12px;
+
+    padding:
+        10px;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    gap:
+        10px;
+
+    border:
+        1px solid #d9ecdf;
+
+    border-radius:
+        11px;
+
+    background:
+        #f4fbf6;
+
+}
+
+
+.payment-preview-image {
+
+    width:
+        55px;
+
+    height:
+        55px;
+
+    flex:
+        0 0 55px;
+
+    overflow:
+        hidden;
+
+    border:
+        1px solid var(--border);
+
+    border-radius:
+        8px;
+
+    background:
+        var(--white);
+
+}
+
+
+.payment-preview-image img {
+
+    width:
+        100%;
+
+    height:
+        100%;
+
+    object-fit:
+        cover;
+
+}
+
+
+.payment-preview-info {
+
+    min-width:
+        0;
+
+    flex:
+        1;
+
+    display:
+        flex;
+
+    flex-direction:
+        column;
+
+    gap:
+        4px;
+
+}
+
+
+.payment-preview-info strong {
+
+    overflow:
+        hidden;
+
+    color:
+        var(--text);
+
+    font-size:
+        10px;
+
+    font-weight:
+        700;
+
+    text-overflow:
+        ellipsis;
+
+    white-space:
+        nowrap;
+
+}
+
+
+.payment-preview-info span {
+
+    color:
+        var(--text-light);
+
+    font-size:
+        9px;
+
+}
+
+
+/* REMOVE BUTTON */
+
+.remove-payment-screenshot {
+
+    width:
+        32px;
+
+    height:
+        32px;
+
+    flex:
+        0 0 32px;
+
+    display:
+        grid;
+
+    place-items:
+        center;
+
+    border:
+        0;
+
+    border-radius:
+        8px;
+
+    background:
+        #fdecef;
+
+    color:
+        var(--danger);
+
+    font-size:
+        11px;
+
+    cursor:
+        pointer;
+
+    transition:
+        all 0.2s ease;
+
+}
+
+
+.remove-payment-screenshot:hover {
+
+    background:
+        #f8d7df;
+
+    transform:
+        scale(1.04);
+
+}
+
+
+/* =========================================================
+   UPLOAD ERROR
+========================================================= */
+
+.payment-upload-error {
+
+    min-height:
+        15px;
+
+    margin-top:
+        7px;
+
+    color:
+        var(--danger);
+
+    font-size:
+        9px;
+
+    line-height:
+        1.4;
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 600px) {
+
+    .payment-screenshot-section {
+
+        margin-top:
+            15px;
+
+        padding-top:
+            15px;
+
+    }
+
+
+    .payment-screenshot-label {
+
+        font-size:
+            12px;
+
+    }
+
+
+    .payment-screenshot-help {
+
+        font-size:
+            9px;
+
+    }
+
+
+    .payment-upload-box {
+
+        min-height:
+            105px;
+
+        padding:
+            15px;
+
+    }
+
+
+    .payment-upload-box > i {
+
+        font-size:
+            21px;
+
+    }
+
+
+    .payment-upload-box strong {
+
+        font-size:
+            11px;
+
+    }
+
+
+    .payment-upload-box span {
+
+        font-size:
+            8px;
+
+    }
+
+}
+/* =========================================================
+   UPI PAYMENT SECTION
+========================================================= */
+
+.upi-payment-section {
+    margin-top: 5px;
+}
+
+
+/* PAYMENT HEADING */
+
+.upi-heading {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 18px;
+}
+
+.upi-heading-icon {
+    width: 42px;
+    height: 42px;
+    flex: 0 0 42px;
+    display: grid;
+    place-items: center;
+    border-radius: 12px;
+    background: var(--pink-light);
+    color: var(--wine);
+    font-size: 16px;
+}
+
+.upi-heading > div:last-child {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.upi-heading strong {
+    color: var(--wine-dark);
+    font-family: "Playfair Display", serif;
+    font-size: 21px;
+}
+
+.upi-heading span {
+    color: var(--text-light);
+    font-size: 10px;
+}
+
+
+/* PAYMENT STEPS */
+
+.upi-step {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 15px 0 10px;
+}
+
+.upi-step-number {
+    width: 26px;
+    height: 26px;
+    flex: 0 0 26px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    background: var(--wine);
+    color: var(--white);
+    font-size: 10px;
+    font-weight: 800;
+}
+
+.upi-step > div {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.upi-step strong {
+    color: var(--text);
+    font-size: 12px;
+}
+
+.upi-step span:not(.upi-step-number) {
+    color: var(--text-light);
+    font-size: 9px;
+}
+
+
+/* QR BOX */
+
+.upi-qr-box {
+    padding: 16px;
+    text-align: center;
+    border: 1px solid var(--border);
+    border-radius: 15px;
+    background: linear-gradient(
+        135deg,
+        #ffffff,
+        #fff7f9
+    );
+}
+
+
+/* QR LABEL */
+
+.qr-label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    margin-bottom: 12px;
+    color: var(--wine);
+    font-size: 11px;
+    font-weight: 800;
+}
+
+.qr-label i {
+    font-size: 13px;
+}
+
+
+/* QR IMAGE */
+
+.qr-image-wrapper {
+    width: 190px;
+    height: 190px;
+    margin: 0 auto;
+    padding: 9px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    box-shadow: 0 8px 22px rgba(99, 40, 62, 0.08);
+}
+
+.upi-qr {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    border-radius: 5px;
+}
+
+
+/* QR HELP */
+
+.qr-help-text {
+    max-width: 300px;
+    margin: 11px auto 0;
+    color: var(--text-light);
+    font-size: 9px;
+    line-height: 1.5;
+}
+
+
+/* UPI ID */
+
+.upi-id-box {
+    margin-top: 12px;
+    padding: 11px 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border: 1px solid var(--pink);
+    border-radius: 11px;
+    background: var(--pink-soft);
+}
+
+.upi-id-content {
+    min-width: 0;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.upi-id-content span {
+    color: var(--text-light);
+    font-size: 8px;
+    font-weight: 600;
+}
+
+.upi-id-content strong {
+    color: var(--wine-dark);
+    font-size: 12px;
+    word-break: break-all;
+}
+
+
+/* COPY BUTTON */
+
+.copy-upi-button {
+    min-width: 70px;
+    height: 34px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    padding: 0 10px;
+    border: 0;
+    border-radius: 8px;
+    background: var(--wine);
+    color: var(--white);
+    font-size: 9px;
+    font-weight: 800;
+    transition: all 0.2s ease;
+}
+
+.copy-upi-button:hover {
+    background: var(--wine-dark);
+    transform: translateY(-1px);
+}
+
+
+/* =========================================================
+   PAYMENT CONFIRMATION
+========================================================= */
+
+.payment-confirmation {
+    margin-top: 13px;
+    display: flex;
+    align-items: flex-start;
+    gap: 9px;
+    cursor: pointer;
+}
+
+.payment-confirmation input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.custom-check {
+    width: 18px;
+    height: 18px;
+    flex: 0 0 18px;
+    display: grid;
+    place-items: center;
+    border: 1.5px solid var(--border);
+    border-radius: 5px;
+    background: var(--white);
+    transition: all 0.2s ease;
+}
+
+.payment-confirmation input:checked + .custom-check {
+    border-color: var(--wine);
+    background: var(--wine);
+}
+
+.payment-confirmation input:checked + .custom-check::after {
+    content: "✓";
+    color: var(--white);
+    font-size: 11px;
+    font-weight: 800;
+}
+
+.confirmation-text {
+    color: var(--text-light);
+    font-size: 9px;
+    line-height: 1.5;
+}
+
+
+/* PAYMENT VERIFICATION */
+
+.payment-verification-note {
+    margin-top: 11px;
+    padding: 9px 10px;
+    display: flex;
+    align-items: flex-start;
+    gap: 7px;
+    border-radius: 9px;
+    background: #f3faf5;
+    color: var(--green);
+    font-size: 8px;
+    line-height: 1.5;
+}
+
+.payment-verification-note i {
+    margin-top: 1px;
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 600px) {
+
+    .upi-heading strong {
+        font-size: 19px;
+    }
+
+    .upi-heading span {
+        font-size: 9px;
+    }
+
+    .qr-image-wrapper {
+        width: 175px;
+        height: 175px;
+    }
+
+    .upi-id-content strong {
+        font-size: 11px;
+    }
+
+    .copy-upi-button {
+        min-width: 64px;
+    }
+
 }

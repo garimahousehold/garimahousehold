@@ -1,83 +1,1034 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Shopping Cart | Garima's House Hold</title>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Shopping Cart | Garima's House Hold</title>
+
+    <meta
+        name="description"
+        content="Your shopping cart at Garima's House Hold."
+    >
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap"
+        rel="stylesheet"
+    >
+    <!-- Cart CSS -->
 <link rel="stylesheet" href="cart.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+    <!-- Font Awesome -->
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    >
+
+
+
 </head>
+
+
 <body>
 
-<header class="header">
-  <div class="logo-wrap">
-    <a href="index.html" class="logo-link">
-      <img src="logo_image/logo.png" alt="Garima's House Hold"
-           onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
-      <span class="logo-fallback">Garima's House Hold</span>
-    </a>
-  </div>
 
-  <h1>Shopping Cart</h1>
+    <!-- =====================================================
+         HEADER
+    ====================================================== -->
 
-  <div class="header-icons">
-    <a href="wishlist.html" aria-label="Wishlist"><i class="fa-regular fa-heart"></i></a>
-    <a href="index.html" aria-label="Home"><i class="fa-solid fa-house"></i></a>
-  </div>
-</header>
+    <header class="cart-header">
 
-<main class="cart-page">
-  <section class="cart-items">
-    <h2>Your Cart</h2>
-    <div id="cartContainer"></div>
-  </section>
+        <div class="container header-inner">
 
-  <aside class="cart-summary">
-    <h2>Order Summary</h2>
+            <a
+                href="index.html"
+                class="logo"
+            >
 
-    <div class="summary-row">
-      <span>Subtotal</span>
-      <span id="subtotal">₹0</span>
-    </div>
+                <img
+                    src="logo_image/logo.png"
+                    alt="Garima's House Hold"
+                >
 
-    <div class="summary-row">
-      <span>Delivery</span>
-      <span id="delivery">₹50</span>
-    </div>
+            </a>
 
-    <div class="summary-row">
-      <span>Discount</span>
-      <span id="discount">₹0</span>
-    </div>
 
-    <hr>
+            <a
+                href="index.html"
+                class="back-shopping"
+            >
 
-    <div class="summary-row total">
-      <span>Total</span>
-      <span id="grandTotal">₹0</span>
-    </div>
+                <i class="fa-solid fa-arrow-left"></i>
 
-    <button id="checkoutBtn" class="checkout-btn">Proceed To Checkout</button>
-  </aside>
-</main>
+                <span>
+                    Continue Shopping
+                </span>
 
-<footer class="footer">
-  <div>
-    <h3>Garima's House Hold</h3>
-    <p>Premium household products at affordable prices.</p>
-  </div>
-  <div>
-    <h3>Quick Links</h3>
-    <p><a href="index.html">Home</a> · <a href="wishlist.html">Wishlist</a></p>
-  </div>
-  <div>
-    <h3>Secure Shopping</h3>
-    <p><i class="fa-solid fa-lock"></i> Secure Checkout &nbsp; <i class="fa-solid fa-truck-fast"></i> Fast Delivery</p>
-  </div>
-  <div class="footer-bottom">© 2026 Garima's House Hold. All Rights Reserved.</div>
-</footer>
+            </a>
 
-<script type="module" src="firebase.js"></script>
-<script src="cart.js"></script>
+        </div>
+
+    </header>
+
+
+
+    <!-- =====================================================
+         MAIN
+    ====================================================== -->
+
+    <main class="cart-page">
+
+        <div class="container">
+
+
+            <!-- PAGE HEADING -->
+
+            <div class="page-heading">
+
+                <span>
+                    Your Selection
+                </span>
+
+                <h1>
+                    Shopping Cart
+                </h1>
+
+                <p>
+                    Review your products before checkout.
+                </p>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 CART LAYOUT
+            ================================================== -->
+
+            <div class="cart-layout">
+
+
+                <!-- =================================================
+                     PRODUCTS
+                ================================================== -->
+
+                <section class="cart-items-box">
+
+                    <div class="cart-box-header">
+
+                        <h2>
+                            Your Cart
+                        </h2>
+
+                        <span
+                            class="cart-item-count"
+                            id="cartItemCount"
+                        >
+                            0 Items
+                        </span>
+
+                    </div>
+
+
+                    <div id="cartItems">
+
+                        <!-- Cart items will load here -->
+
+                    </div>
+
+
+                    <!-- EMPTY CART -->
+
+                    <div
+                        class="empty-cart"
+                        id="emptyCart"
+                        style="display:none;"
+                    >
+
+                        <div class="empty-cart-icon">
+
+                            <i class="fa-solid fa-bag-shopping"></i>
+
+                        </div>
+
+                        <h2>
+                            Your Cart is Empty
+                        </h2>
+
+                        <p>
+                            Looks like you haven't added
+                            anything to your cart yet.
+                        </p>
+
+                        <a
+                            href="index.html"
+                            class="shop-now-btn"
+                        >
+                            Start Shopping
+                        </a>
+
+                    </div>
+
+                </section>
+
+
+
+                <!-- =================================================
+                     SUMMARY
+                ================================================== -->
+
+                <aside class="cart-summary">
+
+                    <h2>
+                        Order Summary
+                    </h2>
+
+
+                    <!-- SUBTOTAL -->
+
+                    <div class="summary-row">
+
+                        <span>
+                            Subtotal
+                        </span>
+
+                        <strong
+                            id="cartSubtotal"
+                        >
+                            ₹0
+                        </strong>
+
+                    </div>
+
+
+                    <!-- COUPON -->
+
+                    <div
+                        class="summary-row summary-discount"
+                    >
+
+                        <span>
+                            Coupon Discount
+                        </span>
+
+                        <strong
+                            id="couponDiscount"
+                        >
+                            - ₹0
+                        </strong>
+
+                    </div>
+
+
+                    <!-- SHIPPING -->
+
+                    <div
+                        class="summary-row summary-shipping"
+                    >
+
+                        <span>
+                            Delivery
+                        </span>
+
+                        <strong
+                            id="shippingCharge"
+                        >
+                            FREE
+                        </strong>
+
+                    </div>
+
+
+                    <!-- SHIPPING MESSAGE -->
+
+                    <div id="shippingMessage">
+
+                        Add products to your cart.
+
+                    </div>
+
+
+
+                    <!-- =================================================
+                         COUPON
+                    ================================================== -->
+
+                    <div class="coupon-box">
+
+                        <div class="coupon-title">
+
+                            <i class="fa-solid fa-ticket"></i>
+
+                            Have a Coupon?
+
+                        </div>
+
+
+                        <div class="coupon-input-row">
+
+                            <input
+                                type="text"
+                                id="couponInput"
+                                placeholder="Enter coupon code"
+                                autocomplete="off"
+                            >
+
+
+                            <button
+                                type="button"
+                                id="applyCoupon"
+                            >
+                                Apply
+                            </button>
+
+                        </div>
+
+
+                        <div
+                            id="couponMessage"
+                        ></div>
+
+
+                        <span
+                            id="appliedCoupon"
+                        ></span>
+
+
+                        <button
+                            type="button"
+                            id="removeCoupon"
+                            style="
+                                display:none;
+                                border:0;
+                                background:none;
+                                color:#8b3d59;
+                                font-size:9px;
+                                cursor:pointer;
+                                margin-top:5px;
+                            "
+                        >
+                            Remove Coupon
+                        </button>
+
+                    </div>
+
+
+
+                    <!-- TOTAL -->
+
+                    <div class="summary-total">
+
+                        <span>
+                            Total
+                        </span>
+
+                        <strong
+                            id="cartTotal"
+                        >
+                            ₹0
+                        </strong>
+
+                    </div>
+
+
+                    <!-- CHECKOUT -->
+
+                    <button
+                        type="button"
+                        class="checkout-btn"
+                        id="checkoutButton"
+                        onclick="
+                            window.location.href='checkout.html';
+                        "
+                    >
+
+                        <i class="fa-solid fa-lock"></i>
+
+                        Proceed To Checkout
+
+                    </button>
+
+
+                    <!-- CONTINUE -->
+
+                    <a
+                        href="index.html"
+                        class="continue-shopping"
+                    >
+
+                        Continue Shopping
+
+                    </a>
+
+                </aside>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 TRUST
+            ================================================== -->
+
+            <div class="cart-trust">
+
+                <div class="trust-item">
+
+                    <i class="fa-solid fa-shield-heart"></i>
+
+                    <strong>
+                        Secure Checkout
+                    </strong>
+
+                    <span>
+                        Safe & secure payment
+                    </span>
+
+                </div>
+
+
+                <div class="trust-item">
+
+                    <i class="fa-solid fa-truck-fast"></i>
+
+                    <strong>
+                        Easy Delivery
+                    </strong>
+
+                    <span>
+                        Reliable courier service
+                    </span>
+
+                </div>
+
+
+                <div class="trust-item">
+
+                    <i class="fa-solid fa-headset"></i>
+
+                    <strong>
+                        Customer Support
+                    </strong>
+
+                    <span>
+                        We're here to help
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </main>
+
+
+
+    <!-- =====================================================
+         FOOTER
+    ====================================================== -->
+
+    <footer class="cart-footer">
+
+        <div class="container">
+
+            <p>
+
+                © 2026
+                <strong>
+                    Garima's House Hold
+                </strong>
+
+                — All Rights Reserved.
+
+            </p>
+
+        </div>
+
+    </footer>
+
+
+
+    <!-- =====================================================
+         FIREBASE + SCRIPT
+    ====================================================== -->
+
+    <script
+        type="module"
+        src="firebase.js"
+    ></script>
+
+
+    <script
+        type="module"
+        src="script.js"
+    ></script>
+
+
+    <!-- =====================================================
+         CART PAGE LOGIC
+    ====================================================== -->
+
+    <script>
+
+        document.addEventListener(
+            "DOMContentLoaded",
+            function () {
+
+                loadCartPage();
+
+            }
+        );
+
+
+        function loadCartPage() {
+
+            const itemsContainer =
+                document.getElementById(
+                    "cartItems"
+                );
+
+            const emptyCart =
+                document.getElementById(
+                    "emptyCart"
+                );
+
+            let cart =
+                JSON.parse(
+                    localStorage.getItem(
+                        "garima_cart"
+                    )
+                ) || [];
+
+
+            if (
+                !cart.length
+            ) {
+
+                itemsContainer.innerHTML =
+                    "";
+
+                emptyCart.style.display =
+                    "block";
+
+                document.getElementById(
+                    "cartItemCount"
+                ).textContent =
+                    "0 Items";
+
+                return;
+
+            }
+
+
+            emptyCart.style.display =
+                "none";
+
+
+            document.getElementById(
+                "cartItemCount"
+            ).textContent =
+                `${cart.reduce(
+                    (sum, item) =>
+                        sum +
+                        Number(
+                            item.quantity || 0
+                        ),
+                    0
+                )} Items`;
+
+
+            itemsContainer.innerHTML =
+                cart
+                    .map(
+                        item =>
+                            createCartItemHTML(
+                                item
+                            )
+                    )
+                    .join("");
+
+
+            updateCartPageTotals();
+
+        }
+
+
+        function createCartItemHTML(
+            item
+        ) {
+
+            const quantity =
+                Number(
+                    item.quantity || 1
+                );
+
+
+            const price =
+                Number(
+                    item.price || 0
+                );
+
+
+            const mrp =
+                Number(
+                    item.mrp || price
+                );
+
+
+            const total =
+                price * quantity;
+
+
+            return `
+
+                <div
+                    class="cart-item"
+                    data-id="${item.id}"
+                >
+
+                    <div
+                        class="cart-item-image"
+                    >
+
+                        <img
+                            src="${
+                                item.image ||
+                                "logo_image/logo.png"
+                            }"
+                            alt="${
+                                item.name ||
+                                "Product"
+                            }"
+                            onerror="
+                                this.src='logo_image/logo.png'
+                            "
+                        >
+
+                    </div>
+
+
+                    <div
+                        class="cart-item-details"
+                    >
+
+                        <span
+                            class="cart-item-category"
+                        >
+                            ${item.category || "Garima's House Hold"}
+                        </span>
+
+
+                        <h3
+                            class="cart-item-name"
+                        >
+                            ${item.name || "Product"}
+                        </h3>
+
+
+                        <div
+                            class="cart-item-sku"
+                        >
+                            SKU:
+                            ${item.sku || "N/A"}
+                        </div>
+
+
+                        <div
+                            class="cart-item-prices"
+                        >
+
+                            <span
+                                class="cart-selling-price"
+                            >
+                                ₹${price.toLocaleString(
+                                    "en-IN"
+                                )}
+                            </span>
+
+
+                            ${
+                                mrp > price
+                                    ? `
+                                        <span
+                                            class="cart-mrp"
+                                        >
+                                            ₹${mrp.toLocaleString(
+                                                "en-IN"
+                                            )}
+                                        </span>
+                                      `
+                                    : ""
+                            }
+
+                        </div>
+
+
+                        <div
+                            class="quantity-control"
+                        >
+
+                            <button
+                                type="button"
+                                onclick="
+                                    changeCartQuantity(
+                                        '${item.id}',
+                                        -1
+                                    )
+                                "
+                            >
+                                −
+                            </button>
+
+
+                            <span>
+                                ${quantity}
+                            </span>
+
+
+                            <button
+                                type="button"
+                                onclick="
+                                    changeCartQuantity(
+                                        '${item.id}',
+                                        1
+                                    )
+                                "
+                            >
+                                +
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                    <div
+                        class="cart-item-right"
+                    >
+
+                        <strong
+                            class="item-total"
+                        >
+                            ₹${total.toLocaleString(
+                                "en-IN"
+                            )}
+                        </strong>
+
+
+                        <button
+                            type="button"
+                            class="remove-item"
+                            onclick="
+                                removeCartItem(
+                                    '${item.id}'
+                                )
+                            "
+                        >
+
+                            <i
+                                class="fa-regular fa-trash-can"
+                            ></i>
+
+                            Remove
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+            `;
+
+        }
+
+
+        function changeCartQuantity(
+            id,
+            change
+        ) {
+
+            let cart =
+                JSON.parse(
+                    localStorage.getItem(
+                        "garima_cart"
+                    )
+                ) || [];
+
+
+            const item =
+                cart.find(
+                    product =>
+                        String(
+                            product.id
+                        ) ===
+                        String(id)
+                );
+
+
+            if (!item) {
+                return;
+            }
+
+
+            item.quantity =
+                Number(
+                    item.quantity || 1
+                ) +
+                Number(change);
+
+
+            if (
+                item.quantity <= 0
+            ) {
+
+                cart =
+                    cart.filter(
+                        product =>
+                            String(
+                                product.id
+                            ) !==
+                            String(id)
+                    );
+
+            }
+
+
+            localStorage.setItem(
+                "garima_cart",
+                JSON.stringify(cart)
+            );
+
+
+            loadCartPage();
+
+        }
+
+
+        function removeCartItem(
+            id
+        ) {
+
+            let cart =
+                JSON.parse(
+                    localStorage.getItem(
+                        "garima_cart"
+                    )
+                ) || [];
+
+
+            cart =
+                cart.filter(
+                    item =>
+                        String(
+                            item.id
+                        ) !==
+                        String(id)
+                );
+
+
+            localStorage.setItem(
+                "garima_cart",
+                JSON.stringify(cart)
+            );
+
+
+            loadCartPage();
+
+        }
+
+
+        function updateCartPageTotals() {
+
+            let cart =
+                JSON.parse(
+                    localStorage.getItem(
+                        "garima_cart"
+                    )
+                ) || [];
+
+
+            const subtotal =
+                cart.reduce(
+                    (
+                        total,
+                        item
+                    ) => {
+
+                        return total +
+                            (
+                                Number(
+                                    item.price || 0
+                                ) *
+                                Number(
+                                    item.quantity || 1
+                                )
+                            );
+
+                    },
+                    0
+                );
+
+
+            const coupon =
+                JSON.parse(
+                    localStorage.getItem(
+                        "garima_coupon"
+                    )
+                );
+
+
+            let couponDiscount =
+                0;
+
+
+            if (
+                coupon &&
+                coupon.code
+            ) {
+
+                const code =
+                    String(
+                        coupon.code
+                    ).toUpperCase();
+
+
+                if (
+                    code === "GARIMA10" &&
+                    subtotal >= 499
+                ) {
+
+                    couponDiscount =
+                        Math.round(
+                            subtotal * 0.10
+                        );
+
+                }
+
+
+                if (
+                    code === "WELCOME15" &&
+                    subtotal >= 999
+                ) {
+
+                    couponDiscount =
+                        Math.round(
+                            subtotal * 0.15
+                        );
+
+                }
+
+
+                if (
+                    code === "SAVE100" &&
+                    subtotal >= 1499
+                ) {
+
+                    couponDiscount =
+                        100;
+
+                }
+
+            }
+
+
+            const shipping =
+                subtotal >= 999
+                    ? 0
+                    : subtotal > 0
+                        ? 79
+                        : 0;
+
+
+            const total =
+                Math.max(
+                    0,
+                    subtotal -
+                    couponDiscount +
+                    shipping
+                );
+
+
+            document.getElementById(
+                "cartSubtotal"
+            ).textContent =
+                `₹${subtotal.toLocaleString(
+                    "en-IN"
+                )}`;
+
+
+            document.getElementById(
+                "couponDiscount"
+            ).textContent =
+                `- ₹${couponDiscount.toLocaleString(
+                    "en-IN"
+                )}`;
+
+
+            document.getElementById(
+                "shippingCharge"
+            ).textContent =
+                shipping === 0
+                    ? "FREE"
+                    : `₹${shipping.toLocaleString(
+                        "en-IN"
+                    )}`;
+
+
+            document.getElementById(
+                "cartTotal"
+            ).textContent =
+                `₹${total.toLocaleString(
+                    "en-IN"
+                )}`;
+
+
+            const shippingMessage =
+                document.getElementById(
+                    "shippingMessage"
+                );
+
+
+            if (
+                subtotal >= 999
+            ) {
+
+                shippingMessage.textContent =
+                    "🎉 Congratulations! You get FREE delivery.";
+
+            }
+            else if (
+                subtotal > 0
+            ) {
+
+                shippingMessage.textContent =
+                    `Add ₹${(
+                        999 - subtotal
+                    ).toLocaleString(
+                        "en-IN"
+                    )} more for FREE delivery.`;
+
+            }
+            else {
+
+                shippingMessage.textContent =
+                    "Add products to your cart.";
+
+            }
+
+        }
+
+    </script>
+
 </body>
+
 </html>

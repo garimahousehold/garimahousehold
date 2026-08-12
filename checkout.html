@@ -3,346 +3,2727 @@
 
 <head>
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
 
-<title>Checkout | Garima's House Hold</title>
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
-<link rel="stylesheet" href="style.css">
-<link rel="stylesheet" href="checkout.css">
+    <title>
+        Checkout | Garima's House Hold
+    </title>
 
-<link rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <meta
+        name="description"
+        content="Secure checkout at Garima's House Hold."
+    >
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap"
+        rel="stylesheet"
+    >
+
+    <!-- Font Awesome -->
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    >
+
+    <!-- Checkout CSS -->
+    <link
+        rel="stylesheet"
+        href="checkout.css"
+    >
 
 </head>
 
+
 <body>
 
-<!--=========================
-HEADER
-==========================-->
 
-<header class="header">
+    <!-- =====================================================
+         HEADER
+    ====================================================== -->
 
-    <a href="index.html" class="logo">
+    <header class="checkout-header">
 
-        <img src="logo_image/logo.png" alt="Logo">
+        <div class="container checkout-header-inner">
 
-    </a>
 
-    <h2>Secure Checkout</h2>
+            <!-- LOGO -->
 
-    <a href="cart.html" class="back-btn">
+            <a
+                href="index.html"
+                class="checkout-logo"
+            >
 
-        <i class="fa-solid fa-arrow-left"></i>
+                <img
+                    src="logo_image/logo.png"
+                    alt="Garima's House Hold"
+                >
 
-        Back to Cart
+            </a>
 
-    </a>
 
-</header>
+            <!-- SECURE CHECKOUT -->
 
-<!--=========================
-CHECKOUT
-==========================-->
+            <div class="secure-checkout">
 
-<section class="checkout-page">
+                <i class="fa-solid fa-shield-heart"></i>
 
-    <!-- LEFT -->
+                <div>
 
-    <div class="checkout-form">
+                    <strong>
+                        Secure Checkout
+                    </strong>
 
-        <h2>
+                    <span>
+                        Your information is protected
+                    </span>
 
-            Billing Details
-
-        </h2>
-
-        <div class="input-group">
-
-            <label>Full Name *</label>
-
-            <input
-                type="text"
-                id="customerName"
-                placeholder="Enter Full Name"
-                required>
-
-        </div>
-
-        <div class="input-group">
-
-            <label>Mobile Number *</label>
-
-            <input
-                type="tel"
-                id="customerMobile"
-                placeholder="Enter Mobile Number"
-                required>
-
-        </div>
-
-        <div class="input-group">
-
-            <label>Email (Optional)</label>
-
-            <input
-                type="email"
-                id="customerEmail"
-                placeholder="Enter Email">
-
-        </div>
-
-        <div class="input-group">
-
-            <label>Address *</label>
-
-            <textarea
-                id="customerAddress"
-                rows="4"
-                placeholder="House No, Street, Area"
-                required></textarea>
-
-        </div>
-
-        <div class="row">
-
-            <div class="input-group">
-
-                <label>City *</label>
-
-                <input
-                    type="text"
-                    id="customerCity"
-                    placeholder="City">
+                </div>
 
             </div>
 
-            <div class="input-group">
 
-                <label>State *</label>
+            <!-- BACK TO CART -->
 
-                <input
-                    type="text"
-                    id="customerState"
-                    placeholder="State">
+            <a
+                href="cart.html"
+                class="back-cart"
+            >
 
-            </div>
+                <i class="fa-solid fa-arrow-left"></i>
 
-        </div>
+                <span>
+                    Back to Cart
+                </span>
 
-        <div class="row">
+            </a>
 
-            <div class="input-group">
-
-                <label>Pincode *</label>
-
-                <input
-                    type="text"
-                    inputmode="numeric"
-                    maxlength="6"
-                    id="customerPincode"
-                    placeholder="6 digit Pincode">
-
-            </div>
-
-            <div class="input-group">
-
-                <label>Country</label>
-
-                <input
-                    type="text"
-                    value="India"
-                    readonly>
-
-            </div>
 
         </div>
 
-        <hr>
+    </header>
 
-        <h2>
 
-            UPI Payment
 
-        </h2>
+    <!-- =====================================================
+         CHECKOUT PAGE
+    ====================================================== -->
 
-        <p>
+    <main class="checkout-page">
 
-            Scan the QR Code or pay using the UPI ID below.
+        <div class="container">
 
-        </p>
 
-        <div class="payment-box">
+            <!-- PAGE HEADING -->
 
-            <img
-    src="upi_image/upi_qr.jpeg"
-    class="upi-qr"
-    alt="UPI QR">
-            <h3>
+            <div class="checkout-heading">
 
-                UPI ID
+                <span>
+                    Almost There
+                </span>
 
-            </h3>
+                <h1>
+                    Complete Your Order
+                </h1>
 
-            <div class="upi-copy">
-
-                <input
-                    type="text"
-                    id="upiId"
-                    value="9468659714@ybl"
-                    readonly>
-
-                <button
-                    type="button"
-                    id="copyUPI">
-
-                    Copy
-
-                </button>
+                <p>
+                    Enter your details and confirm your delivery information.
+                </p>
 
             </div>
 
+
+
+            <!-- CHECKOUT LAYOUT -->
+
+            <div class="checkout-layout">
+
+
+                <!-- =================================================
+                     LEFT SIDE
+                ================================================== -->
+
+                <section class="checkout-left">
+
+
+                    <!-- CUSTOMER DETAILS -->
+
+                    <div class="checkout-card">
+
+                        <div class="card-heading">
+
+                            <div class="heading-icon">
+
+                                <i class="fa-solid fa-user"></i>
+
+                            </div>
+
+                            <div>
+
+                                <h2>
+                                    Customer Details
+                                </h2>
+
+                                <p>
+                                    Please enter your contact information.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="form-grid">
+
+
+                            <!-- NAME -->
+
+                            <div class="form-group">
+
+                                <label for="customerName">
+
+                                    Full Name
+                                    <span>*</span>
+
+                                </label>
+
+                                <div class="input-wrap">
+
+                                    <i class="fa-regular fa-user"></i>
+
+                                    <input
+                                        type="text"
+                                        id="customerName"
+                                        name="customerName"
+                                        placeholder="Enter your full name"
+                                        autocomplete="name"
+                                        required
+                                    >
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- MOBILE -->
+
+                            <div class="form-group">
+
+                                <label for="customerMobile">
+
+                                    Mobile Number
+                                    <span>*</span>
+
+                                </label>
+
+                                <div class="input-wrap">
+
+                                    <i class="fa-solid fa-phone"></i>
+
+                                    <input
+                                        type="tel"
+                                        id="customerMobile"
+                                        name="customerMobile"
+                                        placeholder="10-digit mobile number"
+                                        maxlength="10"
+                                        inputmode="numeric"
+                                        autocomplete="tel"
+                                        required
+                                    >
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- WHATSAPP -->
+
+                            <div class="form-group full-width">
+
+                                <label for="customerWhatsapp">
+
+                                    WhatsApp Number
+                                    <span>*</span>
+
+                                </label>
+
+                                <div class="input-wrap">
+
+                                    <i class="fa-brands fa-whatsapp"></i>
+
+                                    <input
+                                        type="tel"
+                                        id="customerWhatsapp"
+                                        name="customerWhatsapp"
+                                        placeholder="WhatsApp number for order confirmation"
+                                        maxlength="10"
+                                        inputmode="numeric"
+                                        autocomplete="tel"
+                                        required
+                                    >
+
+                                </div>
+
+                                <small>
+                                    Order details will be prepared for WhatsApp confirmation.
+                                </small>
+
+                            </div>
+
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- =================================================
+                         DELIVERY ADDRESS
+                    ================================================== -->
+
+                    <div class="checkout-card">
+
+                        <div class="card-heading">
+
+                            <div class="heading-icon">
+
+                                <i class="fa-solid fa-location-dot"></i>
+
+                            </div>
+
+                            <div>
+
+                                <h2>
+                                    Delivery Address
+                                </h2>
+
+                                <p>
+                                    Where should we deliver your order?
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="form-grid">
+
+
+                            <!-- ADDRESS -->
+
+                            <div class="form-group full-width">
+
+                                <label for="address">
+
+                                    House / Flat / Street Address
+                                    <span>*</span>
+
+                                </label>
+
+                                <div class="input-wrap textarea-wrap">
+
+                                    <i class="fa-solid fa-house"></i>
+
+                                    <textarea
+                                        id="address"
+                                        name="address"
+                                        rows="3"
+                                        placeholder="House number, street, colony, landmark..."
+                                        autocomplete="street-address"
+                                        required
+                                    ></textarea>
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- CITY -->
+
+                            <div class="form-group">
+
+                                <label for="city">
+
+                                    City
+                                    <span>*</span>
+
+                                </label>
+
+                                <div class="input-wrap">
+
+                                    <i class="fa-solid fa-city"></i>
+
+                                    <input
+                                        type="text"
+                                        id="city"
+                                        name="city"
+                                        placeholder="Enter city"
+                                        autocomplete="address-level2"
+                                        required
+                                    >
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- STATE -->
+
+                            <div class="form-group">
+
+                                <label for="state">
+
+                                    State
+                                    <span>*</span>
+
+                                </label>
+
+                                <div class="input-wrap">
+
+                                    <i class="fa-solid fa-map"></i>
+
+                                    <input
+                                        type="text"
+                                        id="state"
+                                        name="state"
+                                        placeholder="Enter state"
+                                        autocomplete="address-level1"
+                                        required
+                                    >
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- PINCODE -->
+
+                            <div class="form-group">
+
+                                <label for="pincode">
+
+                                    Pincode
+                                    <span>*</span>
+
+                                </label>
+
+                                <div class="input-wrap">
+
+                                    <i class="fa-solid fa-location-crosshairs"></i>
+
+                                    <input
+                                        type="text"
+                                        id="pincode"
+                                        name="pincode"
+                                        placeholder="6-digit pincode"
+                                        maxlength="6"
+                                        inputmode="numeric"
+                                        autocomplete="postal-code"
+                                        required
+                                    >
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- LANDMARK -->
+
+                            <div class="form-group">
+
+                                <label for="landmark">
+
+                                    Landmark
+                                    <small>
+                                        Optional
+                                    </small>
+
+                                </label>
+
+                                <div class="input-wrap">
+
+                                    <i class="fa-solid fa-signs-post"></i>
+
+                                    <input
+                                        type="text"
+                                        id="landmark"
+                                        name="landmark"
+                                        placeholder="Nearby landmark"
+                                        autocomplete="off"
+                                    >
+
+                                </div>
+
+                            </div>
+
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- =================================================
+                         DELIVERY INFORMATION
+                    ================================================== -->
+
+                    <div class="checkout-card delivery-info-card">
+
+                        <div class="card-heading">
+
+                            <div class="heading-icon">
+
+                                <i class="fa-solid fa-truck-fast"></i>
+
+                            </div>
+
+                            <div>
+
+                                <h2>
+                                    Delivery Information
+                                </h2>
+
+                                <p>
+                                    Simple and reliable delivery.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="delivery-info-grid">
+
+
+                            <div class="delivery-info-item">
+
+                                <i class="fa-solid fa-box"></i>
+
+                                <div>
+
+                                    <strong>
+                                        Standard Delivery
+                                    </strong>
+
+                                    <span>
+                                        Delivery charge calculated in order summary
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="delivery-info-item">
+
+                                <i class="fa-solid fa-gift"></i>
+
+                                <div>
+
+                                    <strong>
+                                        Free Delivery
+                                    </strong>
+
+                                    <span>
+                                        On orders of ₹999 or more
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+
+                        </div>
+
+                    </div>
+
+
+                </section>
+
+
+
+                <!-- =================================================
+                     RIGHT SIDE
+                ================================================== -->
+
+                <aside class="checkout-right">
+
+
+                    <!-- ORDER SUMMARY -->
+
+                    <div class="checkout-summary">
+
+                        <div class="summary-heading">
+
+                            <h2>
+                                Order Summary
+                            </h2>
+
+                            <span id="checkoutItemCount">
+                                0 Items
+                            </span>
+
+                        </div>
+
+
+                        <!-- PRODUCTS -->
+
+                        <div
+                            class="checkout-products"
+                            id="checkoutProducts"
+                        >
+
+                            <!-- Products will load here -->
+
+                        </div>
+
+
+                        <!-- PRICE DETAILS -->
+
+                        <div class="price-details">
+
+
+                            <div class="price-row">
+
+                                <span>
+                                    Subtotal
+                                </span>
+
+                                <strong id="checkoutSubtotal">
+                                    ₹0
+                                </strong>
+
+                            </div>
+
+
+                            <div class="price-row discount-row">
+
+                                <span>
+                                    Coupon Discount
+                                </span>
+
+                                <strong id="checkoutDiscount">
+                                    - ₹0
+                                </strong>
+
+                            </div>
+
+
+                            <div class="price-row">
+
+                                <span>
+                                    Delivery
+                                </span>
+
+                                <strong id="checkoutShipping">
+                                    FREE
+                                </strong>
+
+                            </div>
+
+
+                        </div>
+
+
+                        <!-- FREE DELIVERY MESSAGE -->
+
+                        <div
+                            class="checkout-shipping-message"
+                            id="checkoutShippingMessage"
+                        >
+                            Add products to see delivery details.
+                        </div>
+
+
+                        <!-- TOTAL -->
+
+                        <div class="checkout-total">
+
+                            <span>
+                                Total
+                            </span>
+
+                            <strong id="checkoutTotal">
+                                ₹0
+                            </strong>
+
+                        </div>
+
+
+                    </div>
+
+
+                    <!-- PAYMENT -->
+
+                    <div class="payment-card">
+
+<!-- =====================================================
+     UPI PAYMENT + PAYMENT SCREENSHOT
+====================================================== -->
+
+<div class="upi-payment-section">
+
+    <!-- PAYMENT HEADING -->
+
+    <div class="upi-heading">
+
+        <div class="upi-heading-icon">
+
+            <i class="fa-solid fa-mobile-screen-button"></i>
+
         </div>
-               
 
-        <!-- Screenshot -->
+        <div>
 
-        <div class="input-group">
+            <strong>
+                Pay via UPI
+            </strong>
 
-    <label>
-
-        Payment Screenshot *
-
-    </label>
-
-    <input
-        type="file"
-        id="paymentScreenshot"
-        accept="image/*"
-        required>
-
-</div>
-
-        <div class="payment-note">
-
-            <label>
-
-                <input
-                    type="checkbox"
-                    id="paymentConfirm">
-
-                I have completed the payment using the QR Code / UPI ID
-                and entered the correct UTR Number.
-
-            </label>
+            <span>
+                Complete your payment before placing the order
+            </span>
 
         </div>
 
     </div>
 
-    <!-- RIGHT SIDE -->
 
-    <div class="order-summary">
+    <!-- PAYMENT STEP -->
 
-        <h2>
+    <div class="upi-step">
 
-            Order Summary
+        <span class="upi-step-number">
+            1
+        </span>
 
-        </h2>
+        <div>
 
-        <div id="checkoutProducts">
+            <strong>
+                Scan & Pay
+            </strong>
 
-            <!-- Products Load Here -->
-
-        </div>
-
-        <hr>
-
-        <div class="summary-row">
-
-            <span>Subtotal</span>
-
-            <span id="subtotal">
-
-                ₹0
-
+            <span>
+                Scan the QR Code using any UPI app
             </span>
 
         </div>
 
-        <div class="summary-row">
-    <span>Delivery</span>
-    <span id="deliveryCharge">
-        ₹0
-    </span>
-</div>
+    </div>
 
-        <div class="summary-row">
 
-            <span>Discount</span>
+    <!-- QR CODE -->
 
-            <span id="discount">
+    <div class="upi-qr-box">
 
-                ₹0
+        <div class="qr-label">
 
+            <i class="fa-solid fa-qrcode"></i>
+
+            <span>
+                Scan QR Code
             </span>
 
         </div>
 
-        <hr>
 
-        <div class="summary-row total">
+        <div class="qr-image-wrapper">
 
-            <strong>Total</strong>
+            <img
+                src="upi_image/upi_qr.jpeg"
+                class="upi-qr"
+                id="upiQrCode"
+                alt="Garima's House Hold UPI QR Code"
+            >
 
-            <strong id="grandTotal">
+        </div>
 
-                ₹0
 
+        <p class="qr-help-text">
+
+            Open Google Pay, PhonePe, Paytm or any UPI app
+            and scan this QR code.
+
+        </p>
+
+    </div>
+
+
+    <!-- UPI ID -->
+
+    <div class="upi-id-box">
+
+        <div class="upi-id-content">
+
+            <span>
+                UPI ID
+            </span>
+
+            <strong id="upiId">
+                9468659714@ybl
             </strong>
 
         </div>
 
+
         <button
-            id="placeOrderBtn"
-            class="place-order-btn">
+            type="button"
+            id="copyUpiButton"
+            class="copy-upi-button"
+        >
 
-            <i class="fa-solid fa-circle-check"></i>
+            <i class="fa-regular fa-copy"></i>
 
-            Place Order
+            <span>
+                Copy
+            </span>
 
         </button>
 
-        <p class="secure-note">
+    </div>
 
-            🔒 Your payment details are safe.
-            Orders will be confirmed after payment verification.
 
-        </p>
+    <!-- PAYMENT STEP 2 -->
+
+    <div class="upi-step">
+
+        <span class="upi-step-number">
+            2
+        </span>
+
+        <div>
+
+            <strong>
+                Upload Payment Screenshot
+            </strong>
+
+            <span>
+                Upload the screenshot after successful payment
+            </span>
+
+        </div>
 
     </div>
 
-</section>
 
-<!--=========================
-FOOTER
-==========================-->
+    <!-- SCREENSHOT UPLOAD -->
 
-<footer class="footer">
+    <div class="payment-screenshot-section">
 
-    <div class="footer-bottom">
+        <label
+            for="paymentScreenshot"
+            class="payment-upload-box"
+            id="paymentUploadBox"
+        >
 
-        © 2026 Garima's House Hold.
-        All Rights Reserved.
+            <i class="fa-solid fa-cloud-arrow-up"></i>
+
+            <strong>
+                Upload Payment Screenshot
+            </strong>
+
+            <span>
+                JPG, JPEG or PNG • Maximum 5 MB
+            </span>
+
+        </label>
+
+
+        <input
+            type="file"
+            id="paymentScreenshot"
+            name="paymentScreenshot"
+            accept="image/jpeg,image/jpg,image/png"
+            hidden
+        >
+
+
+        <!-- SCREENSHOT PREVIEW -->
+
+        <div
+            class="payment-preview"
+            id="paymentPreview"
+            hidden
+        >
+
+            <div class="payment-preview-image">
+
+                <img
+                    id="paymentScreenshotPreview"
+                    src=""
+                    alt="Payment Screenshot Preview"
+                >
+
+            </div>
+
+
+            <div class="payment-preview-info">
+
+                <strong
+                    id="paymentScreenshotName"
+                >
+                    Payment Screenshot
+                </strong>
+
+                <span
+                    id="paymentScreenshotSize"
+                >
+                    0 KB
+                </span>
+
+            </div>
+
+
+            <button
+                type="button"
+                id="removePaymentScreenshot"
+                class="remove-payment-screenshot"
+                aria-label="Remove payment screenshot"
+            >
+
+                <i class="fa-solid fa-trash"></i>
+
+            </button>
+
+        </div>
+
+
+        <p
+            class="payment-upload-error"
+            id="paymentUploadError"
+        ></p>
 
     </div>
 
-</footer>
 
-<script type="module" src="firebase.js"></script>
+    <!-- PAYMENT CONFIRMATION -->
 
-<script type="module" src="checkout.js"></script>
+    <label
+        class="payment-confirmation"
+        for="paymentConfirm"
+    >
+
+        <input
+            type="checkbox"
+            id="paymentConfirm"
+        >
+
+        <span class="custom-check"></span>
+
+        <span class="confirmation-text">
+
+            I have completed the UPI payment and uploaded
+            the correct payment screenshot.
+
+        </span>
+
+    </label>
+
+
+    <!-- PAYMENT STATUS -->
+
+    <div class="payment-verification-note">
+
+        <i class="fa-solid fa-shield-heart"></i>
+
+        <span>
+            Your payment will be verified before the order is processed.
+        </span>
+
+    </div>
+
+</div>
+
+                    </div>
+
+
+                    <!-- WHATSAPP ORDER -->
+
+                    <div class="whatsapp-order-card">
+
+                        <div class="whatsapp-icon">
+
+                            <i class="fa-brands fa-whatsapp"></i>
+
+                        </div>
+
+                        <div>
+
+                            <strong>
+                                Order on WhatsApp
+                            </strong>
+
+                            <span>
+                                Your order details will also be prepared for WhatsApp.
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- PLACE ORDER -->
+
+                    <button
+                        type="button"
+                        class="place-order-btn"
+                        id="placeOrderButton"
+                    >
+
+                        <i class="fa-solid fa-lock"></i>
+
+                        <span>
+                            Place Order
+                        </span>
+
+                        <i class="fa-solid fa-arrow-right"></i>
+
+                    </button>
+
+
+                    <p class="checkout-security">
+
+                        <i class="fa-solid fa-shield-heart"></i>
+
+                        Secure & trusted checkout
+
+                    </p>
+
+
+                </aside>
+
+
+            </div>
+
+        </div>
+
+    </main>
+
+
+    <!-- PART 1 ENDS HERE -->
+     <!-- =====================================================
+     CHECKOUT JAVASCRIPT
+====================================================== -->
+
+<script type="module">
+
+    /* =================================================
+       FIREBASE
+    ================================================= */
+
+    import {
+    collection,
+    addDoc,
+    serverTimestamp
+} from
+"https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+import {
+    db
+} from "./firebase.js";
+
+    /* =================================================
+       CART
+    ================================================= */
+
+    let checkoutCart =
+        JSON.parse(
+            localStorage.getItem(
+                "garima_cart"
+            )
+        ) || [];
+
+
+    /* =================================================
+       COUPON
+    ================================================= */
+
+    let checkoutCoupon =
+        JSON.parse(
+            localStorage.getItem(
+                "garima_coupon"
+            )
+        ) || null;
+
+
+    /* =================================================
+       COUPON RULES
+    ================================================= */
+
+    const checkoutCoupons = {
+
+        GARIMA10: {
+            type: "percent",
+            value: 10,
+            minOrder: 499
+        },
+
+        WELCOME15: {
+            type: "percent",
+            value: 15,
+            minOrder: 999
+        },
+
+        SAVE100: {
+            type: "flat",
+            value: 100,
+            minOrder: 1499
+        }
+
+    };
+
+
+    /* =================================================
+       GET SUBTOTAL
+    ================================================= */
+
+    function getCheckoutSubtotal() {
+
+        return checkoutCart.reduce(
+            (
+                total,
+                item
+            ) => {
+
+                return total +
+                    (
+                        Number(
+                            item.price || 0
+                        ) *
+                        Number(
+                            item.quantity || 1
+                        )
+                    );
+
+            },
+            0
+        );
+
+    }
+
+
+    /* =================================================
+       GET COUPON DISCOUNT
+    ================================================= */
+
+    function getCheckoutDiscount() {
+
+        const subtotal =
+            getCheckoutSubtotal();
+
+        if (
+            !checkoutCoupon ||
+            !checkoutCoupon.code
+        ) {
+
+            return 0;
+
+        }
+
+
+        const code =
+            String(
+                checkoutCoupon.code
+            ).toUpperCase();
+
+
+        const coupon =
+            checkoutCoupons[code];
+
+
+        if (!coupon) {
+
+            return 0;
+
+        }
+
+
+        if (
+            subtotal <
+            Number(
+                coupon.minOrder || 0
+            )
+        ) {
+
+            return 0;
+
+        }
+
+
+        if (
+            coupon.type ===
+            "percent"
+        ) {
+
+            return Math.round(
+                subtotal *
+                (
+                    coupon.value /
+                    100
+                )
+            );
+
+        }
+
+
+        if (
+            coupon.type ===
+            "flat"
+        ) {
+
+            return Math.min(
+                coupon.value,
+                subtotal
+            );
+
+        }
+
+
+        return 0;
+
+    }
+
+
+    /* =================================================
+       GET SHIPPING
+    ================================================= */
+
+    function getCheckoutShipping() {
+
+        const subtotal =
+            getCheckoutSubtotal();
+
+
+        if (
+            subtotal <= 0
+        ) {
+
+            return 0;
+
+        }
+
+
+        if (
+            subtotal >= 999
+        ) {
+
+            return 0;
+
+        }
+
+
+        return 79;
+
+    }
+
+
+    /* =================================================
+       GET FINAL TOTAL
+    ================================================= */
+
+    function getCheckoutTotal() {
+
+        const subtotal =
+            getCheckoutSubtotal();
+
+        const discount =
+            getCheckoutDiscount();
+
+        const shipping =
+            getCheckoutShipping();
+
+
+        return Math.max(
+            0,
+            subtotal -
+            discount +
+            shipping
+        );
+
+    }
+
+
+    /* =================================================
+       RUPEE FORMAT
+    ================================================= */
+
+    function rupees(
+        amount
+    ) {
+
+        return (
+            "₹" +
+            Number(
+                amount || 0
+            ).toLocaleString(
+                "en-IN"
+            )
+        );
+
+    }
+
+
+    /* =================================================
+       LOAD PRODUCTS
+    ================================================= */
+
+    function loadCheckoutProducts() {
+
+        const container =
+            document.getElementById(
+                "checkoutProducts"
+            );
+
+
+        if (!container) {
+
+            return;
+
+        }
+
+
+        if (
+            !checkoutCart.length
+        ) {
+
+            container.innerHTML = `
+
+                <div class="checkout-empty">
+
+                    <i class="fa-solid fa-bag-shopping"></i>
+
+                    <p>
+                        Your cart is empty.
+                    </p>
+
+                    <a href="index.html">
+                        Continue Shopping
+                    </a>
+
+                </div>
+
+            `;
+
+            return;
+
+        }
+
+
+        container.innerHTML =
+            checkoutCart
+                .map(
+                    item =>
+                        createCheckoutProduct(
+                            item
+                        )
+                )
+                .join("");
+
+    }
+
+
+    /* =================================================
+       PRODUCT HTML
+    ================================================= */
+
+    function createCheckoutProduct(
+        item
+    ) {
+
+        const price =
+            Number(
+                item.price || 0
+            );
+
+
+        const quantity =
+            Number(
+                item.quantity || 1
+            );
+
+
+        const mrp =
+            Number(
+                item.mrp || price
+            );
+
+
+        const itemTotal =
+            price * quantity;
+
+
+        return `
+
+            <div class="checkout-product">
+
+                <div class="checkout-product-image">
+
+                    <img
+                        src="${
+                            item.image ||
+                            "logo_image/logo.png"
+                        }"
+                        alt="${
+                            item.name ||
+                            "Product"
+                        }"
+                        onerror="
+                            this.src='logo_image/logo.png'
+                        "
+                    >
+
+                    <span class="checkout-product-qty">
+                        ${quantity}
+                    </span>
+
+                </div>
+
+
+                <div class="checkout-product-info">
+
+                    <strong>
+                        ${
+                            item.name ||
+                            "Product"
+                        }
+                    </strong>
+
+                    <span>
+                        SKU:
+                        ${
+                            item.sku ||
+                            "N/A"
+                        }
+                    </span>
+
+                    <div class="checkout-product-price">
+
+                        <b>
+                            ${rupees(price)}
+                        </b>
+
+                        ${
+                            mrp > price
+                                ? `
+                                    <del>
+                                        ${rupees(mrp)}
+                                    </del>
+                                  `
+                                : ""
+                        }
+
+                    </div>
+
+                </div>
+
+
+                <strong class="checkout-product-total">
+
+                    ${rupees(itemTotal)}
+
+                </strong>
+
+            </div>
+
+        `;
+
+    }
+
+
+    /* =================================================
+       UPDATE SUMMARY
+    ================================================= */
+
+    function updateCheckoutSummary() {
+
+        const subtotal =
+            getCheckoutSubtotal();
+
+        const discount =
+            getCheckoutDiscount();
+
+        const shipping =
+            getCheckoutShipping();
+
+        const total =
+            getCheckoutTotal();
+
+
+        const itemCount =
+            checkoutCart.reduce(
+                (
+                    sum,
+                    item
+                ) => {
+
+                    return sum +
+                        Number(
+                            item.quantity || 0
+                        );
+
+                },
+                0
+            );
+
+
+        document.getElementById(
+            "checkoutItemCount"
+        ).textContent =
+            `${itemCount} Items`;
+
+
+        document.getElementById(
+            "checkoutSubtotal"
+        ).textContent =
+            rupees(
+                subtotal
+            );
+
+
+        document.getElementById(
+            "checkoutDiscount"
+        ).textContent =
+            "- " +
+            rupees(
+                discount
+            );
+
+
+        document.getElementById(
+            "checkoutShipping"
+        ).textContent =
+            shipping === 0
+                ? "FREE"
+                : rupees(
+                    shipping
+                );
+
+
+        document.getElementById(
+            "checkoutTotal"
+        ).textContent =
+            rupees(
+                total
+            );
+
+
+        const shippingMessage =
+            document.getElementById(
+                "checkoutShippingMessage"
+            );
+
+
+        if (
+            subtotal >= 999
+        ) {
+
+            shippingMessage.textContent =
+                "🎉 Congratulations! You get FREE delivery.";
+
+        }
+        else if (
+            subtotal > 0
+        ) {
+
+            shippingMessage.textContent =
+                `Add ${rupees(
+                    999 - subtotal
+                )} more for FREE delivery.`;
+
+        }
+        else {
+
+            shippingMessage.textContent =
+                "Add products to see delivery details.";
+
+        }
+
+    }
+
+
+    /* =================================================
+       VALIDATE MOBILE
+    ================================================= */
+
+    function validMobile(
+        mobile
+    ) {
+
+        return /^[6-9]\d{9}$/.test(
+            String(
+                mobile
+            ).trim()
+        );
+
+    }
+
+
+    /* =================================================
+       VALIDATE PINCODE
+    ================================================= */
+
+    function validPincode(
+        pincode
+    ) {
+
+        return /^\d{6}$/.test(
+            String(
+                pincode
+            ).trim()
+        );
+
+    }
+
+
+    /* =================================================
+       GET CUSTOMER DETAILS
+    ================================================= */
+
+    function getCustomerDetails() {
+
+        return {
+
+            name:
+                document.getElementById(
+                    "customerName"
+                ).value.trim(),
+
+            mobile:
+                document.getElementById(
+                    "customerMobile"
+                ).value.trim(),
+
+            whatsapp:
+                document.getElementById(
+                    "customerWhatsapp"
+                ).value.trim(),
+
+            address:
+                document.getElementById(
+                    "address"
+                ).value.trim(),
+
+            city:
+                document.getElementById(
+                    "city"
+                ).value.trim(),
+
+            state:
+                document.getElementById(
+                    "state"
+                ).value.trim(),
+
+            pincode:
+                document.getElementById(
+                    "pincode"
+                ).value.trim(),
+
+            landmark:
+                document.getElementById(
+                    "landmark"
+                ).value.trim()
+
+        };
+
+    }
+
+
+    /* =================================================
+       VALIDATE CUSTOMER
+    ================================================= */
+
+    function validateCustomer(
+        customer
+    ) {
+
+        if (
+            !customer.name
+        ) {
+
+            alert(
+                "Please enter your full name."
+            );
+
+            return false;
+
+        }
+
+
+        if (
+            !validMobile(
+                customer.mobile
+            )
+        ) {
+
+            alert(
+                "Please enter a valid 10-digit mobile number."
+            );
+
+            return false;
+
+        }
+
+
+        if (
+            !validMobile(
+                customer.whatsapp
+            )
+        ) {
+
+            alert(
+                "Please enter a valid 10-digit WhatsApp number."
+            );
+
+            return false;
+
+        }
+
+
+        if (
+            !customer.address
+        ) {
+
+            alert(
+                "Please enter your delivery address."
+            );
+
+            return false;
+
+        }
+
+
+        if (
+            !customer.city
+        ) {
+
+            alert(
+                "Please enter your city."
+            );
+
+            return false;
+
+        }
+
+
+        if (
+            !customer.state
+        ) {
+
+            alert(
+                "Please enter your state."
+            );
+
+            return false;
+
+        }
+
+
+        if (
+            !validPincode(
+                customer.pincode
+            )
+        ) {
+
+            alert(
+                "Please enter a valid 6-digit pincode."
+            );
+
+            return false;
+
+        }
+
+
+        return true;
+
+    }
+
+
+    /* =================================================
+       CREATE ORDER ID
+    ================================================= */
+
+    function createOrderId() {
+
+        const now =
+            new Date();
+
+
+        const date =
+            now
+                .toISOString()
+                .slice(
+                    0,
+                    10
+                )
+                .replace(
+                    /-/g,
+                    ""
+                );
+
+
+        const random =
+            Math.floor(
+                1000 +
+                Math.random() *
+                9000
+            );
+
+
+        return (
+            "GHH-" +
+            date +
+            "-" +
+            random
+        );
+
+    }
+
+
+    /* =================================================
+       CREATE WHATSAPP MESSAGE
+    ================================================= */
+
+    function createWhatsAppMessage(
+        orderId,
+        customer
+    ) {
+
+        const subtotal =
+            getCheckoutSubtotal();
+
+        const discount =
+            getCheckoutDiscount();
+
+        const shipping =
+            getCheckoutShipping();
+
+        const total =
+            getCheckoutTotal();
+
+
+        let message =
+            `🛍️ *NEW ORDER – GARIMA'S HOUSE HOLD*%0A%0A`;
+
+
+        message +=
+            `🧾 Order ID: *${orderId}*%0A%0A`;
+
+
+        message +=
+            `👤 *Customer Details*%0A`;
+
+        message +=
+            `Name: ${customer.name}%0A`;
+
+        message +=
+            `Mobile: ${customer.mobile}%0A`;
+
+        message +=
+            `WhatsApp: ${customer.whatsapp}%0A%0A`;
+
+
+        message +=
+            `📍 *Delivery Address*%0A`;
+
+        message +=
+            `${customer.address}%0A`;
+
+        message +=
+            `${customer.city}, ${customer.state}%0A`;
+
+        message +=
+            `Pincode: ${customer.pincode}%0A`;
+
+
+        if (
+            customer.landmark
+        ) {
+
+            message +=
+                `Landmark: ${customer.landmark}%0A`;
+
+        }
+
+
+        message +=
+            `%0A🛒 *ORDER ITEMS*%0A`;
+
+
+        checkoutCart.forEach(
+            (
+                item,
+                index
+            ) => {
+
+                const price =
+                    Number(
+                        item.price || 0
+                    );
+
+                const quantity =
+                    Number(
+                        item.quantity || 1
+                    );
+
+                const itemTotal =
+                    price * quantity;
+
+
+                message +=
+                    `%0A${index + 1}. *${
+                        item.name ||
+                        "Product"
+                    }*%0A`;
+
+                message +=
+                    `SKU: ${
+                        item.sku ||
+                        "N/A"
+                    }%0A`;
+
+                message +=
+                    `Qty: ${quantity}%0A`;
+
+                message +=
+                    `Price: ${rupees(
+                        price
+                    )}%0A`;
+
+                message +=
+                    `Item Total: ${rupees(
+                        itemTotal
+                    )}%0A`;
+
+            }
+        );
+
+
+        message +=
+            `%0A💰 *PAYMENT SUMMARY*%0A`;
+
+        message +=
+            `Subtotal: ${rupees(
+                subtotal
+            )}%0A`;
+
+        message +=
+            `Coupon Discount: - ${rupees(
+                discount
+            )}%0A`;
+
+        message +=
+            `Delivery: ${
+                shipping === 0
+                    ? "FREE"
+                    : rupees(
+                        shipping
+                    )
+            }%0A`;
+
+        message +=
+            `*TOTAL: ${rupees(
+                total
+            )}*%0A%0A`;
+
+
+        if (
+            checkoutCoupon &&
+            checkoutCoupon.code
+        ) {
+
+            message +=
+                `🎟️ Coupon: ${
+                    checkoutCoupon.code
+                }%0A%0A`;
+
+        }
+
+
+        message +=
+            `💳 Payment: *PREPAID*%0A`;
+
+        message +=
+            `Please confirm the order.`;
+
+
+
+        return message;
+
+    }
+
+/* =================================================
+   PAYMENT SCREENSHOT
+================================================= */
+
+let paymentScreenshotFile = null;
+
+
+/* =================================================
+   FILE INPUT
+================================================= */
+
+const paymentScreenshotInput =
+    document.getElementById(
+        "paymentScreenshot"
+    );
+
+const paymentPreview =
+    document.getElementById(
+        "paymentPreview"
+    );
+
+const paymentPreviewImage =
+    document.getElementById(
+        "paymentScreenshotPreview"
+    );
+
+const paymentScreenshotName =
+    document.getElementById(
+        "paymentScreenshotName"
+    );
+
+const paymentScreenshotSize =
+    document.getElementById(
+        "paymentScreenshotSize"
+    );
+
+const paymentUploadError =
+    document.getElementById(
+        "paymentUploadError"
+    );
+
+const removePaymentScreenshot =
+    document.getElementById(
+        "removePaymentScreenshot"
+    );
+
+
+/* =================================================
+   FILE SELECT
+================================================= */
+
+if (paymentScreenshotInput) {
+
+    paymentScreenshotInput.addEventListener(
+        "change",
+        function () {
+
+            const file =
+                this.files &&
+                this.files[0];
+
+
+            if (!file) {
+
+                return;
+
+            }
+
+
+            /* -----------------------------
+               FILE TYPE
+            ----------------------------- */
+
+            const allowedTypes = [
+                "image/jpeg",
+                "image/jpg",
+                "image/png"
+            ];
+
+
+            if (
+                !allowedTypes.includes(
+                    file.type
+                )
+            ) {
+
+                showPaymentUploadError(
+                    "Please upload JPG, JPEG or PNG image only."
+                );
+
+                clearPaymentScreenshot();
+
+                return;
+
+            }
+
+
+            /* -----------------------------
+               FILE SIZE
+            ----------------------------- */
+
+            const maxSize =
+                5 * 1024 * 1024;
+
+
+            if (
+                file.size >
+                maxSize
+            ) {
+
+                showPaymentUploadError(
+                    "Payment screenshot must be less than 5 MB."
+                );
+
+                clearPaymentScreenshot();
+
+                return;
+
+            }
+
+
+            /* -----------------------------
+               SAVE FILE
+            ----------------------------- */
+
+            paymentScreenshotFile =
+                file;
+
+
+            clearPaymentUploadError();
+
+
+            /* -----------------------------
+               PREVIEW
+            ----------------------------- */
+
+            const reader =
+                new FileReader();
+
+
+            reader.onload =
+                function (event) {
+
+                    paymentPreviewImage.src =
+                        event.target.result;
+
+                    paymentPreview.hidden =
+                        false;
+
+                };
+
+
+            reader.readAsDataURL(
+                file
+            );
+
+
+            /* -----------------------------
+               FILE NAME
+            ----------------------------- */
+
+            paymentScreenshotName.textContent =
+                file.name;
+
+
+            /* -----------------------------
+               FILE SIZE
+            ----------------------------- */
+
+            paymentScreenshotSize.textContent =
+                formatFileSize(
+                    file.size
+                );
+
+        }
+    );
+
+}
+
+
+/* =================================================
+   REMOVE SCREENSHOT
+================================================= */
+
+if (removePaymentScreenshot) {
+
+    removePaymentScreenshot.addEventListener(
+        "click",
+        function () {
+
+            clearPaymentScreenshot();
+
+        }
+    );
+
+}
+
+
+/* =================================================
+   CLEAR SCREENSHOT
+================================================= */
+
+function clearPaymentScreenshot() {
+
+    paymentScreenshotFile =
+        null;
+
+
+    if (
+        paymentScreenshotInput
+    ) {
+
+        paymentScreenshotInput.value =
+            "";
+
+    }
+
+
+    if (
+        paymentPreview
+    ) {
+
+        paymentPreview.hidden =
+            true;
+
+    }
+
+
+    if (
+        paymentPreviewImage
+    ) {
+
+        paymentPreviewImage.src =
+            "";
+
+    }
+
+
+    if (
+        paymentScreenshotName
+    ) {
+
+        paymentScreenshotName.textContent =
+            "Payment Screenshot";
+
+    }
+
+
+    if (
+        paymentScreenshotSize
+    ) {
+
+        paymentScreenshotSize.textContent =
+            "0 KB";
+
+    }
+
+
+    clearPaymentUploadError();
+
+}
+
+
+/* =================================================
+   ERROR MESSAGE
+================================================= */
+
+function showPaymentUploadError(
+    message
+) {
+
+    if (
+        paymentUploadError
+    ) {
+
+        paymentUploadError.textContent =
+            message;
+
+    }
+
+}
+
+
+/* =================================================
+   CLEAR ERROR
+================================================= */
+
+function clearPaymentUploadError() {
+
+    if (
+        paymentUploadError
+    ) {
+
+        paymentUploadError.textContent =
+            "";
+
+    }
+
+}
+
+
+/* =================================================
+   FILE SIZE
+================================================= */
+
+function formatFileSize(
+    bytes
+) {
+
+    if (
+        bytes <
+        1024
+    ) {
+
+        return (
+            bytes +
+            " B"
+        );
+
+    }
+
+
+    if (
+        bytes <
+        1024 * 1024
+    ) {
+
+        return (
+            (bytes / 1024)
+                .toFixed(1) +
+            " KB"
+        );
+
+    }
+
+
+    return (
+        (bytes / (1024 * 1024))
+            .toFixed(2) +
+        " MB"
+    );
+
+}
+
+/* =================================================
+   COPY UPI ID
+================================================= */
+
+const copyUpiButton =
+    document.getElementById("copyUpiButton");
+
+const upiIdElement =
+    document.getElementById("upiId");
+
+
+if (copyUpiButton && upiIdElement) {
+
+    copyUpiButton.addEventListener(
+        "click",
+        async function () {
+
+            const upiId =
+                upiIdElement.textContent.trim();
+
+            try {
+
+                await navigator.clipboard.writeText(
+                    upiId
+                );
+
+                this.innerHTML = `
+                    <i class="fa-solid fa-check"></i>
+                    <span>Copied</span>
+                `;
+
+                setTimeout(() => {
+
+                    this.innerHTML = `
+                        <i class="fa-regular fa-copy"></i>
+                        <span>Copy</span>
+                    `;
+
+                }, 2000);
+
+            } catch (error) {
+
+                alert(
+                    "Unable to copy UPI ID. Please copy it manually."
+                );
+
+            }
+
+        }
+    );
+
+}
+
+/* =================================================
+   PLACE ORDER
+================================================= */
+
+async function placeOrder() {
+
+    /* =============================================
+       CART CHECK
+    ============================================= */
+
+    if (!checkoutCart.length) {
+
+        alert(
+            "Your cart is empty."
+        );
+
+        return;
+
+    }
+
+
+    /* =============================================
+       CUSTOMER DETAILS
+    ============================================= */
+
+    const customer =
+        getCustomerDetails();
+
+
+    /* =============================================
+       PAYMENT SCREENSHOT CHECK
+    ============================================= */
+
+    if (!paymentScreenshotFile) {
+
+        alert(
+            "Please upload your payment screenshot before placing the order."
+        );
+
+        return;
+
+    }
+
+
+    /* =============================================
+       PAYMENT CONFIRMATION
+    ============================================= */
+
+    const paymentConfirm =
+        document.getElementById(
+            "paymentConfirm"
+        );
+
+
+    if (
+        !paymentConfirm ||
+        !paymentConfirm.checked
+    ) {
+
+        alert(
+            "Please confirm that you have completed the UPI payment."
+        );
+
+        return;
+
+    }
+
+
+    /* =============================================
+       CUSTOMER VALIDATION
+    ============================================= */
+
+    if (
+        !validateCustomer(
+            customer
+        )
+    ) {
+
+        return;
+
+    }
+
+
+    /* =============================================
+       BUTTON
+    ============================================= */
+
+    const button =
+        document.getElementById(
+            "placeOrderButton"
+        );
+
+
+    if (!button) {
+
+        return;
+
+    }
+
+
+    button.disabled =
+        true;
+
+
+    button.innerHTML = `
+
+        <i class="fa-solid fa-spinner fa-spin"></i>
+
+        <span>
+            Creating Order...
+        </span>
+
+    `;
+
+
+    try {
+
+        /* =========================================
+           ORDER ID
+        ========================================= */
+
+        const orderId =
+            createOrderId();
+
+
+        /* =========================================
+           PRICE CALCULATION
+        ========================================= */
+
+        const subtotal =
+            getCheckoutSubtotal();
+
+
+        const discount =
+            getCheckoutDiscount();
+
+
+        const shipping =
+            getCheckoutShipping();
+
+
+        const total =
+            getCheckoutTotal();
+
+
+        /* =========================================
+           ORDER DATA
+        ========================================= */
+
+        const orderData = {
+
+            orderId:
+                orderId,
+
+            customer:
+                customer,
+
+            items:
+                checkoutCart,
+
+            subtotal:
+                subtotal,
+
+            coupon:
+                checkoutCoupon,
+
+            discount:
+                discount,
+
+            shipping:
+                shipping,
+
+            total:
+                total,
+
+            paymentMethod:
+                "UPI",
+
+            paymentStatus:
+                "Screenshot Submitted",
+
+            paymentScreenshot:
+                "Customer will send screenshot on WhatsApp",
+
+            orderStatus:
+                "New",
+
+            createdAt:
+                serverTimestamp()
+
+        };
+
+
+        /* =========================================
+           SAVE ORDER TO FIRESTORE
+        ========================================= */
+
+        await addDoc(
+
+            collection(
+                db,
+                "orders"
+            ),
+
+            orderData
+
+        );
+
+
+        /* =========================================
+           SAVE LOCAL BACKUP
+        ========================================= */
+
+        localStorage.setItem(
+
+            "lastGarimaOrder",
+
+            JSON.stringify({
+
+                ...orderData,
+
+                createdAt:
+                    new Date()
+                        .toISOString()
+
+            })
+
+        );
+
+
+        /* =========================================
+           WHATSAPP MESSAGE
+        ========================================= */
+
+        let whatsappMessage =
+            createWhatsAppMessage(
+                orderId,
+                customer
+            );
+
+
+        /* =========================================
+           PAYMENT SCREENSHOT REMINDER
+        ========================================= */
+
+        whatsappMessage +=
+            `%0A%0A📸 *PAYMENT SCREENSHOT*%0A` +
+            `Please send your payment screenshot ` +
+            `in this WhatsApp chat after the order message.`;
+
+
+        /* =========================================
+           WHATSAPP NUMBER
+        ========================================= */
+
+        const whatsappNumber =
+            "919374445544";
+
+
+        /* =========================================
+           WHATSAPP URL
+        ========================================= */
+
+        const whatsappURL =
+            `https://wa.me/${whatsappNumber}` +
+            `?text=${whatsappMessage}`;
+
+
+        /* =========================================
+           CLEAR CART
+        ========================================= */
+
+        localStorage.removeItem(
+            "garima_cart"
+        );
+
+
+        localStorage.removeItem(
+            "garima_coupon"
+        );
+
+
+        /* =========================================
+           OPEN WHATSAPP
+        ========================================= */
+
+        window.location.href =
+            whatsappURL;
+
+    }
+
+
+    catch (error) {
+
+        console.error(
+            "Order creation error:",
+            error
+        );
+
+
+        alert(
+            "Unable to create the order right now. Please try again."
+        );
+
+
+        button.disabled =
+            false;
+
+
+        button.innerHTML = `
+
+            <i class="fa-solid fa-lock"></i>
+
+            <span>
+                Place Order
+            </span>
+
+            <i class="fa-solid fa-arrow-right"></i>
+
+        `;
+
+    }
+
+}
+
+    /* =================================================
+       PLACE ORDER BUTTON
+    ================================================= */
+
+    document.addEventListener(
+        "DOMContentLoaded",
+        function () {
+
+            loadCheckoutProducts();
+
+            updateCheckoutSummary();
+
+
+            const placeButton =
+                document.getElementById(
+                    "placeOrderButton"
+                );
+
+
+            if (
+                placeButton
+            ) {
+
+                placeButton.addEventListener(
+                    "click",
+                    placeOrder
+                );
+
+            }
+
+
+            console.log(
+                "Garima's House Hold — Checkout loaded."
+            );
+
+        }
+    );
+
+
+</script>
+
+
+<!-- =====================================================
+     CHECKOUT PAGE END
+====================================================== -->
 
 </body>
 
