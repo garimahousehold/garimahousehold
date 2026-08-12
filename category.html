@@ -38,7 +38,10 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
 <!-- CSS -->
 
 <link rel="stylesheet"
-href="style.css">
+href="style.css?v=2">
+
+<link rel="stylesheet"
+href="category.css">
 
 </head>
 
@@ -347,10 +350,14 @@ Up To ₹
 
 
 <div
-
-class="product-grid"
-
-id="categoryProducts">
+    class="product-grid"
+    id="categoryProducts"
+    style="
+        display: grid !important;
+        grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+        gap: 22px !important;
+        width: 100% !important;
+    ">
 
 </div>
 

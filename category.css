@@ -1,0 +1,668 @@
+/* =========================================================
+   GARIMA'S HOUSE HOLD
+   CATEGORY.CSS
+========================================================= */
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background: #fffaf7;
+    color: #3d3034;
+    font-family: "DM Sans", sans-serif;
+}
+
+
+/* =========================================================
+   MAIN PRODUCT CONTAINER
+========================================================= */
+
+#categoryProducts {
+
+    width: min(1240px, calc(100% - 40px));
+
+    margin: 0 auto;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, minmax(0, 1fr));
+
+    gap: 22px;
+
+    align-items: stretch;
+
+}
+
+
+/* =========================================================
+   PRODUCT CARD
+========================================================= */
+
+.product-card {
+
+    width: 100%;
+
+    min-width: 0;
+
+    background: #ffffff;
+
+    border: 1px solid #eadde1;
+
+    border-radius: 18px;
+
+    overflow: hidden;
+
+    position: relative;
+
+    display: flex;
+
+    flex-direction: column;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+
+    box-shadow:
+        0 8px 25px rgba(99, 40, 62, 0.07);
+
+}
+
+
+.product-card:hover {
+
+    transform: translateY(-5px);
+
+    box-shadow:
+        0 15px 35px rgba(99, 40, 62, 0.13);
+
+}
+
+
+/* =========================================================
+   IMAGE
+========================================================= */
+
+.product-image-wrapper {
+
+    width: 100%;
+
+    height: 250px;
+
+    background: #fff8f6;
+
+    position: relative;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    overflow: hidden;
+
+}
+
+
+.product-image {
+
+    width: 100%;
+
+    height: 100%;
+
+    object-fit: contain;
+
+    display: block;
+
+    transition:
+        transform 0.3s ease;
+
+}
+
+
+.product-card:hover .product-image {
+
+    transform: scale(1.04);
+
+}
+
+
+/* =========================================================
+   DISCOUNT
+========================================================= */
+
+.discount-badge {
+
+    position: absolute;
+
+    top: 12px;
+
+    left: 12px;
+
+    z-index: 5;
+
+    background: #8b3d59;
+
+    color: #ffffff;
+
+    padding: 6px 10px;
+
+    border-radius: 20px;
+
+    font-size: 10px;
+
+    font-weight: 800;
+
+}
+
+
+/* =========================================================
+   WISHLIST
+========================================================= */
+
+.wishlist-btn {
+
+    position: absolute;
+
+    top: 12px;
+
+    right: 12px;
+
+    z-index: 6;
+
+    width: 36px;
+
+    height: 36px;
+
+    border-radius: 50%;
+
+    border: 1px solid #eadde1;
+
+    background: rgba(255, 255, 255, 0.95);
+
+    color: #8b3d59;
+
+    font-size: 20px;
+
+    cursor: pointer;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    transition: 0.2s ease;
+
+}
+
+
+.wishlist-btn:hover,
+.wishlist-btn.active {
+
+    background: #8b3d59;
+
+    color: #ffffff;
+
+}
+
+
+/* =========================================================
+   PRODUCT INFO
+========================================================= */
+
+.product-info {
+
+    padding: 15px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    flex: 1;
+
+}
+
+
+/* =========================================================
+   CATEGORY
+========================================================= */
+
+.product-category {
+
+    color: #b35d76;
+
+    font-size: 9px;
+
+    font-weight: 800;
+
+    letter-spacing: 1.4px;
+
+    text-transform: uppercase;
+
+    margin-bottom: 6px;
+
+}
+
+
+/* =========================================================
+   PRODUCT NAME
+========================================================= */
+
+.product-name {
+
+    margin: 0;
+
+    color: #63283e;
+
+    font-family:
+        "Playfair Display",
+        serif;
+
+    font-size: 17px;
+
+    line-height: 1.35;
+
+    min-height: 46px;
+
+}
+
+
+/* =========================================================
+   PRICE
+========================================================= */
+
+.product-price {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    margin-top: 10px;
+
+}
+
+
+.current-price {
+
+    color: #8b3d59;
+
+    font-size: 18px;
+
+    font-weight: 800;
+
+}
+
+
+.original-price {
+
+    color: #9c8b91;
+
+    font-size: 13px;
+
+    text-decoration: line-through;
+
+}
+
+
+/* =========================================================
+   STOCK
+========================================================= */
+
+.stock-status {
+
+    margin-top: 7px;
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+}
+
+
+.in-stock {
+
+    color: #57936b;
+
+}
+
+
+.low-stock {
+
+    color: #c47a35;
+
+}
+
+
+.out-of-stock {
+
+    color: #c24d61;
+
+}
+
+
+/* =========================================================
+   ADD TO CART
+========================================================= */
+
+.add-cart-btn {
+
+    width: 100%;
+
+    min-height: 42px;
+
+    margin-top: 13px;
+
+    border: none;
+
+    border-radius: 10px;
+
+    background: #8b3d59;
+
+    color: #ffffff;
+
+    font-size: 12px;
+
+    font-weight: 800;
+
+    cursor: pointer;
+
+    transition: 0.2s ease;
+
+}
+
+
+.add-cart-btn:hover {
+
+    background: #63283e;
+
+    transform: translateY(-1px);
+
+}
+
+
+.add-cart-btn:disabled {
+
+    background: #d8c8ce;
+
+    color: #ffffff;
+
+    cursor: not-allowed;
+
+    transform: none;
+
+}
+
+
+/* =========================================================
+   LOAD MORE
+========================================================= */
+
+.load-more-btn {
+
+    display: block;
+
+    margin: 30px auto 50px;
+
+    padding: 12px 28px;
+
+    border: none;
+
+    border-radius: 25px;
+
+    background: #8b3d59;
+
+    color: #ffffff;
+
+    font-size: 12px;
+
+    font-weight: 800;
+
+    cursor: pointer;
+
+}
+
+
+.load-more-btn:hover {
+
+    background: #63283e;
+
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 1050px) {
+
+    #categoryProducts {
+
+        grid-template-columns:
+            repeat(3, minmax(0, 1fr));
+
+        gap: 18px;
+
+    }
+
+}
+
+
+/* =========================================================
+   SMALL TABLET
+========================================================= */
+
+@media (max-width: 750px) {
+
+    #categoryProducts {
+
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+
+        width: calc(100% - 24px);
+
+        gap: 12px;
+
+    }
+
+    .product-image-wrapper {
+
+        height: 210px;
+
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 480px) {
+
+    #categoryProducts {
+
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+
+        width: calc(100% - 16px);
+
+        gap: 10px;
+
+    }
+
+    .product-image-wrapper {
+
+        height: 165px;
+
+    }
+
+    .product-info {
+
+        padding: 10px;
+
+    }
+
+    .product-name {
+
+        font-size: 13px;
+
+        min-height: 36px;
+
+    }
+
+    .current-price {
+
+        font-size: 15px;
+
+    }
+
+    .original-price {
+
+        font-size: 11px;
+
+    }
+
+    .add-cart-btn {
+
+        min-height: 36px;
+
+        font-size: 10px;
+
+    }
+
+    .wishlist-btn {
+
+        width: 30px;
+
+        height: 30px;
+
+        font-size: 17px;
+
+    }
+
+    .discount-badge {
+
+        top: 8px;
+
+        left: 8px;
+
+        padding: 5px 7px;
+
+        font-size: 9px;
+
+    }
+
+}
+
+
+/* =========================================================
+   VERY SMALL SCREEN
+========================================================= */
+
+@media (max-width: 350px) {
+
+    #categoryProducts {
+
+        grid-template-columns: 1fr;
+
+    }
+
+}
+/* =========================================================
+   FINAL PRODUCT GRID OVERRIDE
+========================================================= */
+
+.category-page .category-layout .category-products #categoryProducts.product-grid {
+    display: grid !important;
+    grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+    gap: 22px !important;
+    width: 100% !important;
+    max-width: none !important;
+    margin: 0 !important;
+}
+
+
+/* CARD */
+
+.category-page .category-layout .category-products #categoryProducts .product-card {
+    width: 100% !important;
+    max-width: none !important;
+    min-width: 0 !important;
+    margin: 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
+}
+
+
+/* IMAGE */
+
+.category-page .category-layout .category-products #categoryProducts .product-image-wrapper {
+    width: 100% !important;
+    height: 250px !important;
+    flex-shrink: 0 !important;
+}
+
+
+/* IMAGE */
+
+.category-page .category-layout .category-products #categoryProducts .product-image {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: contain !important;
+}
+
+
+/* INFO */
+
+.category-page .category-layout .category-products #categoryProducts .product-info {
+    width: 100% !important;
+    flex: 1 !important;
+}
+
+
+/* TABLET */
+
+@media (max-width: 1050px) {
+
+    .category-page .category-layout .category-products #categoryProducts.product-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    }
+
+}
+
+
+/* MOBILE */
+
+@media (max-width: 750px) {
+
+    .category-page .category-layout .category-products #categoryProducts.product-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        gap: 12px !important;
+    }
+
+    .category-page .category-layout .category-products #categoryProducts .product-image-wrapper {
+        height: 210px !important;
+    }
+
+}
+
+
+@media (max-width: 480px) {
+
+    .category-page .category-layout .category-products #categoryProducts.product-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        gap: 10px !important;
+    }
+
+    .category-page .category-layout .category-products #categoryProducts .product-image-wrapper {
+        height: 165px !important;
+    }
+
+}
