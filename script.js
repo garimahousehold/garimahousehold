@@ -1434,6 +1434,32 @@ function updateCartCount() {
 
 function buyNow(product) {
 
+    // Product ID se actual product find karo
+    if (typeof product === "string") {
+
+        const productId = product;
+
+        const foundProduct =
+            allProducts.find(
+                item =>
+                    item.id === productId
+            );
+
+        if (!foundProduct) {
+
+            showToast(
+                "Product not found. Please try again."
+            );
+
+            return;
+
+        }
+
+        product = foundProduct;
+
+    }
+
+
     if (
         !isProductInStock(product)
     ) {
@@ -2522,3 +2548,11 @@ window.changeHeroSlide =
 window.goToHeroSlide =
     window.goToHeroSlide ||
     function () {};
+    // ==========================================
+// BUY NOW GLOBAL CONNECTION
+// ==========================================
+
+window.buyNow = buyNow;
+window.addToCart = addToCart;
+
+console.log("Buy Now function connected successfully");

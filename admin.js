@@ -1,143 +1,383 @@
 /* =========================================================
    GARIMA'S HOUSE HOLD
-   ADMIN PANEL — PART 1
-   FIREBASE + ADMIN LOGIN
+   ADMIN.JS
+   PART 1 / 5
+
+   Firebase:
+   12.16.0
 ========================================================= */
 
 
 /* =========================================================
-   FIREBASE
+   FIREBASE IMPORTS
 ========================================================= */
 
 import {
     db,
-    auth
+    auth,
+    storage
 } from "./firebase.js";
 
 
 import {
     collection,
-    addDoc,
+    doc,
     getDocs,
+    getDoc,
+    addDoc,
     updateDoc,
     deleteDoc,
-    doc
+    serverTimestamp
 } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js";
 
-
-/* =========================================================
-   FIREBASE AUTH
-========================================================= */
 
 import {
     signInWithEmailAndPassword,
     signOut,
-    onAuthStateChanged
+    onAuthStateChanged,
+    sendPasswordResetEmail,
+    setPersistence,
+    browserLocalPersistence,
+    browserSessionPersistence
 } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-auth.js";
+
+
+import {
+    ref,
+    uploadBytes,
+    getDownloadURL
+} from "https://www.gstatic.com/firebasejs/12.16.0/firebase-storage.js";
+
+
+/* =========================================================
+   ADMIN CONFIGURATION
+========================================================= */
+
+const ADMIN_EMAIL =
+    "garimakothari1995@gmail.com";
+
+
 /* =========================================================
    GLOBAL VARIABLES
 ========================================================= */
 
 let products = [];
 
-let editId = null;
+let editingProductId = null;
+
+let currentOrderId = null;
+
+let isLoadingProducts = false;
+
+let isLoadingOrders = false;
 
 
 /* =========================================================
-   FIRESTORE COLLECTION
+   DOM HELPER
 ========================================================= */
 
-const productsRef =
-    collection(
-        db,
-        "products"
-    );
+function $(id) {
 
-
-/* =========================================================
-   DOM ELEMENTS
-========================================================= */
-
-const adminLogin =
-    document.getElementById(
-        "adminLogin"
-    );
-
-
-const adminPanel =
-    document.getElementById(
-        "adminPanel"
-    );
-
-
-const loginForm =
-    document.getElementById(
-        "adminLoginForm"
-    );
-
-
-const adminEmail =
-    document.getElementById(
-        "adminEmail"
-    );
-
-
-const adminPassword =
-    document.getElementById(
-        "adminPassword"
-    );
-
-
-const loginError =
-    document.getElementById(
-        "loginError"
-    );
-
-
-/* =========================================================
-   SHOW ADMIN PANEL
-========================================================= */
-
-function showAdminPanel() {
-
-    if (adminLogin) {
-
-        adminLogin.style.display =
-            "none";
-
-    }
-
-
-    if (adminPanel) {
-
-        adminPanel.style.display =
-            "block";
-
-    }
+    return document.getElementById(id);
 
 }
 
 
 /* =========================================================
-   SHOW LOGIN
+   HTML ESCAPE
 ========================================================= */
 
-function showLogin() {
+function escapeHtml(value) {
 
-    if (adminLogin) {
+    if (
+        value === null ||
+        value === undefined
+    ) {
 
-        adminLogin.style.display =
-            "flex";
+        return "";
+
+    }
+
+
+    return String(value)
+
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+
+        .replace(
+            /</g,
+            "&lt;"
+        )
+
+        .replace(
+            />/g,
+            "&gt;"
+        )
+
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+
+        .replace(
+            /'/g,
+            "&#039;"
+        );
+
+}
+
+
+/* =========================================================
+   NUMBER HELPER
+========================================================= */
+
+function numberValue(value) {
+
+    const number =
+        Number(value);
+
+
+    return Number.isFinite(number)
+        ? number
+        : 0;
+
+}
+
+
+/* =========================================================
+   MONEY FORMAT
+========================================================= */
+
+function money(value) {
+
+    return (
+        "Rs. " +
+        numberValue(value)
+            .toLocaleString("en-IN")
+    );
+
+}
+
+
+/* =========================================================
+   PRODUCT ID
+========================================================= */
+
+function getProductId(
+    product
+) {
+
+    return (
+        product?.id ||
+        product?.productId ||
+        ""
+    );
+
+}
+
+
+/* =========================================================
+   PRODUCT NAME
+========================================================= */
+
+function getProductName(
+    product
+) {
+
+    return (
+        product?.name ||
+        "Product"
+    );
+
+}
+
+
+/* =========================================================
+   PRODUCT IMAGE
+========================================================= */
+
+function getProductImage(
+    product
+) {
+
+    return (
+        product?.image ||
+        product?.imageUrl ||
+        "image/no-image.png"
+    );
+
+}
+
+
+/* =========================================================
+   PRODUCT PRICE
+========================================================= */
+
+function getProductPrice(
+    product
+) {
+
+    return numberValue(
+        product?.price
+    );
+
+}
+
+
+/* =========================================================
+   PRODUCT MRP
+========================================================= */
+
+function getProductMrp(
+    product
+) {
+
+    return numberValue(
+        product?.mrp
+    );
+
+}
+
+
+/* =========================================================
+   PRODUCT STOCK
+========================================================= */
+
+function getProductStock(
+    product
+) {
+
+    return numberValue(
+        product?.stock
+    );
+
+}
+
+
+/* =========================================================
+   PRODUCT WEIGHT
+========================================================= */
+
+function getProductWeight(
+    product
+) {
+
+    return numberValue(
+        product?.weight
+    );
+
+}
+
+
+/* =========================================================
+   PRODUCT CATEGORY
+========================================================= */
+
+function getProductCategory(
+    product
+) {
+
+    return (
+        product?.category ||
+        "Uncategorized"
+    );
+
+}
+
+
+/* =========================================================
+   PRODUCT DESCRIPTION
+========================================================= */
+
+function getProductDescription(
+    product
+) {
+
+    return (
+        product?.description ||
+        ""
+    );
+
+}
+
+
+/* =========================================================
+   PRODUCT STATUS
+========================================================= */
+
+function getProductStatus(
+    product
+) {
+
+    const stock =
+        getProductStock(
+            product
+        );
+
+
+    return stock > 0
+        ? "In Stock"
+        : "Out of Stock";
+
+}
+
+
+/* =========================================================
+   TOAST
+========================================================= */
+
+function showToast(
+    message,
+    type = "success"
+) {
+
+    const toast =
+        $("adminToast");
+
+
+    const toastMessage =
+        $("adminToastMessage");
+
+
+    if (
+        !toast ||
+        !toastMessage
+    ) {
+
+        return;
 
     }
 
 
-    if (adminPanel) {
+    toastMessage.textContent =
+        message;
 
-        adminPanel.style.display =
-            "none";
 
-    }
+    toast.dataset.type =
+        type;
+
+
+    toast.hidden =
+        false;
+
+
+    clearTimeout(
+        window.adminToastTimer
+    );
+
+
+    window.adminToastTimer =
+        setTimeout(
+            () => {
+
+                toast.hidden =
+                    true;
+
+            },
+            3000
+        );
 
 }
 
@@ -150,34 +390,201 @@ function showLoginError(
     message
 ) {
 
-    if (!loginError) {
+    const errorBox =
+        $("loginError");
+
+
+    if (!errorBox) {
+
         return;
+
     }
 
 
-    loginError.textContent =
+    errorBox.textContent =
         message;
 
 
-    loginError.style.display =
-        "block";
+    errorBox.hidden =
+        false;
 
 }
 
 
 /* =========================================================
-   HIDE LOGIN ERROR
+   CLEAR LOGIN ERROR
 ========================================================= */
 
-function hideLoginError() {
+function clearLoginError() {
 
-    if (!loginError) {
+    const errorBox =
+        $("loginError");
+
+
+    if (!errorBox) {
+
         return;
+
     }
 
 
-    loginError.style.display =
-        "none";
+    errorBox.textContent =
+        "";
+
+
+    errorBox.hidden =
+        true;
+
+}
+
+
+/* =========================================================
+   ADMIN LOGIN UI
+========================================================= */
+
+function showLoginScreen() {
+
+    const loginSection =
+        $("adminLogin");
+
+
+    const adminPanel =
+        $("adminPanel");
+
+
+    if (loginSection) {
+
+        loginSection.hidden =
+            false;
+
+    }
+
+
+    if (adminPanel) {
+
+        adminPanel.hidden =
+            true;
+
+    }
+
+}
+
+
+/* =========================================================
+   ADMIN PANEL UI
+========================================================= */
+
+function showAdminPanel() {
+
+    const loginSection =
+        $("adminLogin");
+
+
+    const adminPanel =
+        $("adminPanel");
+
+
+    if (loginSection) {
+
+        loginSection.hidden =
+            true;
+
+    }
+
+
+    if (adminPanel) {
+
+        adminPanel.hidden =
+            false;
+
+    }
+
+}
+
+
+/* =========================================================
+   PASSWORD TOGGLE
+========================================================= */
+
+function setupPasswordToggle() {
+
+    const button =
+        $("togglePassword");
+
+
+    const password =
+        $("adminPassword");
+
+
+    if (
+        !button ||
+        !password
+    ) {
+
+        return;
+
+    }
+
+
+    if (
+        button.dataset.connected ===
+        "true"
+    ) {
+
+        return;
+
+    }
+
+
+    button.dataset.connected =
+        "true";
+
+
+    button.addEventListener(
+        "click",
+        () => {
+
+            const isPassword =
+                password.type ===
+                "password";
+
+
+            password.type =
+                isPassword
+                    ? "text"
+                    : "password";
+
+
+            const icon =
+                button.querySelector(
+                    "i"
+                );
+
+
+            if (icon) {
+
+                icon.classList.toggle(
+                    "fa-eye",
+                    !isPassword
+                );
+
+                icon.classList.toggle(
+                    "fa-eye-slash",
+                    isPassword
+                );
+
+            }
+
+
+            button.setAttribute(
+                "aria-label",
+                isPassword
+                    ? "Hide password"
+                    : "Show password"
+            );
+
+        }
+    );
 
 }
 
@@ -186,36 +593,79 @@ function hideLoginError() {
    ADMIN LOGIN
 ========================================================= */
 
-if (loginForm) {
+function setupLogin() {
 
-    loginForm.addEventListener(
+    const form =
+        $("adminLoginForm");
+
+
+    if (!form) {
+
+        console.error(
+            "Admin login form not found."
+        );
+
+        return;
+
+    }
+
+
+    if (
+        form.dataset.connected ===
+        "true"
+    ) {
+
+        return;
+
+    }
+
+
+    form.dataset.connected =
+        "true";
+
+
+    form.addEventListener(
         "submit",
-        async function (event) {
+        async event => {
 
             event.preventDefault();
 
 
-            hideLoginError();
+            clearLoginError();
+
+
+            const emailInput =
+                $("adminEmail");
+
+
+            const passwordInput =
+                $("adminPassword");
+
+
+            const rememberInput =
+                $("remember");
+
+
+            const loginButton =
+                $("loginButton");
 
 
             const email =
-                adminEmail
-                    ?.value
-                    .trim();
+                emailInput
+                    ? emailInput.value.trim()
+                    : "";
 
 
             const password =
-                adminPassword
-                    ?.value;
+                passwordInput
+                    ? passwordInput.value
+                    : "";
 
 
-            if (
-                !email ||
-                !password
-            ) {
+            if (!email) {
 
                 showLoginError(
-                    "Please enter email and password."
+                    "Please enter your email."
                 );
 
                 return;
@@ -223,10 +673,15 @@ if (loginForm) {
             }
 
 
-            const loginButton =
-                loginForm.querySelector(
-                    ".admin-login-btn"
+            if (!password) {
+
+                showLoginError(
+                    "Please enter your password."
                 );
+
+                return;
+
+            }
 
 
             if (loginButton) {
@@ -234,9 +689,17 @@ if (loginForm) {
                 loginButton.disabled =
                     true;
 
+
                 loginButton.innerHTML = `
-                    <i class="fa-solid fa-spinner fa-spin"></i>
-                    Logging in...
+
+                    <i
+                        class="fa-solid fa-spinner fa-spin"
+                    ></i>
+
+                    <span>
+                        Logging in...
+                    </span>
+
                 `;
 
             }
@@ -244,42 +707,164 @@ if (loginForm) {
 
             try {
 
-                await signInWithEmailAndPassword(
+                const persistence =
+                    rememberInput &&
+                    rememberInput.checked
+
+                        ? browserLocalPersistence
+
+                        : browserSessionPersistence;
+
+
+                await setPersistence(
                     auth,
-                    email,
-                    password
+                    persistence
+                );
+
+
+                const credential =
+                    await signInWithEmailAndPassword(
+                        auth,
+                        email,
+                        password
+                    );
+
+
+                const user =
+                    credential.user;
+
+
+                if (
+                    !user.email ||
+                    user.email.toLowerCase() !==
+                    ADMIN_EMAIL.toLowerCase()
+                ) {
+
+                    await signOut(
+                        auth
+                    );
+
+
+                    showLoginError(
+                        "This account is not authorized for Admin Panel."
+                    );
+
+
+                    return;
+
+                }
+
+
+                console.log(
+                    "Admin login successful:",
+                    user.email
                 );
 
 
                 showAdminPanel();
 
 
-            }
+                clearLoginError();
 
-            catch (error) {
+
+                await initializeDashboard();
+
+
+            } catch (error) {
 
                 console.error(
-                    "Admin login error:",
+                    "Admin Login Error:",
                     error
                 );
 
 
-                showLoginError(
-                    "Invalid email or password."
-                );
+                switch (
+                    error.code
+                ) {
 
-            }
+                    case "auth/invalid-credential":
 
-            finally {
+                        showLoginError(
+                            "Invalid Email or Password."
+                        );
+
+                        break;
+
+
+                    case "auth/invalid-email":
+
+                        showLoginError(
+                            "Invalid email address."
+                        );
+
+                        break;
+
+
+                    case "auth/user-not-found":
+
+                        showLoginError(
+                            "User not found."
+                        );
+
+                        break;
+
+
+                    case "auth/wrong-password":
+
+                        showLoginError(
+                            "Incorrect password."
+                        );
+
+                        break;
+
+
+                    case "auth/too-many-requests":
+
+                        showLoginError(
+                            "Too many login attempts. Please try again later."
+                        );
+
+                        break;
+
+
+                    case "auth/network-request-failed":
+
+                        showLoginError(
+                            "Network error. Please check your internet connection."
+                        );
+
+                        break;
+
+
+                    default:
+
+                        showLoginError(
+                            error.message ||
+                            "Login failed."
+                        );
+
+                        break;
+
+                }
+
+            } finally {
 
                 if (loginButton) {
 
                     loginButton.disabled =
                         false;
 
+
                     loginButton.innerHTML = `
-                        <i class="fa-solid fa-right-to-bracket"></i>
-                        Login
+
+                        <i
+                            class="fa-solid fa-right-to-bracket"
+                        ></i>
+
+                        <span>
+                            Login
+                        </span>
+
                     `;
 
                 }
@@ -291,46 +876,95 @@ if (loginForm) {
 
 }
 
+
 /* =========================================================
-   PASSWORD VISIBILITY
+   LOGOUT
 ========================================================= */
 
-const passwordToggle =
-    document.getElementById(
-        "togglePassword"
-    );
+function setupLogout() {
+
+    const button =
+        $("logoutButton");
 
 
-if (passwordToggle) {
+    if (!button) {
 
-    passwordToggle.addEventListener(
+        return;
+
+    }
+
+
+    if (
+        button.dataset.connected ===
+        "true"
+    ) {
+
+        return;
+
+    }
+
+
+    button.dataset.connected =
+        "true";
+
+
+    button.addEventListener(
         "click",
-        function () {
+        async () => {
 
-            if (
-                !adminPassword
-            ) {
-                return;
+            try {
+
+                await signOut(
+                    auth
+                );
+
+
+                showLoginScreen();
+
+
+                const email =
+                    $("adminEmail");
+
+
+                const password =
+                    $("adminPassword");
+
+
+                if (email) {
+
+                    email.value =
+                        "";
+
+                }
+
+
+                if (password) {
+
+                    password.value =
+                        "";
+
+                }
+
+
+                showToast(
+                    "Logged out successfully."
+                );
+
+
+            } catch (error) {
+
+                console.error(
+                    "Logout Error:",
+                    error
+                );
+
+
+                showToast(
+                    "Unable to logout.",
+                    "error"
+                );
+
             }
-
-
-            const isPassword =
-                adminPassword.type ===
-                "password";
-
-
-            adminPassword.type =
-                isPassword
-                    ? "text"
-                    : "password";
-
-
-            this.innerHTML =
-                isPassword
-
-                ? `<i class="fa-regular fa-eye-slash"></i>`
-
-                : `<i class="fa-regular fa-eye"></i>`;
 
         }
     );
@@ -339,125 +973,408 @@ if (passwordToggle) {
 
 
 /* =========================================================
-   CONSOLE
+   FORGOT PASSWORD
 ========================================================= */
 
-console.log(
-    "================================"
-);
+function setupPasswordReset() {
 
-console.log(
-    "Garima's House Hold Admin"
-);
+    /*
+       Fresh admin.html mein reset button
+       intentionally nahi rakha gaya hai.
 
-console.log(
-    "Firebase Authentication Ready"
-);
+       Function future use ke liye ready hai.
+    */
 
-console.log(
-    "================================"
-);
-/* =========================================================
-   ADMIN PANEL — PART 2
-   PRODUCT ELEMENTS + LOAD PRODUCTS
-========================================================= */
+    return;
+
+}
 
 
 /* =========================================================
-   PRODUCT FORM ELEMENTS
+   DASHBOARD INITIALIZATION
 ========================================================= */
 
-const productForm =
-    document.getElementById(
-        "product-form"
+async function initializeDashboard() {
+
+    console.log(
+        "Initializing Admin Dashboard..."
     );
 
 
-const productName =
-    document.getElementById(
-        "product-name"
+    try {
+
+        await Promise.all([
+            loadProducts(),
+            loadCustomerOrders()
+        ]);
+
+
+        updateDashboardStats();
+
+
+        console.log(
+            "Admin Dashboard Ready"
+        );
+
+
+    } catch (error) {
+
+        console.error(
+            "Dashboard Initialization Error:",
+            error
+        );
+
+
+        showToast(
+            "Unable to load dashboard data.",
+            "error"
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   AUTH STATE
+========================================================= */
+
+function setupAuthState() {
+
+    onAuthStateChanged(
+        auth,
+        async user => {
+
+            console.log(
+                "Auth State:",
+                user
+                    ? user.email
+                    : "Logged Out"
+            );
+
+
+            if (!user) {
+
+                showLoginScreen();
+
+                return;
+
+            }
+
+
+            if (
+                !user.email ||
+                user.email.toLowerCase() !==
+                ADMIN_EMAIL.toLowerCase()
+            ) {
+
+                try {
+
+                    await signOut(
+                        auth
+                    );
+
+                } catch (error) {
+
+                    console.error(
+                        "Unauthorized Logout Error:",
+                        error
+                    );
+
+                }
+
+
+                showLoginScreen();
+
+                return;
+
+            }
+
+
+            showAdminPanel();
+
+
+            await initializeDashboard();
+
+        }
     );
 
+}
 
-const productSKU =
-    document.getElementById(
-        "product-sku"
+
+/* =========================================================
+   INITIAL LOAD LOG
+========================================================= */
+
+console.log(
+    "========================================"
+);
+
+console.log(
+    "Garima's House Hold Admin JS Loaded"
+);
+
+console.log(
+    "Firebase Version: 12.16.0"
+);
+
+console.log(
+    "Admin Email:",
+    ADMIN_EMAIL
+);
+
+console.log(
+    "========================================"
+);
+/* =========================================================
+   PRODUCT HELPERS
+========================================================= */
+
+
+/* =========================================================
+   PRODUCT FORM DATA
+========================================================= */
+
+function getProductFormData() {
+
+    return {
+
+        name:
+            $("product-name")?.value.trim() ||
+            "",
+
+        sku:
+            $("product-sku")?.value.trim() ||
+            "",
+
+        category:
+            $("product-category")?.value.trim() ||
+            "",
+
+        mrp:
+            numberValue(
+                $("product-mrp")?.value
+            ),
+
+        price:
+            numberValue(
+                $("product-price")?.value
+            ),
+
+        stock:
+            numberValue(
+                $("product-stock")?.value
+            ),
+
+        weight:
+            numberValue(
+                $("product-weight")?.value
+            ),
+
+        image:
+            $("product-image")?.value.trim() ||
+            "",
+
+        description:
+            $("product-description")?.value.trim() ||
+            "",
+
+        newArrival:
+            Boolean(
+                $("product-new-arrival")?.checked
+            ),
+
+        bestSeller:
+            Boolean(
+                $("product-best-seller")?.checked
+            )
+
+    };
+
+}
+
+
+/* =========================================================
+   CLEAR PRODUCT FORM
+========================================================= */
+
+function clearProductForm() {
+
+    const form =
+        $("product-form");
+
+
+    if (form) {
+
+        form.reset();
+
+    }
+
+
+    const productId =
+        $("product-id");
+
+
+    if (productId) {
+
+        productId.value =
+            "";
+
+    }
+
+
+    editingProductId =
+        null;
+
+
+    const cancelButton =
+        $("cancel-edit-button");
+
+
+    if (cancelButton) {
+
+        cancelButton.hidden =
+            true;
+
+    }
+
+
+    const saveButton =
+        $("save-product-button");
+
+
+    if (saveButton) {
+
+        saveButton.innerHTML = `
+
+            <i
+                class="fa-solid fa-floppy-disk"
+            ></i>
+
+            <span>
+                Save Product
+            </span>
+
+        `;
+
+    }
+
+
+    const previewWrap =
+        $("product-image-preview-wrap");
+
+
+    const preview =
+        $("product-image-preview");
+
+
+    if (previewWrap) {
+
+        previewWrap.hidden =
+            true;
+
+    }
+
+
+    if (preview) {
+
+        preview.src =
+            "";
+
+    }
+
+}
+
+
+/* =========================================================
+   IMAGE PREVIEW
+========================================================= */
+
+function setupImagePreview() {
+
+    const imageInput =
+        $("product-image");
+
+
+    const preview =
+        $("product-image-preview");
+
+
+    const previewWrap =
+        $("product-image-preview-wrap");
+
+
+    if (
+        !imageInput ||
+        !preview ||
+        !previewWrap
+    ) {
+
+        return;
+
+    }
+
+
+    if (
+        imageInput.dataset.connected ===
+        "true"
+    ) {
+
+        return;
+
+    }
+
+
+    imageInput.dataset.connected =
+        "true";
+
+
+    imageInput.addEventListener(
+        "input",
+        () => {
+
+            const url =
+                imageInput.value.trim();
+
+
+            if (!url) {
+
+                preview.src =
+                    "";
+
+                previewWrap.hidden =
+                    true;
+
+                return;
+
+            }
+
+
+            preview.src =
+                url;
+
+
+            preview.onload =
+                () => {
+
+                    previewWrap.hidden =
+                        false;
+
+                };
+
+
+            preview.onerror =
+                () => {
+
+                    previewWrap.hidden =
+                        true;
+
+                };
+
+        }
     );
 
-const productNewArrival =
-    document.getElementById(
-        "product-new-arrival"
-    );
-
-const productBestSeller =
-    document.getElementById(
-        "product-best-seller"
-    );
-
-const productCategory =
-    document.getElementById(
-        "product-category"
-    );
-
-
-const productMrp =
-    document.getElementById(
-        "product-mrp"
-    );
-
-
-const productPrice =
-    document.getElementById(
-        "product-price"
-    );
-
-
-const productStock =
-    document.getElementById(
-        "product-stock"
-    );
-
-
-const productWeight =
-    document.getElementById(
-        "product-weight"
-    );
-
-
-const productImage =
-    document.getElementById(
-        "product-image"
-    );
-
-
-const productDescription =
-    document.getElementById(
-        "product-description"
-    );
-
-
-const productList =
-    document.getElementById(
-        "product-list"
-    );
-
-
-const searchProduct =
-    document.getElementById(
-        "search-product"
-    );
-
-
-const totalProducts =
-    document.getElementById(
-        "total-products"
-    );
-
-
-const firebaseStatus =
-    document.getElementById(
-        "firebase-status"
-    );
+}
 
 
 /* =========================================================
@@ -466,14 +1383,28 @@ const firebaseStatus =
 
 async function loadProducts() {
 
+    if (isLoadingProducts) {
+
+        return;
+
+    }
+
+
+    isLoadingProducts =
+        true;
+
+
+    const productsList =
+        $("products-list");
+
+
     try {
 
-        if (firebaseStatus) {
-
-            firebaseStatus.innerText =
-                "Loading Products...";
-
-        }
+        const productsRef =
+            collection(
+                db,
+                "products"
+            );
 
 
         const snapshot =
@@ -482,18 +1413,19 @@ async function loadProducts() {
             );
 
 
-        products = [];
+        products =
+            [];
 
 
         snapshot.forEach(
-            docSnap => {
+            productDoc => {
 
                 products.push({
 
                     id:
-                        docSnap.id,
+                        productDoc.id,
 
-                    ...docSnap.data()
+                    ...productDoc.data()
 
                 });
 
@@ -503,12 +1435,6 @@ async function loadProducts() {
 
         console.log(
             "Products Loaded:",
-            products
-        );
-
-
-        console.log(
-            "Total Products:",
             products.length
         );
 
@@ -518,24 +1444,10 @@ async function loadProducts() {
         );
 
 
-        if (totalProducts) {
-
-            totalProducts.innerText =
-                products.length;
-
-        }
+        updateDashboardStats();
 
 
-        if (firebaseStatus) {
-
-            firebaseStatus.innerText =
-                "Connected ✅";
-
-        }
-
-    }
-
-    catch (error) {
+    } catch (error) {
 
         console.error(
             "Load Products Error:",
@@ -543,17 +1455,35 @@ async function loadProducts() {
         );
 
 
-        if (firebaseStatus) {
+        if (productsList) {
 
-            firebaseStatus.innerText =
-                "Connection Failed ❌";
+            productsList.innerHTML = `
+
+                <tr>
+
+                    <td
+                        colspan="10"
+                        class="table-error"
+                    >
+
+                        Unable to load products.
+
+                    </td>
+
+                </tr>
+
+            `;
 
         }
 
 
-        alert(
-            "Unable to load products."
-        );
+        throw error;
+
+
+    } finally {
+
+        isLoadingProducts =
+            false;
 
     }
 
@@ -561,47 +1491,45 @@ async function loadProducts() {
 
 
 /* =========================================================
-   RENDER PRODUCT LIST
+   RENDER PRODUCTS
 ========================================================= */
 
 function renderProducts(
-    productArray
+    list
 ) {
 
-    if (!productList) {
+    const productsList =
+        $("products-list");
+
+
+    if (!productsList) {
+
         return;
+
     }
 
 
-    productList.innerHTML =
-        "";
-
-
-    /* ---------------------------------------------
-       NO PRODUCTS
-    --------------------------------------------- */
-
     if (
-        !productArray ||
-        productArray.length === 0
+        !list ||
+        list.length === 0
     ) {
 
-        productList.innerHTML = `
+        productsList.innerHTML = `
 
             <tr>
 
                 <td
-                    colspan="6"
-                    style="text-align:center;"
+                    colspan="10"
+                    class="table-empty"
                 >
 
                     <i
                         class="fa-solid fa-box-open"
                     ></i>
 
-                    <br><br>
-
-                    No Products Found
+                    <span>
+                        No Products Found
+                    </span>
 
                 </td>
 
@@ -614,535 +1542,522 @@ function renderProducts(
     }
 
 
-    /* ---------------------------------------------
-       PRODUCT ROWS
-    --------------------------------------------- */
+    productsList.innerHTML =
+        list.map(
+            product => {
 
-    productArray.forEach(
-        product => {
-
-            const image =
-                product.image ||
-                "images/no-image.png";
+                const id =
+                    getProductId(
+                        product
+                    );
 
 
-            const name =
-                product.name ||
-                "Unnamed Product";
+                const name =
+                    getProductName(
+                        product
+                    );
 
 
-            const category =
-                product.category ||
-                "-";
+                const image =
+                    getProductImage(
+                        product
+                    );
 
 
-            const price =
-                Number(
-                    product.price || 0
-                );
+                const sku =
+                    product.sku ||
+                    "N/A";
 
 
-            const stock =
-                Number(
-                    product.stock || 0
-                );
+                const category =
+                    getProductCategory(
+                        product
+                    );
 
 
-            const row =
-                document.createElement(
-                    "tr"
-                );
+                const mrp =
+                    getProductMrp(
+                        product
+                    );
 
 
-            row.innerHTML = `
+                const price =
+                    getProductPrice(
+                        product
+                    );
 
-                <td>
 
-                    <img
-                        src="${image}"
-                        alt="${escapeHtml(name)}"
-                        onerror="this.src='images/no-image.png'"
+                const stock =
+                    getProductStock(
+                        product
+                    );
+
+
+                const weight =
+                    getProductWeight(
+                        product
+                    );
+
+
+                const stockClass =
+                    stock > 0
+                        ? "stock-in"
+                        : "stock-out";
+
+
+                const sections = [];
+
+
+                if (
+                    product.newArrival
+                ) {
+
+                    sections.push(
+                        "New Arrival"
+                    );
+
+                }
+
+
+                if (
+                    product.bestSeller
+                ) {
+
+                    sections.push(
+                        "Best Seller"
+                    );
+
+                }
+
+
+                if (
+                    sections.length === 0
+                ) {
+
+                    sections.push(
+                        "—"
+                    );
+
+                }
+
+
+                return `
+
+                    <tr
+                        data-product-id="${escapeHtml(id)}"
                     >
 
-                </td>
+
+                        <!-- IMAGE -->
+
+                        <td>
+
+                            <img
+                                src="${escapeHtml(image)}"
+                                class="product-table-image"
+                                alt="${escapeHtml(name)}"
+                                onerror="
+                                    this.src='image/no-image.png'
+                                "
+                            >
+
+                        </td>
 
 
-                <td>
-    ${escapeHtml(product.sku || "-")}
-</td>
+                        <!-- PRODUCT -->
 
-<td>
-    ${escapeHtml(name)}
-</td>
+                        <td>
 
-<td>
-    ${escapeHtml(category)}
-</td>
+                            <strong>
+                                ${escapeHtml(name)}
+                            </strong>
 
+                            ${
+                                product.description
+                                    ? `
+                                        <small
+                                            class="product-description-cell"
+                                        >
+                                            ${escapeHtml(
+                                                product.description
+                                            )}
+                                        </small>
+                                      `
+                                    : ""
+                            }
 
-                <td>
-                    ₹${price.toLocaleString("en-IN")}
-                </td>
-
-
-                <td>
-
-                    ${
-                        stock > 0
-
-                        ? `<span
-                            style="
-                                color:#2e7d32;
-                                font-weight:700;
-                            "
-                           >
-                            ${stock}
-                           </span>`
-
-                        : `<span
-                            style="
-                                color:#c62828;
-                                font-weight:700;
-                            "
-                           >
-                            Out of Stock
-                           </span>`
-                    }
-
-                </td>
-
-                <td>
-
-    ${
-        product.newArrival
-            ? '<span class="section-badge new-arrival-badge">🆕 New Arrival</span>'
-            : ''
-    }
-
-    ${
-        product.bestSeller
-            ? '<span class="section-badge best-seller-badge">⭐ Best Seller</span>'
-            : ''
-    }
-
-    ${
-        !product.newArrival && !product.bestSeller
-            ? '<span class="section-badge none-badge">—</span>'
-            : ''
-    }
-
-</td>
-
-                <td>
-
-                    <button
-                        type="button"
-                        class="edit-btn"
-                        data-id="${product.id}"
-                    >
-
-                        <i
-                            class="fa-solid fa-pen"
-                        ></i>
-
-                        Edit
-
-                    </button>
+                        </td>
 
 
-                    <button
-                        type="button"
-                        class="delete-btn"
-                        data-id="${product.id}"
-                    >
+                        <!-- SKU -->
 
-                        <i
-                            class="fa-solid fa-trash"
-                        ></i>
+                        <td>
 
-                        Delete
+                            ${escapeHtml(sku)}
 
-                    </button>
-
-                </td>
-
-            `;
+                        </td>
 
 
-            productList.appendChild(
-                row
-            );
+                        <!-- CATEGORY -->
 
-        }
-    );
+                        <td>
+
+                            ${escapeHtml(category)}
+
+                        </td>
 
 
-    /* ---------------------------------------------
-       ACTION BUTTONS
-    --------------------------------------------- */
+                        <!-- MRP -->
 
-    productList
-        .querySelectorAll(
-            ".edit-btn"
-        )
-        .forEach(
-            button => {
+                        <td>
 
-                button.addEventListener(
-                    "click",
-                    () => {
+                            ${
+                                mrp > 0
+                                    ? money(mrp)
+                                    : "—"
+                            }
 
-                        editProduct(
-                            button.dataset.id
-                        );
+                        </td>
 
-                    }
-                );
+
+                        <!-- PRICE -->
+
+                        <td>
+
+                            <strong>
+                                ${money(price)}
+                            </strong>
+
+                        </td>
+
+
+                        <!-- STOCK -->
+
+                        <td>
+
+                            <span
+                                class="stock-badge ${stockClass}"
+                            >
+
+                                ${stock}
+
+                            </span>
+
+                        </td>
+
+
+                        <!-- WEIGHT -->
+
+                        <td>
+
+                            ${
+                                weight > 0
+                                    ? weight.toFixed(2) + " kg"
+                                    : "—"
+                            }
+
+                        </td>
+
+
+                        <!-- SECTIONS -->
+
+                        <td>
+
+                            <div
+                                class="product-section-badges"
+                            >
+
+                                ${sections.map(
+                                    section => `
+
+                                        <span
+                                            class="section-badge"
+                                        >
+                                            ${escapeHtml(
+                                                section
+                                            )}
+                                        </span>
+
+                                    `
+                                ).join("")}
+
+                            </div>
+
+                        </td>
+
+
+                        <!-- ACTIONS -->
+
+                        <td>
+
+                            <div
+                                class="product-actions"
+                            >
+
+                                <button
+                                    type="button"
+                                    class="edit-product-btn"
+                                    data-product-id="${escapeHtml(id)}"
+                                    title="Edit Product"
+                                >
+
+                                    <i
+                                        class="fa-solid fa-pen"
+                                    ></i>
+
+                                </button>
+
+
+                                <button
+                                    type="button"
+                                    class="delete-product-btn"
+                                    data-product-id="${escapeHtml(id)}"
+                                    title="Delete Product"
+                                >
+
+                                    <i
+                                        class="fa-solid fa-trash"
+                                    ></i>
+
+                                </button>
+
+                            </div>
+
+                        </td>
+
+
+                    </tr>
+
+                `;
 
             }
-        );
-
-
-    productList
-        .querySelectorAll(
-            ".delete-btn"
-        )
-        .forEach(
-            button => {
-
-                button.addEventListener(
-                    "click",
-                    () => {
-
-                        deleteProduct(
-                            button.dataset.id
-                        );
-
-                    }
-                );
-
-            }
-        );
+        ).join("");
 
 }
-
-
-/* =========================================================
-   ESCAPE HTML
-========================================================= */
-
-function escapeHtml(
-    value
-) {
-
-    return String(
-        value ?? ""
-    )
-        .replace(
-            /&/g,
-            "&amp;"
-        )
-        .replace(
-            /</g,
-            "&lt;"
-        )
-        .replace(
-            />/g,
-            "&gt;"
-        )
-        .replace(
-            /"/g,
-            "&quot;"
-        )
-        .replace(
-            /'/g,
-            "&#039;"
-        );
-
-}
-/* =========================================================
-   ADMIN PANEL — PART 3
-   ADD / EDIT / DELETE PRODUCT
-========================================================= */
 
 
 /* =========================================================
    SAVE PRODUCT
 ========================================================= */
 
-if (productForm) {
+async function saveProduct() {
 
-    productForm.addEventListener(
-        "submit",
-        async function (event) {
-
-            event.preventDefault();
+    const form =
+        $("product-form");
 
 
-            try {
+    if (!form) {
 
-                /* -----------------------------------------
-                   VALIDATE BASIC FIELDS
-                ----------------------------------------- */
+        return;
 
-                if (
-                    !productName ||
-                    !productCategory ||
-                    !productPrice ||
-                    !productStock ||
-                    !productImage
-                ) {
-
-                    alert(
-                        "Product form fields are missing."
-                    );
-
-                    return;
-
-                }
+    }
 
 
-                /* -----------------------------------------
-                   PRODUCT DATA
-                ----------------------------------------- */
+    const data =
+        getProductFormData();
 
-                const productData = {
 
-                    name:
-                        productName.value.trim(),
+    /* -----------------------------------------------------
+       VALIDATION
+    ----------------------------------------------------- */
 
-                    sku:
-                        productSKU
-                            ? productSKU.value.trim()
-                            : "",
+    if (!data.name) {
 
-                    category:
-                        productCategory.value.trim(),
+        showToast(
+            "Please enter product name.",
+            "error"
+        );
 
-                    mrp:
-                        Number(
-                            productMrp?.value || 0
-                        ),
+        return;
 
-                    price:
-                        Number(
-                            productPrice.value || 0
-                        ),
+    }
 
-                    stock:
-                        Number(
-                            productStock.value || 0
-                        ),
 
-                    weightKg:
-                        Number(
-                            productWeight?.value || 0
-                        ),
+    if (!data.category) {
 
-                    image:
-                        productImage.value.trim(),
+        showToast(
+            "Please enter product category.",
+            "error"
+        );
 
-                    description:
-                        productDescription
-                            ? productDescription.value.trim()
-                            : "",
-                    newArrival:
-    productNewArrival
-        ? productNewArrival.checked
-        : false,
+        return;
 
-bestSeller:
-    productBestSeller
-        ? productBestSeller.checked
-        : false,        
+    }
+
+
+    if (
+        data.price <= 0
+    ) {
+
+        showToast(
+            "Please enter a valid selling price.",
+            "error"
+        );
+
+        return;
+
+    }
+
+
+    if (
+        data.mrp > 0 &&
+        data.mrp < data.price
+    ) {
+
+        showToast(
+            "MRP cannot be less than selling price.",
+            "error"
+        );
+
+        return;
+
+    }
+
+
+    const saveButton =
+        $("save-product-button");
+
+
+    if (saveButton) {
+
+        saveButton.disabled =
+            true;
+
+
+        saveButton.innerHTML = `
+
+            <i
+                class="fa-solid fa-spinner fa-spin"
+            ></i>
+
+            <span>
+                Saving...
+            </span>
+
+        `;
+
+    }
+
+
+    try {
+
+        /* -------------------------------------------------
+           EDIT EXISTING PRODUCT
+        ------------------------------------------------- */
+
+        if (editingProductId) {
+
+            await updateDoc(
+
+                doc(
+                    db,
+                    "products",
+                    editingProductId
+                ),
+
+                {
+
+                    ...data,
 
                     updatedAt:
-                        new Date()
-
-                };
-
-
-                /* -----------------------------------------
-                   VALIDATION
-                ----------------------------------------- */
-
-                if (
-                    !productData.name
-                ) {
-
-                    alert(
-                        "Please enter product name."
-                    );
-
-                    return;
+                        serverTimestamp()
 
                 }
 
-
-                if (
-                    !productData.category
-                ) {
-
-                    alert(
-                        "Please enter product category."
-                    );
-
-                    return;
-
-                }
+            );
 
 
-                if (
-                    productData.price <= 0
-                ) {
-
-                    alert(
-                        "Please enter a valid product price."
-                    );
-
-                    return;
-
-                }
-
-
-                if (
-                    !productData.image
-                ) {
-
-                    alert(
-                        "Please enter product image URL."
-                    );
-
-                    return;
-
-                }
-
-
-                /* -----------------------------------------
-                   LOADING
-                ----------------------------------------- */
-
-                showLoading();
-
-
-                /* -----------------------------------------
-                   UPDATE EXISTING PRODUCT
-                ----------------------------------------- */
-
-                if (
-                    editId !== null
-                ) {
-
-                    await updateDoc(
-
-                        doc(
-                            db,
-                            "products",
-                            editId
-                        ),
-
-                        productData
-
-                    );
-
-
-                    alert(
-                        "✅ Product Updated Successfully"
-                    );
-
-
-                    editId =
-                        null;
-
-                }
-
-
-                /* -----------------------------------------
-                   ADD NEW PRODUCT
-                ----------------------------------------- */
-
-                else {
-
-                    productData.createdAt =
-                        new Date();
-
-
-                    await addDoc(
-                        productsRef,
-                        productData
-                    );
-
-
-                    alert(
-                        "✅ Product Added Successfully"
-                    );
-
-                }
-
-
-                /* -----------------------------------------
-                   RESET FORM
-                ----------------------------------------- */
-
-                productForm.reset();
-
-
-                /* -----------------------------------------
-                   RESET BUTTON TEXT
-                ----------------------------------------- */
-
-                const saveButton =
-                    productForm.querySelector(
-                        ".save-btn"
-                    );
-
-
-                if (saveButton) {
-
-                    saveButton.innerHTML = `
-
-                        <i
-                            class="fa-solid fa-floppy-disk"
-                        ></i>
-
-                        Save Product
-
-                    `;
-
-                }
-
-
-                /* -----------------------------------------
-                   RELOAD PRODUCTS
-                ----------------------------------------- */
-
-                await loadProducts();
-
-            }
-
-            catch (error) {
-
-                console.error(
-                    "Save Product Error:",
-                    error
-                );
-
-
-                alert(
-                    "❌ Failed to save product.\n\n" +
-                    error.message
-                );
-
-            }
-
-            finally {
-
-                hideLoading();
-
-            }
+            showToast(
+                "Product updated successfully."
+            );
 
         }
-    );
+
+
+        /* -------------------------------------------------
+           ADD NEW PRODUCT
+        ------------------------------------------------- */
+
+        else {
+
+            const newProduct =
+                await addDoc(
+
+                    collection(
+                        db,
+                        "products"
+                    ),
+
+                    {
+
+                        ...data,
+
+                        createdAt:
+                            serverTimestamp(),
+
+                        updatedAt:
+                            serverTimestamp()
+
+                    }
+
+                );
+
+
+            console.log(
+                "Product Added:",
+                newProduct.id
+            );
+
+
+            showToast(
+                "Product added successfully."
+            );
+
+        }
+
+
+        clearProductForm();
+
+
+        await loadProducts();
+
+
+    } catch (error) {
+
+        console.error(
+            "Save Product Error:",
+            error
+        );
+
+
+        showToast(
+            "Unable to save product.",
+            "error"
+        );
+
+    } finally {
+
+        if (saveButton) {
+
+            saveButton.disabled =
+                false;
+
+
+            saveButton.innerHTML = `
+
+                <i
+                    class="fa-solid fa-floppy-disk"
+                ></i>
+
+                <span>
+                    Save Product
+                </span>
+
+            `;
+
+        }
+
+    }
 
 }
 
@@ -1152,20 +2067,22 @@ bestSeller:
 ========================================================= */
 
 function editProduct(
-    id
+    productId
 ) {
 
     const product =
         products.find(
             item =>
-                item.id === id
+                item.id ===
+                productId
         );
 
 
     if (!product) {
 
-        alert(
-            "Product not found."
+        showToast(
+            "Product not found.",
+            "error"
         );
 
         return;
@@ -1173,121 +2090,109 @@ function editProduct(
     }
 
 
-    editId =
-        id;
+    editingProductId =
+        productId;
 
 
-    /* -----------------------------------------
-       FILL FORM
-    ----------------------------------------- */
-
-    if (productName) {
-
-        productName.value =
-            product.name || "";
-
-    }
+    $("product-id").value =
+        productId;
 
 
-    if (productSKU) {
-
-        productSKU.value =
-            product.sku || "";
-
-    }
+    $("product-name").value =
+        product.name ||
+        "";
 
 
-    if (productCategory) {
-
-        productCategory.value =
-            product.category || "";
-
-    }
-
-    if (productNewArrival) {
-
-    productNewArrival.checked =
-        product.newArrival === true;
-
-}
+    $("product-sku").value =
+        product.sku ||
+        "";
 
 
-if (productBestSeller) {
-
-    productBestSeller.checked =
-        product.bestSeller === true;
-
-}
-
-    if (productMrp) {
-
-        productMrp.value =
-            product.mrp ||
-            product.price ||
-            "";
-
-    }
+    $("product-category").value =
+        product.category ||
+        "";
 
 
-    if (productPrice) {
-
-        productPrice.value =
-            product.price || "";
-
-    }
-
-    if (productNewArrival) {
-    productNewArrival.checked =
-        product.newArrival === true;
-}
-
-if (productBestSeller) {
-    productBestSeller.checked =
-        product.bestSeller === true;
-}
-
-    if (productStock) {
-
-        productStock.value =
-            product.stock || 0;
-
-    }
+    $("product-mrp").value =
+        product.mrp ??
+        "";
 
 
-    if (productWeight) {
+    $("product-price").value =
+        product.price ??
+        "";
 
-        productWeight.value =
-            product.weightKg ||
-            product.weight ||
-            "";
+
+    $("product-stock").value =
+        product.stock ??
+        0;
+
+
+    $("product-weight").value =
+        product.weight ??
+        0;
+
+
+    $("product-image").value =
+        product.image ||
+        "";
+
+
+    $("product-description").value =
+        product.description ||
+        "";
+
+
+    $("product-new-arrival").checked =
+        Boolean(
+            product.newArrival
+        );
+
+
+    $("product-best-seller").checked =
+        Boolean(
+            product.bestSeller
+        );
+
+
+    const preview =
+        $("product-image-preview");
+
+
+    const previewWrap =
+        $("product-image-preview-wrap");
+
+
+    if (
+        product.image &&
+        preview &&
+        previewWrap
+    ) {
+
+        preview.src =
+            product.image;
+
+
+        previewWrap.hidden =
+            false;
 
     }
 
 
-    if (productImage) {
-
-        productImage.value =
-            product.image || "";
-
-    }
+    const cancelButton =
+        $("cancel-edit-button");
 
 
-    if (productDescription) {
+    if (cancelButton) {
 
-        productDescription.value =
-            product.description || "";
+        cancelButton.hidden =
+            false;
 
     }
 
-
-    /* -----------------------------------------
-       CHANGE BUTTON TEXT
-    ----------------------------------------- */
 
     const saveButton =
-        productForm?.querySelector(
-            ".save-btn"
-        );
+        $("save-product-button");
 
 
     if (saveButton) {
@@ -1298,33 +2203,24 @@ if (productBestSeller) {
                 class="fa-solid fa-pen"
             ></i>
 
-            Update Product
+            <span>
+                Update Product
+            </span>
 
         `;
 
     }
 
 
-    /* -----------------------------------------
-       SCROLL TO FORM
-    ----------------------------------------- */
-
-    const formSection =
-        document.querySelector(
-            ".product-form"
-        );
+    const productSection =
+        $("productSection");
 
 
-    if (formSection) {
+    if (productSection) {
 
-        formSection.scrollIntoView({
-
-            behavior:
-                "smooth",
-
-            block:
-                "start"
-
+        productSection.scrollIntoView({
+            behavior: "smooth",
+            block: "start"
         });
 
     }
@@ -1337,24 +2233,32 @@ if (productBestSeller) {
 ========================================================= */
 
 async function deleteProduct(
-    id
+    productId
 ) {
 
     const product =
         products.find(
             item =>
-                item.id === id
+                item.id ===
+                productId
         );
 
 
-    const productNameText =
-        product?.name ||
-        "this product";
+    if (!product) {
+
+        showToast(
+            "Product not found.",
+            "error"
+        );
+
+        return;
+
+    }
 
 
     const confirmed =
-        confirm(
-            `Are you sure you want to delete "${productNameText}"?`
+        window.confirm(
+            `Delete "${getProductName(product)}"?`
         );
 
 
@@ -1367,55 +2271,36 @@ async function deleteProduct(
 
     try {
 
-        showLoading();
-
-
         await deleteDoc(
 
             doc(
                 db,
                 "products",
-                id
+                productId
             )
 
         );
 
 
-        alert(
-            "✅ Product Deleted Successfully"
+        showToast(
+            "Product deleted successfully."
         );
 
 
-        /* -----------------------------------------
-           RESET EDIT MODE IF NEEDED
-        ----------------------------------------- */
-
         if (
-            editId === id
+            editingProductId ===
+            productId
         ) {
 
-            editId =
-                null;
-
-
-            if (productForm) {
-
-                productForm.reset();
-
-            }
+            clearProductForm();
 
         }
 
 
-        /* -----------------------------------------
-           RELOAD
-        ----------------------------------------- */
-
         await loadProducts();
 
-    }
 
-    catch (error) {
+    } catch (error) {
 
         console.error(
             "Delete Product Error:",
@@ -1423,100 +2308,58 @@ async function deleteProduct(
         );
 
 
-        alert(
-            "❌ Unable to delete product.\n\n" +
-            error.message
+        showToast(
+            "Unable to delete product.",
+            "error"
         );
 
     }
 
-    finally {
+}
 
-        hideLoading();
+
+/* =========================================================
+   PRODUCT SEARCH
+========================================================= */
+
+function setupProductSearch() {
+
+    const searchInput =
+        $("product-search");
+
+
+    if (!searchInput) {
+
+        return;
 
     }
 
-}
+
+    if (
+        searchInput.dataset.connected ===
+        "true"
+    ) {
+
+        return;
+
+    }
 
 
-/* =========================================================
-   RESET FORM
-========================================================= */
-
-if (productForm) {
-
-    productForm.addEventListener(
-        "reset",
-        function () {
-
-            editId =
-                null;
+    searchInput.dataset.connected =
+        "true";
 
 
-            const saveButton =
-                productForm.querySelector(
-                    ".save-btn"
-                );
-
-
-            if (saveButton) {
-
-                saveButton.innerHTML = `
-
-                    <i
-                        class="fa-solid fa-floppy-disk"
-                    ></i>
-
-                    Save Product
-
-                `;
-
-            }
-
-        }
-    );
-
-}
-
-
-/* =========================================================
-   GLOBAL FUNCTIONS
-========================================================= */
-
-window.editProduct =
-    editProduct;
-
-
-window.deleteProduct =
-    deleteProduct;
-
-/* =========================================================
-   ADMIN PANEL — PART 4
-   SEARCH + DASHBOARD + LOADING
-========================================================= */
-
-
-/* =========================================================
-   SEARCH PRODUCTS
-========================================================= */
-
-if (searchProduct) {
-
-    searchProduct.addEventListener(
+    searchInput.addEventListener(
         "input",
-        function () {
+        () => {
 
-            const keyword =
-                this.value
-                    .toLowerCase()
-                    .trim();
+            const search =
+                searchInput.value
+                    .trim()
+                    .toLowerCase();
 
 
-            /* -----------------------------------------
-               SHOW ALL
-            ----------------------------------------- */
-
-            if (!keyword) {
+            if (!search) {
 
                 renderProducts(
                     products
@@ -1527,53 +2370,41 @@ if (searchProduct) {
             }
 
 
-            /* -----------------------------------------
-               FILTER
-            ----------------------------------------- */
-
-            const filteredProducts =
+            const filtered =
                 products.filter(
                     product => {
 
                         const name =
                             String(
-                                product.name || ""
-                            )
-                            .toLowerCase();
-
-
-                        const category =
-                            String(
-                                product.category || ""
-                            )
-                            .toLowerCase();
+                                product.name ||
+                                ""
+                            ).toLowerCase();
 
 
                         const sku =
                             String(
-                                product.sku || ""
-                            )
-                            .toLowerCase();
+                                product.sku ||
+                                ""
+                            ).toLowerCase();
+
+
+                        const category =
+                            String(
+                                product.category ||
+                                ""
+                            ).toLowerCase();
 
 
                         return (
-
                             name.includes(
-                                keyword
-                            )
-
-                            ||
-
-                            category.includes(
-                                keyword
-                            )
-
-                            ||
-
+                                search
+                            ) ||
                             sku.includes(
-                                keyword
+                                search
+                            ) ||
+                            category.includes(
+                                search
                             )
-
                         );
 
                     }
@@ -1581,7 +2412,7 @@ if (searchProduct) {
 
 
             renderProducts(
-                filteredProducts
+                filtered
             );
 
         }
@@ -1591,43 +2422,25 @@ if (searchProduct) {
 
 
 /* =========================================================
-   DASHBOARD — TOTAL PRODUCTS
+   PRODUCT EVENTS
 ========================================================= */
 
-function updateProductCount() {
+function setupProductEvents() {
 
-    if (!totalProducts) {
+    const productList =
+        $("products-list");
+
+
+    if (!productList) {
+
         return;
+
     }
 
 
-    totalProducts.innerText =
-        products.length;
-
-}
-
-
-/* =========================================================
-   DASHBOARD — TOTAL ORDERS
-========================================================= */
-
-async function loadOrderStats() {
-
-    const totalOrdersElement =
-        document.getElementById(
-            "total-orders"
-        );
-
-
-    const totalSalesElement =
-        document.getElementById(
-            "total-sales"
-        );
-
-
     if (
-        !totalOrdersElement &&
-        !totalSalesElement
+        productList.dataset.connected ===
+        "true"
     ) {
 
         return;
@@ -1635,136 +2448,144 @@ async function loadOrderStats() {
     }
 
 
-    try {
-
-        /*
-         * Orders collection
-         */
-
-        const ordersRef =
-            collection(
-                db,
-                "orders"
-            );
+    productList.dataset.connected =
+        "true";
 
 
-        const snapshot =
-            await getDocs(
-                ordersRef
-            );
+    productList.addEventListener(
+        "click",
+        event => {
+
+            const editButton =
+                event.target.closest(
+                    ".edit-product-btn"
+                );
 
 
-        let totalOrders =
-            0;
+            if (editButton) {
 
+                editProduct(
+                    editButton.dataset.productId
+                );
 
-        let totalSales =
-            0;
-
-
-        snapshot.forEach(
-            orderDoc => {
-
-                const order =
-                    orderDoc.data();
-
-
-                totalOrders++;
-
-
-                const orderTotal =
-                    Number(
-                        order.total ||
-                        order.totalAmount ||
-                        order.grandTotal ||
-                        0
-                    );
-
-
-                totalSales +=
-                    orderTotal;
+                return;
 
             }
-        );
 
 
-        /* -----------------------------------------
-           UPDATE ORDER COUNT
-        ----------------------------------------- */
-
-        if (
-            totalOrdersElement
-        ) {
-
-            totalOrdersElement.innerText =
-                totalOrders;
-
-        }
+            const deleteButton =
+                event.target.closest(
+                    ".delete-product-btn"
+                );
 
 
-        /* -----------------------------------------
-           UPDATE SALES
-        ----------------------------------------- */
+            if (deleteButton) {
 
-        if (
-            totalSalesElement
-        ) {
+                deleteProduct(
+                    deleteButton.dataset.productId
+                );
 
-            totalSalesElement.innerText =
-                `₹${totalSales.toLocaleString(
-                    "en-IN"
-                )}`;
+                return;
+
+            }
 
         }
+    );
 
+}
+
+
+/* =========================================================
+   PRODUCT FORM EVENTS
+========================================================= */
+
+function setupProductForm() {
+
+    const form =
+        $("product-form");
+
+
+    if (!form) {
+
+        return;
 
     }
 
-    catch (error) {
 
-        console.error(
-            "Order Stats Error:",
-            error
+    if (
+        form.dataset.connected ===
+        "true"
+    ) {
+
+        return;
+
+    }
+
+
+    form.dataset.connected =
+        "true";
+
+
+    form.addEventListener(
+        "submit",
+        async event => {
+
+            event.preventDefault();
+
+            await saveProduct();
+
+        }
+    );
+
+
+    const cancelButton =
+        $("cancel-edit-button");
+
+
+    if (cancelButton) {
+
+        cancelButton.addEventListener(
+            "click",
+            () => {
+
+                clearProductForm();
+
+            }
         );
-
-
-        if (
-            totalOrdersElement
-        ) {
-
-            totalOrdersElement.innerText =
-                "0";
-
-        }
-
-
-        if (
-            totalSalesElement
-        ) {
-
-            totalSalesElement.innerText =
-                "₹0";
-
-        }
 
     }
 
 }
 
+
+/* =========================================================
+   END OF PART 2
+========================================================= */
 /* =========================================================
    CUSTOMER ORDERS
 ========================================================= */
 
+
+/* =========================================================
+   LOAD CUSTOMER ORDERS
+========================================================= */
+
 async function loadCustomerOrders() {
 
-    const ordersList =
-        document.getElementById(
-            "orders-list"
-        );
+    if (isLoadingOrders) {
 
-    if (!ordersList) {
         return;
+
     }
+
+
+    isLoadingOrders =
+        true;
+
+
+    const ordersList =
+        $("orders-list");
+
 
     try {
 
@@ -1774,51 +2595,218 @@ async function loadCustomerOrders() {
                 "orders"
             );
 
+
         const snapshot =
             await getDocs(
                 ordersRef
             );
 
 
-        if (snapshot.empty) {
-
-            ordersList.innerHTML = `
-                <tr>
-                    <td colspan="6">
-                        No Orders Found
-                    </td>
-                </tr>
-            `;
-
-            return;
-        }
-
-
-        ordersList.innerHTML = "";
+        const orders =
+            [];
 
 
         snapshot.forEach(
             orderDoc => {
 
-                const order =
-                    orderDoc.data();
+                orders.push({
 
-                const customer =
-                    order.customer || {};
+                    id:
+                        orderDoc.id,
 
+                    ...orderDoc.data()
+
+                });
+
+            }
+        );
+
+
+        console.log(
+            "Orders Loaded:",
+            orders.length
+        );
+
+
+        renderOrders(
+            orders
+        );
+
+
+        updateDashboardStats(
+            orders
+        );
+
+
+    } catch (error) {
+
+        console.error(
+            "Load Customer Orders Error:",
+            error
+        );
+
+
+        if (ordersList) {
+
+            ordersList.innerHTML = `
+
+                <tr>
+
+                    <td
+                        colspan="7"
+                        class="table-error"
+                    >
+
+                        Unable to load orders.
+
+                    </td>
+
+                </tr>
+
+            `;
+
+        }
+
+
+        throw error;
+
+
+    } finally {
+
+        isLoadingOrders =
+            false;
+
+    }
+
+}
+
+
+/* =========================================================
+   ORDER CUSTOMER DETAILS
+========================================================= */
+
+function getOrderCustomer(
+    order
+) {
+
+    return (
+        order?.customer ||
+        {}
+    );
+
+}
+
+
+/* =========================================================
+   ORDER TOTAL
+========================================================= */
+
+function getOrderTotal(
+    order
+) {
+
+    return numberValue(
+        order?.total
+    );
+
+}
+
+
+/* =========================================================
+   ORDER STATUS
+========================================================= */
+
+function getOrderStatus(
+    order
+) {
+
+    return (
+        order?.orderStatus ||
+        order?.status ||
+        "New"
+    );
+
+}
+
+
+/* =========================================================
+   RENDER ORDERS
+========================================================= */
+
+function renderOrders(
+    orders
+) {
+
+    const ordersList =
+        $("orders-list");
+
+
+    if (!ordersList) {
+
+        return;
+
+    }
+
+
+    if (
+        !orders ||
+        orders.length === 0
+    ) {
+
+        ordersList.innerHTML = `
+
+            <tr>
+
+                <td
+                    colspan="7"
+                    class="table-empty"
+                >
+
+                    <i
+                        class="fa-solid fa-cart-shopping"
+                    ></i>
+
+                    <span>
+                        No Orders Found
+                    </span>
+
+                </td>
+
+            </tr>
+
+        `;
+
+        return;
+
+    }
+
+
+    ordersList.innerHTML =
+        orders.map(
+            order => {
 
                 const orderId =
+                    order.id ||
                     order.orderId ||
-                    orderDoc.id;
+                    "N/A";
+
+
+                const customer =
+                    getOrderCustomer(
+                        order
+                    );
 
 
                 const name =
                     customer.name ||
+                    order.customerName ||
                     "N/A";
 
 
                 const mobile =
                     customer.mobile ||
+                    customer.phone ||
+                    order.mobile ||
                     "N/A";
 
 
@@ -1843,353 +2831,2350 @@ async function loadCustomerOrders() {
 
 
                 const total =
-                    Number(
-                        order.total || 0
+                    getOrderTotal(
+                        order
                     );
 
 
                 const status =
-                    order.orderStatus ||
-                    "New";
-
-
-                const row =
-                    document.createElement(
-                        "tr"
+                    getOrderStatus(
+                        order
                     );
 
 
-                row.innerHTML = `
+                return `
 
-                    <td>
-                        ${escapeHtml(
-                            orderId
-                        )}
-                    </td>
+                    <tr
+                        data-order-id="${escapeHtml(order.id)}"
+                    >
 
-                    <td>
-                        ${escapeHtml(
-                            name
-                        )}
-                    </td>
 
-                    <td>
-                        ${escapeHtml(
-                            mobile
-                        )}
-                    </td>
+                        <!-- ORDER ID -->
 
-                    <td>
-                        ${escapeHtml(
-                            address
-                        )}
-                        <br>
-                        ${escapeHtml(
-                            city
-                        )},
-                        ${escapeHtml(
-                            state
-                        )}
-                        -
-                        ${escapeHtml(
-                            pincode
-                        )}
-                    </td>
+                        <td>
 
-                    <td>
-                        ₹${total.toLocaleString(
-                            "en-IN"
-                        )}
-                    </td>
+                            <strong>
+                                ${escapeHtml(orderId)}
+                            </strong>
 
-                    <td>
+                        </td>
 
-    <select
-        class="order-status-select"
-        data-order-id="${orderDoc.id}"
-    >
 
-        <option
-            value="New"
-            ${status === "New" ? "selected" : ""}
-        >
-            New
-        </option>
+                        <!-- CUSTOMER -->
 
-        <option
-            value="Confirmed"
-            ${status === "Confirmed" ? "selected" : ""}
-        >
-            Confirmed
-        </option>
+                        <td>
 
-        <option
-            value="Shipped"
-            ${status === "Shipped" ? "selected" : ""}
-        >
-            Shipped
-        </option>
+                            ${escapeHtml(name)}
 
-        <option
-            value="Delivered"
-            ${status === "Delivered" ? "selected" : ""}
-        >
-            Delivered
-        </option>
+                        </td>
 
-        <option
-            value="Cancelled"
-            ${status === "Cancelled" ? "selected" : ""}
-        >
-            Cancelled
-        </option>
 
-    </select>
+                        <!-- MOBILE -->
 
-</td>
+                        <td>
+
+                            ${escapeHtml(mobile)}
+
+                        </td>
+
+
+                        <!-- ADDRESS -->
+
+                        <td>
+
+                            ${escapeHtml(address)}
+
+                            ${
+                                city ||
+                                state ||
+                                pincode
+                                    ? `
+
+                                        <br>
+
+                                        <small>
+
+                                            ${escapeHtml(city)}
+
+                                            ${
+                                                city &&
+                                                state
+                                                    ? ", "
+                                                    : ""
+                                            }
+
+                                            ${escapeHtml(state)}
+
+                                            ${
+                                                pincode
+                                                    ? " - " +
+                                                      escapeHtml(
+                                                          pincode
+                                                      )
+                                                    : ""
+                                            }
+
+                                        </small>
+
+                                      `
+                                    : ""
+                            }
+
+                        </td>
+
+
+                        <!-- TOTAL -->
+
+                        <td>
+
+                            <strong>
+                                ${money(total)}
+                            </strong>
+
+                        </td>
+
+
+                        <!-- STATUS -->
+
+                        <td>
+
+                            <select
+                                class="order-status-select"
+                                data-order-id="${escapeHtml(order.id)}"
+                            >
+
+                                <option
+                                    value="New"
+                                    ${
+                                        status ===
+                                        "New"
+                                            ? "selected"
+                                            : ""
+                                    }
+                                >
+                                    New
+                                </option>
+
+
+                                <option
+                                    value="Confirmed"
+                                    ${
+                                        status ===
+                                        "Confirmed"
+                                            ? "selected"
+                                            : ""
+                                    }
+                                >
+                                    Confirmed
+                                </option>
+
+
+                                <option
+                                    value="Shipped"
+                                    ${
+                                        status ===
+                                        "Shipped"
+                                            ? "selected"
+                                            : ""
+                                    }
+                                >
+                                    Shipped
+                                </option>
+
+
+                                <option
+                                    value="Delivered"
+                                    ${
+                                        status ===
+                                        "Delivered"
+                                            ? "selected"
+                                            : ""
+                                    }
+                                >
+                                    Delivered
+                                </option>
+
+
+                                <option
+                                    value="Cancelled"
+                                    ${
+                                        status ===
+                                        "Cancelled"
+                                            ? "selected"
+                                            : ""
+                                    }
+                                >
+                                    Cancelled
+                                </option>
+
+                            </select>
+
+                        </td>
+
+
+                        <!-- VIEW -->
+
+                        <td>
+
+                            <button
+                                type="button"
+                                class="view-order-btn"
+                                data-order-id="${escapeHtml(order.id)}"
+                                title="View Order Details"
+                            >
+
+                                <i
+                                    class="fa-solid fa-eye"
+                                ></i>
+
+                                View
+
+                            </button>
+
+                        </td>
+
+
+                    </tr>
 
                 `;
 
+            }
+        ).join("");
 
-                ordersList.appendChild(
-                    row
-                );
+}
+
+
+/* =========================================================
+   UPDATE ORDER STATUS
+========================================================= */
+
+async function updateOrderStatus(
+    orderId,
+    newStatus
+) {
+
+    if (
+        !orderId ||
+        !newStatus
+    ) {
+
+        return;
+
+    }
+
+
+    try {
+
+        await updateDoc(
+
+            doc(
+                db,
+                "orders",
+                orderId
+            ),
+
+            {
+
+                orderStatus:
+                    newStatus,
+
+                updatedAt:
+                    serverTimestamp()
 
             }
+
+        );
+
+
+        showToast(
+            "Order status updated successfully."
         );
 
 
     } catch (error) {
 
         console.error(
-            "Customer Orders Error:",
+            "Update Order Status Error:",
             error
         );
 
 
-        ordersList.innerHTML = `
-            <tr>
-                <td colspan="6">
-                    Unable to load orders.
-                </td>
-            </tr>
+        showToast(
+            "Unable to update order status.",
+            "error"
+        );
+
+
+        /*
+           Reload orders so the UI returns
+           to the saved Firestore value.
+        */
+
+        await loadCustomerOrders();
+
+    }
+
+}
+
+
+/* =========================================================
+   ORDER STATUS EVENTS
+========================================================= */
+
+function setupOrderStatusEvents() {
+
+    const ordersList =
+        $("orders-list");
+
+
+    if (!ordersList) {
+
+        return;
+
+    }
+
+
+    if (
+        ordersList.dataset.statusConnected ===
+        "true"
+    ) {
+
+        return;
+
+    }
+
+
+    ordersList.dataset.statusConnected =
+        "true";
+
+
+    ordersList.addEventListener(
+        "change",
+        event => {
+
+            const select =
+                event.target.closest(
+                    ".order-status-select"
+                );
+
+
+            if (!select) {
+
+                return;
+
+            }
+
+
+            const orderId =
+                select.dataset.orderId;
+
+
+            const newStatus =
+                select.value;
+
+
+            updateOrderStatus(
+                orderId,
+                newStatus
+            );
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   REFRESH ORDERS
+========================================================= */
+
+function setupRefreshOrders() {
+
+    const button =
+        $("refreshOrdersButton");
+
+
+    if (!button) {
+
+        return;
+
+    }
+
+
+    if (
+        button.dataset.connected ===
+        "true"
+    ) {
+
+        return;
+
+    }
+
+
+    button.dataset.connected =
+        "true";
+
+
+    button.addEventListener(
+        "click",
+        async () => {
+
+            if (
+                isLoadingOrders
+            ) {
+
+                return;
+
+            }
+
+
+            button.disabled =
+                true;
+
+
+            button.innerHTML = `
+
+                <i
+                    class="fa-solid fa-spinner fa-spin"
+                ></i>
+
+                Refreshing...
+
+            `;
+
+
+            try {
+
+                await loadCustomerOrders();
+
+
+                showToast(
+                    "Orders refreshed successfully."
+                );
+
+
+            } catch (error) {
+
+                console.error(
+                    "Refresh Orders Error:",
+                    error
+                );
+
+
+                showToast(
+                    "Unable to refresh orders.",
+                    "error"
+                );
+
+            } finally {
+
+                button.disabled =
+                    false;
+
+
+                button.innerHTML = `
+
+                    <i
+                        class="fa-solid fa-rotate"
+                    ></i>
+
+                    Refresh Orders
+
+                `;
+
+            }
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   ORDER SEARCH
+========================================================= */
+
+function setupOrderSearch() {
+
+    /*
+       Current admin.html does not have a separate
+       order search input.
+
+       Kept intentionally empty so we don't create
+       another unnecessary element.
+    */
+
+    return;
+
+}
+
+
+/* =========================================================
+   VIEW ORDER DETAILS
+========================================================= */
+
+async function viewOrderDetails(
+    orderId
+) {
+
+    if (!orderId) {
+
+        return;
+
+    }
+
+
+    const modal =
+        $("orderDetailsModal");
+
+
+    const content =
+        $("orderDetailsContent");
+
+
+    if (
+        !modal ||
+        !content
+    ) {
+
+        return;
+
+    }
+
+
+    currentOrderId =
+        orderId;
+
+
+    modal.hidden =
+        false;
+
+
+    content.innerHTML = `
+
+        <div
+            class="order-loading"
+        >
+
+            <i
+                class="fa-solid fa-spinner fa-spin"
+            ></i>
+
+            <p>
+                Loading order details...
+            </p>
+
+        </div>
+
+    `;
+
+
+    try {
+
+        const orderSnapshot =
+            await getDoc(
+
+                doc(
+                    db,
+                    "orders",
+                    orderId
+                )
+
+            );
+
+
+        if (
+            !orderSnapshot.exists()
+        ) {
+
+            content.innerHTML = `
+
+                <div
+                    class="table-error"
+                >
+
+                    Order not found.
+
+                </div>
+
+            `;
+
+            return;
+
+        }
+
+
+        const order =
+            orderSnapshot.data();
+
+
+        const customer =
+            getOrderCustomer(
+                order
+            );
+
+const items =
+    Array.isArray(
+        order.products
+    )
+        ? order.products
+        : [];
+
+
+        const orderNumber =
+            order.orderId ||
+            orderSnapshot.id;
+
+
+        const paymentMethod =
+    order.payment?.method ||
+    order.paymentMethod ||
+    "N/A";
+
+const paymentStatus =
+    order.payment?.status ||
+    order.paymentStatus ||
+    "N/A";
+
+    const paymentReference =
+    order.payment?.reference ||
+    order.payment?.transactionId ||
+    order.payment?.utr ||
+    order.paymentReference ||
+    order.utr ||
+    "N/A";
+
+
+const paymentProof =
+    order.payment?.proof ||
+    order.payment?.paymentProof ||
+    order.paymentProof ||
+    "";
+
+
+
+        const orderStatus =
+            getOrderStatus(
+                order
+            );
+
+
+        const subtotal =
+            numberValue(
+                order.subtotal
+            );
+
+
+        const discount =
+            numberValue(
+                order.discount
+            );
+
+
+        const shipping =
+            numberValue(
+                order.deliveryCharge
+            );
+
+
+        const total =
+            numberValue(
+                order.total
+            );
+
+
+        let itemsHtml = "";
+
+
+        if (
+            items.length === 0
+        ) {
+
+            itemsHtml = `
+
+                <div
+                    class="order-empty"
+                >
+
+                    No products found in this order.
+
+                </div>
+
+            `;
+
+        } else {
+
+            itemsHtml =
+    items.map(
+        item => {
+
+            const itemName =
+                item.name ||
+                "Product";
+
+
+            const itemImage =
+                item.image ||
+                item.imageUrl ||
+                "image/no-image.png";
+
+
+            const itemSku =
+                item.sku ||
+                "N/A";
+
+
+            const quantity =
+                numberValue(
+                    item.quantity ||
+                    item.qty ||
+                    1
+                );
+
+
+            const price =
+                numberValue(
+                    item.price
+                );
+
+
+            const itemTotal =
+                price *
+                quantity;
+
+
+            return `
+
+                <div
+                    class="order-item"
+                    style="
+                        display:flex;
+                        align-items:center;
+                        gap:18px;
+                        padding:16px;
+                        margin-bottom:12px;
+                        border:1px solid #eee;
+                        border-radius:14px;
+                        background:#fff;
+                        box-sizing:border-box;
+                    "
+                >
+
+                    <!-- PRODUCT IMAGE -->
+
+                    <div
+                        style="
+                            width:100px;
+                            height:100px;
+                            min-width:100px;
+                            border-radius:12px;
+                            overflow:hidden;
+                            background:#f8f8f8;
+                            display:flex;
+                            align-items:center;
+                            justify-content:center;
+                            border:1px solid #eee;
+                        "
+                    >
+
+                        <img
+                            src="${escapeHtml(itemImage)}"
+                            alt="${escapeHtml(itemName)}"
+                            style="
+                                width:100%;
+                                height:100%;
+                                object-fit:contain;
+                                display:block;
+                            "
+                            onerror="
+                                this.src='image/no-image.png'
+                            "
+                        >
+
+                    </div>
+
+
+                    <!-- PRODUCT INFORMATION -->
+
+                    <div
+                        class="order-item-info"
+                        style="
+                            flex:1;
+                            min-width:0;
+                            display:flex;
+                            flex-direction:column;
+                            gap:6px;
+                        "
+                    >
+
+                        <strong
+                            style="
+                                font-size:17px;
+                                color:#333;
+                            "
+                        >
+                            ${escapeHtml(itemName)}
+                        </strong>
+
+
+                        <span
+                            style="
+                                font-size:13px;
+                                color:#777;
+                            "
+                        >
+                            SKU:
+                            ${escapeHtml(itemSku)}
+                        </span>
+
+
+                        <span
+                            style="
+                                font-size:14px;
+                                color:#555;
+                            "
+                        >
+                            Quantity:
+                            <strong>
+                                ${quantity}
+                            </strong>
+                        </span>
+
+
+                        <span
+                            style="
+                                font-size:14px;
+                                color:#555;
+                            "
+                        >
+                            Price:
+                            <strong>
+                                ${money(price)}
+                            </strong>
+                        </span>
+
+                    </div>
+
+
+                    <!-- ITEM TOTAL -->
+
+                    <div
+                        style="
+                            min-width:100px;
+                            text-align:right;
+                        "
+                    >
+
+                        <span
+                            style="
+                                display:block;
+                                font-size:12px;
+                                color:#888;
+                                margin-bottom:4px;
+                            "
+                        >
+                            Item Total
+                        </span>
+
+
+                        <strong
+                            style="
+                                font-size:18px;
+                                color:#8b1e4b;
+                            "
+                        >
+                            ${money(itemTotal)}
+                        </strong>
+
+                    </div>
+
+                </div>
+
+            `;
+
+        }
+    ).join("");
+        }
+
+
+            content.innerHTML = `
+
+            <!-- =============================================
+                 ORDER INFORMATION
+            ============================================== -->
+
+            <div
+                class="order-detail-section"
+            >
+
+                <h3>
+                    Order Information
+                </h3>
+
+
+                <p>
+                    <strong>
+                        Order ID:
+                    </strong>
+
+                    ${escapeHtml(orderNumber)}
+                </p>
+
+
+                <p>
+                    <strong>
+                        Status:
+                    </strong>
+
+                    ${escapeHtml(orderStatus)}
+                </p>
+
+
+                <p>
+                    <strong>
+                        Payment Method:
+                    </strong>
+
+                    ${escapeHtml(paymentMethod)}
+                </p>
+
+
+                <p>
+                    <strong>
+                        Payment Status:
+                    </strong>
+
+                    ${escapeHtml(paymentStatus)}
+                </p>
+
+            </div>
+
+
+
+            <!-- =============================================
+                 CUSTOMER DETAILS
+            ============================================== -->
+
+            <div
+                class="order-detail-section"
+            >
+
+                <h3>
+                    Customer Details
+                </h3>
+
+
+                <p>
+                    <strong>
+                        Name:
+                    </strong>
+
+                    ${escapeHtml(
+                        customer.name ||
+                        "N/A"
+                    )}
+                </p>
+
+
+                <p>
+                    <strong>
+                        Mobile:
+                    </strong>
+
+                    ${escapeHtml(
+                        customer.mobile ||
+                        customer.phone ||
+                        "N/A"
+                    )}
+                </p>
+
+
+                <p>
+                    <strong>
+                        Email:
+                    </strong>
+
+                    ${escapeHtml(
+                        customer.email ||
+                        "N/A"
+                    )}
+                </p>
+
+
+                <p>
+                    <strong>
+                        Address:
+                    </strong>
+
+                    ${escapeHtml(
+                        customer.address ||
+                        "N/A"
+                    )}
+                </p>
+
+
+                <p>
+
+                    ${escapeHtml(
+                        customer.city ||
+                        ""
+                    )}
+
+                    ${
+                        customer.city &&
+                        customer.state
+                            ? ", "
+                            : ""
+                    }
+
+                    ${escapeHtml(
+                        customer.state ||
+                        ""
+                    )}
+
+                    ${
+                        customer.pincode
+                            ? " - " +
+                              escapeHtml(
+                                  customer.pincode
+                              )
+                            : ""
+                    }
+
+                </p>
+
+            </div>
+
+
+
+            <!-- =============================================
+                 ORDERED PRODUCTS
+            ============================================== -->
+
+            <div
+                class="order-detail-section"
+            >
+
+                <h3>
+                    Ordered Products
+                </h3>
+
+
+                <div
+                    class="order-items"
+                >
+
+                    ${itemsHtml}
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =============================================
+                 PAYMENT DETAILS
+            ============================================== -->
+
+            <div
+                class="order-detail-section"
+            >
+
+                <h3>
+                    Payment Details
+                </h3>
+
+
+                <p>
+
+                    <strong>
+                        Payment Method:
+                    </strong>
+
+                    ${escapeHtml(paymentMethod)}
+
+                </p>
+
+
+                <p>
+
+                    <strong>
+                        Payment Status:
+                    </strong>
+
+                    ${escapeHtml(paymentStatus)}
+
+                </p>
+
+
+                <p>
+
+                    <strong>
+                        Transaction / UTR:
+                    </strong>
+
+                    ${escapeHtml(
+                        paymentReference ||
+                        "N/A"
+                    )}
+
+                </p>
+
+
+                ${
+                    paymentProof
+                        ? `
+
+                            <div
+                                class="payment-proof"
+                            >
+
+                                <p>
+                                    <strong>
+                                        Payment Proof:
+                                    </strong>
+                                </p>
+
+                                <a
+                                    href="${escapeHtml(paymentProof)}"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                >
+
+                                    <img
+                                        src="${escapeHtml(paymentProof)}"
+                                        class="payment-proof-image"
+                                        alt="Payment Proof"
+                                        onerror="
+                                            this.style.display='none'
+                                        "
+                                    >
+
+                                </a>
+
+                            </div>
+
+                          `
+                        : `
+
+                            <p>
+                                <strong>
+                                    Payment Proof:
+                                </strong>
+
+                                N/A
+                            </p>
+
+                          `
+                }
+
+            </div>
+
+
+
+            <!-- =============================================
+                 PAYMENT SUMMARY
+            ============================================== -->
+
+            <div
+                class="order-detail-section"
+            >
+
+                <h3>
+                    Payment Summary
+                </h3>
+
+
+                <p>
+
+                    <strong>
+                        Subtotal:
+                    </strong>
+
+                    ${money(subtotal)}
+
+                </p>
+
+
+                <p>
+
+                    <strong>
+                        Discount:
+                    </strong>
+
+                    - ${money(discount)}
+
+                </p>
+
+
+                <p>
+
+                    <strong>
+                        Delivery:
+                    </strong>
+
+                    ${
+                        shipping === 0
+                            ? "FREE"
+                            : money(shipping)
+                    }
+
+                </p>
+
+
+                <hr>
+
+
+                <h3>
+
+                    Total:
+                    ${money(total)}
+
+                </h3>
+
+            </div>
+
+        `;
+
+
+    } catch (error) {
+
+        console.error(
+            "View Order Details Error:",
+            error
+        );
+
+
+        content.innerHTML = `
+
+            <div
+                class="table-error"
+            >
+
+                Unable to load order details.
+
+            </div>
+
         `;
 
     }
 
 }
 
+
 /* =========================================================
-   LOADING SCREEN
+   ORDER EVENTS
 ========================================================= */
 
-function showLoading() {
+function setupOrderEvents() {
 
-    const loader =
-        document.getElementById(
-            "loading-screen"
-        );
+    const ordersList =
+        $("orders-list");
 
 
-    if (!loader) {
+    if (!ordersList) {
+
         return;
+
     }
 
 
-    loader.style.display =
-        "flex";
+    if (
+        ordersList.dataset.eventsConnected ===
+        "true"
+    ) {
+
+        return;
+
+    }
+
+
+    ordersList.dataset.eventsConnected =
+        "true";
+
+
+    ordersList.addEventListener(
+        "click",
+        event => {
+
+            const viewButton =
+                event.target.closest(
+                    ".view-order-btn"
+                );
+
+
+            if (!viewButton) {
+
+                return;
+
+            }
+
+
+            viewOrderDetails(
+                viewButton.dataset.orderId
+            );
+
+        }
+    );
 
 }
 
 
 /* =========================================================
-   HIDE LOADING
+   CLOSE ORDER DETAILS MODAL
 ========================================================= */
 
-function hideLoading() {
+function closeOrderDetails() {
 
-    const loader =
-        document.getElementById(
-            "loading-screen"
-        );
+    const modal =
+        $("orderDetailsModal");
 
 
-    if (!loader) {
+    if (!modal) {
+
         return;
+
     }
 
 
-    loader.style.display =
-        "none";
+    modal.hidden =
+        true;
+
+
+    currentOrderId =
+        null;
 
 }
 
 
 /* =========================================================
-   ADMIN INITIALIZATION
+   MODAL EVENTS
 ========================================================= */
 
-async function initializeAdmin() {
+function setupOrderModal() {
 
-    try {
-
-        showLoading();
-
-
-        /* -----------------------------------------
-           LOAD PRODUCTS
-        ----------------------------------------- */
-
-        await loadProducts();
+    const closeButton =
+        $("closeOrderDetailsModal");
 
 
-        updateProductCount();
+    const modal =
+        $("orderDetailsModal");
 
 
-        /* -----------------------------------------
-           LOAD ORDER STATS
-        ----------------------------------------- */
-
-        await loadOrderStats();
-
-        await loadCustomerOrders();
-
+    if (closeButton) {
 
         if (
-            firebaseStatus
+            closeButton.dataset.connected !==
+            "true"
         ) {
 
-            firebaseStatus.innerText =
-                "Connected ✅";
+            closeButton.dataset.connected =
+                "true";
+
+
+            closeButton.addEventListener(
+                "click",
+                closeOrderDetails
+            );
+
+        }
+
+    }
+
+
+    if (modal) {
+
+        if (
+            modal.dataset.connected !==
+            "true"
+        ) {
+
+            modal.dataset.connected =
+                "true";
+
+
+            modal.addEventListener(
+                "click",
+                event => {
+
+                    if (
+                        event.target ===
+                        modal
+                    ) {
+
+                        closeOrderDetails();
+
+                    }
+
+                }
+            );
+
+        }
+
+    }
+
+
+    document.addEventListener(
+        "keydown",
+        event => {
+
+            if (
+                event.key ===
+                "Escape"
+            ) {
+
+                closeOrderDetails();
+
+            }
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   END OF PART 3
+========================================================= */
+/* =========================================================
+   DASHBOARD STATISTICS
+========================================================= */
+
+
+/* =========================================================
+   UPDATE DASHBOARD STATS
+========================================================= */
+
+function updateDashboardStats(
+    orders = null
+) {
+
+    const totalProductsElement =
+        $("total-products");
+
+
+    const totalOrdersElement =
+        $("total-orders");
+
+
+    const totalSalesElement =
+        $("total-sales");
+
+
+    /* -----------------------------------------------------
+       TOTAL PRODUCTS
+    ----------------------------------------------------- */
+
+    if (totalProductsElement) {
+
+        totalProductsElement.textContent =
+            products.length;
+
+    }
+
+
+    /* -----------------------------------------------------
+       ORDERS
+       
+       Agar orders parameter nahi diya gaya,
+       Firestore se dobara load nahi karenge.
+       Existing orders table ke current data
+       ke basis par safe value rakhenge.
+    ----------------------------------------------------- */
+
+    if (Array.isArray(orders)) {
+
+        if (totalOrdersElement) {
+
+            totalOrdersElement.textContent =
+                orders.length;
 
         }
 
 
+        /* -------------------------------------------------
+           TOTAL SALES
+           
+           Cancelled orders ko sales mein count
+           nahi kiya jayega.
+        ------------------------------------------------- */
+
+        let totalSales =
+            0;
+
+
+        orders.forEach(
+            order => {
+
+                const status =
+                    getOrderStatus(
+                        order
+                    );
+
+
+                if (
+                    status ===
+                    "Cancelled"
+                ) {
+
+                    return;
+
+                }
+
+
+                totalSales +=
+                    getOrderTotal(
+                        order
+                    );
+
+            }
+        );
+
+
+        if (totalSalesElement) {
+
+            totalSalesElement.textContent =
+                money(
+                    totalSales
+                );
+
+        }
+
     }
 
-    catch (error) {
+}
+
+
+/* =========================================================
+   REFRESH DASHBOARD STATS
+========================================================= */
+
+async function refreshDashboardStats() {
+
+    try {
+
+        const ordersSnapshot =
+            await getDocs(
+                collection(
+                    db,
+                    "orders"
+                )
+            );
+
+
+        const orders =
+            [];
+
+
+        ordersSnapshot.forEach(
+            orderDoc => {
+
+                orders.push({
+
+                    id:
+                        orderDoc.id,
+
+                    ...orderDoc.data()
+
+                });
+
+            }
+        );
+
+
+        updateDashboardStats(
+            orders
+        );
+
+
+    } catch (error) {
 
         console.error(
-            "Admin Initialization Error:",
+            "Dashboard Stats Error:",
+            error
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   PRODUCT EVENTS INITIALIZATION
+========================================================= */
+
+function initializeProductEvents() {
+
+    setupProductForm();
+
+    setupProductEvents();
+
+    setupProductSearch();
+
+    setupImagePreview();
+
+}
+
+
+/* =========================================================
+   ORDER EVENTS INITIALIZATION
+========================================================= */
+
+function initializeOrderEvents() {
+
+    setupOrderEvents();
+
+    setupOrderStatusEvents();
+
+    setupRefreshOrders();
+
+    setupOrderModal();
+
+}
+
+
+/* =========================================================
+   DASHBOARD EVENT INITIALIZATION
+========================================================= */
+
+function initializeDashboardEvents() {
+
+    initializeProductEvents();
+
+    initializeOrderEvents();
+
+}
+
+
+/* =========================================================
+   IMAGE URL PREVIEW
+========================================================= */
+
+function refreshImagePreview() {
+
+    const imageInput =
+        $("product-image");
+
+
+    const preview =
+        $("product-image-preview");
+
+
+    const previewWrap =
+        $("product-image-preview-wrap");
+
+
+    if (
+        !imageInput ||
+        !preview ||
+        !previewWrap
+    ) {
+
+        return;
+
+    }
+
+
+    const url =
+        imageInput.value.trim();
+
+
+    if (!url) {
+
+        preview.src =
+            "";
+
+        previewWrap.hidden =
+            true;
+
+        return;
+
+    }
+
+
+    preview.src =
+        url;
+
+
+    preview.onload =
+        () => {
+
+            previewWrap.hidden =
+                false;
+
+        };
+
+
+    preview.onerror =
+        () => {
+
+            previewWrap.hidden =
+                true;
+
+        };
+
+}
+
+
+/* =========================================================
+   PRODUCT IMAGE INPUT EVENTS
+========================================================= */
+
+function setupProductImageInput() {
+
+    const input =
+        $("product-image");
+
+
+    if (!input) {
+
+        return;
+
+    }
+
+
+    if (
+        input.dataset.previewConnected ===
+        "true"
+    ) {
+
+        return;
+
+    }
+
+
+    input.dataset.previewConnected =
+        "true";
+
+
+    input.addEventListener(
+        "input",
+        refreshImagePreview
+    );
+
+}
+
+
+/* =========================================================
+   PRODUCT FORM RESET ON NEW PRODUCT
+========================================================= */
+
+function setupNewProductShortcut() {
+
+    const productSection =
+        $("productSection");
+
+
+    if (!productSection) {
+
+        return;
+
+    }
+
+
+    /*
+       No extra "New Product" button is created.
+       The existing form itself is used for adding
+       a new product after Cancel Edit.
+    */
+
+}
+
+
+/* =========================================================
+   SAFE ADMIN PANEL CHECK
+========================================================= */
+
+function isAdminPanelVisible() {
+
+    const panel =
+        $("adminPanel");
+
+
+    if (!panel) {
+
+        return false;
+
+    }
+
+
+    return !panel.hidden;
+
+}
+
+
+/* =========================================================
+   ADMIN DASHBOARD LOAD
+========================================================= */
+
+async function loadDashboardData() {
+
+    if (
+        !isAdminPanelVisible()
+    ) {
+
+        return;
+
+    }
+
+
+    try {
+
+        await loadProducts();
+
+        await loadCustomerOrders();
+
+        updateDashboardStats();
+
+
+    } catch (error) {
+
+        console.error(
+            "Load Dashboard Data Error:",
+            error
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   MANUAL DASHBOARD REFRESH
+========================================================= */
+
+async function refreshDashboard() {
+
+    const button =
+        $("refreshOrdersButton");
+
+
+    try {
+
+        if (button) {
+
+            button.disabled =
+                true;
+
+        }
+
+
+        await Promise.all([
+
+            loadProducts(),
+
+            loadCustomerOrders()
+
+        ]);
+
+
+        await refreshDashboardStats();
+
+
+        showToast(
+            "Dashboard refreshed successfully."
+        );
+
+
+    } catch (error) {
+
+        console.error(
+            "Dashboard Refresh Error:",
             error
         );
 
 
-        if (
-            firebaseStatus
-        ) {
+        showToast(
+            "Unable to refresh dashboard.",
+            "error"
+        );
 
-            firebaseStatus.innerText =
-                "Connection Failed ❌";
+    } finally {
 
-        }
+        if (button) {
 
-    }
-
-    finally {
-
-        hideLoading();
-
-    }
-
-}
-
-
-/* =========================================================
-   START ADMIN AFTER LOGIN
-========================================================= */
-
-let adminStarted =
-    false;
-
-
-function startAdminPanel() {
-
-    if (adminStarted) {
-
-        return;
-
-    }
-
-
-    adminStarted =
-        true;
-
-
-    initializeAdmin();
-
-}
-
-
-/* =========================================================
-   AUTH STATE — START DATA ONLY AFTER LOGIN
-========================================================= */
-
-onAuthStateChanged(
-    auth,
-    function (user) {
-
-        if (user) {
-
-            showAdminPanel();
-
-            startAdminPanel();
-
-        }
-
-        else {
-
-            showLogin();
-
-            adminStarted =
+            button.disabled =
                 false;
 
         }
 
     }
-);
+
+}
 
 
 /* =========================================================
-   CONSOLE
+   CONNECT REFRESH BUTTON
 ========================================================= */
 
-console.log(
-    "Admin Part 4 Loaded"
-);
+function setupDashboardRefresh() {
 
-// ==========================================
-// CONSOLE
-// ==========================================
+    const button =
+        $("refreshOrdersButton");
 
-console.log(
-    "Admin Authentication Protection Loaded"
-);
-// ==========================================
-// ADMIN LOGOUT
-// ==========================================
 
-window.logoutAdmin = async function () {
+    if (!button) {
 
-    try {
+        return;
 
-        await signOut(auth);
+    }
 
-        console.log("Admin Logged Out Successfully");
 
-        window.location.replace("auth.html");
+    /*
+       setupRefreshOrders() already handles
+       the refresh button.
 
-    } catch (error) {
+       This function intentionally does
+       nothing extra to avoid duplicate
+       click handlers.
+    */
+
+}
+
+
+/* =========================================================
+   FIREBASE CONNECTION CHECK
+========================================================= */
+
+function checkFirebaseInstances() {
+
+    if (!db) {
 
         console.error(
-            "Logout Error:",
-            error
+            "Firestore DB instance is missing."
         );
 
-        alert(
-            "Logout failed. Please try again."
+
+        return false;
+
+    }
+
+
+    if (!auth) {
+
+        console.error(
+            "Firebase Auth instance is missing."
+        );
+
+
+        return false;
+
+    }
+
+
+    if (!storage) {
+
+        console.warn(
+            "Firebase Storage instance is missing."
         );
 
     }
 
-};
+
+    console.log(
+        "Firestore Ready"
+    );
+
+
+    console.log(
+        "Authentication Ready"
+    );
+
+
+    console.log(
+        "Storage Ready"
+    );
+
+
+    return true;
+
+}
+
+
+/* =========================================================
+   FIREBASE DEBUG INFO
+========================================================= */
+
+function logFirebaseStatus() {
+
+    console.log(
+        "========================================"
+    );
+
+
+    console.log(
+        "Garima's House Hold Admin"
+    );
+
+
+    console.log(
+        "Firebase SDK: 12.16.0"
+    );
+
+
+    console.log(
+        "Firestore:",
+        db
+            ? "Ready"
+            : "Missing"
+    );
+
+
+    console.log(
+        "Authentication:",
+        auth
+            ? "Ready"
+            : "Missing"
+    );
+
+
+    console.log(
+        "Storage:",
+        storage
+            ? "Ready"
+            : "Missing"
+    );
+
+
+    console.log(
+        "Admin Email:",
+        ADMIN_EMAIL
+    );
+
+
+    console.log(
+        "========================================"
+    );
+
+}
+
+
+
+/* =========================================================
+   AUTH STATE HANDLER
+========================================================= */
+
+function startAuthListener() {
+
+    onAuthStateChanged(
+        auth,
+        async (user) => {
+
+            console.log(
+                "Auth State Changed:",
+                user
+                    ? user.email
+                    : "No User"
+            );
+
+
+            /* -------------------------------------------------
+               USER NOT LOGGED IN
+            ------------------------------------------------- */
+
+            if (!user) {
+
+                showLoginScreen();
+
+                return;
+
+            }
+
+
+            /* -------------------------------------------------
+               CHECK ADMIN EMAIL
+            ------------------------------------------------- */
+
+            if (
+                !user.email ||
+                user.email.toLowerCase() !==
+                ADMIN_EMAIL.toLowerCase()
+            ) {
+
+                console.warn(
+                    "Unauthorized user:",
+                    user.email
+                );
+
+
+                try {
+
+                    await signOut(
+                        auth
+                    );
+
+                } catch (error) {
+
+                    console.error(
+                        "Unauthorized Sign Out Error:",
+                        error
+                    );
+
+                }
+
+
+                showLoginScreen();
+
+                showLoginError(
+                    "This account is not authorized for Admin Panel."
+                );
+
+
+                return;
+
+            }
+
+
+            /* -------------------------------------------------
+               ADMIN USER
+            ------------------------------------------------- */
+
+            showAdminPanel();
+
+
+            try {
+
+                await initializeDashboard();
+
+            } catch (error) {
+
+                console.error(
+                    "Admin Dashboard Load Error:",
+                    error
+                );
+
+            }
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   FORGOT PASSWORD FUNCTION
+========================================================= */
+
+async function sendAdminPasswordReset() {
+
+    const emailInput =
+        $("adminEmail");
+
+
+    const email =
+        emailInput
+            ? emailInput.value.trim()
+            : "";
+
+
+    if (!email) {
+
+        showLoginError(
+            "Please enter your email first."
+        );
+
+        return;
+
+    }
+
+
+    try {
+
+        await sendPasswordResetEmail(
+            auth,
+            email
+        );
+
+
+        clearLoginError();
+
+
+        alert(
+            "Password reset email sent successfully."
+        );
+
+
+    } catch (error) {
+
+        console.error(
+            "Password Reset Error:",
+            error
+        );
+
+
+        showLoginError(
+            error.message ||
+            "Unable to send password reset email."
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   OPTIONAL FORGOT PASSWORD BUTTON
+========================================================= */
+
+function setupForgotPasswordButton() {
+
+    const button =
+        $("forgotPassword");
+
+
+    if (!button) {
+
+        return;
+
+    }
+
+
+    if (
+        button.dataset.connected ===
+        "true"
+    ) {
+
+        return;
+
+    }
+
+
+    button.dataset.connected =
+        "true";
+
+
+    button.addEventListener(
+        "click",
+        sendAdminPasswordReset
+    );
+
+}
+
+
+/* =========================================================
+   FINAL APP START
+========================================================= */
+
+function startAdminApplication() {
+
+    console.log(
+        "========================================"
+    );
+
+
+    console.log(
+        "Garima's House Hold Admin Application"
+    );
+
+
+    console.log(
+        "Starting..."
+    );
+
+
+    /* -------------------------------------------------
+       FIREBASE CHECK
+    ------------------------------------------------- */
+
+    if (
+        !checkFirebaseInstances()
+    ) {
+
+        showLoginScreen();
+
+
+        showLoginError(
+            "Firebase connection failed."
+        );
+
+
+        return;
+
+    }
+
+
+    /* -------------------------------------------------
+       BASIC UI EVENTS
+    ------------------------------------------------- */
+
+    setupPasswordToggle();
+
+    setupLogin();
+
+    setupLogout();
+
+    setupForgotPasswordButton();
+
+
+    /* -------------------------------------------------
+       PRODUCT EVENTS
+    ------------------------------------------------- */
+
+    initializeProductEvents();
+
+    setupProductImageInput();
+
+
+    /* -------------------------------------------------
+       ORDER EVENTS
+    ------------------------------------------------- */
+
+    initializeOrderEvents();
+
+
+    /* -------------------------------------------------
+       AUTH LISTENER
+    ------------------------------------------------- */
+
+    startAuthListener();
+
+
+    /* -------------------------------------------------
+       INITIAL SCREEN
+       
+       Firebase auth listener automatically
+       changes this when logged in.
+    ------------------------------------------------- */
+
+    showLoginScreen();
+
+
+    console.log(
+        "Admin Application Ready"
+    );
+
+
+    console.log(
+        "========================================"
+    );
+
+}
+
+
+/* =========================================================
+   START APPLICATION
+========================================================= */
+
+if (
+    document.readyState ===
+    "loading"
+) {
+
+    document.addEventListener(
+        "DOMContentLoaded",
+        startAdminApplication,
+        {
+            once: true
+        }
+    );
+
+} else {
+
+    startAdminApplication();
+
+}
+
+
+/* =========================================================
+   END OF ADMIN.JS
+========================================================= */

@@ -1,5 +1,6 @@
 // =====================================
 // GARIMA'S HOUSE HOLD - CHECKOUT
+// PART 1
 // =====================================
 
 import { db } from "./firebase.js";
@@ -12,68 +13,172 @@ import {
     doc
 } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js";
 
+
 // =====================================
 // SHIPPING RULES
-// Rajasthan      = ₹70 per started kg
-// Outside RJ     = ₹100 per started kg
 // =====================================
 
 const RAJASTHAN_RATE = 70;
 const OUTSIDE_RAJASTHAN_RATE = 100;
 
-// Product weight is read from Firestore.
-// Supported field names:
-// weightKg, weight, productWeightKg, productWeight, weightGrams
-//
-// IMPORTANT:
-// If a product has no weight field yet, the checkout uses 1 kg
-// as a temporary fallback so an order cannot silently become FREE.
-// Add the actual product weight in Firestore for accurate shipping.
 const DEFAULT_PRODUCT_WEIGHT_KG = 1;
 
-let cart = JSON.parse(localStorage.getItem("cart")) || [];
-
-const cartContainer = document.getElementById("checkoutProducts");
-
-let subtotal = 0;
-let totalWeightKg = 0;
-let deliveryCharge = 0;
-
-function money(value) {
-    return "₹" + Number(value || 0).toLocaleString("en-IN");
-}
 
 // =====================================
+// BUY NOW / CART
+// =====================================
+
+const savedBuyNow =
+    localStorage.getItem("buyNowProduct");
+
+const buyNowData =
+    savedBuyNow
+        ? JSON.parse(savedBuyNow)
+        : null;
+
+const isBuyNow =
+    !!buyNowData;
+
+
+let cart = isBuyNow
+
+    ? [{
+        id:
+            buyNowData.id,
+
+        qty:
+            Number(
+                buyNowData.quantity ||
+                buyNowData.qty ||
+                1
+            ),
+
+        quantity:
+            Number(
+                buyNowData.quantity ||
+                buyNowData.qty ||
+                1
+            ),
+
+        name:
+            buyNowData.name || "",
+
+        image:
+            buyNowData.image || "",
+
+        price:
+            buyNowData.price || 0,
+
+        mrp:
+            buyNowData.originalPrice ||
+            buyNowData.mrp ||
+            0,
+
+        category:
+            buyNowData.category || ""
+    }]
+
+    : (
+        JSON.parse(
+            localStorage.getItem("cart")
+        ) || []
+    );
+
+
+const cartContainer =
+    document.getElementById(
+        "checkoutProducts"
+    );
+
+
+let subtotal = 0;
+
+let totalWeightKg = 0;
+
+let deliveryCharge = 0;
+
+
+// =====================================
+// MONEY
+// =====================================
+
+function money(value) {
+
+    return (
+        "₹" +
+        Number(
+            value || 0
+        ).toLocaleString(
+            "en-IN"
+        )
+    );
+
+}
+// =====================================
 // GET PRODUCT WEIGHT
+// PART 2
 // =====================================
 
 function getProductWeightKg(product) {
 
     const weightKgCandidates = [
+
         product.weightKg,
+
         product.weight,
+
         product.productWeightKg,
+
         product.productWeight
+
     ];
 
-    for (const value of weightKgCandidates) {
 
-        const num = Number(value);
+    for (
+        const value
+        of weightKgCandidates
+    ) {
 
-        if (Number.isFinite(num) && num > 0) {
+        const num =
+            Number(value);
+
+
+        if (
+            Number.isFinite(num) &&
+            num > 0
+        ) {
+
             return num;
+
         }
+
     }
 
-    // Support grams if stored separately.
-    const grams = Number(product.weightGrams);
 
-    if (Number.isFinite(grams) && grams > 0) {
+    // Weight in grams
+
+    const grams =
+        Number(
+            product.weightGrams
+        );
+
+
+    if (
+        Number.isFinite(grams) &&
+        grams > 0
+    ) {
+
         return grams / 1000;
+
     }
+
+
+    // Default weight
 
     return DEFAULT_PRODUCT_WEIGHT_KG;
+
 }
+
 
 // =====================================
 // RAJASTHAN CHECK
@@ -81,88 +186,242 @@ function getProductWeightKg(product) {
 
 function isRajasthan(state) {
 
-    const normalized = String(state || "")
+    const normalized =
+        String(
+            state || ""
+        )
         .trim()
         .toLowerCase()
-        .replace(/\./g, "")
-        .replace(/\s+/g, " ");
+        .replace(
+            /\./g,
+            ""
+        )
+        .replace(
+            /\s+/g,
+            " "
+        );
+
 
     return [
+
         "rajasthan",
+
         "rajsthan",
+
         "raj",
+
         "rj"
-    ].includes(normalized);
+
+    ].includes(
+        normalized
+    );
+
 }
 
-// Pincode-based Rajasthan detection.
-// Rajasthan PIN codes fall in the 30xxxx-34xxxx series.
-function isRajasthanPincode(pincode) {
-    const pin = String(pincode || "").replace(/\D/g, "");
-    if (!/^\d{6}$/.test(pin)) return false;
-
-    const firstTwo = Number(pin.slice(0, 2));
-    return firstTwo >= 30 && firstTwo <= 34;
-}
-
-function detectStateFromPincode() {
-    const pincodeEl = document.getElementById("customerPincode");
-    const stateEl = document.getElementById("customerState");
-    if (!pincodeEl || !stateEl) return;
-
-    const pin = pincodeEl.value.replace(/\D/g, "").slice(0, 6);
-    pincodeEl.value = pin;
-
-    if (pin.length === 6) {
-        stateEl.value = isRajasthanPincode(pin) ? "Rajasthan" : "Outside Rajasthan";
-    }
-}
 
 // =====================================
+// PINCODE CHECK
+// =====================================
+
+function isRajasthanPincode(
+    pincode
+) {
+
+    const pin =
+        String(
+            pincode || ""
+        )
+        .replace(
+            /\D/g,
+            ""
+        );
+
+
+    if (
+        !/^\d{6}$/.test(pin)
+    ) {
+
+        return false;
+
+    }
+
+
+    const firstTwo =
+        Number(
+            pin.slice(
+                0,
+                2
+            )
+        );
+
+
+    return (
+        firstTwo >= 30 &&
+        firstTwo <= 34
+    );
+
+}
+
+
+// =====================================
+// AUTO DETECT STATE
+// =====================================
+
+function detectStateFromPincode() {
+
+    const pincodeEl =
+        document.getElementById(
+            "customerPincode"
+        );
+
+
+    const stateEl =
+        document.getElementById(
+            "customerState"
+        );
+
+
+    if (
+        !pincodeEl ||
+        !stateEl
+    ) {
+
+        return;
+
+    }
+
+
+    const pin =
+        pincodeEl.value
+            .replace(
+                /\D/g,
+                ""
+            )
+            .slice(
+                0,
+                6
+            );
+
+
+    pincodeEl.value =
+        pin;
+
+
+    if (
+        pin.length === 6
+    ) {
+
+        stateEl.value =
+            isRajasthanPincode(
+                pin
+            )
+                ? "Rajasthan"
+                : "Outside Rajasthan";
+
+    }
+
+}
+// =====================================
 // CALCULATE DELIVERY
+// PART 3
 // =====================================
 
 function calculateDelivery() {
 
-    const stateEl = document.getElementById("customerState");
-    const pincodeEl = document.getElementById("customerPincode");
+    const stateEl =
+        document.getElementById(
+            "customerState"
+        );
 
-    const state = stateEl ? stateEl.value : "";
-    const pincode = pincodeEl ? pincodeEl.value : "";
+    const pincodeEl =
+        document.getElementById(
+            "customerPincode"
+        );
 
-    const rajasthan = isRajasthanPincode(pincode) || (!/^\d{6}$/.test(pincode) && isRajasthan(state));
 
-    const rate = rajasthan
-        ? RAJASTHAN_RATE
-        : OUTSIDE_RAJASTHAN_RATE;
+    const state =
+        stateEl
+            ? stateEl.value
+            : "";
 
-    // "Started kg":
-    // 0.1 kg -> 1 kg
-    // 1.0 kg -> 1 kg
-    // 1.4 kg -> 2 kg
-    // 2.1 kg -> 3 kg
-    const chargeableKg = totalWeightKg > 0
-        ? Math.ceil(totalWeightKg)
-        : 0;
 
-    deliveryCharge = chargeableKg * rate;
+    const pincode =
+        pincodeEl
+            ? pincodeEl.value
+            : "";
 
-    const weightEl = document.getElementById("totalWeight");
-    const deliveryEl = document.getElementById("deliveryCharge");
+
+    const rajasthan =
+        isRajasthanPincode(
+            pincode
+        ) ||
+        (
+            !/^\d{6}$/.test(
+                pincode
+            ) &&
+            isRajasthan(
+                state
+            )
+        );
+
+
+    const rate =
+        rajasthan
+            ? RAJASTHAN_RATE
+            : OUTSIDE_RAJASTHAN_RATE;
+
+
+    // Started kg calculation
+    const chargeableKg =
+        totalWeightKg > 0
+            ? Math.ceil(
+                totalWeightKg
+            )
+            : 0;
+
+
+    deliveryCharge =
+        chargeableKg * rate;
+
+
+    const weightEl =
+        document.getElementById(
+            "totalWeight"
+        );
+
+
+    const deliveryEl =
+        document.getElementById(
+            "deliveryCharge"
+        );
+
 
     if (weightEl) {
+
         weightEl.textContent =
             totalWeightKg > 0
-                ? totalWeightKg.toFixed(2) + " kg"
+                ? totalWeightKg.toFixed(
+                    2
+                ) + " kg"
                 : "0 kg";
+
     }
+
 
     if (deliveryEl) {
-        deliveryEl.textContent = money(deliveryCharge);
+
+        deliveryEl.textContent =
+            money(
+                deliveryCharge
+            );
+
     }
 
+
     updateGrandTotal();
+
 }
+
 
 // =====================================
 // GRAND TOTAL
@@ -170,14 +429,30 @@ function calculateDelivery() {
 
 function updateGrandTotal() {
 
-    const grandTotal = subtotal + deliveryCharge;
+    const grandTotal =
+        subtotal +
+        deliveryCharge;
 
-    document.getElementById("grandTotal").textContent =
-        money(grandTotal);
+
+    const totalEl =
+        document.getElementById(
+            "grandTotal"
+        );
+
+
+    if (totalEl) {
+
+        totalEl.textContent =
+            money(
+                grandTotal
+            );
+
+    }
+
 }
-
 // =====================================
-// LOAD CART
+// LOAD CHECKOUT PRODUCTS
+// PART 4
 // =====================================
 
 async function loadCheckout() {
@@ -188,293 +463,749 @@ async function loadCheckout() {
     totalWeightKg = 0;
     deliveryCharge = 0;
 
+
+    // =================================
+    // EMPTY CART
+    // =================================
+
     if (!cart.length) {
 
         cartContainer.innerHTML = `
             <div class="checkout-empty">
-                <p>Your cart is empty.</p>
+
+                <p>
+                    Your cart is empty.
+                </p>
+
             </div>
         `;
 
-        document.getElementById("subtotal").textContent = "₹0";
-        document.getElementById("discount").textContent = "₹0";
-        document.getElementById("totalWeight").textContent = "0 kg";
-        document.getElementById("deliveryCharge").textContent = "₹0";
-        document.getElementById("grandTotal").textContent = "₹0";
+
+        document.getElementById(
+            "subtotal"
+        ).textContent = "₹0";
+
+
+        document.getElementById(
+            "discount"
+        ).textContent = "₹0";
+
+
+        document.getElementById(
+            "totalWeight"
+        ).textContent = "0 kg";
+
+
+        document.getElementById(
+            "deliveryCharge"
+        ).textContent = "₹0";
+
+
+        document.getElementById(
+            "grandTotal"
+        ).textContent = "₹0";
+
 
         return;
     }
 
-    for (const item of cart) {
 
-        const snap = await getDoc(
-            doc(db, "products", item.id)
+    // =================================
+// LOAD PRODUCTS
+// =================================
+
+for (
+    const item of cart
+) {
+
+    let product = null;
+
+
+    // ---------------------------------
+    // 1. Pehle Firebase se product lao
+    // ---------------------------------
+
+    try {
+
+        const snap =
+            await getDoc(
+                doc(
+                    db,
+                    "products",
+                    item.id
+                )
+            );
+
+
+        if (
+            snap.exists()
+        ) {
+
+            product =
+                snap.data();
+
+        }
+
+    } catch (error) {
+
+        console.error(
+            "Product loading error:",
+            error
         );
 
-        if (!snap.exists()) continue;
+    }
 
-        const product = snap.data();
 
-        const price = Number(product.price || 0);
-        const qty = Number(item.qty || 1);
+    // ---------------------------------
+    // 2. Firebase mein na mile to
+    //    Buy Now ka saved product use karo
+    // ---------------------------------
 
-        const itemTotal = price * qty;
+    if (!product) {
 
-        const productWeightKg =
-            getProductWeightKg(product);
+        product = {
 
-        const itemWeightKg =
-            productWeightKg * qty;
+            name:
+                item.name || "Product",
 
-        subtotal += itemTotal;
-        totalWeightKg += itemWeightKg;
+            image:
+                item.image || "image/no-image.png",
 
-        cartContainer.innerHTML += `
+            price:
+                Number(
+                    item.price || 0
+                ),
+
+            weightKg:
+                Number(
+                    item.weightKg || 1
+                )
+
+        };
+
+    }
+
+
+    // ---------------------------------
+    // 3. Price
+    // ---------------------------------
+
+    const price =
+        Number(
+            product.price ||
+            item.price ||
+            0
+        );
+
+
+    // ---------------------------------
+    // 4. Quantity
+    // ---------------------------------
+
+    const qty =
+        Number(
+            item.qty ||
+            item.quantity ||
+            1
+        );
+
+
+    // ---------------------------------
+    // 5. Total
+    // ---------------------------------
+
+    const itemTotal =
+        price * qty;
+
+
+    // ---------------------------------
+    // 6. Weight
+    // ---------------------------------
+
+    const productWeightKg =
+        getProductWeightKg(
+            product
+        );
+
+
+    const itemWeightKg =
+        productWeightKg * qty;
+
+
+    subtotal +=
+        itemTotal;
+
+
+    totalWeightKg +=
+        itemWeightKg;
+
+        item.sku = product.sku || item.sku || "";
+
+
+    // ---------------------------------
+    // 7. Show Product
+    // ---------------------------------
+
+    cartContainer.innerHTML += `
 
         <div class="checkout-item">
 
             <img
-                src="${product.image || 'image/no-image.png'}"
+                src="${
+                    product.image ||
+                    item.image ||
+                    "image/no-image.png"
+                }"
                 class="checkout-image"
-                onerror="this.src='image/no-image.png'"
-                alt="${product.name || 'Product'}">
+                onerror="
+                    this.src='image/no-image.png'
+                "
+                alt="${
+                    product.name ||
+                    item.name ||
+                    "Product"
+                }"
+            >
+
 
             <div class="checkout-info">
 
-                <h4>${product.name || "Product"}</h4>
+                <h4>
+                    ${
+                        product.name ||
+                        item.name ||
+                        "Product"
+                    }
+                </h4>
+
 
                 <p>
-                    ${money(price)} × ${qty}
+                    ${money(price)}
+                    ×
+                    ${qty}
                 </p>
 
+
                 <small>
-                    Weight: ${productWeightKg.toFixed(2)} kg × ${qty}
+                    Weight:
+                    ${productWeightKg.toFixed(2)}
+                    kg ×
+                    ${qty}
                 </small>
 
             </div>
 
-            <strong>${money(itemTotal)}</strong>
+
+            <strong>
+                ${money(itemTotal)}
+            </strong>
 
         </div>
 
-        `;
-    }
+    `;
 
-    document.getElementById("subtotal").textContent =
-        money(subtotal);
-
-    document.getElementById("discount").textContent =
-        "₹0";
-
-    calculateDelivery();
 }
 
+    // =================================
+    // SUMMARY
+    // =================================
+
+    document.getElementById(
+        "subtotal"
+    ).textContent =
+        money(subtotal);
+
+
+    document.getElementById(
+        "discount"
+    ).textContent =
+        "₹0";
+
+
+    calculateDelivery();
+
+}
+
+
+// =====================================
+// INITIAL LOAD
+// =====================================
+
 detectStateFromPincode();
+
 loadCheckout();
+// =====================================
+// PART 5
+// STATE + PINCODE + UPI + PLACE ORDER
+// =====================================
+
 
 // =====================================
 // RECALCULATE WHEN STATE CHANGES
 // =====================================
 
-document
-    .getElementById("customerState")
-    .addEventListener("input", calculateDelivery);
+const stateInput =
+    document.getElementById(
+        "customerState"
+    );
 
-document
-    .getElementById("customerPincode")
-    .addEventListener("input", () => {
-        detectStateFromPincode();
-        calculateDelivery();
-    });
+if (stateInput) {
+
+    stateInput.addEventListener(
+        "input",
+        calculateDelivery
+    );
+
+}
+
+
+// =====================================
+// RECALCULATE WHEN PINCODE CHANGES
+// =====================================
+
+const pincodeInput =
+    document.getElementById(
+        "customerPincode"
+    );
+
+if (pincodeInput) {
+
+    pincodeInput.addEventListener(
+        "input",
+        () => {
+
+            detectStateFromPincode();
+
+            calculateDelivery();
+
+        }
+    );
+
+}
+
 
 // =====================================
 // COPY UPI
 // =====================================
 
-document
-    .getElementById("copyUPI")
-    .addEventListener("click", () => {
+const copyUPI =
+    document.getElementById(
+        "copyUPI"
+    );
 
-        const upi =
-            document.getElementById("upiId");
 
-        navigator.clipboard
-            .writeText(upi.value)
-            .then(() => {
-                alert("UPI ID Copied");
-            })
-            .catch(() => {
-                alert("Unable to copy UPI ID.");
-            });
-    });
+if (copyUPI) {
+
+    copyUPI.addEventListener(
+        "click",
+        () => {
+
+            const upi =
+                document.getElementById(
+                    "upiId"
+                );
+
+
+            if (!upi) {
+                return;
+            }
+
+
+            navigator.clipboard
+                .writeText(
+                    upi.value
+                )
+                .then(
+                    () => {
+
+                        alert(
+                            "UPI ID Copied"
+                        );
+
+                    }
+                )
+                .catch(
+                    () => {
+
+                        alert(
+                            "Unable to copy UPI ID."
+                        );
+
+                    }
+                );
+
+        }
+    );
+
+}
+
 
 // =====================================
 // PLACE ORDER
 // =====================================
 
-document
-    .getElementById("placeOrderBtn")
-    .addEventListener("click", async () => {
+const placeOrderBtn =
+    document.getElementById(
+        "placeOrderBtn"
+    );
 
-        const name =
-            document.getElementById("customerName")
-                .value.trim();
 
-        const mobile =
-            document.getElementById("customerMobile")
-                .value.trim();
+if (placeOrderBtn) {
 
-        const email =
-            document.getElementById("customerEmail")
-                .value.trim();
+    placeOrderBtn.addEventListener(
+        "click",
+        async () => {
 
-        const address =
-            document.getElementById("customerAddress")
-                .value.trim();
+            const name =
+                document.getElementById(
+                    "customerName"
+                ).value.trim();
 
-        const city =
-            document.getElementById("customerCity")
-                .value.trim();
 
-        const state =
-            document.getElementById("customerState")
-                .value.trim();
+            const mobile =
+                document.getElementById(
+                    "customerMobile"
+                ).value.trim();
 
-        const pincode =
-            document.getElementById("customerPincode")
-                .value.trim();
 
-        const confirmPayment =
-            document.getElementById("paymentConfirm")
-                .checked;
+            const email =
+                document.getElementById(
+                    "customerEmail"
+                ).value.trim();
 
-        const screenshot =
-            document.getElementById("paymentScreenshot")
-                .files[0];
 
-        if (!cart.length) {
-            alert("Your cart is empty.");
-            return;
-        }
+            const address =
+                document.getElementById(
+                    "customerAddress"
+                ).value.trim();
 
-        if (!screenshot) {
-            alert("Please upload your payment screenshot.");
-            return;
-        }
 
-        if (
-            !name ||
-            !mobile ||
-            !address ||
-            !city ||
-            !state ||
-            !pincode
-        ) {
-            alert("Please fill all required fields.");
-            return;
-        }
+            const city =
+                document.getElementById(
+                    "customerCity"
+                ).value.trim();
 
-        if (!/^\d{10}$/.test(mobile)) {
-            alert("Enter a valid 10 digit mobile number.");
-            return;
-        }
 
-        if (!/^\d{6}$/.test(pincode)) {
-            alert("Enter a valid 6 digit pincode.");
-            return;
-        }
+            const state =
+                document.getElementById(
+                    "customerState"
+                ).value.trim();
 
-        if (!confirmPayment) {
-            alert(
-                "Please confirm that payment has been completed."
-            );
-            return;
-        }
 
-        // Make sure the latest state is reflected in the total.
-        calculateDelivery();
+            const pincode =
+                document.getElementById(
+                    "customerPincode"
+                ).value.trim();
 
-        const finalTotal =
-            subtotal + deliveryCharge;
 
-        const chargeableKg =
-            totalWeightKg > 0
-                ? Math.ceil(totalWeightKg)
-                : 0;
+            const confirmPayment =
+                document.getElementById(
+                    "paymentConfirm"
+                ).checked;
 
-        const shippingRate =
-            isRajasthanPincode(pincode)
-                ? RAJASTHAN_RATE
-                : OUTSIDE_RAJASTHAN_RATE;
 
-        const btn =
-            document.getElementById("placeOrderBtn");
+            const screenshot =
+                document.getElementById(
+                    "paymentScreenshot"
+                ).files[0];
 
-        btn.disabled = true;
-        btn.innerHTML = "Placing Order...";
 
-        try {
+            // -----------------------------
+            // VALIDATION
+            // -----------------------------
 
-            const order = {
+            if (!cart.length) {
 
-                customer: {
-                    name,
-                    mobile,
-                    email,
-                    address,
-                    city,
-                    state,
-                    pincode
-                },
+                alert(
+                    "Your cart is empty."
+                );
 
-                products: cart,
+                return;
 
-                subtotal,
+            }
 
-                totalWeightKg,
 
-                chargeableWeightKg: chargeableKg,
+            if (!screenshot) {
 
-                shippingRate,
+                alert(
+                    "Please upload your payment screenshot."
+                );
 
-                deliveryCharge,
+                return;
 
-                discount: 0,
+            }
 
-                total: finalTotal,
 
-                payment: {
-                    method: "UPI",
-                    upiId: "9468659714@ybl",
-                    status: "Pending Verification"
-                },
+            if (
+                !name ||
+                !mobile ||
+                !address ||
+                !city ||
+                !state ||
+                !pincode
+            ) {
 
-                orderStatus: "Pending",
+                alert(
+                    "Please fill all required fields."
+                );
 
-                createdAt: serverTimestamp()
-            };
+                return;
 
-            const docRef = await addDoc(
-                collection(db, "orders"),
-                order
-            );
+            }
 
-            localStorage.removeItem("cart");
 
-            alert(
-                "Order Placed Successfully!\n\n" +
-                "Order ID : " +
-                docRef.id +
-                "\n\nYour payment will be verified soon."
-            );
-
-            const productsList = cart
-                .map(item =>
-                    `• ${Number(item.qty ?? item.quantity ?? 1)} x ${item.name || item.id}`
+            if (
+                !/^\d{10}$/.test(
+                    mobile
                 )
-                .join("\n");
+            ) {
 
-            const message =
+                alert(
+                    "Enter a valid 10 digit mobile number."
+                );
+
+                return;
+
+            }
+
+
+            if (
+                !/^\d{6}$/.test(
+                    pincode
+                )
+            ) {
+
+                alert(
+                    "Enter a valid 6 digit pincode."
+                );
+
+                return;
+
+            }
+
+
+            if (!confirmPayment) {
+
+                alert(
+                    "Please confirm that payment has been completed."
+                );
+
+                return;
+
+            }
+
+
+            // -----------------------------
+            // FINAL TOTAL
+            // -----------------------------
+
+            calculateDelivery();
+
+
+            const finalTotal =
+                subtotal +
+                deliveryCharge;
+
+
+            const chargeableKg =
+                totalWeightKg > 0
+                    ? Math.ceil(
+                        totalWeightKg
+                    )
+                    : 0;
+
+
+            const shippingRate =
+                isRajasthanPincode(
+                    pincode
+                )
+                    ? RAJASTHAN_RATE
+                    : OUTSIDE_RAJASTHAN_RATE;
+
+
+            placeOrderBtn.disabled =
+                true;
+
+
+            placeOrderBtn.innerHTML =
+                "Placing Order...";
+
+
+            try {
+
+                // -------------------------
+                // ORDER DATA
+                // -------------------------
+
+                const order = {
+
+    customer: {
+        name,
+        mobile,
+        email,
+        address,
+        city,
+        state,
+        pincode
+    },
+
+    // PRODUCTS
+    products: cart.map(item => ({
+
+        id:
+            item.id || "",
+
+        name:
+            item.name || "Product",
+
+        sku:
+            item.sku || "",
+
+        image:
+            item.image || "",
+
+        price:
+            Number(item.price || 0),
+
+        mrp:
+            Number(
+                item.mrp ||
+                item.originalPrice ||
+                0
+            ),
+
+        quantity:
+            Number(
+                item.quantity ||
+                item.qty ||
+                1
+            ),
+
+        qty:
+            Number(
+                item.qty ||
+                item.quantity ||
+                1
+            ),
+
+        category:
+            item.category || "",
+
+        weightKg:
+            Number(
+                item.weightKg ||
+                item.weight ||
+                1
+            )
+
+    })),
+
+    subtotal,
+
+    totalWeightKg,
+
+    chargeableWeightKg:
+        chargeableKg,
+
+    shippingRate,
+
+    deliveryCharge,
+
+    discount: 0,
+
+    total:
+        finalTotal,
+
+    payment: {
+
+        method:
+            "UPI",
+
+        upiId:
+            "9468659714@ybl",
+
+        status:
+            "Pending Verification"
+
+    },
+
+    orderStatus:
+        "Pending",
+
+    createdAt:
+        serverTimestamp()
+
+};
+
+                // -------------------------
+                // SAVE FIREBASE
+                // -------------------------
+
+                const docRef =
+                    await addDoc(
+
+                        collection(
+                            db,
+                            "orders"
+                        ),
+
+                        order
+
+                    );
+
+
+                // -------------------------
+                // CLEAR CORRECT STORAGE
+                // -------------------------
+
+                if (isBuyNow) {
+
+                    localStorage.removeItem(
+                        "buyNowProduct"
+                    );
+
+                } else {
+
+                    localStorage.removeItem(
+                        "cart"
+                    );
+
+                }
+
+
+                // -------------------------
+                // WHATSAPP PRODUCTS
+                // -------------------------
+
+                const productsList =
+                    cart
+                        .map(
+                            item => {
+
+                                return (
+                                    `• ${
+                                        Number(
+                                            item.qty ||
+                                            item.quantity ||
+                                            1
+                                        )
+                                    } x ${
+                                        item.name ||
+                                        item.id
+                                    }`
+                                );
+
+                            }
+                        )
+                        .join("\n");
+
+
+                // -------------------------
+                // WHATSAPP MESSAGE
+                // -------------------------
+
+                const message =
+
 `🛒 *New Order - Garima's House Hold*
 
 🆔 Order ID: ${docRef.id}
@@ -490,40 +1221,80 @@ ${city}, ${state} - ${pincode}
 🛍️ Products:
 ${productsList}
 
-⚖️ Total Weight: ${totalWeightKg.toFixed(2)} kg
-📦 Chargeable Weight: ${chargeableKg} kg
-🚚 Delivery: ₹${deliveryCharge}
+⚖️ Total Weight:
+${totalWeightKg.toFixed(2)} kg
 
-💰 Subtotal: ₹${subtotal}
-💰 *Total: ₹${finalTotal}*
+📦 Chargeable Weight:
+${chargeableKg} kg
 
-💳 Payment: UPI
-UPI ID: 9468659714@ybl
+🚚 Delivery:
+₹${deliveryCharge}
 
-✅ Payment Completed`;
+💰 Subtotal:
+₹${subtotal}
 
-            window.open(
-                `https://wa.me/919374445544?text=${encodeURIComponent(message)}`,
-                "_blank"
-            );
+💰 *Total:
+₹${finalTotal}*
 
-            window.location.href =
-                "order-success.html?id=" +
-                docRef.id;
+💳 Payment:
+UPI
 
-        } catch (error) {
+UPI ID:
+9468659714@ybl
 
-            console.error(error);
+⏳ Payment Status:
+Pending Verification`;
 
-            alert(
-                "Something went wrong. Please try again."
-            );
 
-        } finally {
+                // -------------------------
+                // WHATSAPP
+                // -------------------------
 
-            btn.disabled = false;
+                window.open(
 
-            btn.innerHTML =
-                '<i class="fa-solid fa-circle-check"></i> Place Order';
+                    `https://wa.me/919374445544?text=${
+                        encodeURIComponent(
+                            message
+                        )
+                    }`,
+
+                    "_blank"
+
+                );
+
+
+                // -------------------------
+                // SUCCESS PAGE
+                // -------------------------
+
+                window.location.href =
+                    "order-success.html?id=" +
+                    docRef.id;
+
+
+            } catch (error) {
+
+                console.error(
+                    "Order creation error:",
+                    error
+                );
+
+
+                alert(
+                    "Something went wrong. Please try again."
+                );
+
+
+                placeOrderBtn.disabled =
+                    false;
+
+
+                placeOrderBtn.innerHTML =
+                    '<i class="fa-solid fa-circle-check"></i> Place Order';
+
+            }
+
         }
-    });
+    );
+
+}

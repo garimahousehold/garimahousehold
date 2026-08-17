@@ -1,107 +1,502 @@
+/* =========================================================
+   GARIMA'S HOUSE HOLD
+   ADMIN LOGIN
+   FIREBASE 12.16.0
+========================================================= */
+
+
+/* =========================================================
+   FIREBASE AUTH IMPORTS
+========================================================= */
+
 import {
     signInWithEmailAndPassword,
     sendPasswordResetEmail,
     setPersistence,
     browserLocalPersistence,
-    browserSessionPersistence,
-    onAuthStateChanged
+    browserSessionPersistence
 } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-auth.js";
-import { auth } from "./firebase.js";
 
-console.log("Login JS Loaded");
-console.log("✅ Login JS Loaded");
-const loginForm = document.getElementById("loginForm");
-const email = document.getElementById("email");
-const password = document.getElementById("password");
-const remember = document.getElementById("remember");
-const message = document.getElementById("message");
-const resetPassword = document.getElementById("resetPassword");
 
-// Already logged in?
-onAuthStateChanged(auth, (user) => {
-    if (user) {
-        window.location.href = "dashboard.html";
-    }
-});
+import {
+    auth
+} from "./firebase.js";
 
-// Login
-loginForm.addEventListener("submit", async (e) => {
 
-    e.preventDefault();
+/* =========================================================
+   LOGIN JS READY
+========================================================= */
 
-    message.style.color = "#333";
-    message.innerText = "Logging in...";
+console.log(
+    "========================================"
+);
 
-    try {
+console.log(
+    "Garima's House Hold Login JS Loaded"
+);
 
-        const persistence = remember.checked
-            ? browserLocalPersistence
-            : browserSessionPersistence;
+console.log(
+    "Firebase Authentication Ready"
+);
 
-        await setPersistence(auth, persistence);
+console.log(
+    "========================================"
+);
 
-        await signInWithEmailAndPassword(
-            auth,
-            email.value.trim(),
-            password.value
-        );
 
-        message.style.color = "green";
-        message.innerText = "Login Successful";
+/* =========================================================
+   DOM ELEMENTS
+========================================================= */
 
-        setTimeout(() => {
-            window.location.href = "dashboard.html";
-        }, 700);
+const loginForm =
+    document.getElementById(
+        "loginForm"
+    );
 
-    } catch (error) {
 
-        message.style.color = "red";
+const emailInput =
+    document.getElementById(
+        "email"
+    );
 
-        switch (error.code) {
 
-            case "auth/invalid-credential":
-                message.innerText = "Invalid Email or Password";
-                break;
+const passwordInput =
+    document.getElementById(
+        "password"
+    );
 
-            case "auth/user-not-found":
-                message.innerText = "User not found";
-                break;
 
-            case "auth/wrong-password":
-                message.innerText = "Incorrect password";
-                break;
+const rememberInput =
+    document.getElementById(
+        "remember"
+    );
 
-            case "auth/too-many-requests":
-                message.innerText = "Too many attempts. Try again later.";
-                break;
 
-            default:
-                message.innerText = error.message;
+const message =
+    document.getElementById(
+        "message"
+    );
+
+
+const resetPasswordButton =
+    document.getElementById(
+        "resetPassword"
+    );
+
+
+/* =========================================================
+   ELEMENT CHECK
+========================================================= */
+
+if (!loginForm) {
+
+    console.error(
+        "Login form not found: #loginForm"
+    );
+
+}
+
+
+if (!emailInput) {
+
+    console.error(
+        "Email input not found: #email"
+    );
+
+}
+
+
+if (!passwordInput) {
+
+    console.error(
+        "Password input not found: #password"
+    );
+
+}
+
+
+/* =========================================================
+   LOGIN
+========================================================= */
+
+if (loginForm) {
+
+    loginForm.addEventListener(
+        "submit",
+        async function (event) {
+
+            event.preventDefault();
+
+
+            /* ---------------------------------------------
+               CLEAR MESSAGE
+            --------------------------------------------- */
+
+            if (message) {
+
+                message.style.color =
+                    "#333";
+
+                message.innerText =
+                    "Logging in...";
+
+            }
+
+
+            /* ---------------------------------------------
+               GET VALUES
+            --------------------------------------------- */
+
+            const email =
+                emailInput
+                    ? emailInput.value.trim()
+                    : "";
+
+
+            const password =
+                passwordInput
+                    ? passwordInput.value
+                    : "";
+
+
+            /* ---------------------------------------------
+               VALIDATION
+            --------------------------------------------- */
+
+            if (!email) {
+
+                if (message) {
+
+                    message.style.color =
+                        "red";
+
+                    message.innerText =
+                        "Please enter your email.";
+
+                }
+
+                return;
+
+            }
+
+
+            if (!password) {
+
+                if (message) {
+
+                    message.style.color =
+                        "red";
+
+                    message.innerText =
+                        "Please enter your password.";
+
+                }
+
+                return;
+
+            }
+
+
+            try {
+
+                /* -----------------------------------------
+                   PERSISTENCE
+                ----------------------------------------- */
+
+                const persistence =
+                    rememberInput &&
+                    rememberInput.checked
+
+                        ? browserLocalPersistence
+
+                        : browserSessionPersistence;
+
+
+                await setPersistence(
+                    auth,
+                    persistence
+                );
+
+
+                /* -----------------------------------------
+                   FIREBASE LOGIN
+                ----------------------------------------- */
+
+                const userCredential =
+                    await signInWithEmailAndPassword(
+                        auth,
+                        email,
+                        password
+                    );
+
+
+                const user =
+                    userCredential.user;
+
+
+                console.log(
+                    "Admin Login Successful:",
+                    user.email
+                );
+
+
+                /* -----------------------------------------
+                   ADMIN EMAIL CHECK
+                ----------------------------------------- */
+
+                if (
+                    user.email &&
+                    user.email.toLowerCase() !==
+                    "garimakothari1995@gmail.com"
+                ) {
+
+                    console.error(
+                        "Unauthorized admin account:",
+                        user.email
+                    );
+
+
+                    if (message) {
+
+                        message.style.color =
+                            "red";
+
+                        message.innerText =
+                            "This account is not authorized for Admin Panel.";
+
+                    }
+
+
+                    return;
+
+                }
+
+
+                /* -----------------------------------------
+                   SUCCESS MESSAGE
+                ----------------------------------------- */
+
+                if (message) {
+
+                    message.style.color =
+                        "green";
+
+                    message.innerText =
+                        "Login Successful";
+
+                }
+
+
+                /* -----------------------------------------
+                   GO TO ADMIN PAGE
+                ----------------------------------------- */
+
+                setTimeout(
+                    function () {
+
+                        window.location.href =
+                            "admin.html";
+
+                    },
+                    500
+                );
+
+            } catch (error) {
+
+                console.error(
+                    "Admin Login Error:",
+                    error
+                );
+
+
+                if (message) {
+
+                    message.style.color =
+                        "red";
+
+                }
+
+
+                switch (
+                    error.code
+                ) {
+
+                    case "auth/invalid-credential":
+
+                        if (message) {
+
+                            message.innerText =
+                                "Invalid Email or Password";
+
+                        }
+
+                        break;
+
+
+                    case "auth/user-not-found":
+
+                        if (message) {
+
+                            message.innerText =
+                                "User not found";
+
+                        }
+
+                        break;
+
+
+                    case "auth/wrong-password":
+
+                        if (message) {
+
+                            message.innerText =
+                                "Incorrect password";
+
+                        }
+
+                        break;
+
+
+                    case "auth/invalid-email":
+
+                        if (message) {
+
+                            message.innerText =
+                                "Invalid email address";
+
+                        }
+
+                        break;
+
+
+                    case "auth/too-many-requests":
+
+                        if (message) {
+
+                            message.innerText =
+                                "Too many attempts. Try again later.";
+
+                        }
+
+                        break;
+
+
+                    case "auth/network-request-failed":
+
+                        if (message) {
+
+                            message.innerText =
+                                "Network error. Check your internet connection.";
+
+                        }
+
+                        break;
+
+
+                    default:
+
+                        if (message) {
+
+                            message.innerText =
+                                error.message ||
+                                "Login failed.";
+
+                        }
+
+                        break;
+
+                }
+
+            }
 
         }
+    );
 
-    }
+}
 
-});
 
-// Forgot Password
-resetPassword.addEventListener("click", async () => {
+/* =========================================================
+   FORGOT PASSWORD
+========================================================= */
 
-    if (!email.value.trim()) {
-        alert("Please enter your email first.");
-        return;
-    }
+if (resetPasswordButton) {
 
-    try {
+    resetPasswordButton.addEventListener(
+        "click",
+        async function () {
 
-        await sendPasswordResetEmail(auth, email.value.trim());
+            const email =
+                emailInput
+                    ? emailInput.value.trim()
+                    : "";
 
-        alert("Password reset email sent successfully.");
 
-    } catch (error) {
+            if (!email) {
 
-        alert(error.message);
+                alert(
+                    "Please enter your email first."
+                );
 
-    }
+                return;
 
-});
+            }
+
+
+            try {
+
+                await sendPasswordResetEmail(
+                    auth,
+                    email
+                );
+
+
+                alert(
+                    "Password reset email sent successfully."
+                );
+
+
+                console.log(
+                    "Password reset email sent to:",
+                    email
+                );
+
+            } catch (error) {
+
+                console.error(
+                    "Password Reset Error:",
+                    error
+                );
+
+
+                alert(
+                    error.message ||
+                    "Unable to send password reset email."
+                );
+
+            }
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   IMPORTANT
+   DO NOT REDIRECT ON AUTH STATE HERE
+========================================================= */
+
+/*
+   We intentionally do NOT use:
+
+   onAuthStateChanged(auth, ...)
+
+   to redirect to dashboard.html.
+
+   admin.html is the Admin Panel.
+*/
+
+
+console.log(
+    "Admin Login System Ready"
+);

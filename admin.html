@@ -5,443 +5,1158 @@
 
     <meta charset="UTF-8">
 
-    <meta name="viewport"
-        content="width=device-width, initial-scale=1.0">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
-    <title>Admin Panel | Garima's House Hold</title>
+    <meta
+        name="description"
+        content="Garima's House Hold Admin Dashboard"
+    >
 
-    <link rel="stylesheet" href="admin.css">
+    <title>
+        Admin Panel | Garima's House Hold
+    </title>
 
-    <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+    <!-- =====================================================
+         ADMIN CSS
+    ====================================================== -->
+
+    <link
+        rel="stylesheet"
+        href="admin.css"
+    >
+
+
+    <!-- =====================================================
+         FONT AWESOME
+    ====================================================== -->
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    >
 
 </head>
 
+
 <body>
 
-<!-- ADMIN LOGIN -->
-<section id="adminLogin" class="admin-login">
 
-    <div class="login-card">
+    <!-- =====================================================
+         ADMIN LOGIN
+    ====================================================== -->
 
-        <div class="login-icon">
-            <i class="fa-solid fa-lock"></i>
-        </div>
+    <section
+        id="adminLogin"
+        class="admin-login"
+    >
 
-        <h1>Admin Login</h1>
+        <div class="login-card">
 
-        <p>Garima's House Hold</p>
 
-        <form id="adminLoginForm">
+            <!-- LOGIN ICON -->
 
-            <div class="login-field">
+            <div class="login-icon">
 
-                <label for="adminEmail">
-                    Email
-                </label>
-
-                <input
-                    type="email"
-                    id="adminEmail"
-                    placeholder="Enter admin email"
-                    required
-                >
+                <i class="fa-solid fa-lock"></i>
 
             </div>
 
 
-            <div class="login-field">
+            <!-- LOGIN TITLE -->
 
-                <label for="adminPassword">
-                    Password
-                </label>
+            <h1>
+                Admin Login
+            </h1>
 
-                <input
-                    type="password"
-                    id="adminPassword"
-                    placeholder="Enter password"
-                    required
-                >
-
-            </div>
-
-
-            <p
-                id="loginError"
-                class="login-error"
-                style="display:none;"
-            >
-                Invalid email or password.
+            <p class="login-brand">
+                Garima's House Hold
             </p>
 
 
-            <button
-                type="submit"
-                class="admin-login-btn"
+            <!-- =================================================
+                 LOGIN FORM
+            ================================================== -->
+
+            <form
+                id="adminLoginForm"
+                autocomplete="on"
             >
 
-                <i class="fa-solid fa-right-to-bracket"></i>
 
-                Login
+                <!-- EMAIL -->
 
-            </button>
+                <div class="login-field">
 
-        </form>
+                    <label for="adminEmail">
+                        Email
+                    </label>
+
+                    <div class="input-wrap">
+
+                        <i class="fa-solid fa-envelope"></i>
+
+                        <input
+                            type="email"
+                            id="adminEmail"
+                            name="email"
+                            placeholder="Enter admin email"
+                            autocomplete="username"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <!-- PASSWORD -->
+
+                <div class="login-field">
+
+                    <label for="adminPassword">
+                        Password
+                    </label>
+
+                    <div class="input-wrap">
+
+                        <i class="fa-solid fa-key"></i>
+
+                        <input
+                            type="password"
+                            id="adminPassword"
+                            name="password"
+                            placeholder="Enter password"
+                            autocomplete="current-password"
+                            required
+                        >
+
+
+                        <!-- PASSWORD SHOW / HIDE -->
+
+                        <button
+                            type="button"
+                            id="togglePassword"
+                            class="password-toggle"
+                            aria-label="Show password"
+                        >
+
+                            <i
+                                class="fa-regular fa-eye"
+                            ></i>
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <!-- LOGIN ERROR -->
+
+                <div
+                    id="loginError"
+                    class="login-error"
+                    hidden
+                ></div>
+
+
+                <!-- LOGIN BUTTON -->
+
+                <button
+                    type="submit"
+                    id="loginButton"
+                    class="admin-login-btn"
+                >
+
+                    <i
+                        class="fa-solid fa-right-to-bracket"
+                    ></i>
+
+                    <span>
+                        Login
+                    </span>
+
+                </button>
+
+
+            </form>
+
+
+            <p class="login-note">
+                Secure admin access
+            </p>
+
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         ADMIN PANEL
+
+         Initially hidden.
+         Firebase login successful hone ke baad
+         admin.js isko show karega.
+    ====================================================== -->
+
+    <div
+        id="adminPanel"
+        hidden
+    >
+
+
+        <!-- =================================================
+             ADMIN HEADER
+        ================================================== -->
+
+        <header class="admin-header">
+
+            <div class="header-inner">
+
+
+                <!-- BRAND -->
+
+                <div class="admin-header-brand">
+
+                    <h1>
+                        Garima's House Hold
+                    </h1>
+
+                    <p>
+                        Admin Dashboard
+                    </p>
+
+                </div>
+
+
+                <!-- HEADER ACTIONS -->
+
+                <div class="header-actions">
+
+
+                    <!-- HOME -->
+
+                    <a
+                        href="index.html"
+                        class="home-btn"
+                    >
+
+                        <i class="fa-solid fa-house"></i>
+
+                        Home
+
+                    </a>
+
+
+                    <!-- LOGOUT -->
+
+                    <button
+                        type="button"
+                        id="logoutButton"
+                        class="logout-btn"
+                    >
+
+                        <i
+                            class="fa-solid fa-right-from-bracket"
+                        ></i>
+
+                        Logout
+
+                    </button>
+
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+
+        <!-- =================================================
+             MAIN ADMIN CONTAINER
+        ================================================== -->
+
+        <main class="admin-container">
+
+
+            <!-- =================================================
+                 DASHBOARD CARDS
+            ================================================== -->
+
+            <section
+                class="dashboard"
+                id="dashboard"
+            >
+
+
+                <!-- TOTAL PRODUCTS -->
+
+                <div class="dashboard-card">
+
+                    <div class="dashboard-icon">
+
+                        <i
+                            class="fa-solid fa-box"
+                        ></i>
+
+                    </div>
+
+
+                    <div>
+
+                        <h3 id="total-products">
+                            0
+                        </h3>
+
+                        <p>
+                            Total Products
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- TOTAL ORDERS -->
+
+                <div class="dashboard-card">
+
+                    <div class="dashboard-icon">
+
+                        <i
+                            class="fa-solid fa-cart-shopping"
+                        ></i>
+
+                    </div>
+
+
+                    <div>
+
+                        <h3 id="total-orders">
+                            0
+                        </h3>
+
+                        <p>
+                            Total Orders
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- TOTAL SALES -->
+
+                <div class="dashboard-card">
+
+                    <div class="dashboard-icon">
+
+                        <i
+                            class="fa-solid fa-indian-rupee-sign"
+                        ></i>
+
+                    </div>
+
+
+                    <div>
+
+                        <h3 id="total-sales">
+                            ₹0
+                        </h3>
+
+                        <p>
+                            Total Sales
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+            </section>
+
+
+
+            <!-- =================================================
+                 ADD / EDIT PRODUCT SECTION
+            ================================================== -->
+
+            <section
+                class="admin-section"
+                id="productSection"
+            >
+
+                <div class="section-heading">
+
+                    <div>
+
+                        <h2>
+
+                            <i
+                                class="fa-solid fa-box-open"
+                            ></i>
+
+                            Add / Edit Product
+
+                        </h2>
+
+                        <p>
+                            Add a new product or update
+                            an existing product.
+                        </p>
+
+                    </div>
+
+                </div>
+                                <!-- =================================================
+                     PRODUCT FORM
+                ================================================== -->
+
+                <form
+                    id="product-form"
+                    class="product-form"
+                    autocomplete="off"
+                >
+
+                    <!-- Hidden Product ID -->
+
+                    <input
+                        type="hidden"
+                        id="product-id"
+                        value=""
+                    >
+
+
+                    <!-- =================================================
+                         PRODUCT NAME
+                    ================================================== -->
+
+                    <div class="form-group">
+
+                        <label for="product-name">
+                            Product Name
+                        </label>
+
+                        <input
+                            type="text"
+                            id="product-name"
+                            name="productName"
+                            placeholder="Enter product name"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- =================================================
+                         SKU
+                    ================================================== -->
+
+                    <div class="form-group">
+
+                        <label for="product-sku">
+                            SKU
+                        </label>
+
+                        <input
+                            type="text"
+                            id="product-sku"
+                            name="sku"
+                            placeholder="Enter SKU"
+                        >
+
+                    </div>
+
+
+                    <!-- =================================================
+                         CATEGORY
+                    ================================================== -->
+
+                    <div class="form-group">
+
+                        <label for="product-category">
+                            Category
+                        </label>
+
+                        <input
+                            type="text"
+                            id="product-category"
+                            name="category"
+                            placeholder="Example: Kitchen Items"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- =================================================
+                         MRP
+                    ================================================== -->
+
+                    <div class="form-group">
+
+                        <label for="product-mrp">
+                            MRP
+                        </label>
+
+                        <input
+                            type="number"
+                            id="product-mrp"
+                            name="mrp"
+                            placeholder="Enter MRP"
+                            min="0"
+                            step="0.01"
+                        >
+
+                    </div>
+
+
+                    <!-- =================================================
+                         SELLING PRICE
+                    ================================================== -->
+
+                    <div class="form-group">
+
+                        <label for="product-price">
+                            Selling Price
+                        </label>
+
+                        <input
+                            type="number"
+                            id="product-price"
+                            name="price"
+                            placeholder="Enter selling price"
+                            min="0"
+                            step="0.01"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- =================================================
+                         STOCK
+                    ================================================== -->
+
+                    <div class="form-group">
+
+                        <label for="product-stock">
+                            Stock Quantity
+                        </label>
+
+                        <input
+                            type="number"
+                            id="product-stock"
+                            name="stock"
+                            placeholder="Enter stock quantity"
+                            min="0"
+                            step="1"
+                            value="0"
+                        >
+
+                    </div>
+
+
+                    <!-- =================================================
+                         WEIGHT
+                    ================================================== -->
+
+                    <div class="form-group">
+
+                        <label for="product-weight">
+                            Weight (KG)
+                        </label>
+
+                        <input
+                            type="number"
+                            id="product-weight"
+                            name="weight"
+                            placeholder="Example: 0.50"
+                            min="0"
+                            step="0.01"
+                            value="0"
+                        >
+
+                    </div>
+
+
+                    <!-- =================================================
+                         IMAGE URL
+                    ================================================== -->
+
+                    <div class="form-group">
+
+                        <label for="product-image">
+                            Product Image URL
+                        </label>
+
+                        <input
+                            type="url"
+                            id="product-image"
+                            name="image"
+                            placeholder="Paste product image URL"
+                        >
+
+                    </div>
+
+
+                    <!-- =================================================
+                         IMAGE PREVIEW
+                    ================================================== -->
+
+                    <div
+                        class="product-image-preview-wrap"
+                        id="product-image-preview-wrap"
+                        hidden
+                    >
+
+                        <img
+                            src=""
+                            id="product-image-preview"
+                            class="product-image-preview"
+                            alt="Product Preview"
+                        >
+
+                    </div>
+
+
+                    <!-- =================================================
+                         DESCRIPTION
+                    ================================================== -->
+
+                    <div class="form-group full-width">
+
+                        <label for="product-description">
+                            Product Description
+                        </label>
+
+                        <textarea
+                            id="product-description"
+                            name="description"
+                            rows="5"
+                            placeholder="Enter product description"
+                        ></textarea>
+
+                    </div>
+
+
+                    <!-- =================================================
+                         PRODUCT SECTIONS
+                    ================================================== -->
+
+                    <div
+                        class="form-group checkbox-group"
+                    >
+
+                        <label>
+
+                            <input
+                                type="checkbox"
+                                id="product-new-arrival"
+                                name="newArrival"
+                            >
+
+                            <span>
+                                New Arrival
+                            </span>
+
+                        </label>
+
+
+                        <label>
+
+                            <input
+                                type="checkbox"
+                                id="product-best-seller"
+                                name="bestSeller"
+                            >
+
+                            <span>
+                                Best Seller
+                            </span>
+
+                        </label>
+
+                    </div>
+
+
+                    <!-- =================================================
+                         FORM ACTIONS
+                    ================================================== -->
+
+                    <div
+                        class="form-actions"
+                    >
+
+                        <button
+                            type="submit"
+                            id="save-product-button"
+                            class="save-btn"
+                        >
+
+                            <i
+                                class="fa-solid fa-floppy-disk"
+                            ></i>
+
+                            <span>
+                                Save Product
+                            </span>
+
+                        </button>
+
+
+                        <button
+                            type="button"
+                            id="cancel-edit-button"
+                            class="cancel-btn"
+                            hidden
+                        >
+
+                            <i
+                                class="fa-solid fa-xmark"
+                            ></i>
+
+                            Cancel Edit
+
+                        </button>
+
+                    </div>
+
+                </form>
+
+            </section>
+
+
+
+            <!-- =================================================
+                 PRODUCTS SECTION
+            ================================================== -->
+
+            <section
+                class="admin-section"
+                id="productsSection"
+            >
+
+
+                <!-- SECTION HEADER -->
+
+                <div class="section-heading">
+
+                    <div>
+
+                        <h2>
+
+                            <i
+                                class="fa-solid fa-boxes-stacked"
+                            ></i>
+
+                            Products
+
+                        </h2>
+
+                        <p>
+                            Manage your products,
+                            prices and stock.
+                        </p>
+
+                    </div>
+
+
+                    <!-- PRODUCT SEARCH -->
+
+                    <div class="section-tools">
+
+                        <div
+                            class="search-box"
+                        >
+
+                            <i
+                                class="fa-solid fa-magnifying-glass"
+                            ></i>
+
+                            <input
+                                type="search"
+                                id="product-search"
+                                placeholder="Search products..."
+                                autocomplete="off"
+                            >
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- =================================================
+                     PRODUCT TABLE
+                ================================================== -->
+
+                <div class="table-wrapper">
+
+                    <table
+                        class="admin-table"
+                        id="products-table"
+                    >
+
+                        <thead>
+
+                            <tr>
+
+                                <th>
+                                    Image
+                                </th>
+
+                                <th>
+                                    Product
+                                </th>
+
+                                <th>
+                                    SKU
+                                </th>
+
+                                <th>
+                                    Category
+                                </th>
+
+                                <th>
+                                    MRP
+                                </th>
+
+                                <th>
+                                    Price
+                                </th>
+
+                                <th>
+                                    Stock
+                                </th>
+
+                                <th>
+                                    Weight
+                                </th>
+
+                                <th>
+                                    Sections
+                                </th>
+
+                                <th>
+                                    Actions
+                                </th>
+
+                            </tr>
+
+                        </thead>
+
+
+                        <!-- IMPORTANT:
+                             JS will insert ONLY <tr> here.
+                        -->
+
+                        <tbody
+                            id="products-list"
+                        >
+
+                            <tr>
+
+                                <td
+                                    colspan="10"
+                                    class="table-loading"
+                                >
+
+                                    <i
+                                        class="fa-solid fa-spinner fa-spin"
+                                    ></i>
+
+                                    Loading Products...
+
+                                </td>
+
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+
+            </section>
+                        <!-- =================================================
+                 CUSTOMER ORDERS SECTION
+            ================================================== -->
+
+            <section
+                class="admin-section"
+                id="ordersSection"
+            >
+
+                <!-- SECTION HEADER -->
+
+                <div class="section-heading">
+
+                    <div>
+
+                        <h2>
+
+                            <i
+                                class="fa-solid fa-cart-shopping"
+                            ></i>
+
+                            Customer Orders
+
+                        </h2>
+
+                        <p>
+                            View and manage customer orders.
+                        </p>
+
+                    </div>
+
+
+                    <!-- REFRESH ORDERS -->
+
+                    <div class="section-tools">
+
+                        <button
+                            type="button"
+                            id="refreshOrdersButton"
+                            class="refresh-btn"
+                        >
+
+                            <i
+                                class="fa-solid fa-rotate"
+                            ></i>
+
+                            Refresh Orders
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- =================================================
+                     ORDERS TABLE
+                ================================================== -->
+
+                <div class="table-wrapper">
+
+                    <table
+                        class="admin-table"
+                        id="orders-table"
+                    >
+
+                        <thead>
+
+                            <tr>
+
+                                <th>
+                                    Order ID
+                                </th>
+
+                                <th>
+                                    Customer
+                                </th>
+
+                                <th>
+                                    Mobile
+                                </th>
+
+                                <th>
+                                    Address
+                                </th>
+
+                                <th>
+                                    Total
+                                </th>
+
+                                <th>
+                                    Status
+                                </th>
+
+                                <th>
+                                    Action
+                                </th>
+
+                            </tr>
+
+                        </thead>
+
+
+                        <!-- IMPORTANT:
+                             JS will insert ONLY <tr> here.
+                        -->
+
+                        <tbody
+                            id="orders-list"
+                        >
+
+                            <tr>
+
+                                <td
+                                    colspan="7"
+                                    class="table-loading"
+                                >
+
+                                    <i
+                                        class="fa-solid fa-spinner fa-spin"
+                                    ></i>
+
+                                    Loading Orders...
+
+                                </td>
+
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </section>
+
+
+
+        </main>
+
+
+
+        <!-- =====================================================
+             ORDER DETAILS MODAL
+        ====================================================== -->
+
+        <div
+            id="orderDetailsModal"
+            class="order-modal"
+            hidden
+        >
+
+            <div
+                class="order-modal-box"
+            >
+
+
+                <!-- MODAL HEADER -->
+
+                <div
+                    class="order-modal-header"
+                >
+
+                    <div>
+
+                        <h2>
+                            Order Details
+                        </h2>
+
+                        <p>
+                            Complete customer order information
+                        </p>
+
+                    </div>
+
+
+                    <button
+                        type="button"
+                        id="closeOrderDetailsModal"
+                        class="modal-close-btn"
+                        aria-label="Close"
+                    >
+
+                        <i
+                            class="fa-solid fa-xmark"
+                        ></i>
+
+                    </button>
+
+                </div>
+
+
+
+                <!-- MODAL CONTENT -->
+
+                <div
+                    id="orderDetailsContent"
+                    class="order-modal-content"
+                >
+
+                    <div
+                        class="order-loading"
+                    >
+
+                        <i
+                            class="fa-solid fa-spinner fa-spin"
+                        ></i>
+
+                        <p>
+                            Loading order details...
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =====================================================
+             TOAST MESSAGE
+        ====================================================== -->
+
+        <div
+            id="adminToast"
+            class="admin-toast"
+            hidden
+        >
+
+            <i
+                class="fa-solid fa-circle-check"
+            ></i>
+
+            <span
+                id="adminToastMessage"
+            ></span>
+
+        </div>
+
+
 
     </div>
 
-</section>
 
-<div id="adminPanel">
 
-    <!-- Header -->
+    <!-- =====================================================
+         JAVASCRIPT
+         
+         IMPORTANT:
+         Firebase.js ko directly yahan load karne ki
+         zarurat nahi hai.
 
-    <header class="admin-header">
+         admin.js aur Firebase ke modules khud imports
+         handle karenge.
+    ====================================================== -->
 
-        <h1>Garima's House Hold</h1>
+    <script
+        type="module"
+        src="admin.js"
+    ></script>
 
-        <p>Admin Dashboard</p>
-
-        <a href="index.html" class="home-btn">
-            <i class="fa-solid fa-house"></i>
-            Home
-        </a>
-<button
-    type="button"
-    class="logout-btn"
-    onclick="logoutAdmin()">
-    
-    <i class="fa-solid fa-right-from-bracket"></i>
-    Logout
-
-</button>
-    </header>
-    
-
-    <!-- Dashboard -->
-
-    <section class="dashboard">
-
-        <div class="card">
-            <h3 id="total-products">0</h3>
-            <p>Total Products</p>
-        </div>
-
-        <div class="card">
-            <h3 id="total-orders">0</h3>
-            <p>Total Orders</p>
-        </div>
-
-        <div class="card">
-            <h3 id="total-sales">₹0</h3>
-            <p>Total Sales</p>
-        </div>
-
-    </section>
-
-    <!-- Product Form -->
-
-    <section class="product-form">
-
-        <h2>Add / Edit Product</h2>
-
-        <form id="product-form">
-                        <div class="form-group">
-
-                <label>Product Name</label>
-
-                <input
-                    type="text"
-                    id="product-name"
-                    placeholder="Enter Product Name"
-                    required>
-
-            </div>
-            <div class="form-group">
-
-    <label for="product-sku">
-        SKU ID
-    </label>
-
-    <input
-        type="text"
-        id="product-sku"
-        placeholder="Example: GH-HE-001"
-        required>
-
-</div>
-<!-- Product Sections -->
-
-<div class="form-group">
-
-    <label>
-        Product Sections
-    </label>
-
-    <div class="product-section-options">
-
-        <label class="check-option">
-
-            <input
-                type="checkbox"
-                id="product-new-arrival">
-
-            <span>
-                🆕 New Arrival
-            </span>
-
-        </label>
-
-
-        <label class="check-option">
-
-            <input
-                type="checkbox"
-                id="product-best-seller">
-
-            <span>
-                ⭐ Best Seller
-            </span>
-
-        </label>
-
-    </div>
-
-</div>
-            <div class="form-group">
-
-                <label>Category</label>
-
-                <input
-                    type="text"
-                    id="product-category"
-                    placeholder="Saree / Kurti / Household"
-                    required>
-                
-            <div class="form-group">
-
-    <label for="product-mrp">MRP (Rs.)</label>
-
-    <input
-        type="number"
-        id="product-mrp"
-        placeholder="Enter MRP"
-        required>
-
-</div>        
-
-            </div>
-
-            <div class="form-group">
-
-                <label for="product-price">Price (Rs.)</label>
-
-                <input
-                    type="number"
-                    id="product-price"
-                    placeholder="Enter Price"
-                    required>
-
-            </div>
-<div class="form-group">
-    <label for="product-stock">Stock</label>
-    <input
-        type="number"
-        id="product-stock"
-        placeholder="Enter Stock Quantity"
-        required>
-</div>
-
-            <div class="form-group">
-                <label for="product-weight">Product Weight (kg)</label>
-                <input
-                    type="number"
-                    id="product-weight"
-                    placeholder="Example: 0.5"
-                    min="0.01"
-                    step="0.01"
-                    required>
-            </div>
-
-            <div class="form-group">
-
-                <label>Product Image</label>
-
-<label for="product-image">Image URL</label>
-
-<input
-    type="text"
-    id="product-image"
-    placeholder="Paste Product Image URL"
-    required>
-
-            </div>
-
-            <div class="form-group">
-
-                <label>Description</label>
-
-                <textarea
-                    id="product-description"
-                    rows="5"
-                    placeholder="Enter Product Description"
-                    required></textarea>
-
-            </div>
-
-            <button
-                type="submit"
-                class="save-btn">
-
-                <i class="fa-solid fa-floppy-disk"></i>
-
-                Save Product
-
-            </button>
-
-            <button
-                type="reset"
-                class="reset-btn">
-
-                Reset
-
-            </button>
-
-        </form>
-
-    </section>
-        <!-- Product List -->
-
-    <section class="product-list">
-
-        <h2>
-            <i class="fa-solid fa-box"></i>
-            Product List
-        </h2>
-
-        <input
-            type="text"
-            id="search-product"
-            placeholder="Search Product...">
-
-        <table id="product-table">
-
-            <thead>
-
-                <tr>
-
-                    <th>Image</th>
-                    <th>SKU ID</th>
-                    <th>Name</th>
-                    <th>Category</th>
-                    <th>Price</th>
-                    <th>Stock</th>
-                    <th>Section</th>
-                    <th>Action</th>
-
-                </tr>
-
-            </thead>
-
-            <tbody id="product-list">
-
-            </tbody>
-
-        </table>
-
-    </section>
-
-    <!-- Customer Orders -->
-
-    <section class="orders">
-
-        <h2>
-
-            <i class="fa-solid fa-cart-shopping"></i>
-
-            Customer Orders
-
-        </h2>
-
-        <table>
-
-            <thead>
-
-                <tr>
-
-                    <th>Order ID</th>
-                    <th>Customer</th>
-                    <th>Phone</th>
-                    <th>Address</th>
-                    <th>Total</th>
-                    <th>Status</th>
-                    <th>Details</th>
-
-                </tr>
-
-            </thead>
-
-            <tbody id="orders-list">
-
-                <tr>
-
-                    <td colspan="7">
-
-                        No Orders Found
-
-                    </td>
-
-                </tr>
-
-            </tbody>
-
-        </table>
-
-    </section>
-        <!-- Firebase Status -->
-
-    <section class="firebase-status">
-
-        <h2>
-
-            <i class="fa-solid fa-database"></i>
-
-            Firebase Status
-
-        </h2>
-
-        <p id="firebase-status">
-
-            Connecting...
-
-        </p>
-
-    </section>
-
-    <!-- Loading Screen -->
-
-    <div id="loading-screen">
-
-        <div class="loader"></div>
-
-    </div>
-
-    <!-- Footer -->
-
-    <footer>
-
-        <p>
-
-            © 2026 Garima's House Hold |
-            Admin Panel
-
-        </p>
-
-    </footer>
-</div>
-    <!-- JavaScript -->
-
-    <script type="module" src="admin.js"></script>
 
 </body>
 
