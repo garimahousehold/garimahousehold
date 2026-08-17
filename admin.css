@@ -291,3 +291,1762 @@ footer{
     }
 
 }
+/* =========================================================
+   ADMIN LOGIN — PART 1
+========================================================= */
+
+.admin-login{
+    min-height:100vh;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    padding:30px 20px;
+
+    background:
+        radial-gradient(
+            circle at 15% 20%,
+            rgba(201,154,61,.16),
+            transparent 30%
+        ),
+        radial-gradient(
+            circle at 85% 80%,
+            rgba(123,30,59,.12),
+            transparent 32%
+        ),
+        linear-gradient(
+            135deg,
+            #fffaf7,
+            #f9edf1
+        );
+}
+
+
+.login-card{
+    width:100%;
+
+    max-width:440px;
+
+    padding:42px 38px;
+
+    background:#fff;
+
+    border:1px solid #ead9df;
+
+    border-radius:24px;
+
+    box-shadow:
+        0 20px 60px rgba(92,25,53,.12);
+
+    text-align:center;
+}
+
+
+.login-icon{
+    width:70px;
+
+    height:70px;
+
+    margin:0 auto 20px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    border-radius:50%;
+
+    background:#f8e5ec;
+
+    color:#7b1e3b;
+
+    font-size:27px;
+}
+
+
+.login-card h1{
+    margin:0 0 7px;
+
+    color:#551a31;
+
+    font-family:
+        "Playfair Display",
+        Georgia,
+        serif;
+
+    font-size:36px;
+
+    font-weight:600;
+
+    line-height:1.2;
+}
+
+
+.login-card > p{
+    margin:0 0 30px;
+
+    color:#88767f;
+
+    font-size:15px;
+
+    font-weight:600;
+}
+
+
+/* =========================================================
+   LOGIN FORM
+========================================================= */
+
+.login-field{
+    margin-bottom:19px;
+
+    text-align:left;
+}
+
+
+.login-field label{
+    display:block;
+
+    margin-bottom:8px;
+
+    color:#4d3d45;
+
+    font-size:14px;
+
+    font-weight:700;
+}
+
+
+.login-field input{
+    width:100%;
+
+    height:52px;
+
+    padding:0 15px;
+
+    box-sizing:border-box;
+
+    border:1px solid #dfcdd5;
+
+    border-radius:12px;
+
+    background:#fff;
+
+    color:#382c32;
+
+    font-family:
+        "DM Sans",
+        Arial,
+        sans-serif;
+
+    font-size:15px;
+
+    transition:
+        border-color .2s ease,
+        box-shadow .2s ease;
+}
+
+
+.login-field input::placeholder{
+    color:#aa9ca3;
+}
+
+
+.login-field input:focus{
+    outline:none;
+
+    border-color:#7b1e3b;
+
+    box-shadow:
+        0 0 0 4px rgba(123,30,59,.08);
+}
+
+
+/* =========================================================
+   LOGIN ERROR
+========================================================= */
+
+.login-error{
+    margin:-4px 0 16px;
+
+    padding:11px 13px;
+
+    border-radius:10px;
+
+    background:#fff0f0;
+
+    color:#b3263e;
+
+    font-size:13px;
+
+    font-weight:600;
+
+    text-align:left;
+}
+
+
+/* =========================================================
+   LOGIN BUTTON
+========================================================= */
+
+.admin-login-btn{
+    width:100%;
+
+    min-height:52px;
+
+    border:0;
+
+    border-radius:12px;
+
+    background:#7b1e3b;
+
+    color:#fff;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:9px;
+
+    font-family:
+        "DM Sans",
+        Arial,
+        sans-serif;
+
+    font-size:15px;
+
+    font-weight:800;
+
+    cursor:pointer;
+
+    transition:
+        background .2s ease,
+        transform .2s ease,
+        box-shadow .2s ease;
+}
+
+
+.admin-login-btn:hover{
+    background:#61162f;
+
+    transform:translateY(-2px);
+
+    box-shadow:
+        0 10px 25px rgba(123,30,59,.20);
+}
+
+
+.admin-login-btn:active{
+    transform:translateY(0);
+}
+
+
+/* =========================================================
+   ADMIN PANEL HIDDEN UNTIL LOGIN
+========================================================= */
+
+#adminPanel{
+    display:none;
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media(max-width:600px){
+
+    .admin-login{
+        padding:20px 15px;
+    }
+
+
+    .login-card{
+        padding:34px 22px;
+
+        border-radius:20px;
+    }
+
+
+    .login-card h1{
+        font-size:31px;
+    }
+
+
+    .login-icon{
+        width:62px;
+
+        height:62px;
+
+        font-size:23px;
+    }
+
+}
+/* =========================================================
+   ADMIN PANEL — PART 2
+   DASHBOARD + HEADER + CARDS
+========================================================= */
+
+
+/* =========================================================
+   ADMIN PANEL BASE
+========================================================= */
+
+#adminPanel{
+    min-height:100vh;
+
+    background:#fff8f6;
+
+    color:#3f3037;
+
+    font-family:
+        "DM Sans",
+        Arial,
+        sans-serif;
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+#adminPanel .admin-header{
+    position:relative;
+
+    background:
+        linear-gradient(
+            135deg,
+            #7b1e3b,
+            #551a31
+        );
+
+    color:#fff;
+
+    text-align:center;
+
+    padding:30px 20px 28px;
+
+    box-shadow:
+        0 8px 25px rgba(85,26,49,.15);
+}
+
+
+#adminPanel .admin-header h1{
+    margin:0;
+
+    font-family:
+        "Playfair Display",
+        Georgia,
+        serif;
+
+    font-size:36px;
+
+    font-weight:600;
+
+    line-height:1.2;
+}
+
+
+#adminPanel .admin-header p{
+    margin:8px 0 18px;
+
+    color:rgba(255,255,255,.78);
+
+    font-size:15px;
+
+    font-weight:500;
+}
+
+
+/* =========================================================
+   HOME BUTTON
+========================================================= */
+
+#adminPanel .home-btn{
+    display:inline-flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:8px;
+
+    min-height:42px;
+
+    padding:0 18px;
+
+    border:1px solid rgba(255,255,255,.25);
+
+    border-radius:999px;
+
+    background:#fff;
+
+    color:#7b1e3b;
+
+    text-decoration:none;
+
+    font-size:14px;
+
+    font-weight:800;
+
+    transition:.2s ease;
+}
+
+
+#adminPanel .home-btn:hover{
+    background:#f8e8ee;
+
+    transform:translateY(-2px);
+}
+
+
+/* =========================================================
+   DASHBOARD
+========================================================= */
+
+#adminPanel .dashboard{
+    width:100%;
+
+    max-width:1400px;
+
+    box-sizing:border-box;
+
+    margin:0 auto;
+
+    padding:35px 30px;
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(3,minmax(0,1fr));
+
+    gap:22px;
+}
+
+
+/* =========================================================
+   DASHBOARD CARD
+========================================================= */
+
+#adminPanel .dashboard .card{
+    position:relative;
+
+    min-height:150px;
+
+    box-sizing:border-box;
+
+    padding:27px 25px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+    justify-content:center;
+
+    text-align:center;
+
+    background:#fff;
+
+    border:1px solid #ead9df;
+
+    border-radius:20px;
+
+    box-shadow:
+        0 8px 25px rgba(92,25,53,.055);
+
+    overflow:hidden;
+
+    transition:
+        transform .2s ease,
+        box-shadow .2s ease;
+}
+
+
+#adminPanel .dashboard .card::before{
+    content:"";
+
+    position:absolute;
+
+    left:0;
+
+    top:0;
+
+    width:100%;
+
+    height:4px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #7b1e3b,
+            #c99a3d
+        );
+}
+
+
+#adminPanel .dashboard .card:hover{
+    transform:translateY(-4px);
+
+    box-shadow:
+        0 16px 35px rgba(92,25,53,.10);
+}
+
+
+#adminPanel .dashboard .card h3{
+    margin:0 0 7px;
+
+    color:#7b1e3b;
+
+    font-family:
+        "Playfair Display",
+        Georgia,
+        serif;
+
+    font-size:36px;
+
+    font-weight:600;
+
+    line-height:1.1;
+}
+
+
+#adminPanel .dashboard .card p{
+    margin:0;
+
+    color:#806f78;
+
+    font-size:14px;
+
+    font-weight:600;
+}
+
+
+/* =========================================================
+   PRODUCT / ORDERS / FIREBASE SECTIONS
+========================================================= */
+
+#adminPanel .product-form,
+#adminPanel .product-list,
+#adminPanel .orders,
+#adminPanel .firebase-status{
+    width:calc(100% - 60px);
+
+    max-width:1340px;
+
+    box-sizing:border-box;
+
+    margin:0 auto 25px;
+
+    padding:30px;
+
+    background:#fff;
+
+    border:1px solid #ead9df;
+
+    border-radius:20px;
+
+    box-shadow:
+        0 8px 25px rgba(92,25,53,.05);
+}
+
+
+#adminPanel .product-form h2,
+#adminPanel .product-list h2,
+#adminPanel .orders h2,
+#adminPanel .firebase-status h2{
+    margin:0 0 23px;
+
+    color:#551a31;
+
+    font-family:
+        "Playfair Display",
+        Georgia,
+        serif;
+
+    font-size:28px;
+
+    font-weight:600;
+}
+
+
+/* =========================================================
+   PRODUCT FORM
+========================================================= */
+
+#adminPanel .product-form form{
+    display:grid;
+
+    grid-template-columns:
+        repeat(2,minmax(0,1fr));
+
+    gap:0 22px;
+}
+
+
+#adminPanel .product-form .form-group{
+    margin-bottom:19px;
+}
+
+
+#adminPanel .product-form .form-group:nth-last-of-type(1){
+    grid-column:1/-1;
+}
+
+
+#adminPanel .product-form .form-group label{
+    display:block;
+
+    margin-bottom:8px;
+
+    color:#493a41;
+
+    font-size:14px;
+
+    font-weight:700;
+}
+
+
+#adminPanel .product-form .form-group input,
+#adminPanel .product-form .form-group textarea{
+    width:100%;
+
+    box-sizing:border-box;
+
+    background:#fff;
+
+    color:#3e3036;
+
+    border:1px solid #dfcdd5;
+
+    border-radius:11px;
+
+    padding:12px 14px;
+
+    font-family:
+        "DM Sans",
+        Arial,
+        sans-serif;
+
+    font-size:15px;
+
+    transition:.2s ease;
+}
+
+
+#adminPanel .product-form .form-group input{
+    min-height:48px;
+}
+
+
+#adminPanel .product-form .form-group textarea{
+    resize:vertical;
+
+    min-height:125px;
+}
+
+
+#adminPanel .product-form .form-group input:focus,
+#adminPanel .product-form .form-group textarea:focus{
+    outline:none;
+
+    border-color:#7b1e3b;
+
+    box-shadow:
+        0 0 0 4px rgba(123,30,59,.07);
+}
+
+
+/* =========================================================
+   FORM BUTTONS
+========================================================= */
+
+#adminPanel .save-btn,
+#adminPanel .reset-btn{
+    min-height:48px;
+
+    padding:0 22px;
+
+    border-radius:11px;
+
+    border:0;
+
+    font-family:
+        "DM Sans",
+        Arial,
+        sans-serif;
+
+    font-size:14px;
+
+    font-weight:800;
+
+    cursor:pointer;
+
+    transition:.2s ease;
+}
+
+
+#adminPanel .save-btn{
+    background:#7b1e3b;
+
+    color:#fff;
+}
+
+
+#adminPanel .save-btn:hover{
+    background:#61162f;
+
+    transform:translateY(-2px);
+}
+
+
+#adminPanel .reset-btn{
+    background:#f2e8eb;
+
+    color:#7b1e3b;
+}
+
+
+#adminPanel .reset-btn:hover{
+    background:#ead9df;
+
+    transform:translateY(-2px);
+}
+
+
+/* =========================================================
+   SEARCH
+========================================================= */
+
+#adminPanel #search-product{
+    width:100%;
+
+    min-height:48px;
+
+    box-sizing:border-box;
+
+    margin-bottom:20px;
+
+    padding:0 15px;
+
+    border:1px solid #dfcdd5;
+
+    border-radius:11px;
+
+    background:#fff;
+
+    color:#3e3036;
+
+    font-family:
+        "DM Sans",
+        Arial,
+        sans-serif;
+
+    font-size:15px;
+}
+
+
+#adminPanel #search-product:focus{
+    outline:none;
+
+    border-color:#7b1e3b;
+
+    box-shadow:
+        0 0 0 4px rgba(123,30,59,.07);
+}
+
+
+/* =========================================================
+   FIREBASE STATUS
+========================================================= */
+
+#adminPanel #firebase-status{
+    margin:0;
+
+    padding:0;
+
+    color:#3f8d5c;
+
+    font-size:15px;
+
+    font-weight:700;
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media(max-width:900px){
+
+    #adminPanel .dashboard{
+        grid-template-columns:
+            repeat(2,minmax(0,1fr));
+
+        padding:28px 20px;
+    }
+
+
+    #adminPanel .product-form,
+    #adminPanel .product-list,
+    #adminPanel .orders,
+    #adminPanel .firebase-status{
+        width:calc(100% - 40px);
+
+        padding:24px;
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media(max-width:600px){
+
+    #adminPanel .admin-header{
+        padding:25px 15px;
+    }
+
+
+    #adminPanel .admin-header h1{
+        font-size:29px;
+    }
+
+
+    #adminPanel .dashboard{
+        grid-template-columns:1fr;
+
+        padding:20px 15px;
+
+        gap:15px;
+    }
+
+
+    #adminPanel .dashboard .card{
+        min-height:125px;
+    }
+
+
+    #adminPanel .dashboard .card h3{
+        font-size:32px;
+    }
+
+
+    #adminPanel .product-form,
+    #adminPanel .product-list,
+    #adminPanel .orders,
+    #adminPanel .firebase-status{
+        width:calc(100% - 30px);
+
+        padding:20px;
+
+        border-radius:17px;
+    }
+
+
+    #adminPanel .product-form form{
+        grid-template-columns:1fr;
+    }
+
+
+    #adminPanel .product-form .form-group:nth-last-of-type(1){
+        grid-column:auto;
+    }
+
+
+    #adminPanel .product-form h2,
+    #adminPanel .product-list h2,
+    #adminPanel .orders h2,
+    #adminPanel .firebase-status h2{
+        font-size:24px;
+    }
+
+
+    #adminPanel .save-btn,
+    #adminPanel .reset-btn{
+        width:100%;
+
+        margin:0 0 10px;
+    }
+
+}
+/* =========================================================
+   ADMIN PANEL — PART 3
+   PRODUCT TABLE + ORDERS TABLE
+========================================================= */
+
+
+/* =========================================================
+   TABLE WRAPPER
+========================================================= */
+
+#adminPanel .product-list,
+#adminPanel .orders{
+    overflow:hidden;
+}
+
+
+/* =========================================================
+   TABLE SCROLL AREA
+========================================================= */
+
+#adminPanel .product-list table,
+#adminPanel .orders table{
+    width:100%;
+
+    min-width:850px;
+
+    border-collapse:separate;
+
+    border-spacing:0;
+
+    background:#fff;
+}
+
+
+/* =========================================================
+   TABLE HEADER
+========================================================= */
+
+#adminPanel .product-list table thead th,
+#adminPanel .orders table thead th{
+
+    padding:14px 15px;
+
+    background:#7b1e3b;
+
+    color:#fff;
+
+    border:0;
+
+    font-size:13px;
+
+    font-weight:800;
+
+    text-align:left;
+
+    white-space:nowrap;
+}
+
+
+#adminPanel .product-list table thead th:first-child,
+#adminPanel .orders table thead th:first-child{
+    border-radius:10px 0 0 0;
+}
+
+
+#adminPanel .product-list table thead th:last-child,
+#adminPanel .orders table thead th:last-child{
+    border-radius:0 10px 0 0;
+}
+
+
+/* =========================================================
+   TABLE BODY
+========================================================= */
+
+#adminPanel .product-list table tbody td,
+#adminPanel .orders table tbody td{
+
+    padding:14px 15px;
+
+    border-bottom:1px solid #eee;
+
+    color:#4d3d45;
+
+    font-size:14px;
+
+    vertical-align:middle;
+
+    background:#fff;
+}
+
+
+#adminPanel .product-list table tbody tr:last-child td,
+#adminPanel .orders table tbody tr:last-child td{
+    border-bottom:0;
+}
+
+
+#adminPanel .product-list table tbody tr:hover td,
+#adminPanel .orders table tbody tr:hover td{
+    background:#fff8f6;
+}
+
+
+/* =========================================================
+   PRODUCT IMAGE IN TABLE
+========================================================= */
+
+#adminPanel .product-list table img{
+
+    width:65px;
+
+    height:65px;
+
+    display:block;
+
+    object-fit:contain;
+
+    object-position:center;
+
+    background:#fffaf7;
+
+    border:1px solid #ead9df;
+
+    border-radius:10px;
+}
+
+
+/* =========================================================
+   PRODUCT NAME
+========================================================= */
+
+#adminPanel .product-list table td:nth-child(2){
+
+    color:#551a31;
+
+    font-weight:700;
+
+    min-width:180px;
+}
+
+
+/* =========================================================
+   CATEGORY
+========================================================= */
+
+#adminPanel .product-list table td:nth-child(3){
+
+    color:#866d77;
+
+    font-weight:600;
+}
+
+
+/* =========================================================
+   PRICE
+========================================================= */
+
+#adminPanel .product-list table td:nth-child(4){
+
+    color:#7b1e3b;
+
+    font-weight:800;
+
+    white-space:nowrap;
+}
+
+
+/* =========================================================
+   STOCK
+========================================================= */
+
+#adminPanel .product-list table td:nth-child(5){
+
+    font-weight:700;
+
+    white-space:nowrap;
+}
+
+
+/* =========================================================
+   ACTION BUTTONS
+========================================================= */
+
+#adminPanel .edit-btn,
+#adminPanel .delete-btn{
+
+    min-height:36px;
+
+    padding:0 13px;
+
+    border:0;
+
+    border-radius:8px;
+
+    color:#fff;
+
+    font-family:
+        "DM Sans",
+        Arial,
+        sans-serif;
+
+    font-size:12px;
+
+    font-weight:800;
+
+    cursor:pointer;
+
+    transition:.2s ease;
+}
+
+
+#adminPanel .edit-btn{
+
+    background:#b47a22;
+}
+
+
+#adminPanel .edit-btn:hover{
+
+    background:#93621a;
+
+    transform:translateY(-1px);
+}
+
+
+#adminPanel .delete-btn{
+
+    background:#c84655;
+}
+
+
+#adminPanel .delete-btn:hover{
+
+    background:#a93240;
+
+    transform:translateY(-1px);
+}
+
+
+/* =========================================================
+   ACTION CELL
+========================================================= */
+
+#adminPanel .product-list table td:last-child{
+
+    white-space:nowrap;
+}
+
+
+/* =========================================================
+   ORDERS TABLE
+========================================================= */
+
+#adminPanel .orders table{
+
+    min-width:900px;
+}
+
+
+#adminPanel .orders table td{
+
+    line-height:1.45;
+}
+
+
+/* ORDER ID */
+
+#adminPanel .orders table td:first-child{
+
+    color:#7b1e3b;
+
+    font-weight:800;
+
+    white-space:nowrap;
+}
+
+
+/* CUSTOMER */
+
+#adminPanel .orders table td:nth-child(2){
+
+    color:#551a31;
+
+    font-weight:700;
+}
+
+
+/* PHONE */
+
+#adminPanel .orders table td:nth-child(3){
+
+    white-space:nowrap;
+
+    font-weight:600;
+}
+
+
+/* ADDRESS */
+
+#adminPanel .orders table td:nth-child(4){
+
+    min-width:230px;
+
+    max-width:330px;
+}
+
+
+/* TOTAL */
+
+#adminPanel .orders table td:nth-child(5){
+
+    color:#7b1e3b;
+
+    font-weight:800;
+
+    white-space:nowrap;
+}
+
+
+/* =========================================================
+   ORDER STATUS
+========================================================= */
+
+#adminPanel .orders table td:nth-child(6){
+
+    font-weight:800;
+
+    white-space:nowrap;
+}
+
+
+/* =========================================================
+   EMPTY TABLE
+========================================================= */
+
+#adminPanel .product-list table tbody td[colspan],
+#adminPanel .orders table tbody td[colspan]{
+
+    padding:45px 20px;
+
+    text-align:center;
+
+    color:#88767f;
+
+    font-size:15px;
+
+    font-weight:600;
+
+    background:#fff;
+}
+
+
+/* =========================================================
+   MOBILE TABLE CONTAINER
+========================================================= */
+
+@media(max-width:900px){
+
+    #adminPanel .product-list,
+    #adminPanel .orders{
+
+        overflow-x:auto;
+
+        -webkit-overflow-scrolling:touch;
+    }
+
+
+    #adminPanel .product-list table,
+    #adminPanel .orders table{
+
+        min-width:820px;
+    }
+
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media(max-width:600px){
+
+    #adminPanel .product-list,
+    #adminPanel .orders{
+
+        padding:17px;
+
+        overflow-x:auto;
+    }
+
+
+    #adminPanel .product-list table,
+    #adminPanel .orders table{
+
+        min-width:800px;
+    }
+
+
+    #adminPanel .product-list table thead th,
+    #adminPanel .orders table thead th{
+
+        padding:12px;
+
+        font-size:12px;
+    }
+
+
+    #adminPanel .product-list table tbody td,
+    #adminPanel .orders table tbody td{
+
+        padding:12px;
+
+        font-size:13px;
+    }
+
+
+    #adminPanel .product-list table img{
+
+        width:55px;
+
+        height:55px;
+    }
+
+}
+
+
+/* =========================================================
+   SMOOTH SCROLL
+========================================================= */
+
+#adminPanel .product-list,
+#adminPanel .orders{
+
+    scrollbar-width:thin;
+
+    scrollbar-color:
+        #c99a3d
+        #f5e9ed;
+}
+
+
+#adminPanel .product-list::-webkit-scrollbar,
+#adminPanel .orders::-webkit-scrollbar{
+
+    height:7px;
+}
+
+
+#adminPanel .product-list::-webkit-scrollbar-track,
+#adminPanel .orders::-webkit-scrollbar-track{
+
+    background:#f5e9ed;
+
+    border-radius:20px;
+}
+
+
+#adminPanel .product-list::-webkit-scrollbar-thumb,
+#adminPanel .orders::-webkit-scrollbar-thumb{
+
+    background:#c99a3d;
+
+    border-radius:20px;
+}
+/* =========================================================
+   ADMIN PANEL — PART 4
+   LOADING + FOOTER + EXTRA POLISH + RESPONSIVE
+========================================================= */
+
+
+/* =========================================================
+   LOADING SCREEN
+========================================================= */
+
+#adminPanel #loading-screen{
+    position:fixed;
+
+    inset:0;
+
+    display:none;
+
+    align-items:center;
+
+    justify-content:center;
+
+    flex-direction:column;
+
+    gap:15px;
+
+    background:rgba(255,250,247,.94);
+
+    backdrop-filter:blur(5px);
+
+    -webkit-backdrop-filter:blur(5px);
+
+    z-index:99999;
+}
+
+
+#adminPanel #loading-screen::after{
+    content:"Loading Admin Panel...";
+
+    color:#7b1e3b;
+
+    font-size:14px;
+
+    font-weight:700;
+}
+
+
+#adminPanel .loader{
+    width:48px;
+
+    height:48px;
+
+    border:4px solid #ead9df;
+
+    border-top-color:#7b1e3b;
+
+    border-right-color:#c99a3d;
+
+    border-radius:50%;
+
+    animation:
+        adminSpin .8s linear infinite;
+}
+
+
+@keyframes adminSpin{
+
+    from{
+        transform:rotate(0deg);
+    }
+
+    to{
+        transform:rotate(360deg);
+    }
+
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+#adminPanel footer{
+    width:100%;
+
+    box-sizing:border-box;
+
+    margin-top:15px;
+
+    padding:25px 20px;
+
+    border-top:1px solid #ead9df;
+
+    background:#fff;
+
+    color:#88767f;
+
+    text-align:center;
+
+    font-size:13px;
+
+    font-weight:500;
+}
+
+
+#adminPanel footer p{
+    margin:0;
+}
+
+
+#adminPanel footer strong{
+    color:#7b1e3b;
+}
+
+
+/* =========================================================
+   GLOBAL BUTTON POLISH
+========================================================= */
+
+#adminPanel button{
+    font-family:
+        "DM Sans",
+        Arial,
+        sans-serif;
+}
+
+
+#adminPanel button:focus-visible,
+#adminPanel a:focus-visible,
+#adminPanel input:focus-visible,
+#adminPanel textarea:focus-visible{
+
+    outline:3px solid
+        rgba(201,154,61,.35);
+
+    outline-offset:2px;
+}
+
+
+/* =========================================================
+   NUMBER INPUT ARROWS
+========================================================= */
+
+#adminPanel input[type="number"]::-webkit-inner-spin-button,
+#adminPanel input[type="number"]::-webkit-outer-spin-button{
+
+    opacity:.7;
+}
+
+
+/* =========================================================
+   SELECTION
+========================================================= */
+
+#adminPanel ::selection{
+
+    background:#7b1e3b;
+
+    color:#fff;
+}
+
+
+/* =========================================================
+   SMOOTH SCROLL
+========================================================= */
+
+html{
+    scroll-behavior:smooth;
+}
+
+
+/* =========================================================
+   DESKTOP SPACING
+========================================================= */
+
+@media(min-width:1200px){
+
+    #adminPanel .dashboard{
+
+        padding-top:40px;
+
+        padding-bottom:35px;
+    }
+
+
+    #adminPanel .product-form,
+    #adminPanel .product-list,
+    #adminPanel .orders,
+    #adminPanel .firebase-status{
+
+        margin-bottom:30px;
+    }
+
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media(max-width:900px){
+
+    #adminPanel .admin-header{
+
+        padding-left:20px;
+
+        padding-right:20px;
+    }
+
+
+    #adminPanel .product-form form{
+
+        gap:0 16px;
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media(max-width:600px){
+
+    #adminPanel .admin-header{
+
+        padding-top:22px;
+
+        padding-bottom:22px;
+    }
+
+
+    #adminPanel .admin-header h1{
+
+        font-size:27px;
+    }
+
+
+    #adminPanel .admin-header p{
+
+        font-size:13px;
+    }
+
+
+    #adminPanel .home-btn{
+
+        min-height:40px;
+
+        padding:0 15px;
+
+        font-size:13px;
+    }
+
+
+    #adminPanel footer{
+
+        padding:20px 15px;
+
+        font-size:12px;
+    }
+
+}
+
+
+/* =========================================================
+   VERY SMALL MOBILE
+========================================================= */
+
+@media(max-width:400px){
+
+    #adminPanel .dashboard{
+
+        padding-left:12px;
+
+        padding-right:12px;
+    }
+
+
+    #adminPanel .product-form,
+    #adminPanel .product-list,
+    #adminPanel .orders,
+    #adminPanel .firebase-status{
+
+        width:calc(100% - 24px);
+
+        padding:16px;
+
+        border-radius:15px;
+    }
+
+
+    #adminPanel .admin-header h1{
+
+        font-size:24px;
+    }
+
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
+
+@media(prefers-reduced-motion:reduce){
+
+    #adminPanel *,
+    #adminPanel *::before,
+    #adminPanel *::after{
+
+        animation-duration:.01ms !important;
+
+        animation-iteration-count:1 !important;
+
+        transition-duration:.01ms !important;
+
+        scroll-behavior:auto !important;
+    }
+
+}
+/* ==========================================
+   ADMIN PANEL FIX
+   ========================================== */
+
+#loading-screen {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+}
+
+body {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    min-height: 100vh;
+    margin: 0;
+    background: #fffaf7;
+}
+
+.admin-header,
+.dashboard,
+.product-form,
+.products,
+.orders,
+.firebase-status,
+footer {
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+/* ==========================================
+   ADMIN PANEL TOP SPACE FIX
+========================================== */
+
+html,
+body {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+#adminPanel {
+    display: none;
+    min-height: 100vh;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+#adminPanel .admin-header {
+    margin-top: 0 !important;
+}
+
+#adminPanel .dashboard {
+    margin-top: 0 !important;
+}
+
+/* Login hidden after authentication */
+#adminLogin {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+/* ==========================================
+   PRODUCT SECTION BADGES
+========================================== */
+
+.section-badge {
+    display: inline-block;
+    padding: 5px 9px;
+    margin: 2px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.new-arrival-badge {
+    background: #fff3cd;
+    color: #856404;
+}
+
+.best-seller-badge {
+    background: #f8d7da;
+    color: #842029;
+}
+
+.none-badge {
+    color: #999;
+    font-weight: 600;
+}

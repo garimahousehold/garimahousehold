@@ -1,13 +1,12 @@
-import { auth } from "./firebase.js";
-
 import {
-  signInWithEmailAndPassword,
-  sendPasswordResetEmail,
-  setPersistence,
-  browserLocalPersistence,
-  browserSessionPersistence,
-  onAuthStateChanged
+    signInWithEmailAndPassword,
+    sendPasswordResetEmail,
+    setPersistence,
+    browserLocalPersistence,
+    browserSessionPersistence,
+    onAuthStateChanged
 } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-auth.js";
+import { auth } from "./firebase.js";
 
 console.log("Login JS Loaded");
 console.log("✅ Login JS Loaded");

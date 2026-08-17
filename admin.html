@@ -19,6 +19,81 @@
 
 <body>
 
+<!-- ADMIN LOGIN -->
+<section id="adminLogin" class="admin-login">
+
+    <div class="login-card">
+
+        <div class="login-icon">
+            <i class="fa-solid fa-lock"></i>
+        </div>
+
+        <h1>Admin Login</h1>
+
+        <p>Garima's House Hold</p>
+
+        <form id="adminLoginForm">
+
+            <div class="login-field">
+
+                <label for="adminEmail">
+                    Email
+                </label>
+
+                <input
+                    type="email"
+                    id="adminEmail"
+                    placeholder="Enter admin email"
+                    required
+                >
+
+            </div>
+
+
+            <div class="login-field">
+
+                <label for="adminPassword">
+                    Password
+                </label>
+
+                <input
+                    type="password"
+                    id="adminPassword"
+                    placeholder="Enter password"
+                    required
+                >
+
+            </div>
+
+
+            <p
+                id="loginError"
+                class="login-error"
+                style="display:none;"
+            >
+                Invalid email or password.
+            </p>
+
+
+            <button
+                type="submit"
+                class="admin-login-btn"
+            >
+
+                <i class="fa-solid fa-right-to-bracket"></i>
+
+                Login
+
+            </button>
+
+        </form>
+
+    </div>
+
+</section>
+
+<div id="adminPanel">
+
     <!-- Header -->
 
     <header class="admin-header">
@@ -31,8 +106,17 @@
             <i class="fa-solid fa-house"></i>
             Home
         </a>
+<button
+    type="button"
+    class="logout-btn"
+    onclick="logoutAdmin()">
+    
+    <i class="fa-solid fa-right-from-bracket"></i>
+    Logout
 
+</button>
     </header>
+    
 
     <!-- Dashboard -->
 
@@ -73,7 +157,57 @@
                     required>
 
             </div>
+            <div class="form-group">
 
+    <label for="product-sku">
+        SKU ID
+    </label>
+
+    <input
+        type="text"
+        id="product-sku"
+        placeholder="Example: GH-HE-001"
+        required>
+
+</div>
+<!-- Product Sections -->
+
+<div class="form-group">
+
+    <label>
+        Product Sections
+    </label>
+
+    <div class="product-section-options">
+
+        <label class="check-option">
+
+            <input
+                type="checkbox"
+                id="product-new-arrival">
+
+            <span>
+                🆕 New Arrival
+            </span>
+
+        </label>
+
+
+        <label class="check-option">
+
+            <input
+                type="checkbox"
+                id="product-best-seller">
+
+            <span>
+                ⭐ Best Seller
+            </span>
+
+        </label>
+
+    </div>
+
+</div>
             <div class="form-group">
 
                 <label>Category</label>
@@ -197,10 +331,12 @@
                 <tr>
 
                     <th>Image</th>
+                    <th>SKU ID</th>
                     <th>Name</th>
                     <th>Category</th>
                     <th>Price</th>
                     <th>Stock</th>
+                    <th>Section</th>
                     <th>Action</th>
 
                 </tr>
@@ -239,6 +375,7 @@
                     <th>Address</th>
                     <th>Total</th>
                     <th>Status</th>
+                    <th>Details</th>
 
                 </tr>
 
@@ -248,7 +385,7 @@
 
                 <tr>
 
-                    <td colspan="6">
+                    <td colspan="7">
 
                         No Orders Found
 
@@ -301,7 +438,7 @@
         </p>
 
     </footer>
-
+</div>
     <!-- JavaScript -->
 
     <script type="module" src="admin.js"></script>

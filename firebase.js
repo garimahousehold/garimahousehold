@@ -10,20 +10,22 @@
 
 import {
     initializeApp
-} from
-"https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js";
+} from "https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js";
 
 
 import {
     getFirestore
-} from
-"https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js";
+} from "https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js";
 
 
 import {
     getStorage
-} from
-"https://www.gstatic.com/firebasejs/12.16.0/firebase-storage.js";
+} from "https://www.gstatic.com/firebasejs/12.16.0/firebase-storage.js";
+
+
+import {
+    getAuth
+} from "https://www.gstatic.com/firebasejs/12.16.0/firebase-auth.js";
 
 
 // ==========================================
@@ -67,6 +69,16 @@ const app =
 
 
 // ==========================================
+// Firebase Authentication
+// ==========================================
+
+const auth =
+    getAuth(
+        app
+    );
+
+
+// ==========================================
 // Firestore
 // ==========================================
 
@@ -92,7 +104,8 @@ const storage =
 
 export {
     db,
-    storage
+    storage,
+    auth
 };
 
 
@@ -114,6 +127,10 @@ console.log(
 
 console.log(
     "Firebase Storage Ready"
+);
+
+console.log(
+    "Firebase Authentication Ready"
 );
 
 console.log(
