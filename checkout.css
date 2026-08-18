@@ -3543,3 +3543,394 @@ textarea:focus-visible {
     }
 
 }
+/* =========================================================
+   GARIMA'S HOUSE HOLD
+   CHECKOUT COUPON
+   FRESH VERSION - PART 2
+========================================================= */
+
+
+/* =========================================================
+   COUPON SECTION
+========================================================= */
+
+.checkout-coupon-section {
+
+    width: 100%;
+
+    margin: 20px 0;
+
+    padding: 18px;
+
+    box-sizing: border-box;
+
+    background: #fff;
+
+    border: 1px solid #e5e5e5;
+
+    border-radius: 14px;
+
+}
+
+
+/* =========================================================
+   TITLE
+========================================================= */
+
+.checkout-coupon-section h3 {
+
+    margin: 0 0 12px;
+
+    font-size: 17px;
+
+    font-weight: 700;
+
+    color: #222;
+
+}
+
+
+/* =========================================================
+   INPUT ROW
+========================================================= */
+
+.coupon-input-row {
+
+    display: flex;
+
+    align-items: stretch;
+
+    gap: 10px;
+
+    width: 100%;
+
+}
+
+
+/* =========================================================
+   INPUT
+========================================================= */
+
+#checkout-coupon-code {
+
+    flex: 1;
+
+    min-width: 0;
+
+    height: 44px;
+
+    padding: 0 13px;
+
+    box-sizing: border-box;
+
+    border: 1px solid #d8d8d8;
+
+    border-radius: 9px;
+
+    background: #fff;
+
+    color: #222;
+
+    font-size: 14px;
+
+    outline: none;
+
+    text-transform: uppercase;
+
+}
+
+
+#checkout-coupon-code::placeholder {
+
+    color: #999;
+
+    text-transform: none;
+
+}
+
+
+#checkout-coupon-code:focus {
+
+    border-color: #888;
+
+    box-shadow:
+        0 0 0 3px
+        rgba(
+            0,
+            0,
+            0,
+            0.05
+        );
+
+}
+
+
+/* =========================================================
+   APPLY BUTTON
+========================================================= */
+
+#apply-coupon {
+
+    flex-shrink: 0;
+
+    height: 44px;
+
+    padding: 0 20px;
+
+    border: none;
+
+    border-radius: 9px;
+
+    background: #222;
+
+    color: #fff;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition:
+        opacity 0.2s ease,
+        transform 0.2s ease;
+
+}
+
+
+#apply-coupon:hover {
+
+    opacity: 0.9;
+
+    transform: translateY(-1px);
+
+}
+
+
+#apply-coupon:active {
+
+    transform: translateY(0);
+
+}
+
+
+#apply-coupon:disabled {
+
+    opacity: 0.55;
+
+    cursor: not-allowed;
+
+    transform: none;
+
+}
+
+
+/* =========================================================
+   COUPON MESSAGE
+========================================================= */
+
+.coupon-message {
+
+    margin-top: 10px;
+
+    padding: 9px 11px;
+
+    border-radius: 8px;
+
+    font-size: 13px;
+
+    line-height: 1.4;
+
+}
+
+
+/* =========================================================
+   SUCCESS MESSAGE
+========================================================= */
+
+.coupon-message.success {
+
+    background: #eaf8ef;
+
+    color: #18733a;
+
+    border: 1px solid #ccebd7;
+
+}
+
+
+/* =========================================================
+   ERROR MESSAGE
+========================================================= */
+
+.coupon-message.error {
+
+    background: #fff0f0;
+
+    color: #c62828;
+
+    border: 1px solid #f1cccc;
+
+}
+
+
+/* =========================================================
+   APPLIED COUPON
+========================================================= */
+
+.coupon-applied {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 12px;
+
+    margin-top: 12px;
+
+    padding: 11px 13px;
+
+    border: 1px solid #dceedd;
+
+    border-radius: 9px;
+
+    background: #f3fbf5;
+
+    color: #246b38;
+
+    font-size: 13px;
+
+}
+
+
+#applied-coupon-code {
+
+    letter-spacing: 0.5px;
+
+}
+
+
+/* =========================================================
+   REMOVE COUPON
+========================================================= */
+
+#remove-coupon {
+
+    flex-shrink: 0;
+
+    padding: 6px 10px;
+
+    border: none;
+
+    border-radius: 7px;
+
+    background: #fff;
+
+    color: #c62828;
+
+    font-size: 12px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+}
+
+
+#remove-coupon:hover {
+
+    background: #fff0f0;
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (
+    max-width: 600px
+) {
+
+    .checkout-coupon-section {
+
+        padding: 15px;
+
+        margin: 16px 0;
+
+    }
+
+
+    .coupon-input-row {
+
+        gap: 8px;
+
+    }
+
+
+    #checkout-coupon-code {
+
+        height: 42px;
+
+        font-size: 13px;
+
+    }
+
+
+    #apply-coupon {
+
+        height: 42px;
+
+        padding: 0 16px;
+
+    }
+
+
+    .coupon-applied {
+
+        align-items: flex-start;
+
+    }
+
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (
+    max-width: 380px
+) {
+
+    .coupon-input-row {
+
+        flex-direction: column;
+
+    }
+
+
+    #checkout-coupon-code,
+    #apply-coupon {
+
+        width: 100%;
+
+    }
+
+
+    .coupon-applied {
+
+        flex-direction: column;
+
+    }
+
+
+    #remove-coupon {
+
+        width: 100%;
+
+    }
+
+}

@@ -3907,20 +3907,6 @@ const paymentProof =
                 </p>
 
 
-                <p>
-
-                    <strong>
-                        Transaction / UTR:
-                    </strong>
-
-                    ${escapeHtml(
-                        paymentReference ||
-                        "N/A"
-                    )}
-
-                </p>
-
-
                 ${
                     paymentProof
                         ? `
@@ -3970,7 +3956,71 @@ const paymentProof =
 
             </div>
 
+<!-- =========================================================
+     COUPON SECTION
+========================================================= -->
 
+<div class="checkout-coupon-section">
+
+    <h3>
+        Have a Coupon?
+    </h3>
+
+
+    <div class="coupon-input-row">
+
+        <input
+            type="text"
+            id="checkout-coupon-code"
+            placeholder="Enter coupon code"
+            maxlength="30"
+            autocomplete="off"
+        >
+
+
+        <button
+            type="button"
+            id="apply-coupon"
+        >
+            Apply
+        </button>
+
+    </div>
+
+
+    <div
+        id="coupon-message"
+        class="coupon-message"
+        hidden
+    ></div>
+
+
+    <div
+        id="coupon-applied"
+        class="coupon-applied"
+        hidden
+    >
+
+        <span>
+
+            Coupon:
+            <strong
+                id="applied-coupon-code"
+            ></strong>
+
+        </span>
+
+
+        <button
+            type="button"
+            id="remove-coupon"
+        >
+            Remove
+        </button>
+
+    </div>
+
+</div>
 
             <!-- =============================================
                  PAYMENT SUMMARY

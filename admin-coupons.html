@@ -1,1 +1,538 @@
-<!DOCTYPE html><html><head><meta charset='UTF-8'><meta name='viewport' content='width=device-width,initial-scale=1'><title>Coupon Manager</title><link rel='stylesheet' href='admin-coupons.css'></head><body><div class='container'><h1>🎁 Coupon Manager</h1><div class='dashboard'><div class='dash-card'><h3 id='total-coupons'>0</h3><p>Total Coupons</p></div><div class='dash-card'><h3 id='active-coupons'>0</h3><p>Active Coupons</p></div><div class='dash-card'><h3 id='expired-coupons'>0</h3><p>Expired Coupons</p></div><div class='dash-card'><h3 id='disabled-coupons'>0</h3><p>Disabled Coupons</p></div></div><div class='card'><h2>Add Coupon</h2><input id='coupon-code'><select id='coupon-type'><option value='percentage'>Percentage</option><option value='flat'>Flat</option></select><input id='coupon-value' type='number'><input id='minimum-order' type='number'><input id='max-discount' type='number'><input id='expiry-date' type='date'><label style="display:block;margin:10px 0;"><input type="checkbox" id="coupon-active" checked> Active Coupon</label><label style="display:block;margin:10px 0;"><input type="checkbox" id="coupon-active" checked> Active Coupon</label><button id="save-coupon">Save Coupon</button></div><div class='card'><h2>Coupon List</h2><table><thead><tr><th>Code</th><th>Type</th><th>Value</th><th>Minimum</th><th>Status</th><th>Action</th></tr></thead><tbody id='coupon-table'></tbody></table></div></div><script type='module' src='admin-coupons.js'></script></body></html>
+<!-- =========================================================
+     GARIMA'S HOUSE HOLD
+     ADMIN COUPONS
+     FRESH HTML - PART 1
+     PAGE + DASHBOARD + FORM START
+========================================================= -->
+
+<!DOCTYPE html>
+
+<html
+    lang="en"
+>
+
+<head>
+
+    <meta
+        charset="UTF-8"
+    >
+
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+
+    <title>
+        Admin Coupons | Garima's House Hold
+    </title>
+
+
+    <!-- =====================================================
+         MAIN ADMIN CSS
+    ====================================================== -->
+
+    <link
+        rel="stylesheet"
+        href="admin.css"
+    >
+
+
+    <!-- =====================================================
+         COUPON CSS
+    ====================================================== -->
+
+    <link
+        rel="stylesheet"
+        href="admin-coupons.css"
+    >
+
+
+    <!-- =====================================================
+         FONT AWESOME
+    ====================================================== -->
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    >
+
+</head>
+
+
+<body>
+
+
+<!-- =========================================================
+     PAGE
+========================================================= -->
+
+<main
+    class="coupon-page"
+>
+
+
+    <!-- =====================================================
+         HEADER
+    ====================================================== -->
+
+    <h1>
+
+        Coupon Management
+
+    </h1>
+
+
+    <p>
+
+        Create, manage and monitor your discount coupons.
+
+    </p>
+
+
+    <!-- =====================================================
+         DASHBOARD
+    ====================================================== -->
+
+    <section
+        class="coupon-dashboard"
+    >
+
+
+        <!-- TOTAL -->
+
+        <div
+            class="coupon-stat-card"
+        >
+
+            <h3>
+                Total Coupons
+            </h3>
+
+
+            <strong
+                id="total-coupons"
+            >
+                0
+            </strong>
+
+        </div>
+
+
+        <!-- ACTIVE -->
+
+        <div
+            class="coupon-stat-card"
+        >
+
+            <h3>
+                Active Coupons
+            </h3>
+
+
+            <strong
+                id="active-coupons"
+            >
+                0
+            </strong>
+
+        </div>
+
+
+        <!-- EXPIRED -->
+
+        <div
+            class="coupon-stat-card"
+        >
+
+            <h3>
+                Expired Coupons
+            </h3>
+
+
+            <strong
+                id="expired-coupons"
+            >
+                0
+            </strong>
+
+        </div>
+
+
+        <!-- DISABLED -->
+
+        <div
+            class="coupon-stat-card"
+        >
+
+            <h3>
+                Disabled Coupons
+            </h3>
+
+
+            <strong
+                id="disabled-coupons"
+            >
+                0
+            </strong>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         COUPON FORM
+    ====================================================== -->
+
+    <section
+        class="coupon-form"
+    >
+
+        <h2>
+            Add / Edit Coupon
+        </h2>
+
+
+        <div
+            class="coupon-form-grid"
+        >
+
+
+            <!-- =============================================
+                 COUPON CODE
+            ============================================== -->
+
+            <div
+                class="coupon-form-group"
+            >
+
+                <label
+                    for="coupon-code"
+                >
+                    Coupon Code
+                </label>
+
+
+                <input
+                    type="text"
+                    id="coupon-code"
+                    placeholder="Example: WELCOME10"
+                    maxlength="30"
+                    autocomplete="off"
+                >
+
+            </div>
+
+
+            <!-- =============================================
+                 COUPON TYPE
+            ============================================== -->
+
+            <div
+                class="coupon-form-group"
+            >
+
+                <label
+                    for="coupon-type"
+                >
+                    Discount Type
+                </label>
+
+
+                <select
+                    id="coupon-type"
+                >
+
+                    <option
+                        value="percentage"
+                    >
+                        Percentage (%)
+                    </option>
+
+
+                    <option
+                        value="flat"
+                    >
+                        Flat Amount (₹)
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <!-- =============================================
+                 DISCOUNT VALUE
+            ============================================== -->
+
+            <div
+                class="coupon-form-group"
+            >
+
+                <label
+                    for="coupon-value"
+                >
+                    Discount Value
+                </label>
+
+
+                <input
+                    type="number"
+                    id="coupon-value"
+                    min="0"
+                    step="0.01"
+                    placeholder="Example: 10"
+                >
+
+            </div>
+
+
+            <!-- =============================================
+                 MINIMUM ORDER
+            ============================================== -->
+
+            <div
+                class="coupon-form-group"
+            >
+
+                <label
+                    for="minimum-order"
+                >
+                    Minimum Order Amount
+                </label>
+
+
+                <input
+                    type="number"
+                    id="minimum-order"
+                    min="0"
+                    step="0.01"
+                    placeholder="Example: 499"
+                >
+
+            </div>
+
+
+            <!-- =============================================
+                 MAX DISCOUNT
+            ============================================== -->
+
+            <div
+                class="coupon-form-group"
+            >
+
+                <label
+                    for="max-discount"
+                >
+                    Maximum Discount
+                </label>
+
+
+                <input
+                    type="number"
+                    id="max-discount"
+                    min="0"
+                    step="0.01"
+                    placeholder="Optional"
+                >
+
+            </div>
+
+
+            <!-- =============================================
+                 EXPIRY DATE
+            ============================================== -->
+
+            <div
+                class="coupon-form-group"
+            >
+
+                <label
+                    for="expiry-date"
+                >
+                    Expiry Date
+                </label>
+
+
+                <input
+                    type="date"
+                    id="expiry-date"
+                >
+
+            </div>
+
+
+            <!-- =============================================
+                 ACTIVE
+            ============================================== -->
+
+            <div
+                class="coupon-form-group"
+            >
+
+                <div
+                    class="coupon-active-row"
+                >
+
+                    <input
+                        type="checkbox"
+                        id="coupon-active"
+                        checked
+                    >
+
+
+                    <label
+                        for="coupon-active"
+                    >
+                        Coupon Active
+                    </label>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             FORM BUTTONS
+        ================================================== -->
+
+        <div
+            class="coupon-form-actions"
+        >
+
+            <button
+                type="button"
+                id="save-coupon"
+            >
+
+                Save Coupon
+
+            </button>
+
+
+            <button
+                type="button"
+                id="reset-coupon"
+            >
+
+                Reset
+
+            </button>
+
+        </div>
+
+    </section>
+    <!-- =========================================================
+     GARIMA'S HOUSE HOLD
+     ADMIN COUPONS
+     FRESH HTML - PART 2
+     COUPON TABLE
+========================================================= -->
+
+
+    <!-- =====================================================
+         COUPON LIST
+    ====================================================== -->
+
+    <section
+        class="coupon-list"
+    >
+
+        <h2>
+            All Coupons
+        </h2>
+
+
+        <!-- =================================================
+             TABLE WRAPPER
+        ================================================== -->
+
+        <div
+            class="coupon-table-wrapper"
+        >
+
+            <table
+                id="coupon-table"
+            >
+
+                <thead>
+
+                    <tr>
+
+                        <th>
+                            Coupon Code
+                        </th>
+
+
+                        <th>
+                            Type
+                        </th>
+
+
+                        <th>
+                            Value
+                        </th>
+
+
+                        <th>
+                            Minimum Order
+                        </th>
+
+
+                        <th>
+                            Status
+                        </th>
+
+
+                        <th>
+                            Actions
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+                    <tr>
+
+                        <td
+                            colspan="6"
+                        >
+
+                            Loading coupons...
+
+                        </td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </section>
+
+
+</main>
+
+
+<!-- =========================================================
+     FIREBASE / COUPON SCRIPT
+========================================================= -->
+
+<script
+    type="module"
+    src="admin-coupons.js"
+></script>
+
+
+</body>
+
+</html>
